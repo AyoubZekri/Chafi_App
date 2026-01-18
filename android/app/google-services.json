@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "562990232848",
+    "project_id": "chafi-86a1c",
+    "storage_bucket": "chafi-86a1c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562990232848:android:5bfcc0fe22a6d34dfd6195",
+        "android_client_info": {
+          "package_name": "com.example.chafi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562990232848-ett3be3uvi9t72lff4kpfus6pf10845b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chafi",
+            "certificate_hash": "ef9d5b5ec221b7d400edf37017a1be7e091b5eb2"
+          }
+        },
+        {
+          "client_id": "562990232848-qsf1ot0dnhn0ha0pli4a0egi9v5giqjn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDugsIVmL14CDy2OU-Pr65LB4klH2tg760"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562990232848-qsf1ot0dnhn0ha0pli4a0egi9v5giqjn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
