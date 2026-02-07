@@ -3,6 +3,7 @@ import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/Recorde/MypathController.dart';
+import '../../../core/class/handlingview.dart';
 import '../../widget/Button/CustemSuberButton.dart';
 import '../../widget/Mypath/CardActeve.dart';
 import '../../widget/Mypath/CustemSearchActevty.dart';
@@ -65,7 +66,11 @@ class _ActivitytypeState extends State<Activitytype> {
                             content: "56".tr,
                           ),
                           SizedBox(height: 40),
-                          LawSearchBar(),
+                          LawSearchBar(
+                            onChanged: (value) {
+                              controller.search(value);
+                            },
+                          ),
 
                           const SizedBox(height: 30),
                           CustemtextbodyMedium18(
@@ -73,65 +78,39 @@ class _ActivitytypeState extends State<Activitytype> {
                             color: AppColor.black,
                           ),
                           SizedBox(height: 70),
-                          Cardacteve(
-                            description:
-                                "نشاط يخص شراء السلع بكميات كبيرة من المنتجين أو المستوردين وإعادة بيعها للتجار أو المهنيين. "
-                                "هذا النوع من النشاط يتميز بحجم معاملات مرتفع وهوامش ربح أقل، ويتطلب تنظيمًا دقيقًا "
-                                "للفواتير والتصريحات الجبائية.",
-                            padding: 20,
-                            marginb: 30,
-                            index: 0,
-                            title: "بيع بالجملة".tr,
-                            selectedPerson: controller.ativitytype,
-                            onTap: () {
-                              controller.selectativitytype(0);
-                            },
-                          ),
-
-                          Cardacteve(
-                            description:
-                                "نشاط موجه لبيع السلع مباشرة للمستهلك النهائي بكميات صغيرة. "
-                                "يُعد من أكثر الأنشطة انتشارًا، ويتميز بتعامل مباشر مع الزبائن "
-                                "ويتطلب مسك سجل مبيعات واحترام الالتزامات الجبائية الدورية.",
-                            padding: 20,
-                            marginb: 30,
-                            index: 1,
-                            title: "بيع بالتجزئة".tr,
-                            selectedPerson: controller.ativitytype,
-                            onTap: () {
-                              controller.selectativitytype(1);
-                            },
-                          ),
-
-                          Cardacteve(
-                            description:
-                                "نشاط تجاري مرتبط بإدخال السلع من الخارج أو إخراجها إلى الأسواق الدولية. "
-                                "يخضع لإجراءات جمركية وتنظيمات خاصة، ويتطلب معرفة دقيقة بالتصريحات الجبائية "
-                                "والرسوم والضرائب المرتبطة بالتجارة الخارجية.",
-                            padding: 20,
-                            marginb: 30,
-                            index: 2,
-                            title: "الاستيراد والتصدير".tr,
-                            selectedPerson: controller.ativitytype,
-                            onTap: () {
-                              controller.selectativitytype(2);
-                            },
-                          ),
-
-                          Cardacteve(
-                            description:
-                                "نشاط وسيط يربط بين المنتجين أو المستوردين ونقاط البيع بالتجزئة. "
-                                "يرتكز على نقل وتخزين وتوزيع السلع، ويتطلب تنظيمًا محكمًا للمخزون "
-                                "والفواتير لتفادي أي إشكالات جبائية.",
-                            padding: 20,
-                            marginb: 30,
-                            index: 3,
-                            title: "التوزيع".tr,
-                            selectedPerson: controller.ativitytype,
-                            onTap: () {
-                              controller.selectativitytype(3);
-                            },
-                          ),
+                          controller.filteredData.isEmpty
+                              ? SizedBox(
+                                  height: 250,
+                                  child: Handlingview(
+                                    statusrequest: controller.statusrequest,
+                                    widget: SizedBox(),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: controller.filteredData.length,
+                                  itemBuilder: (context, i) {
+                                    return Cardacteve(
+                                      description: controller
+                                          .filteredData[i]
+                                          .localizedBody,
+                                      padding: 20,
+                                      marginb: 30,
+                                      index: controller.filteredData[i].id,
+                                      title: controller
+                                          .filteredData[i]
+                                          .localizedName,
+                                      selectedPerson: controller.ativitytype,
+                                      onTap: () {
+                                        controller.selectativitytype(
+                                          controller.filteredData[i].id,
+                                           controller.filteredData[i].statusTax,
+                                           controller.filteredData[i].taxId,
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
 
                           Custemsuberbutton(
                             content: "60".tr,

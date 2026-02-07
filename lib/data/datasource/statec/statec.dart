@@ -63,7 +63,7 @@ List<Cardservicesmodel> Cardservices = [
     onTap: () {
       Get.toNamed(
         Approutes.institutionsinfo,
-        arguments: {"name": 30, "type": 14},
+        arguments: {"name": 30, "type": 10, "type_deff": 3},
       );
     },
   ),
@@ -84,7 +84,10 @@ List<Cardservicesmodel> Cardservices = [
     color: const Color(0xFF10B981),
     color2: const Color(0xFF065F46),
     onTap: () {
-      Get.toNamed(Approutes.questions);
+      Get.toNamed(
+        Approutes.institutionsinfo,
+        arguments: {"name": 93, "type": 10, "type_deff": 1},
+      );
     },
   ),
 
@@ -229,7 +232,10 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
 List<Institutiontypemodel> taxsystemstype = [
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.categoriesTax, arguments: {"name": 49, "type": 9});
+      Get.toNamed(
+        Approutes.categoriesTax,
+        arguments: {"name": 49, "tax_id": 0},
+      );
     },
     body: "49".tr,
     imgae: Appimageassets.elevenCard,
@@ -239,7 +245,10 @@ List<Institutiontypemodel> taxsystemstype = [
   ),
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.categoriesTax, arguments: {"name": 50, "type": 10});
+      Get.toNamed(
+        Approutes.categoriesTax,
+        arguments: {"name": 50, "tax_id": 1},
+      );
     },
     body: "50".tr,
     imgae: Appimageassets.twelveCard,
@@ -249,7 +258,10 @@ List<Institutiontypemodel> taxsystemstype = [
   ),
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.categoriesTax, arguments: {"name": 48, "type": 8});
+      Get.toNamed(
+        Approutes.categoriesTax,
+        arguments: {"name": 48, "tax_id": 2},
+      );
     },
     body: "48".tr,
     imgae: Appimageassets.tenCard,
@@ -262,7 +274,10 @@ List<Institutiontypemodel> taxsystemstype = [
 List<Institutiontypemodel> taxsystemstypeapp = [
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.categoriesapp, arguments: {"name": 29, "type": 12});
+      Get.toNamed(
+        Approutes.categoriesapp,
+        arguments: {"name": 29, "tax_id": 0},
+      );
     },
     body: "49".tr,
     imgae: Appimageassets.elevenCard,
@@ -272,7 +287,10 @@ List<Institutiontypemodel> taxsystemstypeapp = [
   ),
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.categoriesapp, arguments: {"name": 29, "type": 13});
+      Get.toNamed(
+        Approutes.categoriesapp,
+        arguments: {"name": 29, "tax_id": 1},
+      );
     },
     body: "50".tr,
     imgae: Appimageassets.twelveCard,
@@ -282,7 +300,10 @@ List<Institutiontypemodel> taxsystemstypeapp = [
   ),
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.categoriesapp, arguments: {"name": 29, "type": 11});
+      Get.toNamed(
+        Approutes.categoriesapp,
+        arguments: {"name": 29, "tax_id": 2},
+      );
     },
     body: "48".tr,
     imgae: Appimageassets.tenCard,
@@ -295,7 +316,7 @@ List<Institutiontypemodel> taxsystemstypeapp = [
 List<Institutiontypemodel> obligationstype = [
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.specialappointments, arguments: {"type": 2});
+      Get.toNamed(Approutes.specialappointments, arguments: {"tax_id": 0});
     },
     body: "49".tr,
     imgae: Appimageassets.elevenCard,
@@ -305,7 +326,7 @@ List<Institutiontypemodel> obligationstype = [
   ),
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.specialappointments, arguments: {"type": 3});
+      Get.toNamed(Approutes.specialappointments, arguments: {"tax_id": 2});
     },
     body: "50".tr,
     imgae: Appimageassets.twelveCard,
@@ -313,9 +334,9 @@ List<Institutiontypemodel> obligationstype = [
     color1: Color(0xff270C46),
     sizeText: 24,
   ),
-    Institutiontypemodel(
+  Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.specialappointments, arguments: {"type": 1});
+      Get.toNamed(Approutes.specialappointments, arguments: {"tax_id": 2});
     },
     body: "48".tr,
     imgae: Appimageassets.tenCard,
@@ -323,5 +344,4 @@ List<Institutiontypemodel> obligationstype = [
     color1: Color(0xff270C46),
     sizeText: 24,
   ),
-
 ];

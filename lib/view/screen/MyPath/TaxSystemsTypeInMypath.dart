@@ -68,12 +68,13 @@ class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
                             color: AppColor.black,
                           ),
                           SizedBox(height: 70),
+
                           Cardpersontype(
                             padding: 20,
                             marginb: 30,
                             index: 0,
-                            title: "نضام الحقيقي".tr,
-                            selectedPerson: controller.taxsystemstype,
+                            title: "نضام الجزافي".tr,
+                            selectedPerson: controller.taxid,
                             onTap: () {
                               controller.selectTaxsystemstype(0);
                             },
@@ -83,8 +84,8 @@ class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
                             padding: 20,
                             marginb: 30,
                             index: 1,
-                            title: "نضام الجزافي".tr,
-                            selectedPerson: controller.taxsystemstype,
+                            title: "النضام المبسط".tr,
+                            selectedPerson: controller.taxid,
                             onTap: () {
                               controller.selectTaxsystemstype(1);
                             },
@@ -94,8 +95,8 @@ class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
                             padding: 20,
                             marginb: 30,
                             index: 2,
-                            title: "النضام المبسط".tr,
-                            selectedPerson: controller.taxsystemstype,
+                            title: "نضام الحقيقي".tr,
+                            selectedPerson: controller.taxid,
                             onTap: () {
                               controller.selectTaxsystemstype(2);
                             },
@@ -106,7 +107,7 @@ class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
                             content: "حفظ".tr,
                             color: AppColor.typography,
                             onPressed: () {
-                              // controller.gotoActivitytype();
+                              controller.adddata();
                             },
                           ),
                           const SizedBox(height: 20),

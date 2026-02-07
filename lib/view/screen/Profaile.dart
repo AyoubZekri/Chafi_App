@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/ProfaileController.dart';
+import '../../core/functions/Dealog.dart';
 import '../widget/Setting/buildDeadlineTile.dart';
 
 class Profaile extends StatefulWidget {
@@ -98,7 +99,20 @@ class _ProfaileState extends State<Profaile> {
                             controller.showLanguageSheet(context);
                           },
                         ),
-                        Builddeadlinetile(icon: Icons.logout, title: "85".tr),
+                        Builddeadlinetile(
+                          icon: Icons.logout,
+                          title: "85".tr,
+                          ontap: () async {
+                            await showCustomConfirmationDialog(
+                              context,
+
+                              message: "هل تريد تسجيل الخروج?".tr,
+                              onConfirmAction: () {
+                                controller.logout();
+                              },
+                            );
+                          },
+                        ),
                       ]),
 
                       SizedBox(height: 20),

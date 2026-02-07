@@ -1,3 +1,5 @@
+import 'package:chafi/core/class/Statusrequest.dart';
+import 'package:chafi/core/class/handlingview.dart';
 import 'package:flutter/material.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:get/get.dart';
@@ -42,110 +44,94 @@ class _NatureofactivityState extends State<Natureofactivity> {
             return Container(
               color: AppColor.typography,
               child: Container(
-                margin: EdgeInsets.only(top: 30),
+                margin: const EdgeInsets.only(top: 30),
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius: BorderRadius.only(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(50),
                     topLeft: Radius.circular(50),
                   ),
-                ),
-                child: ListView(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          CustemtextbodyMedium18(
-                            color: AppColor.grey,
-                            content: "56".tr,
-                          ),
-                          SizedBox(height: 40),
-                          CustemtextbodyMedium18(
-                            content: "64".tr,
-                            color: AppColor.black,
-                          ),
-                          SizedBox(height: 70),
-                          Cardpersontype(
-                            padding: 20,
-                            marginb: 30,
-                            index: 0,
-                            title: "تجارية".tr,
-                            selectedPerson: controller.natureofactivity,
-                            onTap: () {
-                              controller.selectNatureofactivity(0);
-                            },
-                          ),
+                  child: Container(
+                    color: AppColor.white,
+                    child: ListView(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20),
+                              CustemtextbodyMedium18(
+                                color: AppColor.grey,
+                                content: "56".tr,
+                              ),
+                              SizedBox(height: 40),
+                              CustemtextbodyMedium18(
+                                content: "64".tr,
+                                color: AppColor.black,
+                              ),
+                              SizedBox(height: 70),
+                              controller.natureoftheactivity.isEmpty
+                                  ? SizedBox(
+                                      height: 350,
+                                      child: Handlingview(
+                                        statusrequest: controller.statusrequest,
+                                        widget: SizedBox(),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const ClampingScrollPhysics(),
+                                      itemCount:
+                                          controller.natureoftheactivity.length,
+                                      itemBuilder: (context, i) {
+                                        return Cardpersontype(
+                                          padding: 20,
+                                          marginb: 30,
+                                          index: controller
+                                              .natureoftheactivity[i]
+                                              .id,
+                                          title: controller
+                                              .natureoftheactivity[i]
+                                              .localizedName,
+                                          selectedPerson:
+                                              controller.natureofactivity,
+                                          onTap: () {
+                                            controller.selectNatureofactivity(
+                                              controller
+                                                  .natureoftheactivity[i]
+                                                  .id,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
 
-                          Cardpersontype(
-                            padding: 20,
-                            marginb: 30,
-                            index: 1,
-                            title: "صناعية".tr,
-                            selectedPerson: controller.natureofactivity,
-                            onTap: () {
-                              controller.selectNatureofactivity(1);
-                            },
-                          ),
+                              Custemsuberbutton(
+                                content: "60".tr,
+                                color: AppColor.typography,
+                                onPressed: () {
+                                  controller.gotoActivitytype();
+                                },
+                              ),
 
-                          Cardpersontype(
-                            padding: 20,
-                            marginb: 30,
-                            index: 2,
-                            title: "حرفية".tr,
-                            selectedPerson: controller.natureofactivity,
-                            onTap: () {
-                              controller.selectNatureofactivity(2);
-                            },
-                          ),
+                              const SizedBox(height: 20),
 
-                          Cardpersontype(
-                            padding: 20,
-                            marginb: 30,
-                            index: 3,
-                            title: "مهنية حرة".tr,
-                            selectedPerson: controller.natureofactivity,
-                            onTap: () {
-                              controller.selectNatureofactivity(3);
-                            },
-                          ),
-                          Cardpersontype(
-                            padding: 20,
-                            marginb: 30,
-                            index: 4,
-                            title: "فلاحية".tr,
-                            selectedPerson: controller.natureofactivity,
-                            onTap: () {
-                              controller.selectNatureofactivity(4);
-                            },
-                          ),
+                              Custemsuberbutton(
+                                content: "62".tr,
+                                color: Color(0xffE8F1FF),
+                                color2: AppColor.brand,
+                                onPressed: () {
+                                  controller.backtoPersonType();
+                                },
+                              ),
 
-                          Custemsuberbutton(
-                            content: "60".tr,
-                            color: AppColor.typography,
-                            onPressed: () {
-                              controller.gotoActivitytype();
-                            },
+                              SizedBox(height: 20),
+                            ],
                           ),
-
-                          const SizedBox(height: 20),
-
-                          Custemsuberbutton(
-                            content: "62".tr,
-                            color: Color(0xffE8F1FF),
-                            color2: AppColor.brand,
-                            onPressed: () {
-                              controller.backtoPersonType();
-                            },
-                          ),
-
-                          SizedBox(height: 20),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             );

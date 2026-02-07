@@ -66,7 +66,7 @@ class _CustemcardarticlesState extends State<Custemcardarticles> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(10),
-                      child: Image.asset(
+                      child: Image.network(
                         widget.imgae,
                         height: 70,
                         width: 70,

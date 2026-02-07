@@ -1,3 +1,4 @@
+import 'package:chafi/LinkApi.dart';
 import 'package:chafi/controller/HomeController.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -19,10 +20,10 @@ class Slaider extends GetView<HomecontrollerImp> {
             child: PageView.builder(
               controller: controller.pageController,
               onPageChanged: controller.Onbardinslider,
-              itemCount: controller.imgSlaider.length,
+              itemCount: controller.dataimg.length,
               itemBuilder: (context, i) {
-                return Image.asset(
-                  controller.imgSlaider[i]['Image'],
+                return Image.network(
+                  "${Applink.image}${controller.dataimg[i].image}",
                   fit: BoxFit.cover,
                   width: double.infinity,
                 );
@@ -32,7 +33,7 @@ class Slaider extends GetView<HomecontrollerImp> {
         ),
         Positioned(
           bottom: 10,
-          left: (Get.width / 2) - ((controller.imgSlaider.length * 8) + 20),
+          left: (Get.width / 2) - ((controller.dataimg.length * 8) + 20),
           child: Dot(),
         ),
       ],

@@ -41,6 +41,7 @@ class Custemcardconferm extends StatelessWidget {
             onChanged: onChanged,
             activeTrackColor: Colors.blue[100],
             activeColor: Colors.blue[900],
+            activeThumbColor: const Color.fromARGB(255, 130, 129, 129),
           ),
         ],
       ),

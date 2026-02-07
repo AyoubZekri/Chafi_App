@@ -1,6 +1,9 @@
+import 'package:chafi/LinkApi.dart';
+import 'package:chafi/controller/LawController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/class/handlingview.dart';
 import '../../core/constant/Colorapp.dart';
 import '../widget/Button/CustoumButtonCard.dart';
 import 'pdf.dart';
@@ -13,71 +16,41 @@ class Law extends StatefulWidget {
 }
 
 class _LawState extends State<Law> {
+  final Lawcontroller controller = Get.put(Lawcontroller());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(title: Text("78".tr)),
-      body: ListView(
-        children: [
-          SizedBox(height: 20),
-          Custoumbuttoncard(
-            title: 'القانون الأول',
-            description: 'خرج في 2025',
-            onTap: () {
-              Get.to(
-                () => const PdfSearchPage(
-                  url: 'https://arxiv.org/pdf/1706.03762.pdf',
-                  initialPage: 5,
-                ),
-              );
-            },
-          ),
-          Custoumbuttoncard(
-            title: 'القانون الثاني',
-            description: 'خرج في 2025',
-            onTap: () {
-              Get.to(
-                () => const PdfSearchPage(
-                  url: 'https://arxiv.org/pdf/1706.03762.pdf',
-                ),
-              );
-            },
-          ),
-          Custoumbuttoncard(
-            title: 'القانون الثالث',
-            description: 'خرج في 2025',
-            onTap: () {
-              Get.to(
-                () => const PdfSearchPage(
-                  url: 'https://arxiv.org/pdf/1706.03762.pdf',
-                ),
-              );
-            },
-          ),
-          Custoumbuttoncard(
-            title: 'القانون الرابع',
-            description: 'خرج في 2025',
-            onTap: () {
-              Get.to(
-                () => const PdfSearchPage(
-                  url: 'https://arxiv.org/pdf/1706.03762.pdf',
-                ),
-              );
-            },
-          ),
-          Custoumbuttoncard(
-            title: 'القانون الخامس',
-            description: 'خرج في 2025',
-            onTap: () {
-              Get.to(
-                () => const PdfSearchPage(
-                  url: 'https://arxiv.org/pdf/1706.03762.pdf',
-                ),
-              );
-            },
-          ),
-        ],
+      body: GetBuilder<Lawcontroller>(
+        builder: (controller) {
+          return Handlingview(
+            statusrequest: controller.statusrequest,
+            widget: ListView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              padding: const EdgeInsets.only(top: 20),
+              itemCount: controller.data.length,
+              itemBuilder: (context, i) {
+                final item = controller.data[i];
+                return Custoumbuttoncard(
+                  title: item.localizedName,
+                  description:
+                      'خرج في ${item.updatedAt.toString().substring(0, 4)}',
+                  onTap: () {
+                    Get.to(
+                      () => PdfSearchPage(
+                        url: "${Applink.image}${item.pdf}",
+                        initialPage: 1,
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

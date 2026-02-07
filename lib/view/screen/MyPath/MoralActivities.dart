@@ -71,21 +71,21 @@ class _MoralactivitiesState extends State<Moralactivities> {
                       Cardpersontype(
                         padding: 20,
                         marginb: 50,
-                        index: 0,
+                        index: 1,
                         title: "شركة مدنية".tr,
                         selectedPerson: controller.moralactivities,
                         onTap: () {
-                          controller.selectMoralactivities(0);
+                          controller.selectMoralactivities(1);
                         },
                       ),
                       Cardpersontype(
                         padding: 20,
                         marginb: 50,
-                        index: 1,
+                        index: 2,
                         title: "شركات أخرى".tr,
                         selectedPerson: controller.moralactivities,
                         onTap: () {
-                          controller.selectMoralactivities(1);
+                          controller.selectMoralactivities(2);
                         },
                       ),
                       Spacer(),
@@ -94,7 +94,7 @@ class _MoralactivitiesState extends State<Moralactivities> {
                         content: "حفظ".tr,
                         color: AppColor.typography,
                         onPressed: () {
-                          controller.gotoTaxsystemstype();
+                          controller.adddata();
                         },
                       ),
 

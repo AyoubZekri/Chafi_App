@@ -1,9 +1,13 @@
+import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:chafi/core/constant/routes.dart';
+import 'package:chafi/data/datasource/Remote/Logingoogle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/constant/imageassets.dart';
+import '../core/functions/handlingdatacontroller.dart';
+import '../core/services/Services.dart';
 import '../view/widget/Setting/custemLanguge.dart';
 
 class Profailecontroller extends GetxController {
@@ -16,6 +20,10 @@ class Profailecontroller extends GetxController {
 }
 
 class ProfailecontrollerImp extends Profailecontroller {
+  LoginData loginData = LoginData(Get.find());
+  Myservices myServices = Get.find();
+  Statusrequest statusrequest = Statusrequest.none;
+
   @override
   gotoEditProfaile() {
     Get.toNamed(Approutes.editprofaile);
@@ -84,5 +92,22 @@ class ProfailecontrollerImp extends Profailecontroller {
         );
       },
     );
+  }
+
+  logout() async {
+    Statusrequest statusrequest = Statusrequest.loadeng;
+    update();
+    var response = await loginData.logout();
+
+    statusrequest = handlingData(response);
+    print("=============================== Controller $response ");
+    if (statusrequest == Statusrequest.success) {
+      if (response["status"] == 1) {
+        myServices.sharedPreferences!.clear();
+        myServices.sharedPreferences!.setBool("onbording", true);
+        Get.offNamed(Approutes.googleSignIn);
+      }
+    } else {}
+    update();
   }
 }

@@ -15,22 +15,23 @@ class Externallinks extends StatefulWidget {
 class _ExternallinksState extends State<Externallinks> {
   @override
   Widget build(BuildContext context) {
-    Get.put(ExternallinkscontrollerImp());
+    Get.put(Externallinkscontroller());
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(title: Text("روابط خارجية".tr)),
-      body: GetBuilder<ExternallinkscontrollerImp>(
+      body: GetBuilder<Externallinkscontroller>(
         builder: (controller) {
           return Container(
             padding: EdgeInsets.all(15),
             child: ListView.builder(
-              itemCount: 5,
+              itemCount: controller.data.length,
               itemBuilder: (context, i) {
+                final item = controller.data[i];
                 return Custemcardexternallinks(
-                  body: "موقع دفع الضرائب",
+                  body: item.localizedName,
                   color: const Color.fromARGB(30, 0, 0, 0),
                   ontap: () {
-                    controller.openUrl("https://www.mfdgi.gov.dz");
+                    controller.openUrl(item.indexLink ?? "");
                   },
                 );
               },

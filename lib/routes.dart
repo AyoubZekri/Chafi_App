@@ -11,6 +11,7 @@ import 'view/screen/NavigationBar.dart';
 import 'view/screen/Obligations/Obligations.dart';
 import 'view/screen/Obligations/Specialappointments.dart';
 import 'view/screen/OnBarding.dart';
+import 'view/screen/Record/EditRecord.dart';
 import 'view/screen/Setting/Notification.dart';
 import 'view/screen/Setting/Privacypolicy.dart';
 import 'view/screen/StartPage.dart';
@@ -69,6 +70,7 @@ List<GetPage<dynamic>> routes = [
   GetPage(name: Approutes.externallinks, page: () => const Externallinks()),
   GetPage(name: Approutes.specialappointments, page: () => const Specialappointments()),
 
+  GetPage(name: Approutes.editrecord, page: () => const Editrecord()),
 
 
 

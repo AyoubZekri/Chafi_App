@@ -12,7 +12,7 @@ class Dot extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ...List.generate(
-            controller.imgSlaider.length,
+            controller.dataimg.length,
             (i) => AnimatedContainer(
               margin: const EdgeInsets.only(right: 10),
               duration: const Duration(milliseconds: 900),

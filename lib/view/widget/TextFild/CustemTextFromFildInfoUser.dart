@@ -43,6 +43,7 @@ class CustemtextfromfildInfoUser extends StatelessWidget {
                 : true,
             controller: myController,
             keyboardType: keyboardType,
+            
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,

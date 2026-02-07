@@ -1,3 +1,4 @@
+import 'package:chafi/LinkApi.dart';
 import 'package:chafi/core/constant/imageassets.DART';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,20 +79,19 @@ class _HomeState extends State<Home> {
               Container(
                 padding: EdgeInsets.only(bottom: 20, right: 20),
                 height: 280,
-                child: ListView(
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    Custemcardhome(
-                      image: Appimageassets.one,
-                      content:
-                          "أثر التحولات الرقمية على تحسين الخدمات الإدارية",
-                    ),
-                    Custemcardhome(
-                      image: Appimageassets.one,
-                      content:
-                          "أثر التحولات الرقمية على تحسين الخدمات الإدارية",
-                    ),
-                  ],
+                  itemCount: controller.datapost.length,
+                  itemBuilder: (context, index) {
+                    final item = controller.datapost[index];
+                    return Custemcardhome(
+                      image: "${Applink.image}${item.image}",
+                      content: item.localizedTitle,
+                      onTap: () {
+                        controller.gotoditailsarticles(item.id);
+                      },
+                    );
+                  },
                 ),
               ),
             ],

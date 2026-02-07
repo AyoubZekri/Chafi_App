@@ -64,21 +64,21 @@ class _PersontypeState extends State<Persontype> {
                       SizedBox(height: 70),
                       Cardpersontype(
                         padding: 30,
-                        index: 0,
+                        index: 1,
                         title: "58".tr,
                         selectedPerson: controller.personType,
                         onTap: () {
-                          controller.selectedPerson(0);
+                          controller.selectedPerson(1);
                         },
                       ),
 
                       Cardpersontype(
                         padding: 30,
-                        index: 1,
+                        index: 2,
                         title: "59".tr,
                         selectedPerson: controller.personType,
                         onTap: () {
-                          controller.selectedPerson(1);
+                          controller.selectedPerson(2);
                         },
                       ),
                       const Spacer(),

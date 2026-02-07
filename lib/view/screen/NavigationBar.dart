@@ -40,9 +40,9 @@ class _NavigationBarState extends State<NavigationBar> {
                     onCancel: () {
                       Get.back();
                     },
-                    buttonColor: AppColor.primarycolor,
+                    buttonColor: AppColor.typography,
                     confirmTextColor: AppColor.white,
-                    cancelTextColor: AppColor.primarycolor,
+                    cancelTextColor: AppColor.typography,
                   );
 
                   return Future.value(false);

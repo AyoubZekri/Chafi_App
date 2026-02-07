@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/Recorde/RecordsController.dart';
+import '../../core/class/handlingview.dart';
 import '../../core/constant/Colorapp.dart';
 import '../widget/Button/CustemSuberButton.dart';
 import '../widget/Records/CustemBusinessCard.dart';
@@ -16,105 +17,72 @@ class Records extends StatefulWidget {
 class _RecordsState extends State<Records> {
   @override
   Widget build(BuildContext context) {
-    Get.put(RecordscontrollerImp());
+    final controller = Get.put(RecordscontrollerImp());
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(title: Text("سجلاتي")),
-      body: GetBuilder<RecordscontrollerImp>(
-        builder: (controller) {
-          return Stack(
-            children: [
-              ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 15,
-                      right: 15,
-                      top: 10,
-                    ),
-                    child: Text(
-                      "90".tr,
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        fontSize: 18,
-                        color: AppColor.grey,
-                      ),
+      body: Obx(() {
+        return Stack(
+          children: [
+            ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                  child: Text(
+                    "90".tr,
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      fontSize: 18,
+                      color: AppColor.grey,
                     ),
                   ),
-                  SizedBox(height: 20),
-                  BusinessCard(
-                    active: "حرفي نجار",
-                    condition: 1,
-                    ontap: () {
-                      controller.gotoInfoRecord();
-                    },
-                  ),
-                  BusinessCard(
-                    active: "حرفي نجار",
-                    condition: 0,
-                    ontap: () {
-                      controller.gotoInfoRecord();
-                    },
-                  ),
-                  BusinessCard(
-                    active: "حرفي نجار",
-                    condition: 1,
-                    ontap: () {
-                      controller.gotoInfoRecord();
-                    },
-                  ),
-                  BusinessCard(
-                    active: "حرفي نجار",
-                    condition: 1,
-                    ontap: () {
-                      controller.gotoInfoRecord();
-                    },
-                  ),
-                  BusinessCard(
-                    active: "حرفي نجار",
-                    condition: 1,
-                    ontap: () {
-                      controller.gotoInfoRecord();
-                    },
-                  ),
-                  BusinessCard(
-                    active: "حرفي نجار",
-                    condition: 1,
-                    ontap: () {
-                      controller.gotoInfoRecord();
-                    },
-                  ),
-                  BusinessCard(
-                    active: "حرفي نجار",
-                    condition: 1,
-                    ontap: () {
-                      controller.gotoInfoRecord();
-                    },
-                  ),
-
-                  BusinessCard(
-                    active: "فلاحي مزارع",
-                    condition: 0,
-                    ontap: () {
-                      controller.gotoInfoRecord();
-                    },
-                  ),
-                  SizedBox(height: 80),
-                ],
-              ),
-              Positioned(
-                left: 15,
-                right: 15,
-                bottom: 20,
-                child: Custemsuberbutton(
-                  content: "91".tr,
-                  color: AppColor.typography,
-                  onPressed: () {},
                 ),
+                SizedBox(height: 20),
+                controller.data.isEmpty
+                    ? SizedBox(
+                        height: 550,
+                        child: Handlingview(
+                          statusrequest: controller.statusrequest.value,
+                          widget: SizedBox(),
+                        ),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: controller.data.length,
+                        itemBuilder: (context, i) {
+                          final item = controller.data[i];
+                          return BusinessCard(
+                            active: item.activityName == null
+                                ? item.activitSpecial == 1
+                                      ? "شركة مدنية".tr
+                                      : "شركة أخرى"
+                                : item.localizedActivityName,
+                            condition: 1,
+                            ontap: () {
+                              controller.gotoInfoRecord(item.id);
+                            },
+                          );
+                        },
+                      ),
+
+                SizedBox(height: 80),
+              ],
+            ),
+            Positioned(
+              left: 15,
+              right: 15,
+              bottom: 20,
+              child: Custemsuberbutton(
+                content: "91".tr,
+                color: AppColor.typography,
+                onPressed: () {
+                  controller.gotoMypath();
+                },
               ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

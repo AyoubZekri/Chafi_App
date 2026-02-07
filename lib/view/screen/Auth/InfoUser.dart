@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/Auth/InfoUserController.dart';
+import '../../../core/class/Statusrequest.dart';
 import '../../widget/Button/CustemSuberButton.dart';
 import '../../widget/TextFild/CustemTextFromFildInfoUser.dart';
 
@@ -24,13 +25,32 @@ class _InfouserState extends State<Infouser> {
           backgroundColor: AppColor.white,
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-            child: Custemsuberbutton(
-              content: "19".tr,
-              color: AppColor.brand,
-              onPressed: () {
-              controller.gotoNavigationBar();
-              },
-            ),
+            child: controller.statusrequest == Statusrequest.loadeng
+                ? Container(
+                    height: 55,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColor.brand,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child:  SizedBox(
+                        width: 15,
+                        height: 15,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                : Custemsuberbutton(
+                    content: "19".tr,
+                    color: AppColor.brand,
+                    onPressed: () {
+                      controller.gotoNavigationBar();
+                    },
+                  ),
           ),
 
           body: Container(
@@ -47,9 +67,21 @@ class _InfouserState extends State<Infouser> {
                   ),
                 ),
                 SizedBox(height: 50),
-                CustemtextfromfildInfoUser(hintText: "15".tr, enabled: true),
-                CustemtextfromfildInfoUser(hintText: "16".tr, enabled: true),
-                CustemtextfromfildInfoUser(hintText: "17".tr, enabled: true),
+                CustemtextfromfildInfoUser(
+                  myController: controller.username,
+                  hintText: "15".tr,
+                  enabled: true,
+                ),
+                CustemtextfromfildInfoUser(
+                  myController: controller.wilaya,
+                  hintText: "16".tr,
+                  enabled: true,
+                ),
+                CustemtextfromfildInfoUser(
+                  myController: controller.numperPhone,
+                  hintText: "17".tr,
+                  enabled: true,
+                ),
                 Custemcardconferm(
                   value: controller.isSwitched,
                   onChanged: (value) {

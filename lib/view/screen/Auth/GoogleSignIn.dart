@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../../core/class/Statusrequest.dart';
 import '../../../core/constant/imageassets.DART';
 import '../../widget/Button/ButtonPrimary.dart';
 import '../../widget/Button/CustemButtonSignin.dart';
@@ -57,18 +58,30 @@ class _GooglesigninState extends State<Googlesignin> {
                       SizedBox(height: 30),
                       Custemtextbodysmall(content: "11".tr),
                       SizedBox(height: 30),
-                      Custembuttonsignin(
-                        onTap: () {
-                          controller.signInWithGoogle();
-                        },
-                        contentText: "12".tr,
-                        contentImage: Appimageassets.google,
-                      ),
+                      controller.statusrequest == Statusrequest.loadeng
+                          ? Padding(
+                              padding: const EdgeInsets.all(17.5),
+                              child: const SizedBox(
+                                width: 15,
+                                height: 15,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: AppColor.typography,
+                                ),
+                              ),
+                            )
+                          : Custembuttonsignin(
+                              onTap: () {
+                                controller.signInWithGoogle();
+                              },
+                              contentText: "12".tr,
+                              contentImage: Appimageassets.google,
+                            ),
                       SizedBox(height: 30),
                       Custembuttonprimary(
                         content: "13".tr,
                         onPressed: () {
-                          controller.gotoNavigationBar();
+                          controller.gotonavBar();
                         },
                       ),
                     ],

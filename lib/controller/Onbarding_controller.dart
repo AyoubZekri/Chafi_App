@@ -1,4 +1,5 @@
 import 'package:chafi/core/constant/routes.dart';
+import 'package:chafi/core/services/Services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -13,6 +14,7 @@ abstract class onBardingcontrpller extends GetxController {
 
 class OnbardingControllerImp extends onBardingcontrpller {
   late PageController pageController;
+  Myservices myServices = Get.find();
   int currenpage = 0;
   @override
   Onbardinslider(int i) {
@@ -24,6 +26,7 @@ class OnbardingControllerImp extends onBardingcontrpller {
   @override
   next() {
     if (currenpage >= onBardinglist.length - 1) {
+      myServices.sharedPreferences!.setBool("onbording", true);
       Get.offAllNamed(Approutes.googleSignIn);
       return;
     }

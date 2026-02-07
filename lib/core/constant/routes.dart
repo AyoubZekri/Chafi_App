@@ -24,6 +24,8 @@ class Approutes {
   static const String specialappointments = "/Specialappointments";
   static const String categoriesapp = "/categoriesapp";
   static const String categoriesTax = "/categoriesTax";
+  static const String editrecord = "/Editrecord";
+
 
 
 
