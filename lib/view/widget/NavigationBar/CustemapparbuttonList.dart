@@ -10,40 +10,34 @@ class CustemapparbuttonList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<NavigationBarcontrollerImp>(
-      builder: (controller) => Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1), // لون الظل
-              blurRadius: 10, // مدى التمويه
-              offset: const Offset(0, -4), // اتجاه الظل (سالب يعني للأعلى)
-            ),
-          ],
-        ),
-        child: BottomAppBar(
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 10,
-          color: AppColor.white,
-          child: Container(
-            // margin: const EdgeInsets.symmetric(horizontal: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ...List.generate(controller.Screen.length, ((i) {
-                  return Custemapparbutton(
-                    onPressed: () {
-                      controller.ChangePage(i);
-                    },
-                    icondata: controller.IconsScreen[i]["icon"],
-                    textButton: controller.Text[i]["Text"],
-                    active: controller.currentpage == i,
-                  );
-                })),
-              ],
-            ),
+    final controller = Get.find<NavigationBarcontrollerImp>();
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, -4),
           ),
-        ),
+        ],
+      ),
+      child: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 10,
+        color: AppColor.white,
+        child: Obx(() {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(controller.Screen.length, (i) {
+              return Custemapparbutton(
+                onPressed: () => controller.ChangePage(i),
+                icondata: controller.IconsScreen[i]["icon"],
+                textButton: controller.texts[i]["Text"]!, // النصوص تتغير تلقائياً
+                active: controller.currentpage.value == i,
+              );
+            }),
+          );
+        }),
       ),
     );
   }

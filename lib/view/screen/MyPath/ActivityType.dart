@@ -116,6 +116,7 @@ class _ActivitytypeState extends State<Activitytype> {
                             content: "60".tr,
                             color: AppColor.typography,
                             onPressed: () {
+
                               controller.gotoTaxsystemstype();
                             },
                           ),

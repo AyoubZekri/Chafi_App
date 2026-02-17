@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:get/get.dart';
 
 class NotificationModel {
@@ -11,8 +9,8 @@ class NotificationModel {
   final int typeNotification;
   final int? taxId;
   final String timer;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
   int isread;
 
   NotificationModel({
@@ -39,10 +37,14 @@ class NotificationModel {
       typeNotification: json['type_notification'],
       taxId: json['tax_id'],
       timer: json['timer'],
-      isread: json['is_read'],
+      isread: json['is_read'] ?? 0,
 
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
+          : null,
+      updatedAt: json['updated_at'] != null
+          ? DateTime.parse(json['updated_at'])
+          : null,
     );
   }
 
@@ -57,8 +59,8 @@ class NotificationModel {
       'tax_id': taxId,
       'timer': timer,
       'is_read': isread,
-      'created_at': createdAt.toIso8601String(),
-      'updated_at': updatedAt.toIso8601String(),
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
     };
   }
 

@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 validInput(String val, int max, int min, String type) {
   if (Type == 'username') {
     if (GetUtils.isUsername(val)) {
-      return "not valid username";
+      return "not valid username".tr;
     }
   }
   if (Type == 'Email') {
     if (GetUtils.isUsername(val)) {
-      return "not valid Email";
+      return "not valid Email".tr;
     }
   }
   if (Type == 'phone') {

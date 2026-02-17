@@ -1,5 +1,6 @@
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfSearchPage extends StatefulWidget {
@@ -66,7 +67,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
             borderRadius: BorderRadius.circular(20),
           ),
           title: Text(
-            "اذهب إلى الصفحة",
+            "اذهب إلى الصفحة".tr,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColor.typography,
@@ -78,7 +79,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
             controller: _pageController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              hintText: "أدخل رقم الصفحة",
+              hintText: "أدخل رقم الصفحة".tr,
               hintStyle: TextStyle(color: Colors.grey[400]),
               filled: true,
               fillColor: Colors.grey[100],
@@ -100,7 +101,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text("إلغاء"),
+              child:  Text("إلغاء".tr),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -119,7 +120,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                   }
                   Navigator.of(context).pop();
                 },
-                child: const Text("اذهب"),
+                child:  Text("اذهب".tr),
               ),
             ),
           ],
@@ -134,12 +135,12 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
       backgroundColor: AppColor.white,
       appBar: AppBar(
         title: !_isSearching
-            ? const Text('PDF Viewer')
+            ?  Text('PDF Viewer'.tr)
             : TextField(
                 controller: _searchController,
                 autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: 'ابحث داخل الملف...',
+                decoration:  InputDecoration(
+                  hintText: 'ابحث داخل الملف...'.tr,
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.white54),
                 ),
@@ -189,7 +190,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
           // زر الانتقال للصفحة مع ستايل شافي
           IconButton(
             icon: const Icon(Icons.menu_book),
-            tooltip: "اذهب إلى الصفحة",
+            tooltip: "اذهب إلى الصفحة".tr,
             onPressed: _showJumpToPageDialog,
           ),
         ],

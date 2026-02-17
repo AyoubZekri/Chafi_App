@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:chafi/controller/HomeController.dart';
 import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:chafi/core/constant/routes.dart';
@@ -5,7 +8,7 @@ import 'package:chafi/data/datasource/Remote/Logingoogle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../core/constant/imageassets.dart';
+import '../core/constant/Imageassets.dart';
 import '../core/functions/handlingdatacontroller.dart';
 import '../core/services/Services.dart';
 import '../view/widget/Setting/custemLanguge.dart';
@@ -23,9 +26,43 @@ class ProfailecontrollerImp extends Profailecontroller {
   LoginData loginData = LoginData(Get.find());
   Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
+  bool get isLoggedIn =>
+      myServices.sharedPreferences?.getString("token") != null;
+
+  String? username;
+  String? email;
+  File? image;
 
   @override
   gotoEditProfaile() {
+    if (!isLoggedIn) {
+      Get.defaultDialog(
+        title: "تنبيه".tr,
+        middleText: "يجب عليك تسجيل الدخول أولاً".tr,
+        titleStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+          color: AppColor.typography,
+        ),
+        middleTextStyle: const TextStyle(
+          fontSize: 14,
+          color: Color(0xFF566573),
+        ),
+        radius: 15,
+        textCancel: "إلغاء".tr,
+        cancelTextColor: AppColor.typography,
+        textConfirm: "تسجيل الدخول".tr,
+        confirmTextColor: AppColor.white,
+        buttonColor: AppColor.typography,
+        onConfirm: () {
+          Get.back();
+          Get.find<HomecontrollerImp>().onClose();
+          Get.toNamed(Approutes.googleSignIn);
+        },
+      );
+      return;
+    }
+
     Get.toNamed(Approutes.editprofaile);
   }
 
@@ -109,5 +146,25 @@ class ProfailecontrollerImp extends Profailecontroller {
       }
     } else {}
     update();
+  }
+
+  @override
+  void onInit() {
+    username = myServices.sharedPreferences?.getString("username");
+    email = myServices.sharedPreferences?.getString("email");
+    var imagepath = myServices.sharedPreferences?.getString("image");
+    print("=============$imagepath");
+
+    if (imagepath != null && imagepath.isNotEmpty) {
+      final file = File(imagepath);
+      if (file.existsSync()) {
+        image = file;
+      } else {
+        image = null;
+      }
+    } else {
+      image = null;
+    }
+    super.onInit();
   }
 }

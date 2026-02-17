@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
+import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/Differentdata.dart';
@@ -26,35 +27,68 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
   List<dataModel> data = [];
 
   Future<void> viewdata() async {
-    print("=======================institution");
-
+    if (!await checkInternet()) {
+      statusrequest = Statusrequest.serverfailure;
+      update();
+      return;
+    }
     statusrequest = Statusrequest.loadeng;
     update();
     final dat = {"scope": type};
 
     var response = await institutionData.viewdata(dat);
     print("Response: $response");
-
+    if (response == Statusrequest.serverfailure) {
+      statusrequest = Statusrequest.serverfailure;
+    }
     statusrequest = handlingData(response);
 
-    if (statusrequest == Statusrequest.success) {
-      if (response["status"] == 1) {
-        data.clear();
-        List listdata = response['data'];
-        data.addAll(listdata.map((e) => dataModel.fromJson(e)));
-        data = List.from(data);
-        if (data.isEmpty) {
-          statusrequest = Statusrequest.failure;
-        }
-      } else {
+    if (response.containsKey("data") && response["data"] is List) {
+      data.clear();
+      List listdata = response['data'];
+      print('==============$data');
+      data.addAll(listdata.map((e) => dataModel.fromJson(e)));
+      data = List.from(data);
+      if (data.isEmpty) {
         statusrequest = Statusrequest.failure;
       }
+    } else {
+      statusrequest = Statusrequest.failure;
+    }
+
+    update();
+  }
+
+  Future<void> isReadeinstitution(int id) async {
+    var response = await institutionData.isRead(id);
+    print("===================$response");
+    if (response["status"] == 1) {
+      print("=================true");
+    } else {
+      print("=================Fulse");
+    }
+
+    update();
+  }
+
+  Future<void> isReadeTax(int id) async {
+    var response = await taxandappdata.isRead(id);
+    print("===================$response");
+    if (response["status"] == 1) {
+      print("=================true");
+    } else {
+      print("=================Fulse");
     }
 
     update();
   }
 
   Future<void> viewdataTax() async {
+    if (!await checkInternet()) {
+      statusrequest = Statusrequest.serverfailure;
+      update();
+      return;
+    }
     print("=======================TaxandApp");
     print("=======================$catid");
 
@@ -85,6 +119,11 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
   }
 
   Future<void> viewdataDifferent() async {
+    if (!await checkInternet()) {
+      statusrequest = Statusrequest.serverfailure;
+      update();
+      return;
+    }
     statusrequest = Statusrequest.loadeng;
     update();
     final dat = {"type": typedeff};
@@ -95,7 +134,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
     statusrequest = handlingData(response);
 
     if (statusrequest == Statusrequest.success) {
-      if (response["status"] == 1) {
+      if (response.containsKey("data") && response["data"] is List) {
         data.clear();
         List listdata = response['data'];
         data.addAll(listdata.map((e) => dataModel.fromJson(e)));
@@ -106,6 +145,18 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
       } else {
         statusrequest = Statusrequest.failure;
       }
+    }
+
+    update();
+  }
+
+  Future<void> isReadeDifferent(int id) async {
+    var response = await differentdata.isRead(id);
+    print("===================$response");
+    if (response["status"] == 1) {
+      print("=================true");
+    } else {
+      print("=================Fulse");
     }
 
     update();

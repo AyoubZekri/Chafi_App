@@ -106,6 +106,9 @@ List<Cardservicesmodel> Cardservices = [
     image: Appimageassets.calcel,
     color: Color(0xff34C759),
     color2: Color(0xff19612B),
+    onTap: () {
+      Get.toNamed(Approutes.calculators);
+    },
   ),
 ];
 
@@ -232,6 +235,7 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
 List<Institutiontypemodel> taxsystemstype = [
   Institutiontypemodel(
     ontap: () {
+      print("===========");
       Get.toNamed(
         Approutes.categoriesTax,
         arguments: {"name": 49, "tax_id": 0},
@@ -343,5 +347,112 @@ List<Institutiontypemodel> obligationstype = [
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
     sizeText: 24,
+  ),
+];
+
+List<Institutiontypemodel> calculators = [
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(Approutes.calculatorsofSystemSimpli);
+    },
+    body: "49".tr,
+    imgae: Appimageassets.elevenCard,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 24,
+  ),
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(Approutes.calculatorsarbitrarysystem);
+    },
+    body: "50".tr,
+    imgae: Appimageassets.twelveCard,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 24,
+  ),
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(
+        Approutes.calculatorsrealsystem,
+        arguments: {"name": 48, "tax_id": 2},
+      );
+    },
+    body: "48".tr,
+    imgae: Appimageassets.tenCard,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 24,
+  ),
+];
+
+List<Institutiontypemodel> calculatorsofSystemSimpli = [
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(Approutes.calPersontype);
+    },
+    body: "حاسبة النظام المبسط".tr,
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 20,
+  ),
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(Approutes.taxstamp);
+    },
+    body: "الطابع الجبائي".tr,
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 25,
+  ),
+];
+
+List<Institutiontypemodel> calculatorsofSystemarbitrary = [
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(Approutes.calactivityType);
+    },
+    body: "حاسبة G12".tr,
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 27,
+  ),
+
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(Approutes.typeacteviteg12bes);
+    },
+    body: "حاسبة G12Bes".tr,
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 27,
+  ),
+];
+
+List<Institutiontypemodel> calculatorsofSystemarreal = [
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(Approutes.lossORprofit);
+    },
+    body: "كشف التلخيص السنوي".tr,
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 20,
+  ),
+
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(Approutes.taxstamp);
+    },
+    body: "الطابع الجبائي".tr,
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 25,
   ),
 ];

@@ -70,7 +70,7 @@ class _EditrecordState extends State<Editrecord> {
                           padding: 20,
                           marginb: 30,
                           index: 1,
-                          title: "النضام المبسط".tr,
+                          title: "50".tr,
                           selectedPerson: controller.taxid,
                           onTap: () {
                             controller.selectTaxsystemstype(1);
@@ -81,7 +81,7 @@ class _EditrecordState extends State<Editrecord> {
                           padding: 20,
                           marginb: 30,
                           index: 2,
-                          title: "نضام الحقيقي".tr,
+                          title: "48".tr,
                           selectedPerson: controller.taxid,
                           onTap: () {
                             controller.selectTaxsystemstype(2);

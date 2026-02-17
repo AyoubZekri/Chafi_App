@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../core/class/Statusrequest.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
-import '../../data/model/MypathModel.dart';
 import 'InforecordController.dart';
 
 class Editrecordcontroller extends GetxController {

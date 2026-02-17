@@ -4,6 +4,8 @@ class  Appimageassets {
 
   static const String alg ="$rootimage/ALG.png";
   static const String fr ="$rootimage/france.png";
+  static const String calculators ="$rootimage/calculator.png";
+
 
   static const String logo ="$rootimage/logo.png";
   static const String google ="$rootimage/google.jpg";

@@ -2,7 +2,6 @@ import 'package:chafi/core/constant/routes.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
-import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/PostData.dart';
 import '../../data/model/PostModel.dart';
@@ -12,47 +11,44 @@ abstract class Articlescontroller extends GetxController {
 }
 
 class ArticlescontrollerImp extends Articlescontroller {
-  Postdata postdata = Postdata(Get.find());
-
   Myservices myServices = Get.find();
-  Statusrequest statusrequest = Statusrequest.none;
-  List<PostModel> datapost = [];
 
-  Future<void> viewpost() async {
+  Postdata postdata = Postdata(Get.find());
+  Statusrequest statusrequest = Statusrequest.none;
+
+  List<PostModel> dataimg = [];
+  List<PostModel> datapost = [];
+  int currenpage = 0;
+
+  Future<void> loadPosts({
+    required int type,
+    required List<PostModel> targetList,
+  }) async {
     statusrequest = Statusrequest.loadeng;
     update();
-    final dat = {"type": 1};
 
-    var response = await postdata.viewdata(dat);
-    print("Response: $response");
+    var response = await postdata.getLocalPosts({"type": type});
 
-    statusrequest = handlingData(response);
+    if (response.isNotEmpty) {
+      targetList.clear();
+      targetList.addAll(response.map((e) => PostModel.fromJson(e)));
 
-    if (statusrequest == Statusrequest.success) {
-      if (response["status"] == 1) {
-        datapost.clear();
-        List listdata = response['data'];
-        datapost.addAll(listdata.map((e) => PostModel.fromJson(e)));
-        datapost = List.from(datapost);
-        if (datapost.isEmpty) {
-          statusrequest = Statusrequest.failure;
-        }
-      } else {
-        statusrequest = Statusrequest.failure;
-      }
+      statusrequest = Statusrequest.success;
+    } else {
+      statusrequest = Statusrequest.failure;
     }
 
     update();
   }
 
   @override
-  gotoditailsarticles(int id) {
-    Get.toNamed(Approutes.ditailsarticles, arguments: {"id": id});
+  void onInit() {
+    loadPosts(type: 1, targetList: datapost);
+    super.onInit();
   }
 
   @override
-  void onInit() {
-    viewpost();
-    super.onInit();
+  gotoditailsarticles(int id) {
+    Get.toNamed(Approutes.ditailsarticles, arguments: {"id": id});
   }
 }

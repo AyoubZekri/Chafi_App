@@ -1,21 +1,29 @@
 class Applink {
-  static const String server = "http://192.168.179.133:8000/api";
-  static const String image = "http://192.168.179.133:8000/Storage/";
+  static const String server = "http://192.168.221.133:8000/api";
+  static const String image = "http://192.168.221.133:8000/Storage/";
 
   //  =============================Auth============================== //
 
   static const String logingoogle = "$server/google-login";
   static const String login = "$server/user/login";
 
-  static const String updateuser = "$server/user/update'";
+  static const String updateuser = "$server/user/update";
 
   static const String logout = "$server/logout";
 
   static const String institutionShow = "$server/user/Institution/Show";
+  static const String institutionShowNologin = "$server/institution/Show";
+  static const String institutionShowisReade =
+      "$server/isread/read_institutions";
 
   static const String taxAndAppShwo = "$server/user/TaxsAndApps/Show";
+  static const String taxAndAppShwoNologin = "$server/TaxAndApp/Show";
+  static const String taxAndAppShwoisReade =
+      "$server/isread/read_taxs_and_apps";
 
   static const String differentShow = "$server/user/Different/Show";
+  static const String differentShowNologin = "$server/Different/Show";
+  static const String differentShowisReade = "$server/isread/read_differents";
 
   static const String activitysShwo = "$server/Activitys/Show";
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -41,8 +43,13 @@ class LoginData {
     return response.fold((l) => l, (r) => r);
   }
 
-  updateuser(Map data) async {
-    var response = await crud.postWithheaders(Applink.updateuser, data);
+  updateuser(Map data, File file) async {
+    var response = await crud.addRequestWithImageOne(
+      Applink.updateuser,
+      data,
+      2,
+      file,
+    );
     return response.fold((l) => l, (r) => r);
   }
 

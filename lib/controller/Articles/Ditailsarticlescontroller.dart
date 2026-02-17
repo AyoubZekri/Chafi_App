@@ -1,40 +1,34 @@
 import 'package:get/get.dart';
-
 import '../../core/class/Statusrequest.dart';
-import '../../core/functions/handlingdatacontroller.dart';
-import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/PostData.dart';
 import '../../data/model/PostModel.dart';
 
-class Ditailsarticlescontroller extends GetxController {
+class DitailsArticlesController extends GetxController {
   int? id;
   Postdata postdata = Postdata(Get.find());
 
-  Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
   List<PostModel> datapost = [];
 
-  // عرض البيانات
   Future<void> viewdata() async {
+    if (id == null) return;
+
     statusrequest = Statusrequest.loadeng;
     update();
 
-    var response = await postdata.viewdata({"id": id, "type": 1});
-    print("Response: $response");
+    var response = await postdata.getLocalPosts({"type": 1});
 
-    statusrequest = handlingData(response);
+    final postMap = response.firstWhere(
+      (element) =>
+          element['id'] == id || element['id'].toString() == id.toString(),
+      orElse: () => <String, Object?>{},
+    );
 
-    if (statusrequest == Statusrequest.success) {
-      if (response["status"] == 1) {
-        datapost.clear();
-        List listdata = response['data'];
-        datapost = PostModel.fromJsonList(listdata);
-        if (datapost.isEmpty) {
-          statusrequest = Statusrequest.failure;
-        }
-      } else {
-        statusrequest = Statusrequest.failure;
-      }
+    if (postMap.isNotEmpty) {
+      datapost = PostModel.fromJsonList(postMap);
+      statusrequest = Statusrequest.success;
+    } else {
+      statusrequest = Statusrequest.failure;
     }
 
     update();

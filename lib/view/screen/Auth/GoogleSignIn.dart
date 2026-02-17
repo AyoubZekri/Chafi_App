@@ -20,8 +20,14 @@ class Googlesignin extends StatefulWidget {
 
 class _GooglesigninState extends State<Googlesignin> {
   @override
+  void initState() {
+    super.initState();
+    if (!Get.isRegistered<GooglesignincontrollerImp>()) {
+      Get.put(GooglesignincontrollerImp());
+    }
+  }
+
   Widget build(BuildContext context) {
-    Get.put(GooglesignincontrollerImp());
     return Scaffold(
       backgroundColor: AppColor.white,
       body: GetBuilder<GooglesignincontrollerImp>(

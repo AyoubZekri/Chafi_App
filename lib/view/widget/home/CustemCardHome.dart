@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class Custemcardhome extends StatelessWidget {
-  final String image;
+  final File image;
   final String content;
   final Function()? onTap;
 
@@ -27,7 +29,7 @@ class Custemcardhome extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(20),
-              child: Image.network(
+              child: Image.file(
                 image,
                 width: 238,
                 height: 159,

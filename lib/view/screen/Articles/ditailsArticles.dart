@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chafi/LinkApi.dart';
 import 'package:chafi/controller/Articles/Ditailsarticlescontroller.dart';
 import 'package:chafi/core/class/handlingview.dart';
@@ -17,10 +19,10 @@ class Ditailsarticles extends StatefulWidget {
 class _DitailsarticlesState extends State<Ditailsarticles> {
   @override
   Widget build(BuildContext context) {
-    Get.put(Ditailsarticlescontroller());
+    Get.put(DitailsArticlesController());
     return Scaffold(
       backgroundColor: AppColor.white,
-      body: GetBuilder<Ditailsarticlescontroller>(
+      body: GetBuilder<DitailsArticlesController>(
         builder: (contriller) {
           if (contriller.datapost.isEmpty) {
             return Handlingview(
@@ -62,8 +64,8 @@ class _DitailsarticlesState extends State<Ditailsarticles> {
                             bottomRight: Radius.circular(20),
                           ),
                           image: DecorationImage(
-                            image: NetworkImage(
-                              "${Applink.image}${item.image}",
+                            image: FileImage(
+                               File(item.image!),
                             ),
                             fit: BoxFit.fill,
                           ),

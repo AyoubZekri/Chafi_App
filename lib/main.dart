@@ -1,3 +1,4 @@
+import 'package:chafi/core/functions/fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -14,13 +15,12 @@ final RouteObserver<ModalRoute<void>> routeObserver =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await initialServices();
 
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp();
   }
-  // await FcmHelper.initFCM();
+  await FcmHelper.initFCM();
   runApp(const MyApp());
 }
 
@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     LocalController controller = Get.put(LocalController());
     return GetMaterialApp(
+      defaultTransition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
       navigatorObservers: [routeObserver],
       translations: MyTranslation(),
       debugShowCheckedModeBanner: false,
@@ -40,6 +42,12 @@ class MyApp extends StatelessWidget {
       locale: controller.language,
       initialBinding: Initialbindings(),
       getPages: routes,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child!,
+        );
+      },
     );
   }
 }

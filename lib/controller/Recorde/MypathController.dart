@@ -1,9 +1,12 @@
+import 'package:chafi/controller/HomeController.dart';
+import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/data/datasource/Remote/MyPathData.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
+import '../../core/functions/Dealog.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
@@ -48,6 +51,9 @@ class MypathcontrollerImp extends Mypathcontroller {
   List<Natureoftheactivitymodel> natureoftheactivity = [];
   List<ActivityModel> data = [];
   List<ActivityModel> filteredData = [];
+
+  bool get isLoggedIn =>
+      myServices.sharedPreferences?.getString("token") != null;
 
   // personType
   int personType = -1;
@@ -236,6 +242,33 @@ class MypathcontrollerImp extends Mypathcontroller {
   }
 
   Future<void> adddata() async {
+    if (!isLoggedIn) {
+      Get.defaultDialog(
+        title: "تنبيه".tr,
+        middleText: "يجب عليك تسجيل الدخول أولاً".tr,
+        titleStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+          color: AppColor.typography,
+        ),
+        middleTextStyle: const TextStyle(
+          fontSize: 14,
+          color: Color(0xFF566573),
+        ),
+        radius: 15,
+        textCancel: "إلغاء".tr,
+        cancelTextColor: AppColor.typography,
+        textConfirm: "تسجيل الدخول",
+        confirmTextColor: AppColor.white,
+        buttonColor: AppColor.typography,
+        onConfirm: () {
+          Get.back();
+          Get.find<HomecontrollerImp>().onClose();
+          Get.toNamed(Approutes.googleSignIn);
+        },
+      );
+      return;
+    }
     if (taxid == -1) {
       showSnackbar("خطأ".tr, "يرجى اختيار النظام الضريبي".tr, Colors.red);
       return;

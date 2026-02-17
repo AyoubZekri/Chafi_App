@@ -32,10 +32,10 @@ class Handlingview extends StatelessWidget {
           ),
         );
 
-      case Statusrequest.serverfailure:
+      case Statusrequest.offlinefailure:
         return _errorView(icon: Icons.cloud_off, message: "Server Error");
 
-      case Statusrequest.offlinefailure:
+      case Statusrequest.serverfailure:
         return _errorView(
           icon: Icons.wifi_off,
           message: "No Internet Connection",

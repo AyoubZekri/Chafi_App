@@ -3,7 +3,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../LinkApi.dart';
 import '../../core/class/Statusrequest.dart';
+import '../../core/functions/SaveImage.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
@@ -27,7 +29,7 @@ class InfousercontrollerImp extends Infousercontroller {
   @override
   void gotoNavigationBar() async {
     if (isSwitched == false) {
-      showSnackbar("خطأ", "يجب الموافقة على الشروط والأحكام", Colors.red);
+      showSnackbar("خطأ".tr, "يجب الموافقة على الشروط والأحكام".tr, Colors.red);
       return;
     }
     statusrequest = Statusrequest.loadeng;
@@ -74,6 +76,16 @@ class InfousercontrollerImp extends Infousercontroller {
           "token",
           response["access_token"],
         );
+        String imageName = response["user"]["image"] ?? "";
+
+        String imageUrl = "${Applink.image}$imageName";
+
+        final file = await downloadAndCacheImage(imageUrl);
+
+        if (file != null) {
+          myServices.sharedPreferences!.setString("image", file.path);
+        }
+
         Get.offNamed(Approutes.navigationBar);
       }
     } else {

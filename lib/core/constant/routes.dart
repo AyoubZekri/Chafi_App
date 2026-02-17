@@ -28,6 +28,22 @@ class Approutes {
 
 
 
+  static const String calculators = "/Calculators";
+  static const String calculatorsofSystemSimpli = "/calculatorsofSystemSimpli";
+  static const String calPersontype = "/calPersontype";
+  static const String calactivityType = "/calactivityType";
+  static const String calculatorsarbitrarysystem = "/Calculatorsarbitrarysystem";
+  static const String typeacteviteg12bes = "/Typeacteviteg12bes";
+  static const String lossORprofit = "/Lossorprofit";
+  static const String calculatorsrealsystem = "/Calculatorsrealsystem";
+
+  static const String taxstamp = "/Taxstamp";
+
+
+
+
+
+
 
 
 

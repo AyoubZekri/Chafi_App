@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,7 +7,7 @@ import '../../../core/constant/Colorapp.dart';
 
 class Custemcardarticles extends StatefulWidget {
   final String body;
-  final String imgae;
+  final File imgae;
 
   final bool isStatus;
 
@@ -66,7 +68,7 @@ class _CustemcardarticlesState extends State<Custemcardarticles> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(10),
-                      child: Image.network(
+                      child: Image.file(
                         widget.imgae,
                         height: 70,
                         width: 70,

@@ -31,6 +31,18 @@ class _InstitutionsinfoState extends State<Institutionsinfo> {
                 itemCount: controller.data.length,
                 itemBuilder: (context, i) {
                   return Custemcardinfo(
+                    isRead: controller.data[i].isread == false,
+                    onOpen: () {
+                      if (controller.data[i].isread == false) {
+                        (controller.type == 8 || controller.type == 9)
+                            ? controller.isReadeTax(controller.data[i].id)
+                            : controller.type == 10
+                            ? controller.isReadeDifferent(controller.data[i].id)
+                            : controller.isReadeinstitution(
+                                controller.data[i].id,
+                              );
+                      }
+                    },
                     title: controller.data[i].localizedName,
                     body: controller.data[i].localizedBody,
                     Calculator: controller.data[i].calcul != null

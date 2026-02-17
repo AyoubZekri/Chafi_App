@@ -1,9 +1,14 @@
 import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:chafi/core/constant/routes.dart';
+import 'package:chafi/core/functions/SaveImage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../LinkApi.dart';
+import '../../core/functions/CheckInternat.dart';
+import '../../core/functions/Snacpar.dart';
 import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/Logingoogle.dart';
 
@@ -21,13 +26,19 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
 
   @override
   void signInWithGoogle() async {
+    if (!await checkInternet()) {
+      showSnackbar("خطأ".tr, "لا يوجد اتصال بالإنترنت".tr, Colors.red);
+      statusrequest = Statusrequest.none;
+      update();
+      return;
+    }
     statusrequest = Statusrequest.loadeng;
     update();
     try {
       UserCredential userCredential = await loginGoogle.signInWithGoogle();
       final user = userCredential.user;
       if (user == null) {
-        Get.snackbar("خطأ", "فشل تسجيل الدخول بواسطة Google");
+        // Get.snackbar("خطأ", "فشل تسجيل الدخول بواسطة Google");
         statusrequest = Statusrequest.none;
         return;
       }
@@ -36,7 +47,7 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
       print("Google SignIn Error: $e");
       statusrequest = Statusrequest.none;
       update();
-      Get.snackbar("خطأ", e.toString());
+      // Get.snackbar("خطأ", e.toString());
     }
   }
 
@@ -47,10 +58,7 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
       String? fcmToken = await FirebaseMessaging.instance.getToken();
       print("FCM Token: $fcmToken");
 
-      var response = await loginData.login({
-        "uid": uid,
-        "token": fcmToken,
-      });
+      var response = await loginData.login({"uid": uid, "token": fcmToken});
 
       print("Login Response: $response");
 
@@ -76,18 +84,28 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
           "token",
           response["access_token"],
         );
+        String imageName = response["user"]["image"] ?? "";
+        print("===========$imageName");
+        String imageUrl = "${Applink.image}$imageName";
+        print("===========$imageUrl");
+        final file = await downloadAndCacheImage(imageUrl);
+        print("===========$file");
+        if (file != null) {
+          myServices.sharedPreferences!.setString("image", file.path);
+        }
+
         statusrequest = Statusrequest.success;
-        Get.offNamed(Approutes.navigationBar, arguments: {"uid": uid});
+        Get.offAllNamed(Approutes.navigationBar, arguments: {"uid": uid});
       } else {
-        Get.offNamed(Approutes.infouser, arguments: {"uid": uid});
+        Get.offAllNamed(Approutes.infouser, arguments: {"uid": uid});
       }
     } catch (e) {
-      print("Google SignIn Error: $e");
-      Get.snackbar("خطأ", e.toString());
+      print("login Error: $e");
+      // Get.snackbar("خطأ", e.toString());
     }
   }
 
   void gotonavBar() {
-    Get.toNamed(Approutes.navigationBar);
+    Get.offAllNamed(Approutes.navigationBar);
   }
 }

@@ -21,7 +21,7 @@ class _InforecordState extends State<Inforecord> {
     Get.put(InforecordcontrollerImp());
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("تفاصيل السجل")),
+      appBar: AppBar(title: Text("تفاصيل السجل".tr)),
       body: GetBuilder<InforecordcontrollerImp>(
         builder: (controller) {
           if (controller.statusrequest == Statusrequest.loadeng) {
@@ -30,7 +30,7 @@ class _InforecordState extends State<Inforecord> {
 
           if (controller.statusrequest == Statusrequest.failure ||
               controller.data.isEmpty) {
-            return const Center(child: Text("لا توجد بيانات"));
+            return  Center(child: Text("لا توجد بيانات".tr));
           }
 
           final item = controller.data[0];
@@ -51,8 +51,8 @@ class _InforecordState extends State<Inforecord> {
                             : item.localizedActivityName,
                         condition: 1,
                         persontype: item.personType == 1
-                            ? "شخص طبيعي"
-                            : "شخص معنوي",
+                            ? "58".tr
+                            : "59".tr,
                         name: item.username,
                         address: item.wilaya,
                         numperTax: item.taxId == 0
@@ -99,7 +99,7 @@ class _InforecordState extends State<Inforecord> {
                               Get.back();
                             },
                             child: Text(
-                              "حسنًا",
+                              "حسنًا".tr,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,

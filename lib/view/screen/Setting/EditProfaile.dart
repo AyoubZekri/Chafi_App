@@ -19,7 +19,7 @@ class _EditprofaileState extends State<Editprofaile> {
   Widget build(BuildContext context) {
     Get.put(EditprofailecontrollerImp());
     return Scaffold(
-      appBar: AppBar(title: Text("تعديل الملف الشخصي")),
+      appBar: AppBar(title: Text("تعديل الملف الشخصي".tr)),
       body: GetBuilder<EditprofailecontrollerImp>(
         builder: (controller) {
           return Container(
@@ -37,7 +37,7 @@ class _EditprofaileState extends State<Editprofaile> {
                     borderRadius: BorderRadius.circular(180),
                     border: Border.all(width: 2, color: AppColor.primarycolor),
                   ),
-                  child: controller.file == null
+                  child: controller.image == null
                       ? MaterialButton(
                           onPressed: () {
                             controller.uploadimagefile();
@@ -46,10 +46,10 @@ class _EditprofaileState extends State<Editprofaile> {
                         )
                       : Stack(
                           children: [
-                            ClipOval(          
+                            ClipOval(
                               child: Image.file(
-                                controller.file!,
-                                fit: BoxFit.cover, 
+                                controller.image!,
+                                fit: BoxFit.cover,
                                 width: double.infinity,
                                 height: double.infinity,
                               ),
@@ -83,15 +83,27 @@ class _EditprofaileState extends State<Editprofaile> {
                 ),
                 SizedBox(height: 50),
 
-                CustemtextfromfildInfoUser(hintText: "15".tr, enabled: true),
-                CustemtextfromfildInfoUser(hintText: "16".tr, enabled: true),
-                CustemtextfromfildInfoUser(hintText: "17".tr, enabled: true),
+                CustemtextfromfildInfoUser(
+                  myController: controller.username,
+                  hintText: "15".tr,
+                  enabled: true,
+                ),
+                CustemtextfromfildInfoUser(
+                  myController: controller.welaya,
+                  hintText: "16".tr,
+                  enabled: true,
+                ),
+                CustemtextfromfildInfoUser(
+                  myController: controller.numperphone,
+                  hintText: "17".tr,
+                  enabled: true,
+                ),
                 SizedBox(height: 50),
                 Custemsuberbutton(
                   content: "تأكيد".tr,
                   color: AppColor.typography,
                   onPressed: () {
-                    // controller.gotoNavigationBar();
+                    controller.edituser();
                   },
                 ),
               ],

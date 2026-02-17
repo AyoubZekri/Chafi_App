@@ -49,7 +49,7 @@ class dataModel {
       titleFr: json['title_fr'],
       bodyFr: json['body_fr'] ?? "",
       pdf: json['pdf'] ?? "",
-      lawId: json['law_id'] ?? 0,
+      lawId: json['law_id'],
       indexLink: json['index_link'],
       calcul: json['calcul'],
       createdAt: DateTime.parse(json['created_at']),

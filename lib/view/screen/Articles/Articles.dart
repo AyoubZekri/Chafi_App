@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chafi/controller/Articles/Articlescontroller.dart';
 import 'package:chafi/core/class/handlingview.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
@@ -32,7 +34,7 @@ class _ArticlesState extends State<Articles> {
                 itemBuilder: (context, index) {
                   final item = controller.datapost[index];
                   return Custemcardarticles(
-                    imgae: "${Applink.image}${item.image}",
+                    imgae:  File(item.image!),
                     body: item.localizedTitle,
                     isStatus: item.isExclusive(),
                     onTap: () {

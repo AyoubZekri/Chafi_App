@@ -24,8 +24,7 @@ class Externallinkscontroller extends GetxController {
 
     statusrequest = handlingData(response);
 
-    if (statusrequest == Statusrequest.success) {
-      if (response["status"] == 1) {
+      if (response.containsKey("data") && response["data"] is List) {
         data.clear();
         List listdata = response['data'];
         data.addAll(listdata.map((e) => dataModel.fromJson(e)));
@@ -36,7 +35,7 @@ class Externallinkscontroller extends GetxController {
       } else {
         statusrequest = Statusrequest.failure;
       }
-    }
+   
 
     update();
   }

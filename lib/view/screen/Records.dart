@@ -20,7 +20,7 @@ class _RecordsState extends State<Records> {
     final controller = Get.put(RecordscontrollerImp());
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("سجلاتي")),
+      appBar: AppBar(title: Text("سجلاتي".tr)),
       body: Obx(() {
         return Stack(
           children: [
@@ -55,7 +55,7 @@ class _RecordsState extends State<Records> {
                             active: item.activityName == null
                                 ? item.activitSpecial == 1
                                       ? "شركة مدنية".tr
-                                      : "شركة أخرى"
+                                      : "شركة أخرى".tr
                                 : item.localizedActivityName,
                             condition: 1,
                             ontap: () {

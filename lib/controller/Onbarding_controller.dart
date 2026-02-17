@@ -2,7 +2,7 @@ import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/core/services/Services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../data/datasource/statec/statec.dart';
 
@@ -27,6 +27,8 @@ class OnbardingControllerImp extends onBardingcontrpller {
   next() {
     if (currenpage >= onBardinglist.length - 1) {
       myServices.sharedPreferences!.setBool("onbording", true);
+      FirebaseMessaging.instance.subscribeToTopic('user');
+
       Get.offAllNamed(Approutes.googleSignIn);
       return;
     }

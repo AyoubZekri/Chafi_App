@@ -24,7 +24,7 @@ class _NotificationState extends State<Notification> {
           appBar: AppBar(title: Text("الإشعارات".tr)),
           body: Handlingview(
             statusrequest: controller.statusrequest,
-            title: "لا توجد إشعارات حاليا",
+            title: "لا توجد إشعارات حاليا".tr,
             widget: Container(
               padding: EdgeInsets.all(15),
               child: ListView.builder(
@@ -63,7 +63,7 @@ class _NotificationState extends State<Notification> {
                               Get.back();
                             },
                             child: Text(
-                              "حسنًا",
+                              "حسنًا".tr,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,

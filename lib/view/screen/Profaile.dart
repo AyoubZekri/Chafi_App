@@ -1,7 +1,10 @@
 import 'package:chafi/core/constant/Colorapp.dart';
+import 'package:chafi/core/constant/Imageassets.dart';
+import 'package:chafi/core/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/HomeController.dart';
 import '../../controller/ProfaileController.dart';
 import '../../core/functions/Dealog.dart';
 import '../widget/Setting/buildDeadlineTile.dart';
@@ -35,26 +38,38 @@ class _ProfaileState extends State<Profaile> {
                           children: [
                             CircleAvatar(
                               radius: 50,
-                              backgroundColor: AppColor.typography,
-                              child: Text(
-                                "AZ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              backgroundColor: AppColor.white,
+                              child: controller.image != null
+                                  ? ClipOval(
+                                      child: Image.file(
+                                        controller.image!,
+                                        width: 120,
+                                        height: 120,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      Appimageassets.avater,
+                                      width: 120,
+                                      height: 120,
+                                      fit: BoxFit.fill,
+                                    ),
                             ),
                             Positioned(
                               bottom: 0,
                               right: 0,
-                              child: CircleAvatar(
-                                radius: 15,
-                                backgroundColor: Colors.white,
-                                child: Icon(
-                                  Icons.edit,
-                                  size: 15,
-                                  color: Colors.black,
+                              child: InkWell(
+                                onTap: () {
+                                  Get.toNamed(Approutes.editprofaile);
+                                },
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    Icons.edit,
+                                    size: 15,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),
@@ -63,7 +78,7 @@ class _ProfaileState extends State<Profaile> {
                       ),
                       SizedBox(height: 15),
                       Text(
-                        "Ayoub Zekri",
+                        controller.username ?? "Invité".tr,
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -71,7 +86,7 @@ class _ProfaileState extends State<Profaile> {
                         ),
                       ),
                       Text(
-                        "ayoubzekri@gmail.com",
+                        controller.email ?? "Invité@gmail.com".tr,
                         style: TextStyle(color: Colors.grey),
                       ),
 
@@ -93,6 +108,13 @@ class _ProfaileState extends State<Profaile> {
                           },
                         ),
                         Builddeadlinetile(
+                          icon: Icons.link,
+                          title: "روابط خارجية".tr,
+                          ontap: () {
+                            controller.gotoExternallinks();
+                          },
+                        ),
+                        Builddeadlinetile(
                           icon: Icons.language_outlined,
                           title: "84".tr,
                           ontap: () {
@@ -103,6 +125,34 @@ class _ProfaileState extends State<Profaile> {
                           icon: Icons.logout,
                           title: "85".tr,
                           ontap: () async {
+                            if (!controller.isLoggedIn) {
+                              Get.defaultDialog(
+                                title: "تنبيه".tr,
+                                middleText: "يجب عليك تسجيل الدخول أولاً".tr,
+                                titleStyle: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: AppColor.typography,
+                                ),
+                                middleTextStyle: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF566573),
+                                ),
+                                radius: 15,
+                                textCancel: "إلغاء".tr,
+                                cancelTextColor: AppColor.typography,
+                                textConfirm: "تسجيل الدخول".tr,
+                                confirmTextColor: AppColor.white,
+                                buttonColor: AppColor.typography,
+                                onConfirm: () {
+                                  Get.back();
+                                  Get.find<HomecontrollerImp>().onClose();
+                                  Get.toNamed(Approutes.googleSignIn);
+                                },
+                              );
+                              return;
+                            }
+
                             await showCustomConfirmationDialog(
                               context,
 
@@ -115,16 +165,6 @@ class _ProfaileState extends State<Profaile> {
                         ),
                       ]),
 
-                      SizedBox(height: 20),
-                      _buildSettingsCard([
-                        Builddeadlinetile(
-                          icon: Icons.link,
-                          title: "روابط خارجية".tr,
-                          ontap: () {
-                            controller.gotoExternallinks();
-                          },
-                        ),
-                      ]),
                       SizedBox(height: 20),
 
                       _buildSectionTitle("81".tr),

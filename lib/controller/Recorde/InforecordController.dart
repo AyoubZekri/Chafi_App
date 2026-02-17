@@ -20,7 +20,6 @@ class InforecordcontrollerImp extends Inforecordcontroller {
 
   List<MypathModel> data = [];
 
-  // عرض البيانات
   Future<void> viewdata() async {
     statusrequest = Statusrequest.loadeng;
     update();
