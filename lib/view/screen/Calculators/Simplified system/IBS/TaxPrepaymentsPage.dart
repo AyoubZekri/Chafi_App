@@ -24,7 +24,7 @@ class TaxPrepaymentsPage extends StatelessWidget {
         backgroundColor: AppColor.typography,
 
         appBar: AppBar(
-          title: Text("حاسبة النظام المبسط".tr),
+          title: Text("حاسبة النظام الحقيقي".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -59,8 +59,8 @@ class TaxPrepaymentsPage extends StatelessWidget {
                             children: [
                               SizedBox(height: 30),
                               PrepaymentCard(
-                                title: "تسبيقة ضريبية 1",
-                                subtitle: "الثلث الأول من السنة",
+                                title: "تسبيقة ضريبية 1".tr,
+                                subtitle: "الثلث الأول من السنة".tr,
                                 fromDate: "20/02/${DateTime.now().year}",
                                 toDate: "20/03/${DateTime.now().year}",
                                 percentage: 30,
@@ -70,8 +70,8 @@ class TaxPrepaymentsPage extends StatelessWidget {
                               const SizedBox(height: 12),
                               // Prepayment Card 2
                               PrepaymentCard(
-                                title: "تسبيقة ضريبية 2",
-                                subtitle: "الثلث الثاني من السنة",
+                                title: "تسبيقة ضريبية 2".tr,
+                                subtitle: "الثلث الثاني من السنة".tr,
                                 fromDate: "20/05/${DateTime.now().year}",
                                 toDate: "20/06/${DateTime.now().year}",
                                 percentage: 30,
@@ -82,8 +82,8 @@ class TaxPrepaymentsPage extends StatelessWidget {
                               // Prepayment Card 3
                               if (controller.personType == 2)
                                 PrepaymentCard(
-                                  title: "تسبيقة ضريبية 3",
-                                  subtitle: "الثلث الثالث من السنة",
+                                  title: "تسبيقة ضريبية 3".tr,
+                                  subtitle: "الثلث الثالث من السنة".tr,
                                   fromDate: "20/10/${DateTime.now().year}",
                                   toDate: "20/11/${DateTime.now().year}",
                                   percentage: 30,
@@ -104,7 +104,7 @@ class TaxPrepaymentsPage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "ملخص الفائض",
+                                        "ملخص الفائض".tr,
                                         style: TextStyle(
                                           color: Colors.white70,
                                           fontWeight: FontWeight.bold,
@@ -112,7 +112,7 @@ class TaxPrepaymentsPage extends StatelessWidget {
                                       ),
                                       SizedBox(height: 8),
                                       Text(
-                                        "عرض فائض متاح",
+                                        "عرض فائض متاح".tr,
                                         style: TextStyle(
                                           color: Colors.white70,
                                           fontSize: 12,
@@ -138,7 +138,7 @@ class TaxPrepaymentsPage extends StatelessWidget {
                                           SizedBox(width: 4),
                                           Expanded(
                                             child: Text(
-                                              "الفائض متاح للتسوية في الفترة القادمة",
+                                              "الفائض متاح للتسوية في الفترة القادمة".tr,
                                               style: TextStyle(
                                                 color: Colors.white70,
                                                 fontSize: 12,

@@ -37,7 +37,7 @@ class Editrecordcontroller extends GetxController {
         );
 
         infoController.update();
-        Get.back();
+        Get.back(result: true);
       } else {
         statusrequest = Statusrequest.failure;
       }

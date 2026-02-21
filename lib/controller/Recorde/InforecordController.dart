@@ -6,79 +6,156 @@ import 'package:get/get.dart';
 import '../../core/class/Statusrequest.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
+import '../../data/datasource/Remote/AppointmentscommitmentsData.dart';
+import '../../data/model/AppointmentsModel.dart';
 import '../../data/model/MypathModel.dart';
 
 abstract class Inforecordcontroller extends GetxController {
-  void gotoEditRecord() {}
+  void gotoEditRecord();
+  Future<void> refreshAll();
 }
 
 class InforecordcontrollerImp extends Inforecordcontroller {
   int? id;
-  Myservices myServices = Get.find();
-  Statusrequest statusrequest = Statusrequest.none;
-  Mypathdata categorydata = Mypathdata(Get.find());
+  int? taxid;
+
+  final Myservices myServices = Get.find();
+  final Mypathdata categorydata = Mypathdata(Get.find());
+  final Appointmentscommitmentsdata lawdata = Appointmentscommitmentsdata(
+    Get.find(),
+  );
+
+  // Separate Status لكل جزء
+  Statusrequest recordStatus = Statusrequest.none;
+  Statusrequest appointmentStatus = Statusrequest.none;
+  Statusrequest deleteStatus = Statusrequest.none;
 
   List<MypathModel> data = [];
+  List<Appointmentsmodel> appointments = [];
 
+  // ===============================
+  // Fetch Record Details
+  // ===============================
   Future<void> viewdata() async {
-    statusrequest = Statusrequest.loadeng;
+    recordStatus = Statusrequest.loadeng;
     update();
 
     var response = await categorydata.viewdata({"id": id});
-    print("Response: $response");
 
-    statusrequest = handlingData(response);
+    recordStatus = handlingData(response);
 
-    if (statusrequest == Statusrequest.success) {
+    if (recordStatus == Statusrequest.success) {
       if (response["status"] == 1) {
         data.clear();
         List listdata = response['data'];
         data = MypathModel.fromJsonList(listdata);
+
         if (data.isEmpty) {
-          statusrequest = Statusrequest.failure;
+          recordStatus = Statusrequest.failure;
         }
       } else {
-        statusrequest = Statusrequest.failure;
+        recordStatus = Statusrequest.failure;
       }
     }
 
     update();
   }
 
+  // ===============================
+  // Fetch Appointments
+  // ===============================
+  Future<void> viewdataappointments() async {
+    appointmentStatus = Statusrequest.loadeng;
+    update();
+
+    final request = {"tax_id": taxid};
+    var response = await lawdata.viewdata(request);
+
+    appointmentStatus = handlingData(response);
+
+    if (appointmentStatus == Statusrequest.success) {
+      if (response["status"] == 1) {
+        appointments.clear();
+        List listdata = response['data'];
+
+        appointments.addAll(listdata.map((e) => Appointmentsmodel.fromJson(e)));
+
+        if (appointments.isEmpty) {
+          appointmentStatus = Statusrequest.failure;
+        }
+      } else {
+        appointmentStatus = Statusrequest.failure;
+      }
+    }
+
+    update();
+  }
+
+  // ===============================
+  // Delete Record
+  // ===============================
   Future<void> daletedata() async {
-    statusrequest = Statusrequest.loadeng;
+    deleteStatus = Statusrequest.loadeng;
     update();
 
     var response = await categorydata.deletedata({"id": id});
-    print("Response: $response");
 
-    statusrequest = handlingData(response);
+    deleteStatus = handlingData(response);
 
-    if (statusrequest == Statusrequest.success) {
+    if (deleteStatus == Statusrequest.success) {
       if (response["status"] == 1) {
         data.removeWhere((element) => element.id == id);
-        update();
+
         final recordsController = Get.find<RecordscontrollerImp>();
         recordsController.data.removeWhere((element) => element.id == id);
+
         Get.back();
       } else {
-        statusrequest = Statusrequest.failure;
+        deleteStatus = Statusrequest.failure;
       }
     }
 
     update();
   }
 
+  // ===============================
+  // Refresh All Data
+  // ===============================
   @override
-  void gotoEditRecord() {
-    Get.toNamed(Approutes.editrecord, arguments: {"id": id});
+  Future<void> refreshAll() async {
+    await Future.wait([viewdata(), viewdataappointments()]);
   }
 
+  // ===============================
+  // Navigation
+  // ===============================
+  @override
+  Future<void> gotoEditRecord() async {
+    final result = await Get.toNamed(
+      Approutes.editrecord,
+      arguments: {"id": id},
+    );
+
+    if (result == true) {
+      taxid = data[0].taxId;
+      viewdataappointments();
+      final recordsController = Get.find<RecordscontrollerImp>();
+      await recordsController.viewdata();
+    }
+  }
+
+  // ===============================
+  // Init
+  // ===============================
   @override
   void onInit() {
     final args = Get.arguments as Map<String, dynamic>;
+
     id = args["id"];
-    viewdata();
+    taxid = args["taxid"];
+    print("===================$taxid");
+    refreshAll();
+
     super.onInit();
   }
 }

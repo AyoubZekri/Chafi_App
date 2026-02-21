@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PrepaymentCard extends StatelessWidget {
   final String title;
@@ -64,9 +65,9 @@ class PrepaymentCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      _buildDateColumn("من تاريخ", fromDate, primaryColor),
+                      _buildDateColumn("من تاريخ".tr, fromDate, primaryColor),
                       const SizedBox(width: 16),
-                      _buildDateColumn("إلى تاريخ", toDate, primaryColor),
+                      _buildDateColumn("إلى تاريخ".tr, toDate, primaryColor),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -77,8 +78,8 @@ class PrepaymentCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "نسبة التسبيقة",
+                             Text(
+                              "نسبة التسبيقة".tr,
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
@@ -121,15 +122,15 @@ class PrepaymentCard extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text(
-                                    "قيمة التسبيقة",
+                                   Text(
+                                    "قيمة التسبيقة".tr,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    "${prepaymentValue.toStringAsFixed(2)} ر.س",
+                                    "${prepaymentValue.toStringAsFixed(2)}",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,

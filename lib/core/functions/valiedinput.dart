@@ -3,21 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 validInput(String val, int max, int min, String type) {
-  if (Type == 'username') {
+  if (val.isEmpty) {
+    return "Can't be Empty".tr;
+  }
+  if (type == 'username') {
     if (GetUtils.isUsername(val)) {
       return "not valid username".tr;
     }
   }
-  if (Type == 'Email') {
+  if (type == 'Email') {
     if (GetUtils.isUsername(val)) {
       return "not valid Email".tr;
     }
   }
-  if (Type == 'phone') {
+  if (type == 'phone') {
     if (GetUtils.isUsername(val)) {
       return "not valid phone".tr;
     }
   }
+
+  if (type == 'int') {
+    if (int.tryParse(val) == null) {
+      return "Must be an integer".tr;
+    }
+  }
+  if (type == 'double') {
+    if (double.tryParse(val) == null) {
+      return "Must be a decimal number".tr;
+    }
+  }
+
   if (val.isEmpty) {
     return "Can't be Empty".tr;
   }
@@ -32,19 +47,25 @@ validInput(String val, int max, int min, String type) {
 
 bool validInputsnak(String val, int min, int max, String type) {
   if (val.isEmpty) {
-    showSnackbar("error".tr, "لا يمكن أن يكون الحقل فارغًا".tr, Colors.red);
+    showSnackbar("خطأ".tr, "لا يمكن أن يكون الحقل فارغًا".tr, Colors.red);
     return false;
   }
 
   if (val.length > max) {
     showSnackbar(
-        "error".tr, "${'لا يمكن أن يكون حقل'.tr} $type ${'أطول من'.tr} $max ${'حرف'.tr}", Colors.red);
+      "error".tr,
+      "${'لا يمكن أن يكون حقل'.tr} $type ${'أطول من'.tr} $max ${'حرف'.tr}",
+      Colors.red,
+    );
     return false;
   }
 
   if (val.length < min) {
     showSnackbar(
-        "error".tr, "${'لا يمكن أن يكون حقل'.tr} $type ${'أقل من'.tr}  $min ${'حرف'.tr}", Colors.red);
+      "error".tr,
+      "${'لا يمكن أن يكون حقل'.tr} $type ${'أقل من'.tr}  $min ${'حرف'.tr}",
+      Colors.red,
+    );
     return false;
   }
 

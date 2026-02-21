@@ -15,7 +15,7 @@ class dataModel {
   final String? calcul;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final bool? isread;
+  bool? isread;
   final String pdf;
 
   dataModel({

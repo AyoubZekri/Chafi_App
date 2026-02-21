@@ -8,7 +8,7 @@ import '../../core/services/Services.dart';
 import '../../data/model/MypathModel.dart';
 
 abstract class Recordscontroller extends GetxController {
-  void gotoInfoRecord(int id) {}
+  void gotoInfoRecord(int id, int taxid) {}
 }
 
 class RecordscontrollerImp extends Recordscontroller {
@@ -28,6 +28,7 @@ class RecordscontrollerImp extends Recordscontroller {
 
     if (statusrequest.value == Statusrequest.success) {
       if (response["status"] == 1) {
+        data.clear();
         List listdata = response['data'];
         data.value = listdata.map((e) => MypathModel.fromJson(e)).toList();
         if (data.isEmpty) {
@@ -40,15 +41,13 @@ class RecordscontrollerImp extends Recordscontroller {
   }
 
   @override
-  gotoInfoRecord(int id) {
-    Get.toNamed(Approutes.inforecord, arguments: {"id": id});
+  gotoInfoRecord(int id, int taxid) {
+    Get.toNamed(Approutes.inforecord, arguments: {"id": id, "taxid": taxid});
   }
 
   gotoMypath() {
     Get.toNamed(Approutes.persontype);
   }
-
-
 
   @override
   void onInit() {

@@ -21,7 +21,7 @@ class _TaxstampState extends State<Taxstamp> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-         Get.find<Taxstampcontroller>().Back();
+        Get.find<Taxstampcontroller>().Back();
         return true;
       },
       child: Scaffold(
@@ -59,23 +59,25 @@ class _TaxstampState extends State<Taxstamp> {
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
                           content:
-                              "يرجى إدخال  إجمالي مبلغ الفاتورة بدون طابع لتحديد قيمة الطابع الجبائي",
+                              "يرجى إدخال  إجمالي مبلغ الفاتورة بدون طابع لتحديد قيمة الطابع الجبائي"
+                                  .tr,
                         ),
 
                         SizedBox(height: 60),
 
                         SectionHeader(
-                          icon: Icons.payments_outlined,
-                          title: 'إجمالي مبلغ الفاتورة',
+                          icon: Icons.receipt_long_outlined,
+                          title: 'إجمالي مبلغ الفاتورة'.tr,
                         ),
 
                         const SizedBox(height: 16),
 
                         CustomInputField(
-                          label: 'إجمالي مبلغ الفاتورة',
-                          icon: Icons.factory,
+                          label: 'إجمالي مبلغ الفاتورة'.tr,
+                          icon: Icons.receipt_long_outlined,
                           isCurrency: true,
                           controller: controller.tasStamps,
+                          errorText: controller.tasStampsErorr,
                           onChanged: (value) {
                             controller.calcul();
                           },
@@ -85,7 +87,7 @@ class _TaxstampState extends State<Taxstamp> {
 
                         TotalAmountCard(
                           total: controller.netTax.round(),
-                          title: "قيمة الطابع الجبائي",
+                          title: "قيمة الطابع الجبائي".tr,
                         ),
 
                         SizedBox(height: 110),

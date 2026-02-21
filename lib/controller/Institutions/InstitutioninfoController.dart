@@ -63,9 +63,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
     var response = await institutionData.isRead(id);
     print("===================$response");
     if (response["status"] == 1) {
-      print("=================true");
-    } else {
-      print("=================Fulse");
+      markAsReadLocal(id);
     }
 
     update();
@@ -75,9 +73,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
     var response = await taxandappdata.isRead(id);
     print("===================$response");
     if (response["status"] == 1) {
-      print("=================true");
-    } else {
-      print("=================Fulse");
+      markAsReadLocal(id);
     }
 
     update();
@@ -154,12 +150,19 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
     var response = await differentdata.isRead(id);
     print("===================$response");
     if (response["status"] == 1) {
-      print("=================true");
-    } else {
-      print("=================Fulse");
+      markAsReadLocal(id);
     }
 
     update();
+  }
+
+  void markAsReadLocal(int id) {
+    int index = data.indexWhere((e) => e.id == id);
+    if (index != -1 && data[index].isread == false) {
+      data[index].isread = true;
+      data = List.from(data);
+      update();
+    }
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SmartDatePickerSheet extends StatefulWidget {
   const SmartDatePickerSheet({super.key});
@@ -16,6 +17,8 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
   int selectedMonth = DateTime.now().month;
   int selectedYear = DateTime.now().year;
 
+  final now = DateTime.now();
+
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
@@ -31,7 +34,7 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 520,
+      height: 440,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
@@ -54,17 +57,19 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
             controller: tabController,
             labelColor: Colors.black,
             indicatorColor: Colors.black,
-            tabs: const [
-              Tab(text: "اليوم"),
-              Tab(text: "الشهر"),
-              Tab(text: "السنة"),
+            tabs: [
+              Tab(text: "اليوم".tr),
+              Tab(text: "الشهر".tr),
+              Tab(text: "السنة".tr),
             ],
           ),
 
           Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [buildDays(), buildMonths(), buildYears()],
+            child: Container(
+              child: TabBarView(
+                controller: tabController,
+                children: [buildDays(), buildMonths(), buildYears()],
+              ),
             ),
           ),
 
@@ -81,7 +86,7 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
                 ),
               ),
               child: Text(
-                "تأكيد",
+                "تأكيد".tr,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -96,7 +101,6 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
   }
 
   /// ================= DAY =================
-
   Widget buildDays() {
     return GridView.builder(
       padding: const EdgeInsets.all(16),
@@ -110,31 +114,37 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
       itemBuilder: (_, i) {
         final day = i + 1;
 
+        // يوم بعد اليوم الحالي ممنوع
+        bool disabled =
+            selectedYear == now.year &&
+            selectedMonth == now.month &&
+            day > now.day;
+
         return DayCell(
           value: day,
           selected: selectedDay == day,
-          onTap: () => setState(() => selectedDay = day),
+          disabled: disabled,
+          onTap: disabled ? null : () => setState(() => selectedDay = day),
         );
       },
     );
   }
 
   /// ================= MONTH =================
-
   Widget buildMonths() {
-    const months = [
-      "يناير",
-      "فبراير",
-      "مارس",
-      "أفريل",
-      "ماي",
-      "جوان",
-      "جويلية",
-      "أوت",
-      "سبتمبر",
-      "أكتوبر",
-      "نوفمبر",
-      "ديسمبر",
+    final months = [
+      "يناير".tr,
+      "فبراير".tr,
+      "مارس".tr,
+      "أفريل".tr,
+      "ماي".tr,
+      "جوان".tr,
+      "جويلية".tr,
+      "أوت".tr,
+      "سبتمبر".tr,
+      "أكتوبر".tr,
+      "نوفمبر".tr,
+      "ديسمبر".tr,
     ];
 
     return GridView.builder(
@@ -149,20 +159,23 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
       itemBuilder: (_, i) {
         final month = i + 1;
 
+        // الشهر بعد الشهر الحالي ممنوع إذا السنة الحالية
+        bool disabled = selectedYear == now.year && month > now.month;
+
         return MonthCell(
           text: months[i],
           selected: selectedMonth == month,
-          onTap: () => setState(() => selectedMonth = month),
+          disabled: disabled,
+          onTap: disabled ? null : () => setState(() => selectedMonth = month),
         );
       },
     );
   }
 
   /// ================= YEAR =================
-
   Widget buildYears() {
     final startYear = 1970;
-    final endYear = DateTime.now().year + 20;
+    final endYear = now.year;
 
     return GridView.builder(
       padding: const EdgeInsets.all(16),
@@ -176,30 +189,33 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
       itemBuilder: (_, i) {
         final year = startYear + i;
 
+        // أي سنة بعد اليوم الحالي ممنوع
+        bool disabled = year > now.year;
+
         return YearCell(
           value: year,
           selected: selectedYear == year,
-          onTap: () => setState(() => selectedYear = year),
+          disabled: disabled,
+          onTap: disabled ? null : () => setState(() => selectedYear = year),
         );
       },
     );
   }
 }
 
-////////////////////////////////////////////////////////////
-/// DAY CELL
-////////////////////////////////////////////////////////////
-
+/// ================= DAY CELL =================
 class DayCell extends StatelessWidget {
   final int value;
   final bool selected;
-  final VoidCallback onTap;
+  final bool disabled;
+  final VoidCallback? onTap;
 
   const DayCell({
     super.key,
     required this.value,
     required this.selected,
-    required this.onTap,
+    this.disabled = false,
+    this.onTap,
   });
 
   @override
@@ -210,7 +226,7 @@ class DayCell extends StatelessWidget {
 
         return InkWell(
           borderRadius: BorderRadius.circular(100),
-          onTap: onTap,
+          onTap: disabled ? null : onTap,
           child: Center(
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 150),
@@ -227,7 +243,11 @@ class DayCell extends StatelessWidget {
                   style: TextStyle(
                     fontSize: size * 0.42,
                     fontWeight: FontWeight.w600,
-                    color: selected ? Colors.white : Colors.black87,
+                    color: disabled
+                        ? Colors.grey
+                        : selected
+                        ? Colors.white
+                        : Colors.black87,
                   ),
                 ),
               ),
@@ -239,27 +259,26 @@ class DayCell extends StatelessWidget {
   }
 }
 
-////////////////////////////////////////////////////////////
-/// MONTH CELL
-////////////////////////////////////////////////////////////
-
+/// ================= MONTH CELL =================
 class MonthCell extends StatelessWidget {
   final String text;
   final bool selected;
-  final VoidCallback onTap;
+  final bool disabled;
+  final VoidCallback? onTap;
 
   const MonthCell({
     super.key,
     required this.text,
     required this.selected,
-    required this.onTap,
+    this.disabled = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(14),
-      onTap: onTap,
+      onTap: disabled ? null : onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         alignment: Alignment.center,
@@ -271,7 +290,11 @@ class MonthCell extends StatelessWidget {
           text,
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: selected ? Colors.white : Colors.black87,
+            color: disabled
+                ? Colors.grey
+                : selected
+                ? Colors.white
+                : Colors.black87,
           ),
         ),
       ),
@@ -279,27 +302,26 @@ class MonthCell extends StatelessWidget {
   }
 }
 
-////////////////////////////////////////////////////////////
-/// YEAR CELL
-////////////////////////////////////////////////////////////
-
+/// ================= YEAR CELL =================
 class YearCell extends StatelessWidget {
   final int value;
   final bool selected;
-  final VoidCallback onTap;
+  final bool disabled;
+  final VoidCallback? onTap;
 
   const YearCell({
     super.key,
     required this.value,
     required this.selected,
-    required this.onTap,
+    this.disabled = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(14),
-      onTap: onTap,
+      onTap: disabled ? null : onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         alignment: Alignment.center,
@@ -311,7 +333,11 @@ class YearCell extends StatelessWidget {
           "$value",
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: selected ? Colors.white : Colors.black87,
+            color: disabled
+                ? Colors.grey
+                : selected
+                ? Colors.white
+                : Colors.black87,
           ),
         ),
       ),

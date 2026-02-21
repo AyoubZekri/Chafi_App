@@ -59,7 +59,7 @@ class _RecordsState extends State<Records> {
                                 : item.localizedActivityName,
                             condition: 1,
                             ontap: () {
-                              controller.gotoInfoRecord(item.id);
+                              controller.gotoInfoRecord(item.id, item.taxId);
                             },
                           );
                         },

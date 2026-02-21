@@ -55,34 +55,34 @@ class _Shwopenaltyg12besState extends State<Shwopenaltyg12bes> {
 
                         SectionHeader(
                           icon: Icons.payments_outlined,
-                          title: 'عقوبات التأخير والإداع',
+                          title: 'عقوبات التأخير والإداع'.tr,
                         ),
                         const SizedBox(height: 12),
 
                         PenaltyCard(
-                          title: "ضريبة تاخير الإداع",
-                          subtitle: 'تأخير الإداع',
+                          title: "ضريبة تاخير الإداع".tr,
+                          subtitle: 'تأخير الإداع'.tr,
                           amount: controller.penalty.toInt().toString(),
                         ),
                         const SizedBox(height: 12),
 
                         PenaltyCard(
-                          title: "ضريبة تاخير الدفع",
-                          subtitle: 'تأخير الدفع',
+                          title: "ضريبة تاخير الدفع".tr,
+                          subtitle: 'تأخير الدفع'.tr,
                           amount: controller.penaltypyment.toInt().toString(),
                         ),
                         SizedBox(height: 20),
 
                         SectionHeader(
                           icon: Icons.receipt_long,
-                          title: 'الضريبة النهائية',
+                          title: 'الضريبة النهائية'.tr,
                         ),
                         const SizedBox(height: 12),
                         FinalTaxCard(
                           penaltys: false,
                           title: controller.netTax > 0
-                              ? "الضريبة النهائية"
-                              : "الفائض النهائية",
+                              ? "الضريبة النهائية".tr
+                              : "الفائض النهائية".tr,
                           netTax: controller.netTax > 0
                               ? controller.netTax.round()
                               : (-controller.netTax).round(),

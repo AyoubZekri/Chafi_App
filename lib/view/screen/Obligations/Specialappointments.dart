@@ -32,8 +32,12 @@ class _SpecialappointmentsState extends State<Specialappointments> {
                 itemBuilder: (context, i) {
                   return DeadlineAlertCard(
                     title: controller.data[i].declaration,
-                    deadline: controller.data[i].deadline,
-                    consequences: controller.data[i].dependencies,
+                    dateText: controller.data[i].deadline,
+                    subtitleLabel: "التبعات المترتبة",
+                    subtitleValue: controller.data[i].dependencies,
+                    isOverdue: DateTime.parse(
+                      controller.data[i].deadline,
+                    ).isBefore(DateTime.now()),
                   );
                 },
               ),

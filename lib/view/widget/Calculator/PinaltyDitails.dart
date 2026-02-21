@@ -1,5 +1,6 @@
 // ====================== Final Tax Card ======================
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/constant/Colorapp.dart';
 
@@ -84,9 +85,9 @@ class FinalTaxCard extends StatelessWidget {
                 children: [
                   const Icon(Icons.error_outline, color: Colors.red, size: 18),
                   const SizedBox(width: 8),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'عقوبة تأخير الضريبة النهائية',
+                      'عقوبة تأخير الضريبة النهائية'.tr,
                       style: TextStyle(fontSize: 13, color: Colors.grey),
                     ),
                   ),
@@ -110,12 +111,13 @@ class TotalAmountCard extends StatelessWidget {
   final bool text;
   final String title;
 
-  const TotalAmountCard({
+  TotalAmountCard({
     super.key,
     required this.total,
     this.text = false,
     String? title,
-  }) : title = title ?? (total < 0 ? 'الفائض' : 'المجموع الكلي الواجب دفعه');
+  }) : title =
+           title ?? (total < 0 ? 'الفائض'.tr : 'المجموع الكلي الواجب دفعه'.tr);
 
   @override
   Widget build(BuildContext context) {
@@ -165,8 +167,8 @@ class TotalAmountCard extends StatelessWidget {
                   color: Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Text(
-                  'دينار الجزائري',
+                child: Text(
+                  'دينار الجزائري'.tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 11,
@@ -177,7 +179,7 @@ class TotalAmountCard extends StatelessWidget {
               SizedBox(height: 20),
               if (text)
                 Text(
-                  "الحد الأقصى الواجب دفعه 1000000",
+                  "الحد الأقصى الواجب دفعه 1000000".tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
@@ -243,7 +245,10 @@ class AmountText extends StatelessWidget {
             color: color,
           ),
         ),
-        Text('DA', style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
+        Text(
+          'DA'.tr,
+          style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
+        ),
       ],
     );
   }
@@ -387,7 +392,7 @@ class TotalAmountCarddealog extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                total < 0 ? 'الفائض' : 'المجموع الكلي الواجب دفعه',
+                total < 0 ? 'الفائض'.tr : 'المجموع الكلي الواجب دفعه'.tr,
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.9),
                   fontSize: 14,
@@ -414,8 +419,8 @@ class TotalAmountCarddealog extends StatelessWidget {
                   color: Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Text(
-                  'دينار الجزائري',
+                child: Text(
+                  'دينار الجزائري'.tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 11,

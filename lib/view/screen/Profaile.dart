@@ -60,7 +60,7 @@ class _ProfaileState extends State<Profaile> {
                               right: 0,
                               child: InkWell(
                                 onTap: () {
-                                  Get.toNamed(Approutes.editprofaile);
+                                  controller.gotoEditProfaile();
                                 },
                                 child: CircleAvatar(
                                   radius: 15,

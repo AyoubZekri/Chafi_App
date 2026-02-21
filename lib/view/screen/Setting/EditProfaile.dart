@@ -87,16 +87,19 @@ class _EditprofaileState extends State<Editprofaile> {
                   myController: controller.username,
                   hintText: "15".tr,
                   enabled: true,
+                  iconData: Icons.person,
                 ),
                 CustemtextfromfildInfoUser(
                   myController: controller.welaya,
                   hintText: "16".tr,
                   enabled: true,
+                  iconData: Icons.location_on,
                 ),
                 CustemtextfromfildInfoUser(
                   myController: controller.numperphone,
                   hintText: "17".tr,
                   enabled: true,
+                  iconData: Icons.phone,
                 ),
                 SizedBox(height: 50),
                 Custemsuberbutton(

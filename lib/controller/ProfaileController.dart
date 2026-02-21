@@ -60,6 +60,7 @@ class ProfailecontrollerImp extends Profailecontroller {
           Get.toNamed(Approutes.googleSignIn);
         },
       );
+
       return;
     }
 
@@ -68,6 +69,34 @@ class ProfailecontrollerImp extends Profailecontroller {
 
   @override
   gotoNotification() {
+    if (!isLoggedIn) {
+      Get.defaultDialog(
+        title: "تنبيه".tr,
+        middleText: "يجب عليك تسجيل الدخول أولاً".tr,
+        titleStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+          color: AppColor.typography,
+        ),
+        middleTextStyle: const TextStyle(
+          fontSize: 14,
+          color: Color(0xFF566573),
+        ),
+        radius: 15,
+        textCancel: "إلغاء".tr,
+        cancelTextColor: AppColor.typography,
+        textConfirm: "تسجيل الدخول".tr,
+        confirmTextColor: AppColor.white,
+        buttonColor: AppColor.typography,
+        onConfirm: () {
+          Get.back();
+          Get.find<HomecontrollerImp>().onClose();
+          Get.toNamed(Approutes.googleSignIn);
+        },
+      );
+
+      return;
+    }
     Get.toNamed(Approutes.notification);
   }
 

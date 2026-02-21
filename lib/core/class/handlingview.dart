@@ -27,7 +27,7 @@ class Handlingview extends StatelessWidget {
             height: 50,
             child: CircularProgressIndicator(
               strokeWidth: 4,
-              color: AppColor.typography,
+              valueColor: AlwaysStoppedAnimation(AppColor.typography),
             ),
           ),
         );

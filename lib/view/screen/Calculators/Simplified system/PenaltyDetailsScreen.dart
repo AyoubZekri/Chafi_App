@@ -25,7 +25,7 @@ class _PenaltyDetailsScreenState extends State<PenaltyDetailsScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("حاسبة النظام المبسط".tr),
+          title: Text("حاسبة النظام الحقيقي".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -57,41 +57,41 @@ class _PenaltyDetailsScreenState extends State<PenaltyDetailsScreen> {
                         if (controller.type != 3)
                           SectionHeader(
                             icon: Icons.payments_outlined,
-                            title: 'عقوبات التسبيقات الضريبية',
+                            title: 'عقوبات التسبيقات الضريبية'.tr,
                           ),
                         if (controller.type != 3) const SizedBox(height: 12),
                         if (controller.type != 3)
                           PenaltyCard(
-                            title: 'عقوبة تأخير التسبيقة 1',
-                            subtitle: 'تأخير سداد الدفعة الأولى',
+                            title: 'عقوبة تأخير التسبيقة 1'.tr,
+                            subtitle: 'تأخير سداد الدفعة الأولى'.tr,
                             amount: controller.penalty1.toInt().toString(),
                           ),
                         if (controller.type != 3) const SizedBox(height: 12),
                         if (controller.type != 3)
                           PenaltyCard(
-                            title: 'عقوبة تأخير التسبيقة 2',
-                            subtitle: 'تأخير سداد الدفعة الثانية',
+                            title: 'عقوبة تأخير التسبيقة 2'.tr,
+                            subtitle: 'تأخير سداد الدفعة الثانية'.tr,
                             amount: controller.penalty2.toInt().toString(),
                           ),
                         if (controller.personType != 1)
                           const SizedBox(height: 12),
                         if (controller.personType != 1)
                           PenaltyCard(
-                            title: 'عقوبة تأخير التسبيقة 3',
-                            subtitle: 'تأخير سداد الدفعة الثالثة',
+                            title: 'عقوبة تأخير التسبيقة 3'.tr,
+                            subtitle: 'تأخير سداد الدفعة الثالثة'.tr,
                             amount: controller.penalty3.toInt().toString(),
                           ),
                         const SizedBox(height: 24),
 
                         SectionHeader(
                           icon: Icons.receipt_long,
-                          title: 'الضريبة النهائية',
+                          title: 'الضريبة النهائية'.tr,
                         ),
                         const SizedBox(height: 12),
                         FinalTaxCard(
                           title: controller.netTax >= 0
-                              ? 'الضريبة النهائية'
-                              : 'الفائض النهائي',
+                              ? 'الضريبة النهائية'.tr
+                              : 'الفائض النهائي'.tr,
                           netTax: controller.netTax.round(),
                           penalty: controller.penaltyfinal.toInt(),
                         ),

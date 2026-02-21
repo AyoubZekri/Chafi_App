@@ -21,7 +21,7 @@ class _CalPersontypeState extends State<CalPersontype> {
     return Scaffold(
       backgroundColor: AppColor.typography,
       appBar: AppBar(
-        title: Text("حاسبة النظام المبسط".tr),
+        title: Text("حاسبة النظام الحقيقي".tr),
         titleTextStyle: TextStyle(
           color: AppColor.white,
           fontWeight: FontWeight.bold,

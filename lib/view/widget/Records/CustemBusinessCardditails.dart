@@ -60,31 +60,32 @@ class Custembusinesscardditails extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: condition == 1 ? AppColor.brand : AppColor.red,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          condition == 1 ? Icons.check : Icons.close,
-                          color: Colors.white,
-                          size: 16,
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          condition == 1 ? "68".tr : "69".tr,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+
+                  // Container(
+                  //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  //   decoration: BoxDecoration(
+                  //     color: condition == 1 ? AppColor.brand : AppColor.red,
+                  //     borderRadius: BorderRadius.circular(15),
+                  //   ),
+                  //   child: Row(
+                  //     children: [
+                  //       Icon(
+                  //         condition == 1 ? Icons.check : Icons.close,
+                  //         color: Colors.white,
+                  //         size: 16,
+                  //       ),
+                  //       SizedBox(width: 4),
+                  //       Text(
+                  //         condition == 1 ? "68".tr : "69".tr,
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontWeight: FontWeight.bold,
+                  //           fontSize: 14,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
 

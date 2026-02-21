@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/functions/Snacpar.dart';
+import '../../core/functions/valiedinput.dart';
 import '../../view/screen/Calculators/Simplified system/IBS/CreateACompany.dart';
 import '../../view/screen/Calculators/Simplified system/PenaltyDetailsScreen.dart';
 import '../../view/screen/Calculators/Simplified system/IBS/TaxInputPage.dart';
@@ -14,7 +15,21 @@ import '../../view/screen/Calculators/Simplified system/IBS/TxsLastyear.dart';
 import '../../view/screen/Calculators/Simplified system/IRG/CreateRecord.dart';
 
 class Simplifiedsystemcontroller extends GetxController {
+  String? taxLastyearErorr;
+  String? surplusErorr;
+  String? dataCreateErorr;
+  String? capitalErorr;
+
+  String? productionErorr;
+  String? otherActivityErorr;
+  String? constructionErorr;
+  String? advance1DateErorr;
+  String? advance2DateErorr;
+  String? advance3DateErorr;
+  String? finalPaymentDateErorr;
+
   int personType = 0;
+
   //
   TextEditingController TaxLastyear = TextEditingController();
   TextEditingController dataCreate = TextEditingController();
@@ -53,7 +68,6 @@ class Simplifiedsystemcontroller extends GetxController {
   double constructions = 0;
   double other = 0;
   //////////////////////////////////////////////
-  TextEditingController dataCreateReqord = TextEditingController();
 
   selectedPerson(int i) {
     personType = i;
@@ -73,6 +87,11 @@ class Simplifiedsystemcontroller extends GetxController {
   }
 
   void gotoAfter() {
+    dataCreateErorr = validInput(dataCreate.text, 20, 3, "Text".tr);
+    if (dataCreateErorr != null) {
+      update();
+      return;
+    }
     final yearStr = dataCreate.text.substring(0, 4);
     final year = int.tryParse(yearStr);
     final currentYear = DateTime.now().year;
@@ -90,16 +109,23 @@ class Simplifiedsystemcontroller extends GetxController {
       Get.to(Taxinpout());
       type = 3; // مؤسسة في عامها الاول
     }
+    update();
   }
 
   void divideTaxToAdvance() {
+    taxLastyearErorr = validInput(TaxLastyear.text, 20, 3, "int".tr);
+    surplusErorr = validInput(surplus.text, 20, 3, "int".tr);
+    if (taxLastyearErorr != null || surplusErorr != null) {
+      update();
+      return;
+    }
     double? tax = double.tryParse(TaxLastyear.text);
     double? remainingSurplus = double.tryParse(surplus.text);
 
     if (tax == null || remainingSurplus == null) {
       Get.snackbar(
-        "خطأ",
-        "الرجاء إدخال أرقام صحيحة للضريبة والفائض",
+        "خطأ".tr,
+        "الرجاء إدخال أرقام صحيحة للضريبة والفائض".tr,
         backgroundColor: Colors.redAccent,
         colorText: Colors.white,
       );
@@ -129,15 +155,21 @@ class Simplifiedsystemcontroller extends GetxController {
     print("الفائض المتبقي: $surplusLeft");
 
     Get.to(TaxPrepaymentsPage());
+    update();
   }
 
   void divideTaxToCapital() {
+    capitalErorr = validInput(capital.text, 20, 3, "int".tr);
+    if (capitalErorr != null) {
+      update();
+      return;
+    }
     double? taxValue = double.tryParse(capital.text);
 
     if (taxValue == null) {
       Get.snackbar(
-        "خطأ",
-        "الرجاء إدخال قيمة صحيحة لرأس المال",
+        "خطأ".tr,
+        "الرجاء إدخال قيمة صحيحة لرأس المال".tr,
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
@@ -280,6 +312,20 @@ class Simplifiedsystemcontroller extends GetxController {
   }
 
   void calculateTax() {
+    if (production.text.isEmpty &&
+        construction.text.isEmpty &&
+        otherActivity.text.isEmpty) {
+      return showSnackbar(
+        "خطأ".tr,
+        "لا يمكن ان تكون كل قيم النتيجة الجبائية فارغة".tr,
+        Colors.red,
+      );
+    }
+    bool hasError = validateAllFields(isFullValidation: true);
+    if (hasError) {
+      update();
+      return;
+    }
     productions = double.tryParse(production.text) ?? 0;
     constructions = double.tryParse(construction.text) ?? 0;
     other = double.tryParse(otherActivity.text) ?? 0;
@@ -334,9 +380,15 @@ class Simplifiedsystemcontroller extends GetxController {
     print("================penalty3 $penalty3");
     print("================penaltyfinal $penaltyfinal");
     total = total = netTax + penalty1 + penalty2 + penalty3 + penaltyfinal;
+    update();
   }
 
   void calculateTaxperson1() {
+    bool hasError = validateAllFields(isFullValidation: false);
+    if (hasError) {
+      update();
+      return;
+    }
     productions = double.tryParse(production.text) ?? 0;
     final dueDate1 = DateTime(DateTime.now().year, 3, 20);
     final dueDate2 = DateTime(DateTime.now().year, 6, 20);
@@ -380,6 +432,7 @@ class Simplifiedsystemcontroller extends GetxController {
   // 🔹 الرجوع من CreateACompany
   void backFromCreateCompany() {
     dataCreate.clear();
+    dataCreateErorr = null;
     Get.back();
   }
 
@@ -387,12 +440,15 @@ class Simplifiedsystemcontroller extends GetxController {
   void backFromLastYear() {
     TaxLastyear.clear();
     surplus.clear();
+    taxLastyearErorr = null;
+    surplusErorr = null;
     Get.back();
   }
 
   // 🔹 الرجوع من Capital
   void backFromCapital() {
     capital.clear();
+    capitalErorr = null;
     Get.back();
   }
 
@@ -414,6 +470,13 @@ class Simplifiedsystemcontroller extends GetxController {
     advance1Date.clear();
     advance2Date.clear();
     advance3Date.clear();
+    productionErorr = null;
+    otherActivityErorr = null;
+    constructionErorr = null;
+    advance1DateErorr = null;
+    advance2DateErorr = null;
+    advance3DateErorr = null;
+    finalPaymentDateErorr = null;
     Get.back();
   }
 
@@ -430,41 +493,116 @@ class Simplifiedsystemcontroller extends GetxController {
   void resetAll() {
     personType = 0;
     type = 0;
-
     TaxLastyear.clear();
     dataCreate.clear();
     surplus.clear();
     capital.clear();
-
     production.clear();
     construction.clear();
     otherActivity.clear();
-
     advance1Date.clear();
     advance2Date.clear();
     advance3Date.clear();
     finalPaymentDate.clear();
-
     advance1 = 0;
     advance2 = 0;
     advance3 = 0;
-
     penalty1 = 0;
     penalty2 = 0;
     penalty3 = 0;
     penaltyfinal = 0;
-
     netTax = 0;
     surplusLeft = 0;
+    productionErorr = null;
+    otherActivityErorr = null;
+    constructionErorr = null;
+    advance1DateErorr = null;
+    advance2DateErorr = null;
+    advance3DateErorr = null;
+    finalPaymentDateErorr = null;
+    capitalErorr = null;
+    dataCreateErorr = null;
+    taxLastyearErorr = null;
+    surplusErorr = null;
+    dataCreateErorr = null;
+
     Get.until(
-      (route) => Get.currentRoute == Approutes.calculatorsofSystemSimpli,
+      (route) => Get.currentRoute == Approutes.calculatorsrealsystem,
     );
 
     update();
   }
 
   void backFromCreateReqord() {
-    dataCreateReqord.clear();
+    dataCreate.clear();
+    dataCreateErorr = null;
     Get.back();
+  }
+
+  bool validateAllFields({required bool isFullValidation}) {
+    bool hasError = false;
+
+    // ======= تواريخ =======
+
+    if (isFullValidation || type != 3) {
+      advance1DateErorr = validInput(advance1Date.text, 20, 3, "Text".tr);
+    } else {
+      advance1DateErorr = null;
+    }
+
+    if (isFullValidation || type != 3) {
+      advance2DateErorr = validInput(advance2Date.text, 20, 3, "Text".tr);
+    } else {
+      advance2DateErorr = null;
+    }
+
+    if (isFullValidation) {
+      advance3DateErorr = validInput(advance3Date.text, 20, 3, "Text".tr);
+    } else {
+      advance3DateErorr = null;
+    }
+
+    finalPaymentDateErorr = validInput(finalPaymentDate.text, 20, 3, "Text".tr);
+
+    if (advance1DateErorr != null ||
+        advance2DateErorr != null ||
+        advance3DateErorr != null ||
+        finalPaymentDateErorr != null) {
+      hasError = true;
+    }
+
+    // ======= الحقول المالية =======
+
+    final fields = [
+      {
+        'controller': production,
+        'setter': (String? val) => productionErorr = val,
+      },
+      if (isFullValidation) ...[
+        {
+          'controller': construction,
+          'setter': (String? val) => constructionErorr = val,
+        },
+        {
+          'controller': otherActivity,
+          'setter': (String? val) => otherActivityErorr = val,
+        },
+      ],
+    ];
+
+    for (var field in fields) {
+      String text = (field['controller'] as TextEditingController).text.trim();
+
+      if (text.isNotEmpty || personType == 1) {
+        String? error = validInput(text, 20, 4, "int".tr);
+        (field['setter'] as Function)(error);
+
+        if (error != null) hasError = true;
+      } else {
+        (field['setter'] as Function)(null);
+      }
+    }
+    update();
+    return hasError;
   }
 }

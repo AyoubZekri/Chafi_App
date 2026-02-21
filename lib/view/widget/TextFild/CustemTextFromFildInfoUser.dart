@@ -9,13 +9,14 @@ class CustemtextfromfildInfoUser extends StatelessWidget {
   final TextEditingController? myController;
   final TextInputType? keyboardType;
   final bool? obscureText;
+  final IconData iconData;
   const CustemtextfromfildInfoUser({
     super.key,
     required this.hintText,
     this.myController,
     this.keyboardType,
     this.obscureText,
-    required this.enabled,
+    required this.enabled, required this.iconData,
   });
 
   @override
@@ -43,7 +44,7 @@ class CustemtextfromfildInfoUser extends StatelessWidget {
                 : true,
             controller: myController,
             keyboardType: keyboardType,
-            
+
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -57,7 +58,7 @@ class CustemtextfromfildInfoUser extends StatelessWidget {
               //   fontWeight: FontWeight.bold,
               //   color: Colors.grey[700],
               // ),
-              prefixIcon: Icon(Icons.person, color: AppColor.grey),
+              prefixIcon: Icon(iconData, color: AppColor.grey),
               // suffixIcon: Icon(Icons.person),
               hintText: hintText,
               hintStyle: const TextStyle(

@@ -22,7 +22,8 @@ class _AnnualsummarydisclosureState extends State<Annualsummarydisclosure> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-       Get.find<Annualsummarydisclosurecontroller>().backFromAnnualsummarydisclosure();
+        Get.find<Annualsummarydisclosurecontroller>()
+            .backFromAnnualsummarydisclosure();
         return true;
       },
       child: Scaffold(
@@ -60,23 +61,25 @@ class _AnnualsummarydisclosureState extends State<Annualsummarydisclosure> {
                           CustemtextbodyMedium18(
                             color: AppColor.grey,
                             content:
-                                "يرجى إدخال النتيجة الجبائية لتحديد قيمة كشف التلخيص السنوي",
+                                "يرجى إدخال النتيجة الجبائية لتحديد قيمة كشف التلخيص السنوي"
+                                    .tr,
                           ),
 
                         SizedBox(height: 60),
                         if (controller.lossORprofit == 1)
                           SectionHeader(
-                            icon: Icons.payments_outlined,
-                            title: 'النتيجةالجبائية',
+                            icon: Icons.summarize_outlined,
+                            title: 'النتيجةالجبائية'.tr,
                           ),
                         if (controller.lossORprofit == 1)
                           const SizedBox(height: 16),
                         if (controller.lossORprofit == 1)
                           CustomInputField(
-                            label: 'النتيجة الجبائية',
-                            icon: Icons.factory,
+                            label: 'النتيجة الجبائية'.tr,
+                            icon: Icons.summarize_outlined,
                             isCurrency: true,
                             controller: controller.annualSummaryDisclosure,
+                            errorText: controller.annualSummaryDisclosureErorr,
                             onChanged: (value) {
                               controller.calcul();
                             },
@@ -96,7 +99,7 @@ class _AnnualsummarydisclosureState extends State<Annualsummarydisclosure> {
                           content: "إنهاء".tr,
                           color: AppColor.typography,
                           onPressed: () {
-                             controller.resetAll();
+                            controller.resetAll();
                           },
                         ),
                         const SizedBox(height: 20),

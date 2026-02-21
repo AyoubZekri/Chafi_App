@@ -1,6 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // --- ويدجت مساعدة للعناوين ---
-import 'package:chafi/view/widget/Calculator/DateButtonSheep.dart';
 import 'package:flutter/material.dart';
+
+import 'package:chafi/view/widget/Calculator/DateButtonSheep.dart';
+import 'package:get/get.dart';
 
 import '../../../core/constant/Colorapp.dart';
 
@@ -37,20 +40,25 @@ class CustomInputField extends StatefulWidget {
   final String placeholder;
   final bool isCurrency;
   final bool isDate;
+  final String? errorText;
   final TextEditingController? controller;
   final Function(DateTime)? onDateSelected;
   final Function(String)? onChanged;
+  final Function(String)? onPressed;
+
 
   const CustomInputField({
-    super.key,
+    Key? key,
     required this.label,
     required this.icon,
     this.placeholder = '0.00',
     this.isCurrency = false,
     this.isDate = false,
+    this.errorText,
     this.controller,
-    this.onDateSelected, this.onChanged,
-  });
+    this.onDateSelected,
+    this.onChanged, this.onPressed,
+  }) : super(key: key);
 
   @override
   State<CustomInputField> createState() => _CustomInputFieldState();
@@ -151,10 +159,10 @@ class _CustomInputFieldState extends State<CustomInputField> {
                   ),
                   if (widget.isDate) const Spacer(),
                   if (widget.isCurrency)
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.only(left: 12),
                       child: Text(
-                        'DZD',
+                        'DZD'.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey,
@@ -165,6 +173,19 @@ class _CustomInputFieldState extends State<CustomInputField> {
               ),
             ),
           ),
+
+          if (widget.errorText != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                widget.errorText!,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
         ],
       ),
     );

@@ -2,9 +2,43 @@ import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/data/model/InstitutionTypeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../controller/HomeController.dart';
+import '../../../core/constant/Colorapp.dart';
 import '../../../core/constant/imageassets.DART';
+import '../../../core/services/Services.dart';
 import '../../model/CardServicesModel.dart';
 import '../../model/onbardingmodel.dart';
+
+Myservices myServices = Get.find();
+bool get isLoggedIn => myServices.sharedPreferences?.getString("token") != null;
+
+void handleLoginRequired(void Function() onSuccess) {
+  if (!isLoggedIn) {
+    Get.defaultDialog(
+      title: "تنبيه".tr,
+      middleText: "يجب عليك تسجيل الدخول أولاً".tr,
+      titleStyle: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: AppColor.typography,
+      ),
+      middleTextStyle: const TextStyle(fontSize: 14, color: Color(0xFF566573)),
+      radius: 15,
+      textCancel: "إلغاء".tr,
+      cancelTextColor: AppColor.typography,
+      textConfirm: "تسجيل الدخول".tr,
+      confirmTextColor: AppColor.white,
+      buttonColor: AppColor.typography,
+      onConfirm: () {
+        Get.back();
+        Get.find<HomecontrollerImp>().onClose();
+        Get.toNamed(Approutes.googleSignIn);
+      },
+    );
+    return;
+  }
+  onSuccess();
+}
 
 List<AppOnbardingmodel> onBardinglist = [
   AppOnbardingmodel(
@@ -26,7 +60,7 @@ List<AppOnbardingmodel> onBardinglist = [
 
 List<Cardservicesmodel> Cardservices = [
   Cardservicesmodel(
-    title: "25".tr,
+    title: "25",
     image: Appimageassets.records,
     color: const Color(0xFF2563EB), // Blue
     color2: const Color(0xFF1E40AF),
@@ -36,7 +70,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "26".tr,
+    title: "26",
     image: Appimageassets.tax,
     color: const Color(0xFF7C3AED), // Violet
     color2: const Color(0xFF4C1D95),
@@ -46,7 +80,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "29".tr,
+    title: "29",
     image: Appimageassets.app,
     color: const Color(0xFF4F46E5), // Indigo
     color2: const Color(0xFF3730A3),
@@ -56,7 +90,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "30".tr,
+    title: "30",
     image: Appimageassets.shuffle,
     color: const Color(0xFF0EA5E9), // Sky
     color2: const Color(0xFF0369A1),
@@ -69,7 +103,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "92".tr,
+    title: "92",
     image: Appimageassets.conditions,
     color: const Color(0xFFF59E0B),
     color2: const Color(0xFFB45309),
@@ -79,7 +113,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "93".tr,
+    title: "93",
     image: Appimageassets.questions,
     color: const Color(0xFF10B981),
     color2: const Color(0xFF065F46),
@@ -92,7 +126,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "27".tr,
+    title: "27",
     image: Appimageassets.rejester,
     color: const Color(0xFF14B8A6),
     color2: const Color(0xFF0F766E),
@@ -102,7 +136,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "28".tr,
+    title: "28",
     image: Appimageassets.calcel,
     color: Color(0xff34C759),
     color2: Color(0xff19612B),
@@ -330,7 +364,7 @@ List<Institutiontypemodel> obligationstype = [
   ),
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.specialappointments, arguments: {"tax_id": 2});
+      Get.toNamed(Approutes.specialappointments, arguments: {"tax_id": 1});
     },
     body: "50".tr,
     imgae: Appimageassets.twelveCard,
@@ -388,32 +422,8 @@ List<Institutiontypemodel> calculators = [
 
 List<Institutiontypemodel> calculatorsofSystemSimpli = [
   Institutiontypemodel(
-    ontap: () {
-      Get.toNamed(Approutes.calPersontype);
-    },
-    body: "حاسبة النظام المبسط".tr,
-    imgae: Appimageassets.calculators,
-    color2: Color(0xFF7333BD),
-    color1: Color(0xff270C46),
-    sizeText: 20,
-  ),
-  Institutiontypemodel(
-    ontap: () {
-      Get.toNamed(Approutes.taxstamp);
-    },
-    body: "الطابع الجبائي".tr,
-    imgae: Appimageassets.calculators,
-    color2: Color(0xFF7333BD),
-    color1: Color(0xff270C46),
-    sizeText: 25,
-  ),
-];
-
-List<Institutiontypemodel> calculatorsofSystemarbitrary = [
-  Institutiontypemodel(
-    ontap: () {
-      Get.toNamed(Approutes.calactivityType);
-    },
+    ontap: () =>
+        handleLoginRequired(() => Get.toNamed(Approutes.calactivityType)),
     body: "حاسبة G12".tr,
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
@@ -422,10 +432,10 @@ List<Institutiontypemodel> calculatorsofSystemarbitrary = [
   ),
 
   Institutiontypemodel(
-    ontap: () {
-      Get.toNamed(Approutes.typeacteviteg12bes);
-    },
-    body: "حاسبة G12Bes".tr,
+    ontap: () =>
+        handleLoginRequired(() => Get.toNamed(Approutes.typeacteviteg12bes)),
+
+    body: "حاسبة G12BES".tr,
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -433,11 +443,33 @@ List<Institutiontypemodel> calculatorsofSystemarbitrary = [
   ),
 ];
 
+List<Institutiontypemodel> calculatorsofSystemarbitrary = [
+  Institutiontypemodel(
+    ontap: () => handleLoginRequired(() => Get.toNamed(Approutes.taxstamp)),
+
+    body: "الطابع الجبائي".tr,
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 25,
+  ),
+];
+
 List<Institutiontypemodel> calculatorsofSystemarreal = [
   Institutiontypemodel(
-    ontap: () {
-      Get.toNamed(Approutes.lossORprofit);
-    },
+    ontap: () =>
+        handleLoginRequired(() => Get.toNamed(Approutes.calPersontype)),
+
+    body: "حاسبة النظام الحقيقي".tr,
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 20,
+  ),
+
+  Institutiontypemodel(
+    ontap: () => handleLoginRequired(() => Get.toNamed(Approutes.lossORprofit)),
+
     body: "كشف التلخيص السنوي".tr,
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
@@ -447,7 +479,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
 
   Institutiontypemodel(
     ontap: () {
-      Get.toNamed(Approutes.taxstamp);
+      handleLoginRequired(() => Get.toNamed(Approutes.taxstamp));
     },
     body: "الطابع الجبائي".tr,
     imgae: Appimageassets.calculators,

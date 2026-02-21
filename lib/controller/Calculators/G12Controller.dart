@@ -3,10 +3,21 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/constant/routes.dart';
+import '../../core/functions/Snacpar.dart';
+import '../../core/functions/valiedinput.dart';
 import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/ShwopenaltyG12.dart';
 import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/TaxinputdataRecorde.dart';
 
 class G12controller extends GetxController {
+  String? dateofpaymentErorr;
+  String? dateofdepositandErorr;
+  String? productionErorr;
+  String? g12Erorr;
+  String? profitmarginErorr;
+  String? extractedfromSourceErorr;
+  String? selfcontractorErorr;
+  String? otherActivityErorr;
+
   int activityType = 0;
   TextEditingController production = TextEditingController();
   TextEditingController g12 = TextEditingController();
@@ -46,6 +57,13 @@ class G12controller extends GetxController {
   }
 
   void gotodatacreate() {
+    if (activityType == 0) {
+      return showSnackbar(
+        "خطأ".tr,
+        "إختر نوع النشاط الخاص بك أولا".tr,
+        Colors.red,
+      );
+    }
     Get.to(Taxinputdatarecorde());
   }
 
@@ -65,14 +83,14 @@ class G12controller extends GetxController {
     double fixedPenalty;
 
     if (monthsLate == 0) {
-      percent = 0.10;
+      percent = 0.20;
       fixedPenalty = 2500;
     } else if (monthsLate == 1) {
       percent = 0.20;
       fixedPenalty = 5000;
     } else {
       percent = 0.25;
-      fixedPenalty = 10000;
+      fixedPenalty = 20000;
     }
 
     // إذا عنده مبلغ نحسب نسبة
@@ -99,7 +117,7 @@ class G12controller extends GetxController {
     double percent;
 
     if (monthsLate == 0) {
-      percent = 0.10;
+      percent = 0.20;
     } else if (monthsLate == 1) {
       percent = 0.13;
     } else if (monthsLate == 2) {
@@ -129,12 +147,25 @@ class G12controller extends GetxController {
     } else if (monthsLate == 1) {
       percent = 5000;
     } else {
-      percent = 10000;
+      percent = 20000;
     }
     return percent;
   }
 
   void calculateTax() {
+    if (production.text.isEmpty &&
+        profitmargin.text.isEmpty &&
+        extractedfromSource.text.isEmpty &&
+        selfcontractor.text.isEmpty &&
+        otherActivity.text.isEmpty) {
+      return showSnackbar(
+        "خطأ".tr,
+        "لا يمكن ان تكون كل قيم الضرائب فارغة".tr,
+        Colors.red,
+      );
+    }
+
+    if (validateAllFields()) return;
     productions = double.tryParse(production.text) ?? 0;
     other = double.tryParse(otherActivity.text) ?? 0;
     profitmargins = double.tryParse(profitmargin.text) ?? 0;
@@ -206,7 +237,7 @@ class G12controller extends GetxController {
     dateofdepositand.clear();
     dateofpayment.clear();
     Get.until(
-      (route) => Get.currentRoute == Approutes.calculatorsarbitrarysystem,
+      (route) => Get.currentRoute == Approutes.calculatorsofSystemSimpli,
     );
   }
 
@@ -239,5 +270,80 @@ class G12controller extends GetxController {
     selfcontractors = 0;
     other = 0;
     Get.back();
+  }
+
+  bool validateAllFields() {
+    bool hasError = false;
+
+    // ======= التواريخ =======
+    if (dateofdepositand.text.isEmpty) {
+      dateofdepositandErorr = "تاريخ الإيداع مطلوب".tr;
+      hasError = true;
+    } else {
+      dateofdepositandErorr = validInput(dateofdepositand.text, 20, 3, "Text");
+      if (dateofdepositandErorr != null) hasError = true;
+    }
+
+    if (dateofpayment.text.isEmpty) {
+      dateofpaymentErorr = "تاريخ الدفع مطلوب".tr;
+      hasError = true;
+    } else {
+      dateofpaymentErorr = validInput(dateofpayment.text, 20, 3, "Text");
+      if (dateofpaymentErorr != null) hasError = true;
+    }
+
+    // ======= الحقول الخاصة بالنشاط =======
+    if (activityType == 2) {
+      extractedfromSourceErorr = validInput(
+        extractedfromSource.text,
+        20,
+        3,
+        "Text",
+      );
+      if (extractedfromSourceErorr != null) hasError = true;
+    } else {
+      extractedfromSourceErorr = null;
+    }
+
+    if (activityType == 1) {
+      selfcontractorErorr = validInput(selfcontractor.text, 20, 3, "Text");
+      if (selfcontractorErorr != null) hasError = true;
+    } else {
+      selfcontractorErorr = null;
+    }
+
+    // ======= باقي الحقول المالية =======
+    final fields = [
+      {
+        'controller': production,
+        'setter': (String? val) => productionErorr = val,
+      },
+      {
+        'controller': profitmargin,
+        'setter': (String? val) => profitmarginErorr = val,
+      },
+      {
+        'controller': otherActivity,
+        'setter': (String? val) => otherActivityErorr = val,
+      },
+    ];
+
+    bool foundNonEmpty = false;
+
+    for (var field in fields) {
+      String text = (field['controller'] as TextEditingController).text;
+
+      if (!foundNonEmpty && text.isNotEmpty) {
+        String? error = validInput(text, 20, 3, "Text");
+        (field['setter'] as Function)(error);
+        if (error != null) hasError = true;
+        foundNonEmpty = true;
+      } else {
+        (field['setter'] as Function)(null);
+      }
+    }
+
+    update();
+    return hasError;
   }
 }

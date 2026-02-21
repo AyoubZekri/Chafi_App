@@ -47,7 +47,7 @@ class AppointmentscommitmentscontrollerImp extends GetxController {
   void onInit() {
     final args = Get.arguments as Map<String, dynamic>;
     taxid = args["tax_id"] ?? 0;
-
+    print("=============$taxid");
     viewdata();
     super.onInit();
   }

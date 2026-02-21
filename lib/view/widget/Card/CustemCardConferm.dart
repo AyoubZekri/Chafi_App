@@ -6,12 +6,19 @@ import '../../../core/constant/Colorapp.dart';
 class Custemcardconferm extends StatelessWidget {
   final bool value;
   final void Function(bool)? onChanged;
-  const Custemcardconferm({super.key, required this.value, this.onChanged});
+  final VoidCallback? onTapTerms;
+
+  const Custemcardconferm({
+    super.key,
+    required this.value,
+    this.onChanged,
+    this.onTapTerms,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -25,23 +32,37 @@ class Custemcardconferm extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "18".tr,
-            style: context.textTheme.headlineSmall?.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColor.grey,
+          Expanded(
+            child: GestureDetector(
+              onTap: onTapTerms,
+              child: RichText(
+                text: TextSpan(
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    fontSize: 14,
+                    color: AppColor.grey,
+                  ),
+                  children: [
+                    TextSpan(text: "أوافق على ".tr),
+                    TextSpan(
+                      text: "الشروط والأحكام".tr,
+                      style: TextStyle(
+                        color: AppColor.brand,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-
           Switch(
             value: value,
             onChanged: onChanged,
-            activeTrackColor: Colors.blue[100],
-            activeColor: Colors.blue[900],
-            activeThumbColor: const Color.fromARGB(255, 130, 129, 129),
+            activeColor: Colors.blue.shade900,
+            activeTrackColor: Colors.blue.shade200,
+            inactiveThumbColor: Colors.grey.shade500,
+            inactiveTrackColor: Colors.grey.shade300,
           ),
         ],
       ),

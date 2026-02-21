@@ -1,6 +1,6 @@
 class Applink {
-  static const String server = "http://192.168.221.133:8000/api";
-  static const String image = "http://192.168.221.133:8000/Storage/";
+  static const String server = "http://192.168.226.133:8000/api";
+  static const String image = "http://192.168.226.133:8000/Storage/";
 
   //  =============================Auth============================== //
 

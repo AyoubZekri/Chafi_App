@@ -20,7 +20,7 @@ class Scrollcardservece extends StatelessWidget {
       itemCount: Cardservices.length,
       itemBuilder: (context, i) {
         return Custemcardbuttonservices(
-          title: Cardservices[i].title!,
+          title: Cardservices[i].title!.tr,
           image: Cardservices[i].image!,
           color: Cardservices[i].color!,
           color2: Cardservices[i].color2,

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../../controller/Calculators/SimplifiedsystemController.dart';
 import '../../../../widget/Button/CustemSuberButton.dart';
-import '../../../../widget/Calculator/TextFieldDate.dart';
+import '../../../../widget/Calculator/Taxinpout.dart';
 import '../../../../widget/Text/CustemtextbodyMedium18.dart';
 
 class Createacompany extends StatefulWidget {
@@ -26,7 +26,7 @@ class _CreateacompanyState extends State<Createacompany> {
       child: Scaffold(
         backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("حاسبة النظام المبسط".tr),
+          title: Text("حاسبة النظام الحقيقي".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -68,24 +68,19 @@ class _CreateacompanyState extends State<Createacompany> {
                           color: AppColor.black,
                         ),
                         SizedBox(height: 70),
-                        TextFieldDateDialog(
+                        CustomInputField(
+                          icon: Icons.event_available_outlined,
                           controller: controller.dataCreate,
-                          hint: "اختر التاريخ",
+                          label: "أدخل التاريخ".tr,
+                          errorText: controller.dataCreateErorr,
+                          isDate: true,
                         ),
-
                         const Spacer(),
                         Custemsuberbutton(
                           content: "60".tr,
                           color: AppColor.typography,
                           onPressed: () {
-                            if (!validInputsnak(
-                              controller.dataCreate.text,
-                              1,
-                              20,
-                              "numper".tr,
-                            )) {
-                              return;
-                            }
+
                             controller.gotoAfter();
                           },
                         ),

@@ -22,10 +22,10 @@ class CalculatorsofSystemSimpli extends StatelessWidget {
               shrinkWrap: true,
               itemCount: calculatorsofSystemSimpli.length,
               itemBuilder: (context, i) {
-                return Custemcardrow(
+                return CustomCalculatorCard(
                   onTap: calculatorsofSystemSimpli[i].ontap,
-                  body: calculatorsofSystemSimpli[i].body,
-                  imgae: calculatorsofSystemSimpli[i].imgae,
+                  title: calculatorsofSystemSimpli[i].body,
+                  image: calculatorsofSystemSimpli[i].imgae,
                   color1: Color(0xff34C759),
                   color2: Color(0xff19612B),
                   sizeText: calculatorsofSystemSimpli[i].sizeText,

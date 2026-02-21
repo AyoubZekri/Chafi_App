@@ -39,7 +39,7 @@ void showSnackbar(String titleKey, String messageKey, Color color) {
             ),
             messageText: Text(
               messageKey.tr,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white, fontSize: 14),
             ),
             duration: const Duration(seconds: 3),
             flushbarPosition: FlushbarPosition.TOP,
