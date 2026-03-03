@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../core/constant/routes.dart';
 import '../../core/functions/Snacpar.dart';
+import '../../core/functions/trundatefromStringtodate.dart';
 import '../../core/functions/valiedinput.dart';
 
 class G12bescontroller extends GetxController {
@@ -188,19 +189,6 @@ class G12bescontroller extends GetxController {
     final dueDatedepositand = DateTime(DateTime.now().year, 7, 1);
     final dueDatede = DateTime(DateTime.now().year, 1, 21);
 
-    DateTime? parseDate(String text) {
-      if (text.isEmpty) return null;
-      try {
-        return DateFormat('yyyy/MM/dd').parseStrict(text);
-      } catch (_) {
-        try {
-          return DateFormat('yyyy-MM-dd').parseStrict(text);
-        } catch (_) {
-          return null;
-        }
-      }
-    }
-
     final datepositand = parseDate(dateofdepositand.text);
     final datepayment = parseDate(dateofpayment.text);
 
@@ -353,4 +341,5 @@ class G12bescontroller extends GetxController {
     update();
     return hasError;
   }
+
 }

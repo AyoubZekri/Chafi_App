@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constant/Colorapp.dart';
+import '../../../core/constant/extension.dart';
 
 class FinalTaxCard extends StatelessWidget {
   final int netTax;
@@ -149,7 +150,9 @@ class TotalAmountCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                total > 0 ? total.toString() : (-total).toString(),
+                total > 0
+                    ? total.formatCustomint().toString()
+                    : (-total).formatCustomint().toString(),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 36,
@@ -284,12 +287,14 @@ class PenaltyCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final String amount;
+  final IconData icon;
 
   const PenaltyCard({
     super.key,
     required this.title,
     required this.subtitle,
     required this.amount,
+    this.icon = Icons.warning_amber_rounded,
   });
 
   @override
@@ -320,11 +325,7 @@ class PenaltyCard extends StatelessWidget {
                   color: Colors.blue.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
-                  Icons.warning_amber_rounded,
-                  color: Colors.blue.shade700,
-                  size: 22,
-                ),
+                child: Icon(icon, color: Colors.blue.shade700, size: 22),
               ),
               const SizedBox(width: 12),
               Column(

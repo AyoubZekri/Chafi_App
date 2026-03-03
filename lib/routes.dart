@@ -1,6 +1,7 @@
 import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/G12/TypeActevite.dart';
 import 'package:chafi/view/screen/Calculators/Simplified%20system/CalPersonType.dart';
+import 'package:chafi/view/screen/Calculators/different/ResearchandDevelopment/ResearchAndDevelopment.dart';
 import 'package:chafi/view/screen/Setting/ContactUs.dart';
 import 'package:chafi/view/screen/Setting/Externallinks.dart';
 import 'package:chafi/view/screen/Setting/InformationAPP.dart';
@@ -16,6 +17,15 @@ import 'view/screen/Calculators/Realsystem/AnnualSummaryDisclosure/LossOrProfit.
 import 'view/screen/Calculators/Realsystem/CalculatorsRealSystem.dart';
 import 'view/screen/Calculators/Realsystem/TaxStamp/TaxStamp.dart';
 import 'view/screen/Calculators/Simplified system/CalculatorsofSystemSimpli.dart';
+import 'view/screen/Calculators/different/Advertisingandsponsorship/AdvertisingAndSponsorship.dart';
+import 'view/screen/Calculators/different/BudgetDeposit/inputdata.dart';
+import 'view/screen/Calculators/different/CalculatorsDefferent.dart';
+import 'view/screen/Calculators/different/RealEstateIncome/RealEstateIncomeType.dart';
+import 'view/screen/Calculators/different/SurrenderOfTheProperty/SurrenderOfThePropertytype.dart';
+import 'view/screen/Calculators/different/TouristVehicles/ToueistType.dart';
+import 'view/screen/Calculators/different/WaiverOfInvestment/WaiverofInvestmentValue.dart';
+import 'view/screen/Calculators/different/bonusesandcompensation/AccountType.dart';
+import 'view/screen/Calculators/different/guidance/CostsGuidance.dart';
 import 'view/screen/NavigationBar.dart';
 import 'view/screen/Obligations/Obligations.dart';
 import 'view/screen/Obligations/Specialappointments.dart';
@@ -104,7 +114,40 @@ List<GetPage<dynamic>> routes = [
     page: () => const Typeacteviteg12bes(),
   ),
   GetPage(name: Approutes.lossORprofit, page: () => const Lossorprofit()),
-  GetPage(name: Approutes.calculatorsrealsystem, page: () => const Calculatorsrealsystem()),
+  GetPage(
+    name: Approutes.calculatorsrealsystem,
+    page: () => const Calculatorsrealsystem(),
+  ),
   GetPage(name: Approutes.taxstamp, page: () => const Taxstamp()),
+  GetPage(name: Approutes.inputdata, page: () => const Inputdata()),
+  GetPage(
+    name: Approutes.calculatorsdefferent,
+    page: () => const Calculatorsdefferent(),
+  ),
+  GetPage(name: Approutes.costsguidance, page: () => const Costsguidance()),
+  GetPage(
+    name: Approutes.advertisingandsponsorship,
+    page: () => const Advertisingandsponsorship(),
+  ),
+  GetPage(
+    name: Approutes.researchanddevelopment,
+    page: () => const Researchanddevelopment(),
+  ),
+  GetPage(name: Approutes.toueisttype, page: () => const Toueisttype()),
+  GetPage(
+    name: Approutes.realestateincometype,
+    page: () => const Realestateincometype(),
+  ),
 
+  GetPage(
+    name: Approutes.surrenderofthepropertytype,
+    page: () => const Surrenderofthepropertytype(),
+  ),
+
+  GetPage(
+    name: Approutes.waiverofinvestmentvalue,
+    page: () => const Waiverofinvestmentvalue(),
+  ),
+
+  GetPage(name: Approutes.accounttype, page: () => const Accounttype()),
 ];

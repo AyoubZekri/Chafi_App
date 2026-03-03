@@ -145,6 +145,9 @@ class Crud {
       final request = http.Request("GET", Uri.parse(linkurl));
 
       request.headers.addAll(_headersWithToken());
+      print(
+        "token ${Get.find<Myservices>().sharedPreferences?.getString("token")}",
+      );
 
       final streamed = await request.send();
       final response = await http.Response.fromStream(streamed);

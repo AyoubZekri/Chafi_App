@@ -6,6 +6,7 @@ import 'package:chafi/view/widget/Calculator/DateButtonSheep.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constant/Colorapp.dart';
+import '../../../core/constant/extension.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -46,7 +47,6 @@ class CustomInputField extends StatefulWidget {
   final Function(String)? onChanged;
   final Function(String)? onPressed;
 
-
   const CustomInputField({
     Key? key,
     required this.label,
@@ -57,7 +57,8 @@ class CustomInputField extends StatefulWidget {
     this.errorText,
     this.controller,
     this.onDateSelected,
-    this.onChanged, this.onPressed,
+    this.onChanged,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -78,6 +79,31 @@ class _CustomInputFieldState extends State<CustomInputField> {
           "${result.year}/${result.month.toString().padLeft(2, '0')}/${result.day.toString().padLeft(2, '0')}";
       widget.onDateSelected?.call(result);
       setState(() {});
+    }
+  }
+
+  
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.isCurrency && widget.controller != null) {
+      widget.controller!.addListener(_formatCurrency);
+    }
+  }
+
+  void _formatCurrency() {
+    final controller = widget.controller;
+    if (controller == null) return;
+
+    String clean = controller.text.replaceAll(RegExp(r'[^0-9]'), '');
+    String formatted = clean.formatCustom();
+
+    if (controller.text != formatted) {
+      controller.value = TextEditingValue(
+        text: formatted,
+        selection: TextSelection.collapsed(offset: formatted.length),
+      );
     }
   }
 
@@ -127,6 +153,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
                   Expanded(
                     child: AbsorbPointer(
                       absorbing: widget.isDate,
+
                       child: TextField(
                         controller: widget.controller,
                         onChanged: widget.onChanged,
@@ -157,9 +184,10 @@ class _CustomInputFieldState extends State<CustomInputField> {
                       ),
                     ),
                   ),
+
                   if (widget.isDate) const Spacer(),
                   if (widget.isCurrency)
-                     Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 12),
                       child: Text(
                         'DZD'.tr,

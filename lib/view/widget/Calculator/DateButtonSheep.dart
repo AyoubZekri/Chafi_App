@@ -187,9 +187,9 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
         crossAxisSpacing: 10,
       ),
       itemBuilder: (_, i) {
-        final year = startYear + i;
+        // نخلو السنة تبدأ من الحديثة
+        final year = endYear - i;
 
-        // أي سنة بعد اليوم الحالي ممنوع
         bool disabled = year > now.year;
 
         return YearCell(

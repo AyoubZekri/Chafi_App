@@ -26,46 +26,27 @@ class Approutes {
   static const String categoriesTax = "/categoriesTax";
   static const String editrecord = "/Editrecord";
 
-
-
   static const String calculators = "/Calculators";
   static const String calculatorsofSystemSimpli = "/calculatorsofSystemSimpli";
+  static const String calculatorsarbitrarysystem =
+      "/Calculatorsarbitrarysystem";
+  static const String calculatorsrealsystem = "/Calculatorsrealsystem";
+  static const String calculatorsdefferent = "/Calculatorsdefferent";
+
   static const String calPersontype = "/calPersontype";
   static const String calactivityType = "/calactivityType";
-  static const String calculatorsarbitrarysystem = "/Calculatorsarbitrarysystem";
   static const String typeacteviteg12bes = "/Typeacteviteg12bes";
   static const String lossORprofit = "/Lossorprofit";
-  static const String calculatorsrealsystem = "/Calculatorsrealsystem";
-
   static const String taxstamp = "/Taxstamp";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  static const String inputdata = "/Inputdata";
+  static const String costsguidance = "/Costsguidance";
+  static const String advertisingandsponsorship = "/Advertisingandsponsorship";
+  static const String researchanddevelopment = "/Researchanddevelopment";
+  static const String toueisttype = "/Toueisttype";
+  static const String realestateincometype = "/Realestateincometype";
+  static const String surrenderofthepropertytype = "/Surrenderofthepropertytype";
+  static const String waiverofinvestmentvalue = "/Waiverofinvestmentvalue";
+  static const String accounttype = "/Accounttype";
 
 
 }

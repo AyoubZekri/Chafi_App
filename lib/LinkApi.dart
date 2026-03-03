@@ -1,6 +1,6 @@
 class Applink {
-  static const String server = "http://192.168.226.133:8000/api";
-  static const String image = "http://192.168.226.133:8000/Storage/";
+  static const String server = "http://192.168.116.133:8000/api";
+  static const String image = "http://192.168.116.133:8000/Storage/";
 
   //  =============================Auth============================== //
 
@@ -62,4 +62,6 @@ class Applink {
   static const String categoryadd = "$server/Category/add";
 
   static const String taxAndAppadd = "$server/TaxAndApp/add";
+  static const String bonusesandcompensations =
+      "$server/bonusesandcompensations/Show";
 }

@@ -1,34 +1,35 @@
-import 'package:chafi/core/class/Statusrequest.dart';
-import 'package:chafi/core/class/handlingview.dart';
-import 'package:flutter/material.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/Recorde/MypathController.dart';
-import '../../widget/Button/CustemSuberButton.dart';
-import '../../widget/Mypath/CardpersonType.dart';
-import '../../widget/Text/CustemtextbodyMedium18.dart';
+import '../../../../../controller/Calculators/bonusesandcompensationcontroller.dart';
+import '../../../../../core/class/handlingview.dart';
+import '../../../../../data/model/BonusModel.dart';
+import '../../../../widget/Button/CustemSuberButton.dart';
+import '../../../../widget/Mypath/CardpersonType.dart';
+import '../../../../widget/Text/CustemtextbodyMedium18.dart';
 
-class Natureofactivity extends StatefulWidget {
-  const Natureofactivity({super.key});
+class BonusesAndCompensations extends StatefulWidget {
+  const BonusesAndCompensations({super.key});
 
   @override
-  State<Natureofactivity> createState() => _NatureofactivityState();
+  State<BonusesAndCompensations> createState() =>
+      _BonusesAndCompensationsState();
 }
 
-class _NatureofactivityState extends State<Natureofactivity> {
+class _BonusesAndCompensationsState extends State<BonusesAndCompensations> {
   @override
   Widget build(BuildContext context) {
-    Get.put(MypathcontrollerImp());
     return WillPopScope(
       onWillPop: () async {
-        Get.find<MypathcontrollerImp>().backtoPersonType();
+        Get.find<bonusesandcompensationcontroller>()
+            .BackFromBonusesAndCompensations();
         return true;
       },
       child: Scaffold(
-        backgroundColor: AppColor.white,
+        backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("55".tr),
+          title: Text("العلوات وتعويضات".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -39,7 +40,8 @@ class _NatureofactivityState extends State<Natureofactivity> {
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-        body: GetBuilder<MypathcontrollerImp>(
+
+        body: GetBuilder<bonusesandcompensationcontroller>(
           builder: (controller) {
             return Container(
               color: AppColor.typography,
@@ -62,15 +64,19 @@ class _NatureofactivityState extends State<Natureofactivity> {
                               SizedBox(height: 20),
                               CustemtextbodyMedium18(
                                 color: AppColor.grey,
-                                content: "56".tr,
+                                content:
+                                    "أدخل البيانات بدقة للحصول على نتيجة صحيحة"
+                                        .tr,
                               ),
                               SizedBox(height: 40),
                               CustemtextbodyMedium18(
-                                content: "64".tr,
+                                content:
+                                    "إختر العلوات والتعويضات الخاضعة لي الضريبة والإشتراك لكي تدخل في الحساب"
+                                        .tr,
                                 color: AppColor.black,
                               ),
                               SizedBox(height: 70),
-                              controller.natureoftheactivity.isEmpty
+                              controller.groupedData.isEmpty
                                   ? SizedBox(
                                       height: 350,
                                       child: Handlingview(
@@ -82,24 +88,27 @@ class _NatureofactivityState extends State<Natureofactivity> {
                                       shrinkWrap: true,
                                       physics: const ClampingScrollPhysics(),
                                       itemCount:
-                                          controller.natureoftheactivity.length,
+                                          controller.groupedData[1]!.length,
                                       itemBuilder: (context, i) {
+                                        final List<BonusModel> data =
+                                            controller.groupedData[1] ?? [];
+                                        final item = data[i];
+                                        final isSelected = controller
+                                            .selectedgroup
+                                            .contains(item.id);
                                         return Cardpersontype(
                                           padding: 20,
                                           marginb: 30,
-                                          index: controller
-                                              .natureoftheactivity[i]
-                                              .id,
-                                          title: controller
-                                              .natureoftheactivity[i]
-                                              .localizedName,
-                                          selectedPerson:
-                                              controller.natureofactivity,
+                                          index: data[i].id,
+                                          title: data[i].localizedName,
+                                          selectedPerson: isSelected
+                                              ? data[i].id
+                                              : 0,
                                           onTap: () {
-                                            controller.selectNatureofactivity(
-                                              controller
-                                                  .natureoftheactivity[i]
-                                                  .id,
+                                            controller.togglegroup(
+                                              data[i].id,
+                                              !controller.selectedgroup
+                                                  .contains(data[i].id),
                                             );
                                           },
                                         );
@@ -110,21 +119,20 @@ class _NatureofactivityState extends State<Natureofactivity> {
                                 content: "60".tr,
                                 color: AppColor.typography,
                                 onPressed: () {
-                                  controller.gotoActivitytype();
+                                  // controller.gotoActivitytype();
                                 },
                               ),
 
-                              const SizedBox(height: 20),
+                              // const SizedBox(height: 20),
 
-                              Custemsuberbutton(
-                                content: "62".tr,
-                                color: Color(0xffE8F1FF),
-                                color2: AppColor.brand,
-                                onPressed: () {
-                                  controller.backtoPersonType();
-                                },
-                              ),
-
+                              // Custemsuberbutton(
+                              //   content: "62".tr,
+                              //   color: Color(0xffE8F1FF),
+                              //   color2: AppColor.brand,
+                              //   onPressed: () {
+                              //     controller.backtoPersonType();
+                              //   },
+                              // ),
                               SizedBox(height: 20),
                             ],
                           ),
@@ -137,7 +145,6 @@ class _NatureofactivityState extends State<Natureofactivity> {
             );
           },
         ),
-      
       ),
     );
   }
