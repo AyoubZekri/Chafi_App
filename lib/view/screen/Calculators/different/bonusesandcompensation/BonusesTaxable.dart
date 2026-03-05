@@ -9,21 +9,19 @@ import '../../../../widget/Button/CustemSuberButton.dart';
 import '../../../../widget/Mypath/CardpersonType.dart';
 import '../../../../widget/Text/CustemtextbodyMedium18.dart';
 
-class BonusesAndCompensations extends StatefulWidget {
-  const BonusesAndCompensations({super.key});
+class Bonusestaxable extends StatefulWidget {
+  const Bonusestaxable({super.key});
 
   @override
-  State<BonusesAndCompensations> createState() =>
-      _BonusesAndCompensationsState();
+  State<Bonusestaxable> createState() => _BonusestaxableState();
 }
 
-class _BonusesAndCompensationsState extends State<BonusesAndCompensations> {
+class _BonusestaxableState extends State<Bonusestaxable> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.find<bonusesandcompensationcontroller>()
-            .BackFromBonusesAndCompensations();
+        Get.find<bonusesandcompensationcontroller>().BackFromBonusestaxable();
         return true;
       },
       child: Scaffold(
@@ -71,7 +69,7 @@ class _BonusesAndCompensationsState extends State<BonusesAndCompensations> {
                               SizedBox(height: 40),
                               CustemtextbodyMedium18(
                                 content:
-                                    "إختر العلوات والتعويضات الخاضعة لي الضريبة والإشتراك لكي تدخل في الحساب"
+                                    "إختر العلوات والتعويضات الخاضعة لي الضريبة لكي تدخل في الحساب"
                                         .tr,
                                 color: AppColor.black,
                               ),
@@ -88,13 +86,13 @@ class _BonusesAndCompensationsState extends State<BonusesAndCompensations> {
                                       shrinkWrap: true,
                                       physics: const ClampingScrollPhysics(),
                                       itemCount:
-                                          controller.groupedData[1]!.length,
+                                          controller.groupedData[2]!.length,
                                       itemBuilder: (context, i) {
                                         final List<BonusModel> data =
-                                            controller.groupedData[1] ?? [];
+                                            controller.groupedData[2] ?? [];
                                         final item = data[i];
                                         final isSelected = controller
-                                            .selectedGroups[1]!
+                                            .selectedGroups[2]!
                                             .contains(item.id);
                                         return Cardpersontype(
                                           padding: 20,
@@ -107,9 +105,9 @@ class _BonusesAndCompensationsState extends State<BonusesAndCompensations> {
                                           onTap: () {
                                             controller.togglegroup(
                                               data[i].id,
-                                              !controller.selectedGroups[1]!
+                                              !controller.selectedGroups[2]!
                                                   .contains(data[i].id),
-                                              1,
+                                              2,
                                             );
                                           },
                                         );
@@ -120,7 +118,7 @@ class _BonusesAndCompensationsState extends State<BonusesAndCompensations> {
                                 content: "60".tr,
                                 color: AppColor.typography,
                                 onPressed: () {
-                                  controller.gotoBonusestaxable();
+                                  controller.gotoNonTaxableNonContributory();
                                 },
                               ),
 

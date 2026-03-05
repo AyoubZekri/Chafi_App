@@ -15,7 +15,9 @@ class Cardpersontype extends StatelessWidget {
     required this.index,
     required this.title,
     required this.selectedPerson,
-    required this.onTap, required this.padding,  this.marginb= 50,
+    required this.onTap,
+    required this.padding,
+    this.marginb = 50,
   });
 
   @override
@@ -26,9 +28,9 @@ class Cardpersontype extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: EdgeInsets.symmetric(vertical:padding,horizontal: 30),
+        padding: EdgeInsets.symmetric(vertical: padding, horizontal: 30),
         width: double.infinity,
-        margin:  EdgeInsets.only(bottom: marginb),
+        margin: EdgeInsets.only(bottom: marginb),
         decoration: BoxDecoration(
           color: const Color(0xffE8F1FF),
           borderRadius: BorderRadius.circular(20),
@@ -43,10 +45,14 @@ class Cardpersontype extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: context.textTheme.headlineLarge?.copyWith(
-                color: AppColor.typography,
+            FittedBox(
+              fit: BoxFit.scaleDown, // يصغر النص إذا لازم، بدون كسر السطر
+              alignment: Alignment.centerRight,
+              child: Text(
+                title,
+                style: context.textTheme.headlineLarge?.copyWith(
+                  color: AppColor.typography,
+                ),
               ),
             ),
 

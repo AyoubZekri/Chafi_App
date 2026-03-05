@@ -348,12 +348,19 @@ class PenaltyCard extends StatelessWidget {
               ),
             ],
           ),
-          // هنا نستخدم Flexible لضمان ظهور الرقم بالكامل
-          Flexible(
-            child: AmountText(
-              amount: amount,
-              isSmall: false,
-              color: AppColor.black,
+          SizedBox(width: 20),
+          Expanded(
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: FittedBox(
+                fit: BoxFit.scaleDown, // يصغر النص إذا لازم، بدون كسر السطر
+                alignment: Alignment.centerRight,
+                child: AmountText(
+                  amount: amount,
+                  isSmall: false,
+                  color: AppColor.black,
+                ),
+              ),
             ),
           ),
         ],
