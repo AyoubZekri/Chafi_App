@@ -47,6 +47,8 @@ class Approutes {
   static const String surrenderofthepropertytype = "/Surrenderofthepropertytype";
   static const String waiverofinvestmentvalue = "/Waiverofinvestmentvalue";
   static const String accounttype = "/Accounttype";
+  static const String taxtype = "/Taxtype";
+
 
 
 }

@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../../../controller/Calculators/bonusesandcompensationcontroller.dart';
 import '../../../../widget/Button/CustemSuberButton.dart';
-import '../../../../widget/Calculator/Taxinpout.dart';
+import '../../../../widget/Calculator/PinaltyDitails.dart';
+import '../../../../widget/Calculator/Taxinpout.dart' hide SectionHeader;
 import '../../../../widget/Text/CustemtextbodyMedium18.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -80,7 +81,7 @@ class _InboutvalouState extends State<Inboutvalou> {
                               ),
                               SizedBox(height: 40),
                               SectionHeader(
-                                icon: Icons.receipt_long_outlined,
+                                icon: Icons.account_balance_wallet_outlined,
                                 title: "الخاضعة لي الضريبة والإشتراكات".tr,
                               ),
                               const SizedBox(height: 16),
@@ -147,7 +148,7 @@ class _InboutvalouState extends State<Inboutvalou> {
                               const SizedBox(height: 24),
                               if (keys2.isNotEmpty) ...[
                                 SectionHeader(
-                                  icon: Icons.receipt_long_outlined,
+                                  icon: Icons.request_quote_outlined,
                                   title: "الخاضعة لي الضريبة".tr,
                                 ),
                                 const SizedBox(height: 16),
@@ -185,7 +186,7 @@ class _InboutvalouState extends State<Inboutvalou> {
                               ],
                               if (keys3.isNotEmpty) ...[
                                 SectionHeader(
-                                  icon: Icons.receipt_long_outlined,
+                                  icon: Icons.verified_outlined,
                                   title: "غير خاضعة".tr,
                                 ),
                                 const SizedBox(height: 16),

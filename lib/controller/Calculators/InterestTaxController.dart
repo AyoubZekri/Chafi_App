@@ -30,7 +30,7 @@ class Interesttaxcontroller extends GetxController {
   }
 
   void selectedInteresttaxtype(int i) {
-    typeTax = i;
+    interesttaxtype = i;
     update();
   }
 
@@ -79,7 +79,7 @@ class Interesttaxcontroller extends GetxController {
         }
       }
 
-      if (typeTax == 2) {
+      if (typeTax == 3) {
         if (interesttaxtype == 1) {
           netTax = value * 0.01;
         } else {
@@ -98,5 +98,15 @@ class Interesttaxcontroller extends GetxController {
 
   void resetAll() {
     Get.until((route) => Get.currentRoute == frompage);
+  }
+
+  void BackFromInteresttaxtype() {
+    interesttaxtype = 0;
+  }
+
+  void BackValuotax() {
+    fixedValueController.clear();
+    fixedValueControllerError = null;
+    netTax = 0;
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:chafi/core/functions/valiedinput.dart';
 import 'package:flutter/material.dart';

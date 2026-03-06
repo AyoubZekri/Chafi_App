@@ -43,20 +43,20 @@ class Cardpersontype extends StatelessWidget {
           ],
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FittedBox(
-              fit: BoxFit.scaleDown, // يصغر النص إذا لازم، بدون كسر السطر
-              alignment: Alignment.centerRight,
-              child: Text(
-                title,
-                style: context.textTheme.headlineLarge?.copyWith(
-                  color: AppColor.typography,
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerRight,
+                child: Text(
+                  title,
+                  style: context.textTheme.headlineLarge?.copyWith(
+                    color: AppColor.typography,
+                  ),
                 ),
               ),
             ),
-
-            // دائرة الاختيار
+            const SizedBox(width: 12),
             Container(
               width: 26,
               height: 26,
@@ -65,14 +65,10 @@ class Cardpersontype extends StatelessWidget {
                 border: Border.all(color: AppColor.typography, width: 2),
               ),
               child: isSelected
-                  ? Center(
-                      child: Container(
-                        width: 12,
-                        height: 12,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColor.typography,
-                        ),
+                  ? const Center(
+                      child: CircleAvatar(
+                        radius: 6,
+                        backgroundColor: AppColor.typography,
                       ),
                     )
                   : null,

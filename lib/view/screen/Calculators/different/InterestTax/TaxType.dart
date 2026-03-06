@@ -99,7 +99,7 @@ class _TaxtypeState extends State<Taxtype> {
                         content: "60".tr,
                         color: AppColor.typography,
                         onPressed: () {
-                          // controller.gotoPersonscondition();
+                           controller.gotoInteresttaxtype();
                         },
                       ),
 

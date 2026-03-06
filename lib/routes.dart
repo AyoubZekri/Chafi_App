@@ -1,6 +1,7 @@
 import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/G12/TypeActevite.dart';
 import 'package:chafi/view/screen/Calculators/Simplified%20system/CalPersonType.dart';
+import 'package:chafi/view/screen/Calculators/different/InterestTax/TaxType.dart';
 import 'package:chafi/view/screen/Calculators/different/ResearchandDevelopment/ResearchAndDevelopment.dart';
 import 'package:chafi/view/screen/Setting/ContactUs.dart';
 import 'package:chafi/view/screen/Setting/Externallinks.dart';
@@ -150,4 +151,6 @@ List<GetPage<dynamic>> routes = [
   ),
 
   GetPage(name: Approutes.accounttype, page: () => const Accounttype()),
+  GetPage(name: Approutes.taxtype, page: () => const Taxtype()),
+
 ];
