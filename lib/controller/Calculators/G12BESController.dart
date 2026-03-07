@@ -84,13 +84,13 @@ class G12bescontroller extends GetxController {
 
     if (monthsLate == 0) {
       percent = 0.20;
-      fixedPenalty = 2500;
+      fixedPenalty = 250000;
     } else if (monthsLate == 1) {
       percent = 0.20;
-      fixedPenalty = 5000;
+      fixedPenalty = 500000;
     } else {
       percent = 0.25;
-      fixedPenalty = 20000;
+      fixedPenalty = 2000000;
     }
 
     // إذا عنده مبلغ نحسب نسبة
@@ -143,22 +143,22 @@ class G12bescontroller extends GetxController {
     double percent;
 
     if (monthsLate == 0) {
-      percent = 2500;
+      percent = 250000;
     } else if (monthsLate == 1) {
-      percent = 5000;
+      percent = 500000;
     } else {
-      percent = 20000;
+      percent = 2000000;
     }
     return percent;
   }
 
   void calculateTax() {
     if (activityType == 3 &&
-        production.text.isEmpty &&
-        profitmargin.text.isEmpty &&
-        extractedfromSource.text.isEmpty &&
-        selfcontractor.text.isEmpty &&
-        otherActivity.text.isEmpty) {
+        production.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
+        profitmargin.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
+        extractedfromSource.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
+        selfcontractor.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
+        otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty) {
       return showSnackbar(
         "خطأ".tr,
         "لا يمكن ان تكون كل قيم الضرائب فارغة".tr,
@@ -167,12 +167,12 @@ class G12bescontroller extends GetxController {
     }
     if (validateAllFields()) return;
 
-    productions = double.tryParse(production.text) ?? 0;
-    other = double.tryParse(otherActivity.text) ?? 0;
-    profitmargins = double.tryParse(profitmargin.text) ?? 0;
-    extractedfromSources = double.tryParse(extractedfromSource.text) ?? 0;
-    selfcontractors = double.tryParse(selfcontractor.text) ?? 0;
-    double g12b = double.tryParse(g12.text) ?? 0;
+    productions = double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    other = double.tryParse(otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    profitmargins = double.tryParse(profitmargin.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    extractedfromSources = double.tryParse(extractedfromSource.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    selfcontractors = double.tryParse(selfcontractor.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    double g12b = double.tryParse(g12.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
 
     double taxProduction = productions * 0.05;
     double taxother = other * 0.12;
@@ -290,7 +290,7 @@ class G12bescontroller extends GetxController {
     // ======= الحقول الخاصة بالنشاط =======
     if (activityType == 2) {
       extractedfromSourceErorr = validInput(
-        extractedfromSource.text,
+        extractedfromSource.text.replaceAll(RegExp(r'[^0-9]'), ''),
         20,
         1,
         "Text",
@@ -301,7 +301,7 @@ class G12bescontroller extends GetxController {
     }
 
     if (activityType == 1) {
-      selfcontractorErorr = validInput(selfcontractor.text, 20, 4, "Text");
+      selfcontractorErorr = validInput(selfcontractor.text.replaceAll(RegExp(r'[^0-9]'), ''), 20, 4, "Text");
       if (selfcontractorErorr != null) hasError = true;
     } else {
       selfcontractorErorr = null;
@@ -326,7 +326,7 @@ class G12bescontroller extends GetxController {
     bool foundNonEmpty = false;
 
     for (var field in fields) {
-      String text = (field['controller'] as TextEditingController).text;
+      String text = (field['controller'] as TextEditingController).text.replaceAll(RegExp(r'[^0-9]'), '');
 
       if (!foundNonEmpty && text.isNotEmpty) {
         String? error = validInput(text, 20, 4, "Text");
@@ -341,5 +341,4 @@ class G12bescontroller extends GetxController {
     update();
     return hasError;
   }
-
 }

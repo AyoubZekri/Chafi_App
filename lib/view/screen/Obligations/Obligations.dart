@@ -26,7 +26,7 @@ class Obligations extends StatelessWidget {
               itemBuilder: (context, i) {
                 return Custemcardrow(
                   onTap: obligationstype[i].ontap,
-                  body: obligationstype[i].body,
+                  body: obligationstype[i].body.tr,
                   imgae: obligationstype[i].imgae,
                   color1: const Color(0xFFF59E0B),
                   color2: const Color(0xFFB45309),

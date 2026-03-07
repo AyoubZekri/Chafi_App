@@ -1,7 +1,5 @@
-import 'package:chafi/controller/Calculators/Budgetdepositcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../../controller/Calculators/Costsguidancecontroller.dart';
 import '../../../../../core/constant/Colorapp.dart';
 import '../../../../../core/constant/extension.dart';
@@ -25,14 +23,14 @@ class _ShwototalguidanceState extends State<Shwototalguidance> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("الهداية".tr),
-          titleTextStyle: TextStyle(
+          title: Text("gifts".tr),
+          titleTextStyle: const TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
             fontFamily: "Almiri",
             fontSize: 24,
           ),
-          iconTheme: IconThemeData(color: AppColor.white),
+          iconTheme: const IconThemeData(color: AppColor.white),
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
@@ -53,48 +51,43 @@ class _ShwototalguidanceState extends State<Shwototalguidance> {
                     child: ListView(
                       padding: const EdgeInsets.all(20),
                       children: [
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
 
                         SectionHeader(
                           icon: Icons.card_giftcard,
-                          title: 'تفاصيل الهدايا'.tr,
+                          title: 'gifts_details'.tr,
                         ),
                         const SizedBox(height: 12),
 
                         PenaltyCard(
-                          title: "الحد الأقصى للخصم".tr,
-                          subtitle: "لكل هدية".tr,
+                          title: "max_deduction".tr,
+                          subtitle: "per_gift".tr,
                           amount: "1,000,00",
                         ),
                         const SizedBox(height: 12),
 
                         PenaltyCard(
-                          title: "مجموع كل الهدايا".tr,
-                          subtitle: "القيمة الإجمالية المدخلة".tr,
-                          amount: controller.netTax
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
+                          title: "total_gifts".tr,
+                          subtitle: "total_entered_value".tr,
+                          amount: controller.netTax.toInt().formatCustomint().toString(),
                         ),
                         const SizedBox(height: 12),
 
                         PenaltyCard(
-                          title: "الجزء غير القابل للخصم".tr,
-                          subtitle: "المبلغ الذي يتجاوز 1,000,00 دج".tr,
-                          amount: controller.addreselttax
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
+                          title: "non_deductible_part".tr,
+                          subtitle: "amount_exceeding_limit".tr,
+                          amount: controller.addreselttax.toInt().formatCustomint().toString(),
                         ),
                         const SizedBox(height: 24),
 
                         TotalAmountCard(
                           total: controller.total.toInt(),
-                          title: "مجموع القابل للخصم".tr,
+                          title: "deductible_total".tr,
                         ),
-                        SizedBox(height: 90),
+                        const SizedBox(height: 90),
+
                         Custemsuberbutton(
-                          content: "إنهاء".tr,
+                          content: "finish".tr,
                           color: AppColor.typography,
                           onPressed: () {
                             controller.resetAll();

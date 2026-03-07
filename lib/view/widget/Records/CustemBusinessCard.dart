@@ -6,12 +6,14 @@ class BusinessCard extends StatelessWidget {
   final String active;
   final int condition;
   final void Function()? ontap;
+  final void Function()? onTap;
 
   const BusinessCard({
     super.key,
     required this.active,
     required this.condition,
     this.ontap,
+    this.onTap,
   });
   @override
   Widget build(BuildContext context) {
@@ -58,27 +60,28 @@ class BusinessCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: condition == 1 ? AppColor.brand : AppColor.red,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        condition == 1 ? "68".tr : "69".tr,
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      SizedBox(width: 4),
-                      Icon(
-                        condition == 1 ? Icons.check : Icons.close,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                    ],
-                  ),
-                ),
+
+                // Container(
+                //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                //   decoration: BoxDecoration(
+                //     color: condition == 1 ? AppColor.brand : AppColor.red,
+                //     borderRadius: BorderRadius.circular(20),
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         condition == 1 ? "68".tr : "69".tr,
+                //         style: TextStyle(color: Colors.white, fontSize: 12),
+                //       ),
+                //       SizedBox(width: 4),
+                //       Icon(
+                //         condition == 1 ? Icons.check : Icons.close,
+                //         color: Colors.white,
+                //         size: 16,
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
             SizedBox(height: 10),
@@ -98,25 +101,28 @@ class BusinessCard extends StatelessWidget {
                   "77".tr,
                   style: TextStyle(color: Colors.grey, fontSize: 11),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1A5276),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "76".tr,
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.calculate_outlined,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                    ],
+                InkWell(
+                  onTap: onTap,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1A5276),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "76".tr,
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.calculate_outlined,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

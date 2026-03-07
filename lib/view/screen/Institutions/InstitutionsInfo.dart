@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../controller/Institutions/InstitutioninfoController.dart';
 import '../../../core/constant/Colorapp.dart';
+import '../../../data/datasource/statec/statec.dart';
 import '../../widget/Card/CustemCardinfo.dart';
 import '../pdf.dart';
 
@@ -50,7 +51,12 @@ class _InstitutionsinfoState extends State<Institutionsinfo> {
                         : false,
                     Link: controller.data[i].lawId != null ? true : false,
                     onCalculator: () {
-                      Get.toNamed("/${controller.data[i].calcul}");
+                      handleLoginRequired(
+                        () => Get.toNamed(
+                          "/${controller.data[i].calcul}",
+                          arguments: {'fromPage': "/institutionsinfo"},
+                        ),
+                      );
                     },
                     onLink: () {
                       Get.to(

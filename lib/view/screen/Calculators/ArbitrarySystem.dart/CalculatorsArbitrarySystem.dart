@@ -22,10 +22,10 @@ class Calculatorsarbitrarysystem extends StatelessWidget {
               shrinkWrap: true,
               itemCount: calculatorsofSystemarbitrary.length,
               itemBuilder: (context, i) {
-                return Custemcardrow(
+                return CustomCalculatorCard(
                   onTap: calculatorsofSystemarbitrary[i].ontap,
-                  body: calculatorsofSystemarbitrary[i].body,
-                  imgae: calculatorsofSystemarbitrary[i].imgae,
+                  title: calculatorsofSystemarbitrary[i].body.tr,
+                  image: calculatorsofSystemarbitrary[i].imgae,
                   color1: Color(0xff34C759),
                   color2: Color(0xff19612B),
                   sizeText: calculatorsofSystemarbitrary[i].sizeText,

@@ -65,7 +65,9 @@ class FinalTaxCard extends StatelessWidget {
                   ),
                 ),
                 AmountText(
-                  amount: (netTax >= 0 ? netTax : -netTax).toString(),
+                  amount: (netTax >= 0 ? netTax : -netTax)
+                      .toString()
+                      .formatCustom(),
                   color: AppColor.black,
                 ),
               ],
@@ -93,7 +95,7 @@ class FinalTaxCard extends StatelessWidget {
                     ),
                   ),
                   AmountText(
-                    amount: penalty.toString(),
+                    amount: penalty.toString().formatCustom(),
                     color: Colors.red,
                     isSmall: true,
                   ),
@@ -122,102 +124,105 @@ class TotalAmountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 24),
-          decoration: BoxDecoration(
-            color: AppColor.typography,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: [
-              BoxShadow(
-                color: AppColor.typography.withOpacity(0.3),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(18),
+      child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            decoration: BoxDecoration(
+              color: AppColor.typography,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColor.typography.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                total > 0
-                    ? total.formatCustomint().toString()
-                    : (-total).formatCustomint().toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  'دينار الجزائري'.tr,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              if (text)
+              ],
+            ),
+            child: Column(
+              children: [
                 Text(
-                  "الحد الأقصى الواجب دفعه 1000000".tr,
+                  title,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.white.withOpacity(0.9),
                     fontSize: 14,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-            ],
-          ),
-        ),
-        // زخارف الخلفية
-        Positioned(
-          top: -60,
-          right: -60,
-          child: Container(
-            width: 128,
-            height: 128,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.1),
+                const SizedBox(height: 8),
+                Text(
+                  total > 0
+                      ? total.formatCustomint().toString()
+                      : (-total).formatCustomint().toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    'دينار الجزائري'.tr,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                if (text)
+                  Text(
+                    "الحد الأقصى الواجب دفعه 1,000,000,00".tr,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+              ],
             ),
           ),
-        ),
-        Positioned(
-          bottom: -40,
-          left: -40,
-          child: Container(
-            width: 96,
-            height: 96,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.black.withOpacity(0.1),
+          // زخارف الخلفية
+          Positioned(
+            top: -60,
+            right: -60,
+            child: Container(
+              width: 128,
+              height: 128,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.1),
+              ),
             ),
           ),
-        ),
-      ],
+          Positioned(
+            bottom: -40,
+            left: -40,
+            child: Container(
+              width: 96,
+              height: 96,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black.withOpacity(0.1),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -351,12 +356,14 @@ class PenaltyCard extends StatelessWidget {
           SizedBox(width: 20),
           Expanded(
             child: Container(
-              alignment: Alignment.centerLeft,
+              alignment: Get.locale?.languageCode == "fr"
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
               child: FittedBox(
                 fit: BoxFit.scaleDown, // يصغر النص إذا لازم، بدون كسر السطر
                 alignment: Alignment.centerRight,
                 child: AmountText(
-                  amount: amount,
+                  amount: amount.formatCustom(),
                   isSmall: false,
                   color: AppColor.black,
                 ),
@@ -409,7 +416,9 @@ class TotalAmountCarddealog extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                total > 0 ? total.toString() : (-total).toString(),
+                total > 0
+                    ? total.formatCustomint().toString()
+                    : (-total).formatCustomint().toString(),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 36,

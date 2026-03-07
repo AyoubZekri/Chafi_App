@@ -1,7 +1,7 @@
-import 'package:chafi/controller/Calculators/Budgetdepositcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../controller/Calculators/Budgetdepositcontroller.dart';
 import '../../../../../core/constant/Colorapp.dart';
 import '../../../../../core/constant/extension.dart';
 import '../../../../widget/Button/CustemSuberButton.dart';
@@ -15,12 +15,13 @@ class Shwoditailsbudgetdeposit extends StatefulWidget {
       _ShwoditailsbudgetdepositState();
 }
 
-class _ShwoditailsbudgetdepositState extends State<Shwoditailsbudgetdeposit> {
+class _ShwoditailsbudgetdepositState
+    extends State<Shwoditailsbudgetdeposit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("إيداع الميزانية".tr),
+        title: Text("budget_deposit".tr),
         titleTextStyle: TextStyle(
           color: AppColor.white,
           fontWeight: FontWeight.bold,
@@ -48,52 +49,46 @@ class _ShwoditailsbudgetdepositState extends State<Shwoditailsbudgetdeposit> {
                   child: ListView(
                     padding: const EdgeInsets.all(20),
                     children: [
-                      SizedBox(height: 20),
-
+                      const SizedBox(height: 20),
                       SectionHeader(
                         icon: Icons.payments_outlined,
-                        title: 'عقوبات التأخير والإداع'.tr,
+                        title: 'penalties_and_deposit'.tr,
                       ),
                       const SizedBox(height: 12),
-
                       PenaltyCard(
-                        title: "ضريبة تاخير الإداع".tr,
-                        subtitle: 'تأخير الإداع'.tr,
+                        title: "deposit_delay_tax".tr,
+                        subtitle: 'deposit_delay'.tr,
                         amount: controller.deposit
                             .toInt()
                             .formatCustomint()
                             .toString(),
                       ),
                       const SizedBox(height: 12),
-
                       PenaltyCard(
-                        title: "ضريبة تاخير الدفع".tr,
-                        subtitle: 'تأخير الدفع'.tr,
+                        title: "payment_delay_tax".tr,
+                        subtitle: 'payment_delay'.tr,
                         amount: controller.pyment
                             .toInt()
                             .formatCustomint()
                             .toString(),
                       ),
                       const SizedBox(height: 12),
-
                       PenaltyCard(
-                        title: "ضريبة التهديد".tr,
-                        subtitle: 'التهديد'.tr,
+                        title: "threat_tax".tr,
+                        subtitle: 'threat'.tr,
                         amount: controller.paymentPenalty
                             .toInt()
                             .formatCustomint()
                             .toString(),
                       ),
                       const SizedBox(height: 24),
-
                       TotalAmountCard(
                         total: controller.netTax.toInt(),
-                        title: "مجموع الضريبة".tr,
+                        title: "total_tax".tr,
                       ),
-
-                      SizedBox(height: 90),
+                      const SizedBox(height: 90),
                       Custemsuberbutton(
-                        content: "إنهاء".tr,
+                        content: "finish".tr,
                         color: AppColor.typography,
                         onPressed: () {
                           controller.resetAll();

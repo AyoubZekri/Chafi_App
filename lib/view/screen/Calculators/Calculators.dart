@@ -28,7 +28,7 @@ class Calculators extends StatelessWidget {
               itemBuilder: (context, i) {
                 return Custemcardrow(
                   onTap: calculators[i].ontap,
-                  body: calculators[i].body,
+                  body: calculators[i].body.tr,
                   imgae: calculators[i].imgae,
                   color1: Color(0xff34C759),
                   color2: Color(0xff19612B),

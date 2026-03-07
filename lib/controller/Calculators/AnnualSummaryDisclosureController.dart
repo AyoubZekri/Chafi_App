@@ -31,7 +31,7 @@ class Annualsummarydisclosurecontroller extends GetxController {
 
   void calcul() {
     annualSummaryDisclosureErorr = validInput(
-      annualSummaryDisclosure.text,
+      annualSummaryDisclosure.text.replaceAll(RegExp(r'[^0-9]'), ''),
       20,
       1,
       "int",
@@ -42,9 +42,13 @@ class Annualsummarydisclosurecontroller extends GetxController {
       annualSummary = 0;
     } else {
       // فقط إذا ماكانش خطأ
-      annualSummary = double.tryParse(annualSummaryDisclosure.text) ?? 0;
-      netTax = (annualSummary * 0.25) > 1000000
-          ? 1000000
+      annualSummary =
+          double.tryParse(
+            annualSummaryDisclosure.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          0;
+      netTax = (annualSummary * 0.25) > 100000000
+          ? 100000000
           : (annualSummary * 0.25);
     }
 

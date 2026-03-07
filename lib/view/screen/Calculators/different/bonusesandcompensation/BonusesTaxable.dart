@@ -27,18 +27,17 @@ class _BonusestaxableState extends State<Bonusestaxable> {
       child: Scaffold(
         backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("العلوات وتعويضات".tr),
-          titleTextStyle: TextStyle(
+          title: Text("bonuses_compensations".tr),
+          titleTextStyle: const TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
             fontFamily: "Almiri",
             fontSize: 24,
           ),
-          iconTheme: IconThemeData(color: AppColor.white),
+          iconTheme: const IconThemeData(color: AppColor.white),
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-
         body: GetBuilder<bonusesandcompensationcontroller>(
           builder: (controller) {
             return Container(
@@ -59,54 +58,58 @@ class _BonusestaxableState extends State<Bonusestaxable> {
                           padding: const EdgeInsets.all(20),
                           child: Column(
                             children: [
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
+
                               CustemtextbodyMedium18(
                                 color: AppColor.grey,
-                                content:
-                                    "أدخل البيانات بدقة للحصول على نتيجة صحيحة"
-                                        .tr,
+                                content: "enter_data_correctly".tr,
                               ),
-                              SizedBox(height: 40),
+
+                              const SizedBox(height: 40),
+
                               CustemtextbodyMedium18(
-                                content:
-                                    "إختر العلوات والتعويضات الخاضعة لي الضريبة لكي تدخل في الحساب"
-                                        .tr,
+                                content: "choose_taxable_bonuses_only".tr,
                                 color: AppColor.black,
                               ),
-                              SizedBox(height: 70),
+
+                              const SizedBox(height: 70),
+
                               controller.groupedData.isEmpty
                                   ? SizedBox(
                                       height: 350,
                                       child: Handlingview(
                                         statusrequest: controller.statusrequest,
-                                        widget: SizedBox(),
+                                        widget: const SizedBox(),
                                       ),
                                     )
                                   : ListView.builder(
                                       shrinkWrap: true,
-                                      physics: const ClampingScrollPhysics(),
+                                      physics:
+                                          const ClampingScrollPhysics(),
                                       itemCount:
                                           controller.groupedData[2]!.length,
                                       itemBuilder: (context, i) {
                                         final List<BonusModel> data =
                                             controller.groupedData[2] ?? [];
+
                                         final item = data[i];
+
                                         final isSelected = controller
                                             .selectedGroups[2]!
                                             .contains(item.id);
+
                                         return Cardpersontype(
                                           padding: 20,
                                           marginb: 30,
-                                          index: data[i].id,
-                                          title: data[i].localizedName,
-                                          selectedPerson: isSelected
-                                              ? data[i].id
-                                              : 0,
+                                          index: item.id,
+                                          title: item.localizedName,
+                                          selectedPerson:
+                                              isSelected ? item.id : 0,
                                           onTap: () {
                                             controller.togglegroup(
-                                              data[i].id,
+                                              item.id,
                                               !controller.selectedGroups[2]!
-                                                  .contains(data[i].id),
+                                                  .contains(item.id),
                                               2,
                                             );
                                           },
@@ -115,24 +118,15 @@ class _BonusestaxableState extends State<Bonusestaxable> {
                                     ),
 
                               Custemsuberbutton(
-                                content: "60".tr,
+                                content: "next".tr,
                                 color: AppColor.typography,
                                 onPressed: () {
-                                  controller.gotoNonTaxableNonContributory();
+                                  controller
+                                      .gotoNonTaxableNonContributory();
                                 },
                               ),
 
-                              // const SizedBox(height: 20),
-
-                              // Custemsuberbutton(
-                              //   content: "62".tr,
-                              //   color: Color(0xffE8F1FF),
-                              //   color2: AppColor.brand,
-                              //   onPressed: () {
-                              //     controller.backtoPersonType();
-                              //   },
-                              // ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                             ],
                           ),
                         ),

@@ -1,4 +1,5 @@
 import 'package:chafi/core/constant/Colorapp.dart';
+import 'package:chafi/core/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -125,7 +126,7 @@ class _LossorprofitState extends State<Lossorprofit> {
           child: TotalAmountCarddealog(
             total: controller.lossORprofit == 1
                 ? controller.netTax.toInt()
-                : 100000,
+                : 10000000,
             text: controller.lossORprofit == 1 ? true : false,
           ),
         ),

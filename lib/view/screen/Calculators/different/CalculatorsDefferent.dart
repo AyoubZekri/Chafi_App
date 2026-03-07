@@ -18,10 +18,10 @@ class Calculatorsdefferent extends StatelessWidget {
         child: ListView.builder(
           itemCount: calculatorsofDiffernt.length,
           itemBuilder: (context, i) {
-            return Custemcardrow(
+            return CustomCalculatorCard(
               onTap: calculatorsofDiffernt[i].ontap,
-              body: calculatorsofDiffernt[i].body.tr,
-              imgae: calculatorsofDiffernt[i].imgae,
+              title: calculatorsofDiffernt[i].body.tr,
+              image: calculatorsofDiffernt[i].imgae,
               color1: Color(0xff34C759),
               color2: Color(0xff19612B),
               sizeText: calculatorsofDiffernt[i].sizeText,

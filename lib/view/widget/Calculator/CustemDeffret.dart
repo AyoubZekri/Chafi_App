@@ -291,6 +291,20 @@ class _AddGiftDialogState extends State<AddGiftDialog> {
           keyboardType: isNumber ? TextInputType.number : TextInputType.text,
           validator: validator,
           style: const TextStyle(fontSize: 14),
+
+          onChanged: isNumber
+              ? (value) {
+                  final formatted = value.formatCustom();
+
+                  controller.value = TextEditingValue(
+                    text: formatted,
+                    selection: TextSelection.collapsed(
+                      offset: formatted.length,
+                    ),
+                  );
+                }
+              : null,
+
           decoration: InputDecoration(
             hintText: placeholder,
             errorStyle: const TextStyle(fontSize: 13, height: 2),

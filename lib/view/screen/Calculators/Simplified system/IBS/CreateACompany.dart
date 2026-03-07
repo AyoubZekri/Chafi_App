@@ -72,6 +72,7 @@ class _CreateacompanyState extends State<Createacompany> {
                           icon: Icons.event_available_outlined,
                           controller: controller.dataCreate,
                           label: "أدخل التاريخ".tr,
+                          placeholder: 'mm/dd/yyyy',
                           errorText: controller.dataCreateErorr,
                           isDate: true,
                         ),
@@ -80,7 +81,6 @@ class _CreateacompanyState extends State<Createacompany> {
                           content: "60".tr,
                           color: AppColor.typography,
                           onPressed: () {
-
                             controller.gotoAfter();
                           },
                         ),

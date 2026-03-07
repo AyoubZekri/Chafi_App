@@ -101,7 +101,7 @@ class bonusesandcompensationcontroller extends GetxController {
 
   void gotobonusesandcompensations() {
     print("===============$personscondition");
-    if (personscondition == 0) {
+    if (hasspeciallogictype == 0) {
       return showSnackbar("خطأ".tr, "يجب إختيار علاوة المنطقة".tr, Colors.red);
     }
     Get.to(() => BonusesAndCompensations());
@@ -445,7 +445,9 @@ class bonusesandcompensationcontroller extends GetxController {
   void BackFromNonTaxableNonContributory() {}
   void BackFromBonusesAndCompensations() {}
   void BackFromBonusestaxable() {}
+
   void BackFromInboutvalou() {}
+  
   void backFromShowvaluo() {}
   void resetAll() {
     Get.until((route) => Get.currentRoute == frompage);

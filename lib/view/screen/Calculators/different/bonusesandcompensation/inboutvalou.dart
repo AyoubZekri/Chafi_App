@@ -27,7 +27,7 @@ class _InboutvalouState extends State<Inboutvalou> {
       child: Scaffold(
         backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("العلوات وتعويضات".tr),
+          title: Text("bonuses_compensations".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -38,7 +38,6 @@ class _InboutvalouState extends State<Inboutvalou> {
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-
         body: GetBuilder<bonusesandcompensationcontroller>(
           builder: (controller) {
             final controllers = controller.valueControllersGroups[1] ?? {};
@@ -47,6 +46,7 @@ class _InboutvalouState extends State<Inboutvalou> {
             final keys2 = controllers2.keys.toList();
             final controllers3 = controller.valueControllersGroups[3] ?? {};
             final keys3 = controllers3.keys.toList();
+
             return Container(
               color: AppColor.typography,
               child: Container(
@@ -68,36 +68,33 @@ class _InboutvalouState extends State<Inboutvalou> {
                               SizedBox(height: 20),
                               CustemtextbodyMedium18(
                                 color: AppColor.grey,
-                                content:
-                                    "أدخل البيانات بدقة للحصول على نتيجة صحيحة"
-                                        .tr,
+                                content: "enter_data_correctly".tr,
                               ),
                               SizedBox(height: 40),
                               CustemtextbodyMedium18(
                                 content:
-                                    "أدخل قيم العلوات وتعويضات ليتم حساب الضريبة"
-                                        .tr,
+                                    "choose_taxable_bonuses".tr,
                                 color: AppColor.black,
                               ),
                               SizedBox(height: 40),
                               SectionHeader(
                                 icon: Icons.account_balance_wallet_outlined,
-                                title: "الخاضعة لي الضريبة والإشتراكات".tr,
+                                title:
+                                    "taxable_and_contributions".tr,
                               ),
                               const SizedBox(height: 16),
                               CustomInputField(
-                                label: "أدخل الأجر القاعدي",
+                                label: "Enter base salary".tr,
                                 icon: FontAwesomeIcons.wallet,
                                 isCurrency: true,
                                 controller: controller.fixedValueController,
                                 errorText: controller.fixedValueControllerError,
                               ),
-
                               const SizedBox(height: 16),
                               CustomInputField(
                                 label: controller.hasspeciallogictype == 1
-                                    ? "نسبة العلاوة"
-                                    : "عدد ايام العمل",
+                                    ? "Bonus percentage".tr
+                                    : "Number of working days".tr,
                                 icon: controller.hasspeciallogictype == 1
                                     ? Icons.percent
                                     : Icons.calendar_today,
@@ -107,7 +104,7 @@ class _InboutvalouState extends State<Inboutvalou> {
                               const SizedBox(height: 16),
                               if (controller.hasspeciallogictype == 2) ...[
                                 CustomInputField(
-                                  label: "سعر اليوم",
+                                  label: "Day price".tr,
                                   icon: FontAwesomeIcons.moneyBillWave,
                                   isCurrency: true,
                                   controller: controller.hasspeciallogic,
@@ -128,7 +125,7 @@ class _InboutvalouState extends State<Inboutvalou> {
                                         .firstWhereOrNull((e) => e.id == id);
                                     final label = bonus != null
                                         ? bonus.localizedName
-                                        : "أدخل القيمة".tr;
+                                        : "Enter value".tr;
 
                                     return Column(
                                       children: [
@@ -137,8 +134,8 @@ class _InboutvalouState extends State<Inboutvalou> {
                                           icon: FontAwesomeIcons.moneyBillWave,
                                           isCurrency: true,
                                           controller: textController,
-                                          errorText: controller
-                                              .bonusErrorsGroups[1]?[id],
+                                          errorText:
+                                              controller.bonusErrorsGroups[1]?[id],
                                         ),
                                         const SizedBox(height: 16),
                                       ],
@@ -149,10 +146,9 @@ class _InboutvalouState extends State<Inboutvalou> {
                               if (keys2.isNotEmpty) ...[
                                 SectionHeader(
                                   icon: Icons.request_quote_outlined,
-                                  title: "الخاضعة لي الضريبة".tr,
+                                  title: "taxable_only".tr,
                                 ),
                                 const SizedBox(height: 16),
-
                                 ListView.builder(
                                   shrinkWrap: true,
                                   physics: const ClampingScrollPhysics(),
@@ -165,7 +161,7 @@ class _InboutvalouState extends State<Inboutvalou> {
                                         .firstWhereOrNull((e) => e.id == id);
                                     final label = bonus != null
                                         ? bonus.localizedName
-                                        : "أدخل القيمة".tr;
+                                        : "Enter value".tr;
 
                                     return Column(
                                       children: [
@@ -174,8 +170,8 @@ class _InboutvalouState extends State<Inboutvalou> {
                                           icon: FontAwesomeIcons.moneyBillWave,
                                           isCurrency: true,
                                           controller: textController,
-                                          errorText: controller
-                                              .bonusErrorsGroups[2]?[id],
+                                          errorText:
+                                              controller.bonusErrorsGroups[2]?[id],
                                         ),
                                         const SizedBox(height: 16),
                                       ],
@@ -187,10 +183,9 @@ class _InboutvalouState extends State<Inboutvalou> {
                               if (keys3.isNotEmpty) ...[
                                 SectionHeader(
                                   icon: Icons.verified_outlined,
-                                  title: "غير خاضعة".tr,
+                                  title: "Non imposable".tr,
                                 ),
                                 const SizedBox(height: 16),
-
                                 ListView.builder(
                                   shrinkWrap: true,
                                   physics: const ClampingScrollPhysics(),
@@ -203,7 +198,7 @@ class _InboutvalouState extends State<Inboutvalou> {
                                         .firstWhereOrNull((e) => e.id == id);
                                     final label = bonus != null
                                         ? bonus.localizedName
-                                        : "أدخل القيمة".tr;
+                                        : "Enter value".tr;
 
                                     return Column(
                                       children: [
@@ -212,8 +207,8 @@ class _InboutvalouState extends State<Inboutvalou> {
                                           icon: FontAwesomeIcons.moneyBillWave,
                                           isCurrency: true,
                                           controller: textController,
-                                          errorText: controller
-                                              .bonusErrorsGroups[3]?[id],
+                                          errorText:
+                                              controller.bonusErrorsGroups[3]?[id],
                                         ),
                                         const SizedBox(height: 16),
                                       ],
@@ -222,25 +217,13 @@ class _InboutvalouState extends State<Inboutvalou> {
                                 ),
                               ],
                               const SizedBox(height: 30),
-
                               Custemsuberbutton(
-                                content: "60".tr,
+                                content: "next".tr,
                                 color: AppColor.typography,
                                 onPressed: () {
                                   controller.calcul();
                                 },
                               ),
-
-                              // const SizedBox(height: 20),
-
-                              // Custemsuberbutton(
-                              //   content: "62".tr,
-                              //   color: Color(0xffE8F1FF),
-                              //   color2: AppColor.brand,
-                              //   onPressed: () {
-                              //     controller.backtoPersonType();
-                              //   },
-                              // ),
                               SizedBox(height: 20),
                             ],
                           ),

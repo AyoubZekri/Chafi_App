@@ -1,4 +1,3 @@
-import 'package:chafi/core/functions/valiedinput.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +24,18 @@ class _CostsguidanceState extends State<Costsguidance> {
         return true;
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text("gifts".tr),
+          titleTextStyle: const TextStyle(
+            color: AppColor.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Almiri",
+            fontSize: 24,
+          ),
+          iconTheme: const IconThemeData(color: AppColor.white),
+          backgroundColor: AppColor.typography,
+          elevation: 0,
+        ),
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(16),
           color: AppColor.white,
@@ -35,7 +46,7 @@ class _CostsguidanceState extends State<Costsguidance> {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.add),
-                  label: Text("إضافة هدية".tr),
+                  label: Text("add_gift".tr),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.typography,
                     foregroundColor: Colors.white,
@@ -48,17 +59,16 @@ class _CostsguidanceState extends State<Costsguidance> {
                     await showDialog<bool>(
                       context: context,
                       builder: (_) => AddGiftDialog(
-                        titleText: "إضافة تفاصيل الهدية".tr,
-                        nameLabel: "اسم الهدية".tr,
-                        nameHint: "إسم الهدية".tr,
-                        costLabel: "تكلفة الهدية".tr,
-                        costHint: "تكلفة الهدية".tr,
-                        addText: "إضافة".tr,
-                        cancelText: "إلغاء".tr,
+                        titleText: "add_gift_details".tr,
+                        nameLabel: "gift_name".tr,
+                        nameHint: "gift_name_hint".tr,
+                        costLabel: "gift_cost".tr,
+                        costHint: "gift_cost_hint".tr,
+                        addText: "add".tr,
+                        cancelText: "cancel".tr,
                         nameController: controller.nameguidance,
                         costController: controller.costsguidance,
-                        onPressedBack: () =>
-                            Navigator.of(context).pop(false),
+                        onPressedBack: () => Navigator.of(context).pop(false),
                         onPressed: () {
                           controller.addGuidance();
                         },
@@ -72,7 +82,7 @@ class _CostsguidanceState extends State<Costsguidance> {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.calculate),
-                  label: Text("الحساب".tr),
+                  label: Text("calculate".tr),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey[300],
                     foregroundColor: Colors.black87,
@@ -88,18 +98,6 @@ class _CostsguidanceState extends State<Costsguidance> {
               ),
             ],
           ),
-        ),
-        appBar: AppBar(
-          title: Text("الهداية".tr),
-          titleTextStyle: const TextStyle(
-            color: AppColor.white,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Almiri",
-            fontSize: 24,
-          ),
-          iconTheme: const IconThemeData(color: AppColor.white),
-          backgroundColor: AppColor.typography,
-          elevation: 0,
         ),
         body: GetBuilder<Costsguidancecontroller>(
           builder: (controller) {
@@ -123,15 +121,12 @@ class _CostsguidanceState extends State<Costsguidance> {
                             children: [
                               CustemtextbodyMedium18(
                                 color: AppColor.grey,
-                                content:
-                                    "أضف الهداية مع التكلفة لي يتم حساب مجموع خصومات الهداية"
-                                        .tr,
+                                content: "add_gifts_description".tr,
                               ),
                               const SizedBox(height: 20),
                               ListView.builder(
                                 shrinkWrap: true,
-                                padding:
-                                    const EdgeInsets.only(bottom: 80),
+                                padding: const EdgeInsets.only(bottom: 80),
                                 itemCount: controller.gifts.length,
                                 itemBuilder: (context, index) {
                                   final gift = controller.gifts.entries
@@ -142,15 +137,13 @@ class _CostsguidanceState extends State<Costsguidance> {
                                     tax: gift.value > 100000
                                         ? 100000
                                         : gift.value,
-                                    total: controller
-                                        .costsguidances(gift.value),
-                                    taxText:
-                                        "المبلغ القابل لي الخصم".tr,
-                                    totalText:
-                                        "يضاف لي نتيجة جبائية".tr,
+                                    total: controller.costsguidances(
+                                      gift.value,
+                                    ),
+                                    taxText: "deductible_amount".tr,
+                                    totalText: "added_to_tax_result".tr,
                                     onPressed: () {
-                                      controller
-                                          .gifts.remove(gift.key);
+                                      controller.gifts.remove(gift.key);
                                     },
                                   );
                                 },

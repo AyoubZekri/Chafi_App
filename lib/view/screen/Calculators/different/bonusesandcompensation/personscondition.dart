@@ -25,7 +25,7 @@ class _PersonsconditionState extends State<Personscondition> {
       child: Scaffold(
         backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("العلوات وتعويضات".tr),
+          title: Text("bonuses_compensations".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -36,7 +36,6 @@ class _PersonsconditionState extends State<Personscondition> {
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-
         body: GetBuilder<bonusesandcompensationcontroller>(
           builder: (controller) {
             return Container(
@@ -57,12 +56,11 @@ class _PersonsconditionState extends State<Personscondition> {
                         SizedBox(height: 20),
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
-                          content:
-                              "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
+                          content: "enter_data_correctly".tr,
                         ),
                         SizedBox(height: 40),
                         CustemtextbodyMedium18(
-                          content: "هل تنتمي إلى هؤلاء الأشخاص؟".tr,
+                          content: "are_you_in_these_people".tr,
                           color: AppColor.black,
                         ),
                         SizedBox(height: 60),
@@ -70,29 +68,27 @@ class _PersonsconditionState extends State<Personscondition> {
                           padding: 30,
                           marginb: 25,
                           index: 1,
-                          title: "ذوي الإعاقة الحركية".tr,
+                          title: "physically_disabled".tr,
                           selectedPerson: controller.personscondition,
                           onTap: () {
                             controller.selectedpersonscondition(1);
                           },
                         ),
-
                         Cardpersontype(
                           padding: 30,
                           index: 2,
                           marginb: 25,
-                          title: "ذوي الإعاقة العقلية".tr,
+                          title: "mentally_disabled".tr,
                           selectedPerson: controller.personscondition,
                           onTap: () {
                             controller.selectedpersonscondition(2);
                           },
                         ),
-
                         Cardpersontype(
                           padding: 30,
                           index: 3,
                           marginb: 25,
-                          title: "مكفوفين".tr,
+                          title: "blind".tr,
                           selectedPerson: controller.personscondition,
                           onTap: () {
                             controller.selectedpersonscondition(3);
@@ -102,7 +98,7 @@ class _PersonsconditionState extends State<Personscondition> {
                           padding: 30,
                           index: 4,
                           marginb: 25,
-                          title: "صم البكم".tr,
+                          title: "deaf_mute".tr,
                           selectedPerson: controller.personscondition,
                           onTap: () {
                             controller.selectedpersonscondition(4);
@@ -112,7 +108,7 @@ class _PersonsconditionState extends State<Personscondition> {
                           padding: 30,
                           index: 5,
                           marginb: 25,
-                          title: "العمال المتقاعدين".tr,
+                          title: "retired_workers".tr,
                           selectedPerson: controller.personscondition,
                           onTap: () {
                             controller.selectedpersonscondition(5);
@@ -122,22 +118,20 @@ class _PersonsconditionState extends State<Personscondition> {
                           padding: 30,
                           index: 6,
                           marginb: 25,
-                          title: "لست منهم".tr,
+                          title: "none_of_them".tr,
                           selectedPerson: controller.personscondition,
                           onTap: () {
                             controller.selectedpersonscondition(6);
                           },
                         ),
-
                         const SizedBox(height: 20),
                         Custemsuberbutton(
-                          content: "60".tr,
+                          content: "next".tr,
                           color: AppColor.typography,
                           onPressed: () {
                             controller.gotoSpeciallogictype();
                           },
                         ),
-
                         SizedBox(height: 20),
                       ],
                     ),

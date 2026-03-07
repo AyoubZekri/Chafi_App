@@ -10,17 +10,17 @@ class Taxstampcontroller extends GetxController {
   double tasStamp = 0;
 
   calcul() {
-    tasStampsErorr = validInput(tasStamps.text, 20, 1, "int");
-    tasStamp = double.tryParse(tasStamps.text) ?? 0;
+    tasStampsErorr = validInput(tasStamps.text.replaceAll(RegExp(r'[^0-9]'), ''), 20, 1, "int");
+    tasStamp = double.tryParse(tasStamps.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
     if (tasStampsErorr != null) {
       netTax = 0; // هنا توقف الحساب
       tasStamp = 0;
     } else {
-      if (tasStamp <= 3000) {
+      if (tasStamp <= 300000) {
         netTax = tasStamp * 0.01;
-      } else if (tasStamp > 3000 && tasStamp <= 10000) {
+      } else if (tasStamp > 300000 && tasStamp <= 1000000) {
         netTax = tasStamp * 0.015;
-      } else if (tasStamp > 10000) {
+      } else if (tasStamp > 1000000) {
         netTax = tasStamp * 0.02;
       }
     }

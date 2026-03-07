@@ -109,7 +109,7 @@ class _WaiverofinvestmentvalueState extends State<Waiverofinvestmentvalue> {
                         CustomInputField(
                           label: "تاريخ الإقتناء".tr,
                           icon: Icons.calendar_today_outlined,
-                          placeholder: 'سنوات الصلاحية',
+                          placeholder: 'سنوات الصلاحية'.tr,
                           controller: controller.yearsofvalidity,
                           errorText: controller.yearsofvalidityErorr,
                         ),

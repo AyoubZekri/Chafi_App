@@ -61,6 +61,7 @@ class _RecordsState extends State<Records> {
                             ontap: () {
                               controller.gotoInfoRecord(item.id, item.taxId);
                             },
+                            onTap: () {},
                           );
                         },
                       ),

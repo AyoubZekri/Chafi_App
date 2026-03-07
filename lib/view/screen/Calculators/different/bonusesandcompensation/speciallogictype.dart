@@ -26,7 +26,7 @@ class _SpeciallogictypeState extends State<Speciallogictype> {
       child: Scaffold(
         backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("العلوات وتعويضات".tr),
+          title: Text("bonuses_compensation".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -37,7 +37,6 @@ class _SpeciallogictypeState extends State<Speciallogictype> {
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-
         body: GetBuilder<bonusesandcompensationcontroller>(
           builder: (_) {
             return Column(
@@ -59,12 +58,11 @@ class _SpeciallogictypeState extends State<Speciallogictype> {
                         SizedBox(height: 20),
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
-                          content:
-                              "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
+                          content: "enter_data_accurately".tr,
                         ),
                         SizedBox(height: 40),
                         CustemtextbodyMedium18(
-                          content: "إختر نوع علاوة المنطقة".tr,
+                          content: "choose_region_bonus_type".tr,
                           color: AppColor.black,
                         ),
                         SizedBox(height: 100),
@@ -72,18 +70,17 @@ class _SpeciallogictypeState extends State<Speciallogictype> {
                           padding: 30,
                           marginb: 25,
                           index: 1,
-                          title: "علاوة المنطقة الجغرافية".tr,
+                          title: "geographical_area_bonus".tr,
                           selectedPerson: controller.hasspeciallogictype,
                           onTap: () {
                             controller.selectedhasspeciallogictype(1);
                           },
                         ),
-
                         Cardpersontype(
                           padding: 30,
                           index: 2,
                           marginb: 25,
-                          title: "علاوة المنطقة المنعزلة".tr,
+                          title: "isolated_area_bonus".tr,
                           selectedPerson: controller.hasspeciallogictype,
                           onTap: () {
                             controller.selectedhasspeciallogictype(2);
@@ -91,13 +88,12 @@ class _SpeciallogictypeState extends State<Speciallogictype> {
                         ),
                         const Spacer(),
                         Custemsuberbutton(
-                          content: "60".tr,
+                          content: "next".tr,
                           color: AppColor.typography,
                           onPressed: () {
                             controller.gotobonusesandcompensations();
                           },
                         ),
-
                         SizedBox(height: 20),
                       ],
                     ),

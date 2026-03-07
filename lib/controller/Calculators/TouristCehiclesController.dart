@@ -60,7 +60,7 @@ class Touristcehiclescontroller extends GetxController {
 
   void calcul() {
     if (gifts.isEmpty) {
-      return showSnackbar("خطأ".tr, "لا يوجد هدايا".tr, Colors.red);
+      return showSnackbar("خطأ".tr, "لا يوجد مركبات".tr, Colors.red);
     }
     total = 0;
     addreselttax = 0;

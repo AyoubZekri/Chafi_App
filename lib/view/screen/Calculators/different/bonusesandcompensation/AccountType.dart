@@ -16,6 +16,7 @@ class Accounttype extends StatefulWidget {
 
 class _AccounttypeState extends State<Accounttype> {
   final controller = Get.put(bonusesandcompensationcontroller());
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -26,28 +27,27 @@ class _AccounttypeState extends State<Accounttype> {
       child: Scaffold(
         backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("العلوات وتعويضات".tr),
-          titleTextStyle: TextStyle(
+          title: Text("bonuses_compensations".tr),
+          titleTextStyle: const TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
             fontFamily: "Almiri",
             fontSize: 24,
           ),
-          iconTheme: IconThemeData(color: AppColor.white),
+          iconTheme: const IconThemeData(color: AppColor.white),
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-
         body: GetBuilder<bonusesandcompensationcontroller>(
           builder: (_) {
             return Column(
               children: [
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColor.white,
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(50),
@@ -56,23 +56,27 @@ class _AccounttypeState extends State<Accounttype> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
+
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
-                          content:
-                              "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
+                          content: "enter_data_correctly".tr,
                         ),
-                        SizedBox(height: 40),
+
+                        const SizedBox(height: 40),
+
                         CustemtextbodyMedium18(
-                          content: "إختر نوع الحساب".tr,
+                          content: "choose_account_type".tr,
                           color: AppColor.black,
                         ),
-                        SizedBox(height: 100),
+
+                        const SizedBox(height: 100),
+
                         Cardpersontype(
                           padding: 30,
                           marginb: 25,
                           index: 1,
-                          title: "شهري".tr,
+                          title: "monthly".tr,
                           selectedPerson: controller.typeAccount,
                           onTap: () {
                             controller.selectedtypeAccount(1);
@@ -83,22 +87,24 @@ class _AccounttypeState extends State<Accounttype> {
                           padding: 30,
                           index: 2,
                           marginb: 25,
-                          title: "سنوي".tr,
+                          title: "yearly".tr,
                           selectedPerson: controller.typeAccount,
                           onTap: () {
                             controller.selectedtypeAccount(2);
                           },
                         ),
+
                         const Spacer(),
+
                         Custemsuberbutton(
-                          content: "60".tr,
+                          content: "next".tr,
                           color: AppColor.typography,
                           onPressed: () {
                             controller.gotoPersonscondition();
                           },
                         ),
 
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),

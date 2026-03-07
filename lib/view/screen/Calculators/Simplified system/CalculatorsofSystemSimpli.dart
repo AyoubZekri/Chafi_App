@@ -24,7 +24,7 @@ class CalculatorsofSystemSimpli extends StatelessWidget {
               itemBuilder: (context, i) {
                 return CustomCalculatorCard(
                   onTap: calculatorsofSystemSimpli[i].ontap,
-                  title: calculatorsofSystemSimpli[i].body,
+                  title: calculatorsofSystemSimpli[i].body.tr,
                   image: calculatorsofSystemSimpli[i].imgae,
                   color1: Color(0xff34C759),
                   color2: Color(0xff19612B),

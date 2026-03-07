@@ -34,7 +34,7 @@ class _InstitutionfieldState extends State<Institutionfield> {
               itemBuilder: (context, i) {
                 return Custemcardrow(
                   onTap: institutionfild[i].ontap,
-                  body: institutionfild[i].body,
+                  body: institutionfild[i].body.tr,
                   imgae: institutionfild[i].imgae,
                   color1: institutionfild[i].color1,
                   color2: institutionfild[i].color2,

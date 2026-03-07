@@ -1,3 +1,4 @@
+import 'package:chafi/core/constant/extension.dart';
 import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/view/widget/Button/CustemSuberButton.dart'
     show Custemsuberbutton;
@@ -120,7 +121,7 @@ class TaxPrepaymentsPage extends StatelessWidget {
                                       ),
                                       SizedBox(height: 4),
                                       Text(
-                                        controller.surplusLeft.toString(),
+                                        controller.surplusLeft.toString().formatCustom(),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,

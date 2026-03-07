@@ -47,7 +47,9 @@ class Cardpersontype extends StatelessWidget {
             Expanded(
               child: FittedBox(
                 fit: BoxFit.scaleDown,
-                alignment: Alignment.centerRight,
+                alignment: Get.locale?.languageCode == "ar"
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 child: Text(
                   title,
                   style: context.textTheme.headlineLarge?.copyWith(

@@ -26,7 +26,7 @@ class _InputdataState extends State<Inputdata> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("إيداع الميزانية".tr),
+          title: Text("budget_deposit".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -62,19 +62,17 @@ class _InputdataState extends State<Inputdata> {
                               SizedBox(height: 20),
                               CustemtextbodyMedium18(
                                 color: AppColor.grey,
-                                content:
-                                    "يرجى إدخال قيمةالميزانية، مع تحديد تواريخ الإداع و الدفع ."
-                                        .tr,
+                                content: "please_enter_budget_value".tr,
                               ),
 
                               SizedBox(height: 40),
                               SectionHeader(
-                                title: "الميزانية".tr,
+                                title: "budget".tr,
                                 icon: Icons.analytics_outlined,
                               ),
                               const SizedBox(height: 16),
                               CustomInputField(
-                                label: "قيمة الميزانية".tr,
+                                label: "budget_value".tr,
                                 icon: Icons.payments_outlined,
                                 isCurrency: true,
                                 controller: controller.budgetdeposit,
@@ -83,12 +81,12 @@ class _InputdataState extends State<Inputdata> {
                               const SizedBox(height: 32),
 
                               SectionHeader(
-                                title: 'تواريخ الدفع والإيداع'.tr,
+                                title: "payment_and_deposit_dates".tr,
                                 icon: Icons.event_note_outlined,
                               ),
                               const SizedBox(height: 16),
                               CustomInputField(
-                                label: 'تاريخ الميزانية'.tr,
+                                label: "budget_date".tr,
                                 icon: Icons.event_available,
                                 placeholder: 'mm/dd/yyyy',
                                 isDate: true,
@@ -99,7 +97,7 @@ class _InputdataState extends State<Inputdata> {
                               const SizedBox(height: 16),
 
                               CustomInputField(
-                                label: 'تاريخ الايداع'.tr,
+                                label: "deposit_date".tr,
                                 icon: Icons.event_available,
                                 placeholder: 'mm/dd/yyyy',
                                 isDate: true,
@@ -109,7 +107,7 @@ class _InputdataState extends State<Inputdata> {
 
                               const SizedBox(height: 16),
                               CustomInputField(
-                                label: 'تاريخ الدفع'.tr,
+                                label: "payment_date".tr,
                                 icon: Icons.payments_outlined,
                                 placeholder: 'mm/dd/yyyy',
                                 isDate: true,
@@ -121,7 +119,7 @@ class _InputdataState extends State<Inputdata> {
 
                               // 6. زر الحفظ
                               Custemsuberbutton(
-                                content: "التالي".tr,
+                                content: "next".tr,
                                 color: AppColor.typography,
                                 onPressed: () {
                                   controller.calcul();

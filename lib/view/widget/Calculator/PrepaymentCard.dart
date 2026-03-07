@@ -1,3 +1,4 @@
+import 'package:chafi/core/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -78,7 +79,7 @@ class PrepaymentCard extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Text(
+                            Text(
                               "نسبة التسبيقة".tr,
                               style: TextStyle(
                                 fontSize: 10,
@@ -122,7 +123,7 @@ class PrepaymentCard extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                   Text(
+                                  Text(
                                     "قيمة التسبيقة".tr,
                                     style: TextStyle(
                                       fontSize: 14,
@@ -130,7 +131,7 @@ class PrepaymentCard extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    "${prepaymentValue.toStringAsFixed(2)}",
+                                    "${prepaymentValue.toInt().formatCustomint()}",
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,

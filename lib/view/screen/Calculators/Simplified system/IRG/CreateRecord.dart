@@ -75,6 +75,7 @@ class _CreaterecordState extends State<Createrecord> {
                           label: "أدخل التاريخ".tr,
                           errorText: controller.dataCreateErorr,
                           isDate: true,
+                          placeholder: 'mm/dd/yyyy',
                         ),
                         const Spacer(),
                         Custemsuberbutton(

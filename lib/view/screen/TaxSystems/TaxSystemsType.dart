@@ -28,7 +28,7 @@ class Taxsystemstype extends StatelessWidget {
               itemBuilder: (context, i) {
                 return Custemcardrow(
                   onTap: taxsystemstype[i].ontap,
-                  body: taxsystemstype[i].body,
+                  body: taxsystemstype[i].body.tr,
                   imgae: taxsystemstype[i].imgae,
                   color2: Color(0xFF7333BD),
                   color1: Color(0xff270C46),

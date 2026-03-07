@@ -24,7 +24,7 @@ class _ShowvaluoState extends State<Showvaluo> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("العلوات وتعويضات".tr),
+          title: Text("bonuses_compensations".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -57,15 +57,15 @@ class _ShowvaluoState extends State<Showvaluo> {
                         /// عنوان القسم
                         SectionHeader(
                           icon: Icons.gavel_outlined,
-                          title: "تفاصيل العلوات وتعويضات".tr,
+                          title: "bonus_details".tr,
                         ),
 
                         const SizedBox(height: 20),
 
                         PenaltyCard(
                           icon: Icons.account_balance_wallet_outlined,
-                          title: "الأجر القاعدي".tr,
-                          subtitle: "الأجر الأساسي".tr,
+                          title: "basic_wage".tr,
+                          subtitle: "base_salary".tr,
                           amount: controller.Basicwage.toInt()
                               .formatCustomint()
                               .toString(),
@@ -73,8 +73,8 @@ class _ShowvaluoState extends State<Showvaluo> {
                         const SizedBox(height: 12),
                         PenaltyCard(
                           icon: Icons.location_on_outlined,
-                          title: "علاوة المنطقة".tr,
-                          subtitle: "تعويض مرتبط بالمنطقة الجغرافية".tr,
+                          title: "zone_bonus".tr,
+                          subtitle: "zone_bonus_desc".tr,
                           amount: controller.zoon
                               .toInt()
                               .formatCustomint()
@@ -85,8 +85,8 @@ class _ShowvaluoState extends State<Showvaluo> {
 
                         PenaltyCard(
                           icon: Icons.percent_outlined,
-                          title: "الاشتراك".tr,
-                          subtitle: "الخاصة بالضمان الاجتماعي".tr,
+                          title: "social_security".tr,
+                          subtitle: "social_security_desc".tr,
                           amount: controller.person9
                               .toInt()
                               .formatCustomint()
@@ -98,8 +98,8 @@ class _ShowvaluoState extends State<Showvaluo> {
                         /// غرامة التأخير
                         PenaltyCard(
                           icon: Icons.payments_outlined,
-                          title: "الدخل الخاضع".tr,
-                          subtitle: "الخاضع للضريبة بعد الإضافات".tr,
+                          title: "taxable_income".tr,
+                          subtitle: "taxable_income_desc".tr,
                           amount: controller.grossincome
                               .toInt()
                               .formatCustomint()
@@ -110,8 +110,8 @@ class _ShowvaluoState extends State<Showvaluo> {
                         /// غرامة التأخير
                         PenaltyCard(
                           icon: Icons.trending_down_outlined,
-                          title: "التخفيض الأول".tr,
-                          subtitle: "تخفيض 40%".tr,
+                          title: "first_discount".tr,
+                          subtitle: "first_discount_desc".tr,
                           amount: controller.discount1
                               .toInt()
                               .formatCustomint()
@@ -122,10 +122,10 @@ class _ShowvaluoState extends State<Showvaluo> {
                         /// غرامة التأخير
                         PenaltyCard(
                           icon: Icons.volunteer_activism_outlined,
-                          title: "التخفيض الثاني".tr,
+                          title: "second_discount".tr,
                           subtitle: controller.personscondition == 6
-                              ? "دخل الضعيف".tr
-                              : "لذوي الاحتياجات والمتقاعدين".tr,
+                              ? "second_discount_desc_low_income".tr
+                              : "second_discount_desc_special".tr,
                           amount: controller.discount2
                               .toInt()
                               .formatCustomint()
@@ -139,7 +139,7 @@ class _ShowvaluoState extends State<Showvaluo> {
 
                         const SizedBox(height: 30),
                         Custemsuberbutton(
-                          content: "عرض قسيمة الراتب".tr,
+                          content: "show_salary_slip".tr,
                           color: AppColor.typography,
                           onPressed: () {
                             showDialog(
@@ -153,7 +153,7 @@ class _ShowvaluoState extends State<Showvaluo> {
 
                         /// زر إنهاء
                         Custemsuberbutton(
-                          content: "إنهاء".tr,
+                          content: "finish".tr,
                           color: AppColor.typography,
                           onPressed: () {
                             controller.resetAll();
@@ -178,7 +178,7 @@ class SalarySlipDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AppColor.acteve,
+      backgroundColor: AppColor.typography,
       insetPadding: const EdgeInsets.all(16),
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -189,7 +189,7 @@ class SalarySlipDialog extends StatelessWidget {
         ),
         child: Column(
           children: [
-            /// HEADER
+            // HEADER
             Container(
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
@@ -199,12 +199,12 @@ class SalarySlipDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    children: const [
-                      Icon(Icons.payments, color: AppColor.typography),
-                      SizedBox(width: 8),
+                    children: [
+                      Icon(Icons.payments, color: AppColor.brand),
+                      const SizedBox(width: 8),
                       Text(
-                        "Bulletin de Paie",
-                        style: TextStyle(
+                        "salary_slip".tr,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
@@ -222,11 +222,13 @@ class SalarySlipDialog extends StatelessWidget {
             GetBuilder<bonusesandcompensationcontroller>(
               builder: (Controller) {
                 List<DataRow> rows = [];
+
+                // Base Salary
                 rows.add(
                   DataRow(
                     cells: [
                       const DataCell(Text("1")),
-                      const DataCell(Text("الأجر القاعدي")),
+                      DataCell(Text("base_salary".tr)),
                       const DataCell(Text("")),
                       const DataCell(Text("")),
                       DataCell(
@@ -237,7 +239,9 @@ class SalarySlipDialog extends StatelessWidget {
                   ),
                 );
 
-                /// BONUSES
+                // Bonuses
+                int index = 2;
+
                 Controller.groupedData.forEach((cat, bonuses) {
                   for (var bonus in bonuses) {
                     if (Controller.selectedGroups[cat]?.contains(bonus.id) ??
@@ -248,24 +252,25 @@ class SalarySlipDialog extends StatelessWidget {
                       rows.add(
                         DataRow(
                           cells: [
-                            DataCell(Text((bonus.id + 1).toString())),
+                            DataCell(Text(index.toString())),
                             DataCell(Text(bonus.localizedName)),
                             const DataCell(Text("")),
                             const DataCell(Text("")),
                             DataCell(Text(controller!.text)),
-                            DataCell(Text("")),
+                            const DataCell(Text("")),
                           ],
                         ),
                       );
+
+                      index++; // يزيد مع كل صف
                     }
                   }
-                });
-
+                }); // Social Security
                 rows.add(
                   DataRow(
                     cells: [
-                      const DataCell(Text("1")),
-                      const DataCell(Text("الضمان الاجتماعي")),
+                      DataCell(Text("${Controller.groupedData.length + 1}")),
+                      DataCell(Text("social_security".tr)),
                       DataCell(
                         Text(
                           Controller.sumgroub1
@@ -288,11 +293,12 @@ class SalarySlipDialog extends StatelessWidget {
                   ),
                 );
 
+                // IRG
                 rows.add(
                   DataRow(
                     cells: [
-                      const DataCell(Text("1")),
-                      const DataCell(Text("I.R.G")),
+                      DataCell(Text("${Controller.groupedData.length + 2}")),
+                      DataCell(Text("irg".tr)),
                       DataCell(
                         Text(
                           Controller.grossincome
@@ -303,7 +309,7 @@ class SalarySlipDialog extends StatelessWidget {
                       ),
                       const DataCell(Text("")),
                       const DataCell(Text("")),
-                      DataCell(Text("")),
+                      const DataCell(Text("")),
                     ],
                   ),
                 );
@@ -317,21 +323,71 @@ class SalarySlipDialog extends StatelessWidget {
                           child: DataTable(
                             columnSpacing: 20,
                             headingRowColor: MaterialStatePropertyAll(
-                              AppColor.typography.withOpacity(0.1),
+                              AppColor.typography,
                             ),
+                            dataTextStyle: TextStyle(color: AppColor.brand),
+
                             border: TableBorder(
                               horizontalInside: BorderSide(
                                 color: AppColor.typography.withOpacity(0.2),
                                 width: 1,
                               ),
                             ),
-                            columns: const [
-                              DataColumn(label: Text("Code")),
-                              DataColumn(label: Text("Libellé")),
-                              DataColumn(label: Text("Nombre")),
-                              DataColumn(label: Text("Taux")),
-                              DataColumn(label: Text("Gain")),
-                              DataColumn(label: Text("Retenue")),
+                            columns: [
+                              DataColumn(
+                                label: Text(
+                                  "code".tr,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  "label".tr,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  "number".tr,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  "rate".tr,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  "gain".tr,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  "deduction".tr,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ],
                             rows: rows,
                           ),
@@ -340,27 +396,21 @@ class SalarySlipDialog extends StatelessWidget {
 
                       const SizedBox(height: 16),
 
-                      /// TOTALS
+                      // TOTALS
                       Row(
                         children: [
                           Expanded(
                             child: _totalCard(
-                              "Totaux Gains",
-                              Controller.total
-                                  .toInt()
-                                  .formatCustomint()
-                                  .toString(),
+                              "total_gains".tr,
+                              Controller.total.toInt().formatCustomint(),
                               false,
                             ),
                           ),
                           const SizedBox(width: 10),
                           Expanded(
                             child: _totalCard(
-                              "Totaux Retenues",
-                              Controller.person9
-                                  .toInt()
-                                  .formatCustomint()
-                                  .toString(),
+                              "total_deductions".tr,
+                              Controller.person9.toInt().formatCustomint(),
                               true,
                             ),
                           ),
@@ -369,25 +419,22 @@ class SalarySlipDialog extends StatelessWidget {
 
                       const SizedBox(height: 16),
 
-                      /// NET
+                      // NET
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: AppColor.typography.withOpacity(0.1),
+                          color: AppColor.brand.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: AppColor.typography,
-                            width: 2,
-                          ),
+                          border: Border.all(color: AppColor.brand, width: 2),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              "Net à Payer",
-                              style: TextStyle(
+                            Text(
+                              "net_to_pay".tr,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: AppColor.typography,
+                                color: AppColor.brand,
                               ),
                             ),
                             Text(
@@ -395,7 +442,7 @@ class SalarySlipDialog extends StatelessWidget {
                               style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: AppColor.typography,
+                                color: AppColor.brand,
                               ),
                             ),
                           ],

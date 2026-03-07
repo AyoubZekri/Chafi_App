@@ -29,7 +29,7 @@ class Regulatedinstitutiontypes extends StatelessWidget {
               itemBuilder: (context, i) {
                 return Custemcardrow(
                   onTap: regulatedInstitutionTypes[i].ontap,
-                  body: regulatedInstitutionTypes[i].body,
+                  body: regulatedInstitutionTypes[i].body.tr,
                   imgae: regulatedInstitutionTypes[i].imgae,
                   color1: Color(0xff3C581F),
                   color2: Color(0xff82BE42),

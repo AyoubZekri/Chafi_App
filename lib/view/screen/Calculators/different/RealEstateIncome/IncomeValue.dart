@@ -103,7 +103,7 @@ class _IncomevalueState extends State<Incomevalue> {
                         // ),
                         // const SizedBox(height: 16),
                         CustomInputField(
-                          label: "تاريخ الدفع".tr,
+                          label: "payment_date".tr,
                           icon: Icons.receipt_long_outlined,
                           placeholder: 'mm/dd/yyyy',
                           isDate: true,

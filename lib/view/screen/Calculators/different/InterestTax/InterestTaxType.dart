@@ -25,7 +25,7 @@ class _InteresttaxtypeState extends State<Interesttaxtype> {
       child: Scaffold(
         backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("ضريبة الفوائد".tr),
+          title: Text("Impôt sur les intérêts".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -36,7 +36,6 @@ class _InteresttaxtypeState extends State<Interesttaxtype> {
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-
         body: GetBuilder<Interesttaxcontroller>(
           builder: (controller) {
             return Column(
@@ -58,16 +57,15 @@ class _InteresttaxtypeState extends State<Interesttaxtype> {
                         SizedBox(height: 20),
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
-                          content:
-                              "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
+                          content: "Entrez les données avec précision pour obtenir un résultat correct".tr,
                         ),
                         SizedBox(height: 40),
                         CustemtextbodyMedium18(
                           content: controller.interesttaxtype == 1
-                              ? "إختر نوع التنازل".tr
+                              ? "Choisissez le type de remise".tr
                               : controller.interesttaxtype == 2
-                              ? "إختر نوع الدخل".tr
-                              : "إختر نوع الإيراد".tr,
+                                  ? "Choisissez le type de revenu".tr
+                                  : "Choisissez le type de bénéfice".tr,
                           color: AppColor.black,
                         ),
                         SizedBox(height: 100),
@@ -76,101 +74,77 @@ class _InteresttaxtypeState extends State<Interesttaxtype> {
                             padding: 30,
                             marginb: 25,
                             index: 1,
-                            title: "عقارات مبنية وغير مبنية".tr,
+                            title: "Biens immobiliers bâtis et non bâtis".tr,
                             selectedPerson: controller.interesttaxtype,
-                            onTap: () {
-                              controller.selectedInteresttaxtype(1);
-                            },
+                            onTap: () => controller.selectedInteresttaxtype(1),
                           ),
-
                           Cardpersontype(
                             padding: 30,
                             index: 2,
                             marginb: 25,
-                            title: "أوراق مالية للشخص طبيعي خارج نشاطه".tr,
+                            title: "Titres financiers pour personne physique hors activité".tr,
                             selectedPerson: controller.interesttaxtype,
-                            onTap: () {
-                              controller.selectedInteresttaxtype(2);
-                            },
+                            onTap: () => controller.selectedInteresttaxtype(2),
                           ),
                           Cardpersontype(
                             padding: 30,
                             marginb: 25,
                             index: 3,
-                            title: "إعادة إستثمار الفائض".tr,
+                            title: "Réinvestissement de l'excédent".tr,
                             selectedPerson: controller.interesttaxtype,
-                            onTap: () {
-                              controller.selectedInteresttaxtype(3);
-                            },
+                            onTap: () => controller.selectedInteresttaxtype(3),
                           ),
                         ],
-
                         if (controller.typeTax == 2) ...[
                           Cardpersontype(
                             padding: 30,
                             marginb: 25,
                             index: 1,
-                            title: "أسهم وحصص الشركةوالمداخيل المماثلة".tr,
+                            title: "Actions et parts de la société et revenus similaires".tr,
                             selectedPerson: controller.interesttaxtype,
-                            onTap: () {
-                              controller.selectedInteresttaxtype(1);
-                            },
+                            onTap: () => controller.selectedInteresttaxtype(1),
                           ),
-
                           Cardpersontype(
                             padding: 30,
                             index: 2,
                             marginb: 25,
-                            title: "السندات الغير إسمية-أشخاص طبيعيين".tr,
+                            title: "Obligations non nominatives - personnes physiques".tr,
                             selectedPerson: controller.interesttaxtype,
-                            onTap: () {
-                              controller.selectedInteresttaxtype(2);
-                            },
+                            onTap: () => controller.selectedInteresttaxtype(2),
                           ),
                           Cardpersontype(
                             padding: 30,
                             marginb: 25,
                             index: 3,
-                            title: "السندات الغير إسمية-أشخاص معنويين".tr,
+                            title: "Obligations non nominatives - personnes morales".tr,
                             selectedPerson: controller.interesttaxtype,
-                            onTap: () {
-                              controller.selectedInteresttaxtype(3);
-                            },
+                            onTap: () => controller.selectedInteresttaxtype(3),
                           ),
                         ],
-
                         if (controller.typeTax == 3) ...[
                           Cardpersontype(
                             padding: 30,
                             marginb: 25,
                             index: 1,
-                            title: "فوائد دفاتر الإدخار".tr,
+                            title: "Intérêts des livrets d'épargne".tr,
                             selectedPerson: controller.interesttaxtype,
-                            onTap: () {
-                              controller.selectedInteresttaxtype(1);
-                            },
+                            onTap: () => controller.selectedInteresttaxtype(1),
                           ),
-
                           Cardpersontype(
                             padding: 30,
                             index: 2,
                             marginb: 25,
-                            title: "فوائد فائضة".tr,
+                            title: "Intérêts excédentaires".tr,
                             selectedPerson: controller.interesttaxtype,
-                            onTap: () {
-                              controller.selectedInteresttaxtype(2);
-                            },
+                            onTap: () => controller.selectedInteresttaxtype(2),
                           ),
                         ],
                         const Spacer(),
                         Custemsuberbutton(
                           content: "60".tr,
                           color: AppColor.typography,
-                          onPressed: () {
-                            controller.gotoValuotax();
-                          },
+                          onPressed: () => controller.gotoValuotax(),
                         ),
-
                         SizedBox(height: 20),
                       ],
                     ),

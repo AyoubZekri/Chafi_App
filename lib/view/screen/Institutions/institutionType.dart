@@ -33,7 +33,7 @@ class _InstitutiontypeState extends State<Institutiontype> {
               itemBuilder: (context, i) {
                 return Custemcardrow(
                   onTap: institutionType[i].ontap,
-                  body: institutionType[i].body,
+                  body: institutionType[i].body.tr,
                   imgae: institutionType[i].imgae,
                   color1: institutionType[i].color1,
                   color2: institutionType[i].color2,

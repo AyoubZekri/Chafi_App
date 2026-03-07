@@ -15,8 +15,8 @@ bool get isLoggedIn => myServices.sharedPreferences?.getString("token") != null;
 void handleLoginRequired(void Function() onSuccess) {
   if (!isLoggedIn) {
     Get.defaultDialog(
-      title: "تنبيه".tr,
-      middleText: "يجب عليك تسجيل الدخول أولاً".tr,
+      title: "تنبيه",
+      middleText: "يجب عليك تسجيل الدخول أولاً",
       titleStyle: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 18,
@@ -24,9 +24,9 @@ void handleLoginRequired(void Function() onSuccess) {
       ),
       middleTextStyle: const TextStyle(fontSize: 14, color: Color(0xFF566573)),
       radius: 15,
-      textCancel: "إلغاء".tr,
+      textCancel: "إلغاء",
       cancelTextColor: AppColor.typography,
-      textConfirm: "تسجيل الدخول".tr,
+      textConfirm: "تسجيل الدخول",
       confirmTextColor: AppColor.white,
       buttonColor: AppColor.typography,
       onConfirm: () {
@@ -42,18 +42,18 @@ void handleLoginRequired(void Function() onSuccess) {
 
 List<AppOnbardingmodel> onBardinglist = [
   AppOnbardingmodel(
-    title: "4".tr,
-    body: "5".tr,
+    title: "4",
+    body: "5",
     image: Appimageassets.onBardinImageone,
   ),
   AppOnbardingmodel(
-    title: "6".tr,
-    body: "7".tr,
+    title: "6",
+    body: "7",
     image: Appimageassets.onBardinImagetwo,
   ),
   AppOnbardingmodel(
-    title: "8".tr,
-    body: "9".tr,
+    title: "8",
+    body: "9",
     image: Appimageassets.onBardinImagethree,
   ),
 ];
@@ -151,7 +151,7 @@ List<Institutiontypemodel> institutionfild = [
     ontap: () {
       Get.toNamed(Approutes.institutiontype);
     },
-    body: "31".tr,
+    body: "31",
     imgae: Appimageassets.oneCard,
     color1: Color(0xff164573),
     color2: Color(0xff473BF0),
@@ -161,7 +161,7 @@ List<Institutiontypemodel> institutionfild = [
     ontap: () {
       Get.toNamed(Approutes.regulatedinstitutiontypes);
     },
-    body: "32".tr,
+    body: "32",
     imgae: Appimageassets.towCard,
     color1: Color(0xff82BE42),
     color2: Color(0xff3C581F),
@@ -177,7 +177,7 @@ List<Institutiontypemodel> institutionType = [
         arguments: {"name": 33, "type": 1},
       );
     },
-    body: "33".tr,
+    body: "33",
     imgae: Appimageassets.threeCard,
     color1: Color.fromARGB(187, 22, 68, 115),
     color2: Color.fromARGB(187, 22, 68, 115),
@@ -190,7 +190,7 @@ List<Institutiontypemodel> institutionType = [
         arguments: {"name": 34, "type": 2},
       );
     },
-    body: "34".tr,
+    body: "34",
     imgae: Appimageassets.fourCard,
     color1: Color.fromARGB(235, 22, 68, 115),
     color2: Color.fromARGB(235, 22, 68, 115),
@@ -203,7 +203,7 @@ List<Institutiontypemodel> institutionType = [
         arguments: {"name": 35, "type": 3},
       );
     },
-    body: "35".tr,
+    body: "35",
     imgae: Appimageassets.fiveCard,
     color1: Color.fromARGB(235, 22, 68, 115),
     color2: Color.fromARGB(235, 22, 68, 115),
@@ -216,7 +216,7 @@ List<Institutiontypemodel> institutionType = [
         arguments: {"name": 36, "type": 4},
       );
     },
-    body: "36".tr,
+    body: "36",
     imgae: Appimageassets.sexCard,
     color1: Color(0xff164573),
     color2: Color(0xff164573),
@@ -232,7 +232,7 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
         arguments: {"name": 37, "type": 5},
       );
     },
-    body: "37".tr,
+    body: "37",
     imgae: Appimageassets.savenCard,
     color1: Color(0xff3C581F),
     color2: Color(0xff82BE42),
@@ -245,7 +245,7 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
         arguments: {"name": 38, "type": 6},
       );
     },
-    body: "38".tr,
+    body: "38",
     imgae: Appimageassets.eightCard,
     color1: Color(0xff3C581F),
     color2: Color(0xff82BE42),
@@ -258,7 +258,7 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
         arguments: {"name": 39, "type": 7},
       );
     },
-    body: "39".tr,
+    body: "39",
     imgae: Appimageassets.nineCard,
     color1: Color(0xff3C581F),
     color2: Color(0xff82BE42),
@@ -275,7 +275,7 @@ List<Institutiontypemodel> taxsystemstype = [
         arguments: {"name": 49, "tax_id": 0},
       );
     },
-    body: "49".tr,
+    body: "49",
     imgae: Appimageassets.elevenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -288,7 +288,7 @@ List<Institutiontypemodel> taxsystemstype = [
         arguments: {"name": 50, "tax_id": 1},
       );
     },
-    body: "50".tr,
+    body: "50",
     imgae: Appimageassets.twelveCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -301,7 +301,7 @@ List<Institutiontypemodel> taxsystemstype = [
         arguments: {"name": 48, "tax_id": 2},
       );
     },
-    body: "48".tr,
+    body: "48",
     imgae: Appimageassets.tenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -317,7 +317,7 @@ List<Institutiontypemodel> taxsystemstypeapp = [
         arguments: {"name": 29, "tax_id": 0},
       );
     },
-    body: "49".tr,
+    body: "49",
     imgae: Appimageassets.elevenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -330,7 +330,7 @@ List<Institutiontypemodel> taxsystemstypeapp = [
         arguments: {"name": 29, "tax_id": 1},
       );
     },
-    body: "50".tr,
+    body: "50",
     imgae: Appimageassets.twelveCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -343,7 +343,7 @@ List<Institutiontypemodel> taxsystemstypeapp = [
         arguments: {"name": 29, "tax_id": 2},
       );
     },
-    body: "48".tr,
+    body: "48",
     imgae: Appimageassets.tenCard,
     color1: Color(0xff4F46E5),
     color2: Color(0xff8B5CF6),
@@ -356,7 +356,7 @@ List<Institutiontypemodel> obligationstype = [
     ontap: () {
       Get.toNamed(Approutes.specialappointments, arguments: {"tax_id": 0});
     },
-    body: "49".tr,
+    body: "49",
     imgae: Appimageassets.elevenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -366,7 +366,7 @@ List<Institutiontypemodel> obligationstype = [
     ontap: () {
       Get.toNamed(Approutes.specialappointments, arguments: {"tax_id": 1});
     },
-    body: "50".tr,
+    body: "50",
     imgae: Appimageassets.twelveCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -376,7 +376,7 @@ List<Institutiontypemodel> obligationstype = [
     ontap: () {
       Get.toNamed(Approutes.specialappointments, arguments: {"tax_id": 2});
     },
-    body: "48".tr,
+    body: "48",
     imgae: Appimageassets.tenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -389,7 +389,7 @@ List<Institutiontypemodel> calculators = [
     ontap: () {
       Get.toNamed(Approutes.calculatorsofSystemSimpli);
     },
-    body: "49".tr,
+    body: "49",
     imgae: Appimageassets.elevenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -399,7 +399,7 @@ List<Institutiontypemodel> calculators = [
     ontap: () {
       Get.toNamed(Approutes.calculatorsarbitrarysystem);
     },
-    body: "50".tr,
+    body: "50",
     imgae: Appimageassets.twelveCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -412,7 +412,7 @@ List<Institutiontypemodel> calculators = [
         arguments: {"name": 48, "tax_id": 2},
       );
     },
-    body: "48".tr,
+    body: "48",
     imgae: Appimageassets.tenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -426,7 +426,7 @@ List<Institutiontypemodel> calculators = [
         arguments: {"name": 30, "tax_id": 2},
       );
     },
-    body: "30".tr,
+    body: "30",
     imgae: Appimageassets.tenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -436,9 +436,13 @@ List<Institutiontypemodel> calculators = [
 
 List<Institutiontypemodel> calculatorsofSystemSimpli = [
   Institutiontypemodel(
-    ontap: () =>
-        handleLoginRequired(() => Get.toNamed(Approutes.calactivityType)),
-    body: "حاسبة G12".tr,
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.calactivityType,
+        arguments: {'fromPage': "/calculatorsofSystemSimpli"},
+      ),
+    ),
+    body: "حاسبة G12",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -446,10 +450,14 @@ List<Institutiontypemodel> calculatorsofSystemSimpli = [
   ),
 
   Institutiontypemodel(
-    ontap: () =>
-        handleLoginRequired(() => Get.toNamed(Approutes.typeacteviteg12bes)),
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.typeacteviteg12bes,
+        arguments: {'fromPage': "/calculatorsofSystemSimpli"},
+      ),
+    ),
 
-    body: "حاسبة G12BES".tr,
+    body: "حاسبة G12BES",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -459,9 +467,14 @@ List<Institutiontypemodel> calculatorsofSystemSimpli = [
 
 List<Institutiontypemodel> calculatorsofSystemarbitrary = [
   Institutiontypemodel(
-    ontap: () => handleLoginRequired(() => Get.toNamed(Approutes.taxstamp)),
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.taxstamp,
+        arguments: {'fromPage': "/Calculatorsarbitrarysystem"},
+      ),
+    ),
 
-    body: "الطابع الجبائي".tr,
+    body: "الطابع الجبائي",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -471,10 +484,14 @@ List<Institutiontypemodel> calculatorsofSystemarbitrary = [
 
 List<Institutiontypemodel> calculatorsofSystemarreal = [
   Institutiontypemodel(
-    ontap: () =>
-        handleLoginRequired(() => Get.toNamed(Approutes.calPersontype)),
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.calPersontype,
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
+      ),
+    ),
 
-    body: "حاسبة النظام الحقيقي".tr,
+    body: "حاسبة النظام الحقيقي",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -482,9 +499,14 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
   ),
 
   Institutiontypemodel(
-    ontap: () => handleLoginRequired(() => Get.toNamed(Approutes.lossORprofit)),
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.lossORprofit,
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
+      ),
+    ),
 
-    body: "كشف التلخيص السنوي".tr,
+    body: "كشف التلخيص السنوي",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -493,9 +515,14 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
 
   Institutiontypemodel(
     ontap: () {
-      handleLoginRequired(() => Get.toNamed(Approutes.taxstamp));
+      handleLoginRequired(
+        () => Get.toNamed(
+          Approutes.taxstamp,
+          arguments: {'fromPage': "/Calculatorsrealsystem"},
+        ),
+      );
     },
-    body: "الطابع الجبائي".tr,
+    body: "الطابع الجبائي",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -512,7 +539,7 @@ List<Institutiontypemodel> calculatorsofDiffernt = [
       ),
     ),
 
-    body: "إيداع الميزانية".tr,
+    body: "budget_deposit",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -527,7 +554,7 @@ List<Institutiontypemodel> calculatorsofDiffernt = [
       ),
     ),
 
-    body: "الهداية",
+    body: "gifts",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -542,7 +569,7 @@ List<Institutiontypemodel> calculatorsofDiffernt = [
       ),
     ),
 
-    body: "الإشهار ورعاية",
+    body: "advertising_sponsorship",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -628,7 +655,7 @@ List<Institutiontypemodel> calculatorsofDiffernt = [
       ),
     ),
 
-    body: "العلوات وتعويضات",
+    body: "bonuses_compensation",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),

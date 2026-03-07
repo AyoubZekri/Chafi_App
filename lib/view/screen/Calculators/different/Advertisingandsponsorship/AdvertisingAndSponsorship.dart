@@ -18,6 +18,7 @@ class Advertisingandsponsorship extends StatefulWidget {
 
 class _AdvertisingandsponsorshipState extends State<Advertisingandsponsorship> {
   final controller = Get.put(Advertisingandsponsorshipcontroller());
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -27,14 +28,14 @@ class _AdvertisingandsponsorshipState extends State<Advertisingandsponsorship> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("الإشهار والرعاية".tr),
-          titleTextStyle: TextStyle(
+          title: Text("advertising_sponsorship".tr),
+          titleTextStyle: const TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
             fontFamily: "Almiri",
             fontSize: 24,
           ),
-          iconTheme: IconThemeData(color: AppColor.white),
+          iconTheme: const IconThemeData(color: AppColor.white),
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
@@ -55,23 +56,24 @@ class _AdvertisingandsponsorshipState extends State<Advertisingandsponsorship> {
                     child: ListView(
                       padding: const EdgeInsets.all(20),
                       children: [
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
 
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
-                          content:
-                              "أدخل رقم الأعمال ليتم حساب قيمة الخصم الضريبي المسموح به",
+                          content: "enter_business_number".tr,
                         ),
-                        SizedBox(height: 24),
+
+                        const SizedBox(height: 24),
 
                         SectionHeader(
                           icon: Icons.receipt_long_outlined,
-                          title: "رقم الأعمال",
+                          title: "business_number".tr,
                         ),
-                        SizedBox(height: 12),
+
+                        const SizedBox(height: 12),
 
                         CustomInputField(
-                          label: "رقم الأعمال",
+                          label: "business_number".tr,
                           icon: Icons.confirmation_num_outlined,
                           isCurrency: true,
                           controller: controller.Businessnumber,
@@ -80,26 +82,32 @@ class _AdvertisingandsponsorshipState extends State<Advertisingandsponsorship> {
                             controller.calcul();
                           },
                         ),
-                        SizedBox(height: 24),
+
+                        const SizedBox(height: 24),
 
                         PenaltyCard(
-                          title: "الحد الأقصى للخصم",
-                          subtitle: "للإعلانات والرعاية",
+                          title: "max_deduction".tr,
+                          subtitle: "ads_sponsorship".tr,
                           amount: "300,00",
                         ),
-                        SizedBox(height: 24),
+
+                        const SizedBox(height: 24),
+
                         TotalAmountCard(
                           total: controller.netTax.round(),
-                          title: "القيمة الخصم",
+                          title: "deduction_value".tr,
                         ),
-                        SizedBox(height: 50),
+
+                        const SizedBox(height: 50),
+
                         Custemsuberbutton(
-                          content: "إنهاء".tr,
+                          content: "finish".tr,
                           color: AppColor.typography,
                           onPressed: () {
                             controller.Back();
                           },
                         ),
+
                         const SizedBox(height: 20),
                       ],
                     ),

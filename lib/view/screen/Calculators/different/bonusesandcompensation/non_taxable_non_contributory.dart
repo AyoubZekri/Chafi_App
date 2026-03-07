@@ -29,7 +29,7 @@ class _NonTaxableNonContributoryState extends State<NonTaxableNonContributory> {
       child: Scaffold(
         backgroundColor: AppColor.typography,
         appBar: AppBar(
-          title: Text("العلوات وتعويضات".tr),
+          title: Text("bonuses_compensations".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -64,14 +64,11 @@ class _NonTaxableNonContributoryState extends State<NonTaxableNonContributory> {
                               SizedBox(height: 20),
                               CustemtextbodyMedium18(
                                 color: AppColor.grey,
-                                content:
-                                    "أدخل البيانات بدقة للحصول على نتيجة صحيحة"
-                                        .tr,
+                                content: "enter_data_correctly".tr,
                               ),
                               SizedBox(height: 40),
                               CustemtextbodyMedium18(
-                                content:
-                                    "إختر العلوات والتعويضات الغير خاضعة".tr,
+                                content: "choose_non_taxable".tr,
                                 color: AppColor.black,
                               ),
                               SizedBox(height: 70),
@@ -119,7 +116,7 @@ class _NonTaxableNonContributoryState extends State<NonTaxableNonContributory> {
                                 content: "60".tr,
                                 color: AppColor.typography,
                                 onPressed: () {
-                                   controller.gotoInboutvalou();
+                                  controller.gotoInboutvalou();
                                 },
                               ),
 
@@ -145,7 +142,6 @@ class _NonTaxableNonContributoryState extends State<NonTaxableNonContributory> {
             );
           },
         ),
-     
       ),
     );
   }

@@ -296,10 +296,10 @@ class _AppointmentCardState extends State<AppointmentCard>
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.all(0),
       decoration: BoxDecoration(
-        color: isPast ? Colors.grey.shade100 : Colors.blue.withOpacity(0.05),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isPast ? Colors.grey.shade400 : Colors.grey.shade200,
+          color: isPast ? Colors.grey.shade300 : Colors.grey.shade200,
           width: 1,
         ),
       ),

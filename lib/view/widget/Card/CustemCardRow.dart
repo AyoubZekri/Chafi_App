@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,6 @@ class Custemcardrow extends StatelessWidget {
   final Color color1;
   final Color color2;
   final double sizeText;
-
 
   final void Function()? onTap;
 
@@ -35,7 +35,9 @@ class Custemcardrow extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
-            colors: [color1, color2],
+            colors: Get.locale?.languageCode == "ar"
+                ? [color1, color2]
+                : [color2, color1],
           ),
           borderRadius: BorderRadius.circular(15),
         ),
@@ -81,24 +83,131 @@ class Custemcardrow extends StatelessWidget {
   }
 }
 
+// class CustomCalculatorCard extends StatelessWidget {
+//   final String title;
+//   final String image;
+//   final Color color1;
+//   final Color color2;
+//   final double sizeText;
+//   final VoidCallback? onTap;
 
+//   const CustomCalculatorCard({
+//     super.key,
+//     required this.title,
+//     required this.image,
+//     required this.color1,
+//     required this.color2,
+//     required this.sizeText,
+//     this.onTap,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         margin: const EdgeInsets.only(bottom: 20),
+//         decoration: BoxDecoration(borderRadius: BorderRadius.circular(22)),
+//         child: ClipRRect(
+//           borderRadius: BorderRadius.circular(22),
+//           child: Stack(
+//             children: [
+//               // Gradient Background
+//               Container(
+//                 height: 120,
+//                 decoration: BoxDecoration(
+//                   gradient: LinearGradient(
+//                     colors: [color1, color2],
+//                     begin: Alignment.topLeft,
+//                     end: Alignment.bottomRight,
+//                   ),
+//                 ),
+//               ),
+
+//               // Glass Overlay خفيف
+//               // Positioned.fill(
+//               //   child: BackdropFilter(
+//               //     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+//               //     child: Container(color: Colors.white.withOpacity(0.05)),
+//               //   ),
+//               // ),
+
+//               // Content
+//               Container(
+//                 height: 120,
+//                 padding: const EdgeInsets.symmetric(horizontal: 20),
+//                 child: Row(
+//                   children: [
+//                     // Image Circle
+//                     Container(
+//                       height: 70,
+//                       width: 70,
+//                       decoration: BoxDecoration(
+//                         shape: BoxShape.circle,
+//                         color: Colors.white.withOpacity(0.15),
+//                       ),
+//                       child: Padding(
+//                         padding: const EdgeInsets.all(12),
+//                         child: Image.asset(image, fit: BoxFit.contain),
+//                       ),
+//                     ),
+
+//                     const SizedBox(width: 20),
+
+//                     // Title
+//                     Expanded(
+//                       child: Text(
+//                         title,
+//                         style: context.textTheme.titleMedium?.copyWith(
+//                           fontSize: sizeText,
+//                           fontWeight: FontWeight.bold,
+//                           color: Colors.white,
+//                         ),
+//                         maxLines: 2,
+//                         overflow: TextOverflow.ellipsis,
+//                       ),
+//                     ),
+
+//                     // Arrow
+//                     Container(
+//                       padding: const EdgeInsets.all(10),
+//                       decoration: BoxDecoration(
+//                         shape: BoxShape.circle,
+//                         color: Colors.white.withOpacity(0.2),
+//                       ),
+//                       child: const Icon(
+//                         Icons.arrow_forward_ios,
+//                         size: 16,
+//                         color: Colors.white,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class CustomCalculatorCard extends StatelessWidget {
   final String title;
   final String image;
+  final VoidCallback? onTap;
   final Color color1;
   final Color color2;
   final double sizeText;
-  final VoidCallback? onTap;
 
   const CustomCalculatorCard({
     super.key,
     required this.title,
     required this.image,
+    this.onTap,
     required this.color1,
     required this.color2,
     required this.sizeText,
-    this.onTap,
   });
 
   @override
@@ -107,13 +216,21 @@ class CustomCalculatorCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
+        height: 120,
         decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: Get.locale?.languageCode == "ar"
+                ? [color1, color2]
+                : [color2, color1],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(22),
           boxShadow: [
             BoxShadow(
-              color: color1.withOpacity(0.35),
-              blurRadius: 25,
-              offset: const Offset(0, 15),
+              color: color1.withOpacity(0.1),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -121,79 +238,63 @@ class CustomCalculatorCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(22),
           child: Stack(
             children: [
-              // Gradient Background
-              Container(
-                height: 120,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [color1, color2],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-              ),
-
-              // Glass Overlay خفيف
-              Positioned.fill(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  child: Container(
-                    color: Colors.white.withOpacity(0.05),
-                  ),
-                ),
-              ),
-
+              // Glass overlay
+              // Positioned.fill(
+              //   child: BackdropFilter(
+              //     filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+              //     child: Container(color: Colors.white.withOpacity(0.05)),
+              //   ),
+              // ),
               // Content
-              Container(
-                height: 120,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    // Image Circle
+                    // Circle image
                     Container(
                       height: 70,
                       width: 70,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color:
-                            Colors.white.withOpacity(0.15),
-                      ),
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.all(12),
-                        child: Image.asset(
-                          image,
-                          fit: BoxFit.contain,
+                        color: Colors.white.withOpacity(0.15),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
                         ),
                       ),
+                      padding: const EdgeInsets.all(12),
+                      child: Image.asset(image, fit: BoxFit.contain),
                     ),
-
                     const SizedBox(width: 20),
-
-                    // Title
+                    // Title + subtitle
                     Expanded(
-                      child: Text(
-                        title,
-                        style: context.textTheme.titleMedium
-                            ?.copyWith(
-                          fontSize: sizeText,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AutoSizeText(
+                            title,
+                            style: context.textTheme.titleMedium?.copyWith(
+                              fontSize: sizeText,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            maxLines: 2,
+                            minFontSize: 14,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
                     ),
-
-                    // Arrow
+                    // Arrow icon
+                    SizedBox(width: 10),
                     Container(
-                      padding:
-                          const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color:
-                            Colors.white.withOpacity(0.2),
+                        color: Colors.white.withOpacity(0.1),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.1),
+                        ),
                       ),
                       child: const Icon(
                         Icons.arrow_forward_ios,

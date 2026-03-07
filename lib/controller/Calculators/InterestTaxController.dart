@@ -36,29 +36,29 @@ class Interesttaxcontroller extends GetxController {
 
   String text() {
     return typeTax == 1
-        ? "إختيار نوع التنازل".tr
+        ? "الرجاء إختيار نوع التنازل".tr
         : typeTax == 2
-        ? "إختيار نوع الدخل".tr
-        : "إختيار نوع الإيراد".tr;
+        ? "الرجاء إختيار نوع الدخل".tr
+        : "الرجاء إختيار نوع الإيراد".tr;
   }
 
   void gotoValuotax() {
     if (interesttaxtype == 0) {
-      return showSnackbar("خطأ".tr, "الرجاء ${text()}".tr, Colors.red);
+      return showSnackbar("خطأ".tr, text(), Colors.red);
     }
     Get.to(() => Valuotax());
   }
 
   void calcul() {
     fixedValueControllerError = validInput(
-      fixedValueController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+      fixedValueController.text.replaceAll(RegExp(r'[^0-9]'), '').replaceAll(RegExp(r'[^0-9]'), ''),
       20,
       3,
       "int",
     );
     value =
         double.tryParse(
-          fixedValueController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          fixedValueController.text.replaceAll(RegExp(r'[^0-9]'), '').replaceAll(RegExp(r'[^0-9]'), ''),
         ) ??
         0;
     if (fixedValueControllerError == null) {

@@ -113,14 +113,14 @@ class Simplifiedsystemcontroller extends GetxController {
   }
 
   void divideTaxToAdvance() {
-    taxLastyearErorr = validInput(TaxLastyear.text, 20, 3, "int".tr);
-    surplusErorr = validInput(surplus.text, 20, 3, "int".tr);
+    taxLastyearErorr = validInput(TaxLastyear.text.replaceAll(RegExp(r'[^0-9]'), ''), 20, 3, "int".tr);
+    surplusErorr = validInput(surplus.text.replaceAll(RegExp(r'[^0-9]'), ''), 20, 3, "int".tr);
     if (taxLastyearErorr != null || surplusErorr != null) {
       update();
       return;
     }
-    double? tax = double.tryParse(TaxLastyear.text);
-    double? remainingSurplus = double.tryParse(surplus.text);
+    double? tax = double.tryParse(TaxLastyear.text.replaceAll(RegExp(r'[^0-9]'), ''));
+    double? remainingSurplus = double.tryParse(surplus.text.replaceAll(RegExp(r'[^0-9]'), ''));
 
     if (tax == null || remainingSurplus == null) {
       Get.snackbar(
@@ -159,12 +159,12 @@ class Simplifiedsystemcontroller extends GetxController {
   }
 
   void divideTaxToCapital() {
-    capitalErorr = validInput(capital.text, 20, 3, "int".tr);
+    capitalErorr = validInput(capital.text.replaceAll(RegExp(r'[^0-9]'), '').replaceAll(RegExp(r'[^0-9]'), ''), 20, 3, "int".tr);
     if (capitalErorr != null) {
       update();
       return;
     }
-    double? taxValue = double.tryParse(capital.text);
+    double? taxValue = double.tryParse(capital.text.replaceAll(RegExp(r'[^0-9]'), ''));
 
     if (taxValue == null) {
       Get.snackbar(
@@ -231,42 +231,42 @@ class Simplifiedsystemcontroller extends GetxController {
     double tax = 0;
 
     // الشريحة 1 → 24 بنسبة 0%
-    if (value <= 240000) return 10000;
+    if (value <= 24000000) return 1000000;
 
     // الشريحة 2 → 24 بنسبة 23%
-    if (value >= 240001 && value >= 480000) {
-      tax += 240000 * 0.23;
+    if (value >= 24000001 && value >= 48000000) {
+      tax += 24000000 * 0.23;
       print("==============tax $tax");
     }
 
     // الشريحة 3 → 48 بنسبة 27%
-    if (value >= 4800001 && value >= 960000) {
-      tax += 480000 * 0.27;
+    if (value >= 480000001 && value >= 96000000) {
+      tax += 48000000 * 0.27;
       print("==============tax2 $tax");
     }
 
     // الشريحة 4 → 96 بنسبة 30%
-    if (value >= 960001 && value >= 1920000) {
-      tax += 960000 * 0.30;
+    if (value >= 96000001 && value >= 192000000) {
+      tax += 96000000 * 0.30;
       print("==============tax4 $tax");
     }
 
     // الشريحة 5 → 192 بنسبة 33%
-    if (value >= 1920001 && value >= 3840000) {
-      tax += 1920000 * 0.33;
+    if (value >= 192000001 && value >= 384000000) {
+      tax += 192000000 * 0.33;
       print("==============tax5 $tax");
     }
 
     // ما فوق 384 بنسبة 35%
-    if (value >= 3840001) {
-      value = value - 3840000;
+    if (value >= 384000001) {
+      value = value - 384000000;
       tax += value * 0.35;
       print("==============valu $value");
       print("==============tax $tax");
     }
 
-    if (tax < 10000) {
-      return 10000;
+    if (tax < 1000000) {
+      return 1000000;
     }
     return tax;
   }
@@ -299,22 +299,22 @@ class Simplifiedsystemcontroller extends GetxController {
 
     double percent2;
     if (monthsLate == 0) {
-      percent2 = 2500;
+      percent2 = 250000;
     } else if (monthsLate == 1) {
-      percent2 = 5000;
+      percent2 = 500000;
     } else if (monthsLate == 2) {
-      percent2 = 10000;
+      percent2 = 1000000;
     } else {
-      percent2 = 10000;
+      percent2 = 1000000;
     }
 
     return advance > 0 ? advance * percent : percent2;
   }
 
   void calculateTax() {
-    if (production.text.isEmpty &&
-        construction.text.isEmpty &&
-        otherActivity.text.isEmpty) {
+    if (production.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
+        construction.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
+        otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty) {
       return showSnackbar(
         "خطأ".tr,
         "لا يمكن ان تكون كل قيم النتيجة الجبائية فارغة".tr,
@@ -326,9 +326,9 @@ class Simplifiedsystemcontroller extends GetxController {
       update();
       return;
     }
-    productions = double.tryParse(production.text) ?? 0;
-    constructions = double.tryParse(construction.text) ?? 0;
-    other = double.tryParse(otherActivity.text) ?? 0;
+    productions = double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    constructions = double.tryParse(construction.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    other = double.tryParse(otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
 
     double taxProduction = productions * 0.19;
     double taxConstruction = constructions * 0.23;
@@ -389,7 +389,7 @@ class Simplifiedsystemcontroller extends GetxController {
       update();
       return;
     }
-    productions = double.tryParse(production.text) ?? 0;
+    productions = double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
     final dueDate1 = DateTime(DateTime.now().year, 3, 20);
     final dueDate2 = DateTime(DateTime.now().year, 6, 20);
     final dueDatefinal = DateTime(DateTime.now().year, 5, 1);
@@ -591,7 +591,7 @@ class Simplifiedsystemcontroller extends GetxController {
     ];
 
     for (var field in fields) {
-      String text = (field['controller'] as TextEditingController).text.trim();
+      String text = (field['controller'] as TextEditingController).text.replaceAll(RegExp(r'[^0-9]'), '').trim();
 
       if (text.isNotEmpty || personType == 1) {
         String? error = validInput(text, 20, 4, "int".tr);
