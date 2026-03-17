@@ -2,6 +2,10 @@ class  Appimageassets {
   static const rootimage = "assets/images";
   static const rootlotte = "assets/lotte";
 
+
+  static const String loading ="$rootlotte/loading.json";
+
+
   static const String alg ="$rootimage/ALG.png";
   static const String fr ="$rootimage/france.png";
   static const String calculators ="$rootimage/calculator.png";
@@ -12,7 +16,7 @@ class  Appimageassets {
 
 
   static const String onBardinImagethree ="$rootimage/onBardinImageoneThree.png";
-  static const String onBardinImagetwo ="$rootimage/onBardinImageTow.png";
+  static const String onBardinImagetwo ="$rootimage/onBardinImageTow.jpg";
   static const String onBardinImageone ="$rootimage/onBardinImageone.png";
 
 

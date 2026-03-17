@@ -42,18 +42,18 @@ void handleLoginRequired(void Function() onSuccess) {
 
 List<AppOnbardingmodel> onBardinglist = [
   AppOnbardingmodel(
-    title: "4",
-    body: "5",
+    title: "4".tr,
+    body: "5".tr,
     image: Appimageassets.onBardinImageone,
   ),
   AppOnbardingmodel(
-    title: "6",
-    body: "7",
+    title: "6".tr,
+    body: "7".tr,
     image: Appimageassets.onBardinImagetwo,
   ),
   AppOnbardingmodel(
-    title: "8",
-    body: "9",
+    title: "8".tr,
+    body: "9".tr,
     image: Appimageassets.onBardinImagethree,
   ),
 ];

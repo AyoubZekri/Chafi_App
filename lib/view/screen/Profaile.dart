@@ -17,10 +17,10 @@ class Profaile extends StatefulWidget {
 }
 
 class _ProfaileState extends State<Profaile> {
+  final controller = Get.put(ProfailecontrollerImp());
+
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfailecontrollerImp());
-
     return Scaffold(
       appBar: AppBar(title: Text("79".tr)),
       body: GetBuilder<ProfailecontrollerImp>(

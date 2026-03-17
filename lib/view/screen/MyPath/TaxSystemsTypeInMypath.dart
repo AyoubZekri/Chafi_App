@@ -17,7 +17,6 @@ class Taxsystemstypeinmypath extends StatefulWidget {
 class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
   @override
   Widget build(BuildContext context) {
-    Get.put(MypathcontrollerImp());
     return WillPopScope(
       onWillPop: () async {
         Get.find<MypathcontrollerImp>().backtoativitytype();

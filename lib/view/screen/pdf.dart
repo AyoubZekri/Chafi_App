@@ -18,15 +18,35 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
   PdfTextSearchResult _searchResult = PdfTextSearchResult();
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
+  int _currentPage = 1;
+  int _totalPages = 0;
 
   @override
   void initState() {
     super.initState();
+
     if (widget.initialPage != null && widget.initialPage! > 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _pdfController.jumpToPage(widget.initialPage!);
+        if (mounted) _pdfController.jumpToPage(widget.initialPage!);
       });
     }
+
+    // إضافة Listener لتحديث إجمالي الصفحات
+    _pdfController.addListener(() {
+      if (!mounted) return; // <--- مهم جداً لمنع الخطأ
+      if (_pdfController.pageCount != _totalPages &&
+          _pdfController.pageCount != 0) {
+        setState(() {
+          _totalPages = _pdfController.pageCount;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _pdfController.dispose(); // إزالة listener
+    super.dispose();
   }
 
   void _searchText() {
@@ -101,7 +121,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child:  Text("إلغاء".tr),
+              child: Text("إلغاء".tr),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -120,7 +140,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                   }
                   Navigator.of(context).pop();
                 },
-                child:  Text("اذهب".tr),
+                child: Text("اذهب".tr),
               ),
             ),
           ],
@@ -135,11 +155,11 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
       backgroundColor: AppColor.white,
       appBar: AppBar(
         title: !_isSearching
-            ?  Text('PDF Viewer'.tr)
+            ? Text('PDF Viewer'.tr)
             : TextField(
                 controller: _searchController,
                 autofocus: true,
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'ابحث داخل الملف...'.tr,
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.white54),
@@ -195,10 +215,37 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
           ),
         ],
       ),
-      body: SfPdfViewer.network(
-        widget.url,
-        controller: _pdfController,
-        enableTextSelection: true,
+      body: Stack(
+        children: [
+          SfPdfViewer.network(
+            widget.url,
+            controller: _pdfController,
+            enableTextSelection: true,
+            canShowScrollHead: false,
+            onPageChanged: (details) {
+              setState(() {
+                _currentPage = details.newPageNumber;
+              });
+            },
+          ),
+
+          // رقم الصفحة على الجانب
+          Positioned(
+            top: 50, // أعلى الشاشة مع مسافة
+            right: 10, // على اليمين
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              decoration: BoxDecoration(
+                color: Colors.black45,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                '$_currentPage',
+                style: const TextStyle(color: Colors.white, fontSize: 14),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

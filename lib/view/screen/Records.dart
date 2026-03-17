@@ -15,73 +15,89 @@ class Records extends StatefulWidget {
 }
 
 class _RecordsState extends State<Records> {
+  late RecordscontrollerImp controller;
+
+  @override
+  void initState() {
+    controller = Get.put(RecordscontrollerImp());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(RecordscontrollerImp());
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(title: Text("سجلاتي".tr)),
       body: Obx(() {
-        return Stack(
-          children: [
-            ListView(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-                  child: Text(
-                    "90".tr,
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      fontSize: 18,
-                      color: AppColor.grey,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                controller.data.isEmpty
-                    ? SizedBox(
-                        height: 550,
-                        child: Handlingview(
-                          statusrequest: controller.statusrequest.value,
-                          widget: SizedBox(),
-                        ),
-                      )
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: controller.data.length,
-                        itemBuilder: (context, i) {
-                          final item = controller.data[i];
-                          return BusinessCard(
-                            active: item.activityName == null
-                                ? item.activitSpecial == 1
-                                      ? "شركة مدنية".tr
-                                      : "شركة أخرى".tr
-                                : item.localizedActivityName,
-                            condition: 1,
-                            ontap: () {
-                              controller.gotoInfoRecord(item.id, item.taxId);
-                            },
-                            onTap: () {},
-                          );
-                        },
+        return RefreshIndicator(
+          color: AppColor.typography,
+          onRefresh: () async {
+            await controller.getData();
+          },
+          child: Stack(
+            children: [
+              ListView.builder(
+                itemCount: controller.data.isEmpty
+                    ? 1
+                    : controller.data.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        left: 15,
+                        right: 15,
+                        top: 10,
                       ),
+                      child: Text(
+                        "90".tr,
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          fontSize: 18,
+                          color: AppColor.grey,
+                        ),
+                      ),
+                    );
+                  }
 
-                SizedBox(height: 80),
-              ],
-            ),
-            Positioned(
-              left: 15,
-              right: 15,
-              bottom: 20,
-              child: Custemsuberbutton(
-                content: "91".tr,
-                color: AppColor.typography,
-                onPressed: () {
-                  controller.gotoMypath();
+                  if (controller.data.isEmpty) {
+                    return SizedBox(
+                      height: 500,
+                      child: Handlingview(
+                        statusrequest: controller.statusrequest.value,
+                        widget: const SizedBox(),
+                      ),
+                    );
+                  }
+
+                  final item = controller.data[index - 1];
+
+                  return BusinessCard(
+                    active: item.activityName == null
+                        ? item.activitSpecial == 1
+                              ? "شركة مدنية".tr
+                              : "شركة أخرى".tr
+                        : item.localizedActivityName,
+                    condition: 1,
+                    ontap: () {
+                      controller.gotoInfoRecord(item.id, item.taxId);
+                    },
+                    onTap: () {},
+                  );
                 },
               ),
-            ),
-          ],
+              Positioned(
+                left: 15,
+                right: 15,
+                bottom: 20,
+                child: Custemsuberbutton(
+                  content: "91".tr,
+                  color: AppColor.typography,
+                  onPressed: () {
+                    controller.gotoMypath();
+                  },
+                ),
+              ),
+            ],
+          ),
         );
       }),
     );

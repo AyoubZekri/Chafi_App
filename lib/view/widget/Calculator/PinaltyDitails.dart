@@ -242,8 +242,8 @@ class AmountText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           amount,
@@ -253,9 +253,10 @@ class AmountText extends StatelessWidget {
             color: color,
           ),
         ),
+        SizedBox(width: 5),
         Text(
           'DA'.tr,
-          style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
+          style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
         ),
       ],
     );
@@ -318,7 +319,7 @@ class PenaltyCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
@@ -353,20 +354,23 @@ class PenaltyCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 20),
-          Expanded(
-            child: Container(
-              alignment: Get.locale?.languageCode == "fr"
-                  ? Alignment.centerRight
-                  : Alignment.centerLeft,
-              child: FittedBox(
-                fit: BoxFit.scaleDown, // يصغر النص إذا لازم، بدون كسر السطر
-                alignment: Alignment.centerRight,
-                child: AmountText(
-                  amount: amount.formatCustom(),
-                  isSmall: false,
-                  color: AppColor.black,
-                ),
+          Container(
+            margin: EdgeInsets.only(bottom: 10, top: 10),
+            width: double.infinity,
+            height: 1,
+            color: AppColor.grey.withOpacity(0.2),
+          ),
+          Container(
+            alignment: Get.locale?.languageCode == "ar"
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
+            child: FittedBox(
+              fit: BoxFit.scaleDown, // يصغر النص إذا لازم، بدون كسر السطر
+              alignment: Alignment.centerRight,
+              child: AmountText(
+                amount: amount.formatCustom(),
+                isSmall: false,
+                color: AppColor.black,
               ),
             ),
           ),

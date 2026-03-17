@@ -100,7 +100,7 @@ class _PenaltyDetailsScreenState extends State<PenaltyDetailsScreen> {
 
                         TotalAmountCard(total: controller.total!.toInt()),
 
-                        SizedBox(height: controller.type == 3 ? 220 : 20),
+                        SizedBox(height: 30),
                         Custemsuberbutton(
                           content: "إنهاء".tr,
                           color: AppColor.typography,

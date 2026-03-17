@@ -149,7 +149,7 @@ class _ShowvaluoState extends State<Showvaluo> {
                             );
                           },
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 30),
 
                         /// زر إنهاء
                         Custemsuberbutton(

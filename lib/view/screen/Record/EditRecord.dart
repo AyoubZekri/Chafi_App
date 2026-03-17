@@ -15,9 +15,9 @@ class Editrecord extends StatefulWidget {
 }
 
 class _EditrecordState extends State<Editrecord> {
+  Editrecordcontroller controller = Get.put(Editrecordcontroller());
   @override
   Widget build(BuildContext context) {
-    Get.put(Editrecordcontroller());
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(

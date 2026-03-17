@@ -19,9 +19,8 @@ class HomecontrollerImp extends Homecontroller {
   Timer? _timer;
   File? image;
   Myservices myServices = Get.find();
-    bool get isLoggedIn =>
+  bool get isLoggedIn =>
       myServices.sharedPreferences?.getString("token") != null;
-
 
   Postdata postdata = Postdata(Get.find());
   Statusrequest statusrequest = Statusrequest.none;
@@ -69,6 +68,18 @@ class HomecontrollerImp extends Homecontroller {
     update();
   }
 
+  Future<void> addenter() async {
+    update();
+
+    var response = await postdata.adddata();
+
+    if (response["status"] == 1) {
+      print('==================enter+1');
+      statusrequest = Statusrequest.success;
+    }
+    update();
+  }
+
   @override
   void onInit() {
     var imagepath = myServices.sharedPreferences?.getString("image");
@@ -86,6 +97,7 @@ class HomecontrollerImp extends Homecontroller {
     }
 
     pageController = PageController();
+    addenter();
     loadPosts(type: 2, targetList: dataimg);
     loadPosts(type: 1, targetList: datapost);
 
@@ -113,7 +125,7 @@ class HomecontrollerImp extends Homecontroller {
 
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 5), (_) {
-      if (!pageController.hasClients) return; 
+      if (!pageController.hasClients) return;
       currenpage = (currenpage + 1) % dataimg.length;
 
       pageController.animateToPage(
@@ -137,5 +149,29 @@ class HomecontrollerImp extends Homecontroller {
 
   gotoditailsarticles(int id) {
     Get.toNamed(Approutes.ditailsarticles, arguments: {"id": id});
+  }
+
+  Future<void> getData() async {
+    var imagepath = myServices.sharedPreferences?.getString("image");
+    print("=============$imagepath");
+
+    if (imagepath != null && imagepath.isNotEmpty) {
+      final file = File(imagepath);
+      if (file.existsSync()) {
+        image = file;
+      } else {
+        image = null;
+      }
+    } else {
+      image = null;
+    }
+
+    pageController = PageController();
+    addenter();
+    loadPosts(type: 2, targetList: dataimg);
+    loadPosts(type: 1, targetList: datapost);
+
+    viwedata(type: 2, targetList: dataimg);
+    viwedata(type: 1, targetList: datapost);
   }
 }

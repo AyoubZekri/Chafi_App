@@ -299,4 +299,12 @@ class MypathcontrollerImp extends Mypathcontroller {
 
     update();
   }
+
+  Future<void> getData() async {
+    viewdataactivity();
+  }
+
+  Future<void> getData1() async {
+    viewnatureoftheactivity();
+  }
 }

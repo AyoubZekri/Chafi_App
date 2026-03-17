@@ -15,9 +15,10 @@ class Editprofaile extends StatefulWidget {
 }
 
 class _EditprofaileState extends State<Editprofaile> {
+  final controller = Get.put(EditprofailecontrollerImp());
+
   @override
   Widget build(BuildContext context) {
-    Get.put(EditprofailecontrollerImp());
     return Scaffold(
       appBar: AppBar(title: Text("تعديل الملف الشخصي".tr)),
       body: GetBuilder<EditprofailecontrollerImp>(

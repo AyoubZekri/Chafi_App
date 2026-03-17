@@ -20,6 +20,7 @@ imageuploadcamera() async {
 fileuploadGallery([isvg = true]) async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
+      compressionQuality: 80,
       allowedExtensions:
           isvg ? ["svg", "SVG"] : ["png", "PNG", "jpg", "JPG", "jpeg", "gif"]);
 

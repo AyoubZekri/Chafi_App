@@ -15,8 +15,7 @@ class Shwoditailsbudgetdeposit extends StatefulWidget {
       _ShwoditailsbudgetdepositState();
 }
 
-class _ShwoditailsbudgetdepositState
-    extends State<Shwoditailsbudgetdeposit> {
+class _ShwoditailsbudgetdepositState extends State<Shwoditailsbudgetdeposit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +85,7 @@ class _ShwoditailsbudgetdepositState
                         total: controller.netTax.toInt(),
                         title: "total_tax".tr,
                       ),
-                      const SizedBox(height: 90),
+                      const SizedBox(height: 30),
                       Custemsuberbutton(
                         content: "finish".tr,
                         color: AppColor.typography,

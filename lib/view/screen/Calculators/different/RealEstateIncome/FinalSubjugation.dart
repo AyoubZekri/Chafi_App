@@ -49,9 +49,8 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: ListView(
+                      padding: const EdgeInsets.all(20),
                       children: [
                         const SizedBox(height: 10),
 
@@ -121,7 +120,7 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                         /// المجموع الكلي
                         TotalAmountCard(total: controller.total.toInt()),
 
-                        const Spacer(),
+                        SizedBox(height: 30),
 
                         /// زر إنهاء
                         Custemsuberbutton(

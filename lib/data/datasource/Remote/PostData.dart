@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:chafi/core/services/Services.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import '../../../LinkApi.dart';
@@ -9,6 +11,9 @@ import '../../../core/functions/CheckInternat.dart';
 class Postdata {
   final Crud crud;
   final SQLDB db = SQLDB();
+  Myservices myservices = Get.find();
+  bool get isLoggedIn =>
+      myservices.sharedPreferences?.getString("token") != null;
 
   Postdata(this.crud);
   Future<List> getLocalPosts(Map data) async {
@@ -85,5 +90,12 @@ class Postdata {
       print("Error downloading image: $e");
     }
     return url;
+  }
+
+  adddata() async {
+    var response = isLoggedIn
+        ? await crud.getWithheaders(Applink.addUserEnter)
+        : await crud.getWithheaders(Applink.addGuestEnter);
+    return response.fold((l) => l, (r) => r);
   }
 }

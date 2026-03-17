@@ -93,7 +93,7 @@ class _Shwopenaltyg12besState extends State<Shwopenaltyg12bes> {
 
                         TotalAmountCard(total: controller.total.toInt()),
 
-                        SizedBox(height: 90),
+                        SizedBox(height: 30),
                         Custemsuberbutton(
                           content: "إنهاء".tr,
                           color: AppColor.typography,

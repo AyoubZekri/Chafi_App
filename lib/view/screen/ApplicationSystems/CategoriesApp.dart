@@ -14,41 +14,49 @@ class Categoriesapp extends StatefulWidget {
 }
 
 class _CategoriesappState extends State<Categoriesapp> {
+  final controller = Get.put(Categoriesappcontroller());
   @override
   Widget build(BuildContext context) {
-    Get.put(Categoriesappcontroller());
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(title: Text("29".tr)),
       body: GetBuilder<Categoriesappcontroller>(
         builder: (controller) {
-          return Handlingview(
-            statusrequest: controller.statusrequest,
-            widget: Container(
-              padding: EdgeInsets.all(15),
-              child: ListView(
-                children: [
-                  Text(
-                    "select_category_hint".tr,
-                    style: Get.textTheme.headlineSmall?.copyWith(fontSize: 18),
-                  ),
-                  SizedBox(height: 20),
-                  ListView.builder(
-                    itemCount: controller.data.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, i) {
-                      return Custemcardcat(
-                        onTap: () {
-                          controller.gotoInfo(controller.data[i].id);
-                        },
-                        body: controller.data[i].localizedName,
-                        color1: Color(0xff4F46E5),
-                        color2: Color(0xff8B5CF6),
-                        sizeText: 24,
-                      );
-                    },
-                  ),
-                ],
+          return RefreshIndicator(
+            color: AppColor.typography,
+            onRefresh: () async {
+              await controller.getData(); // دالة إعادة جلب البيانات
+            },
+            child: Handlingview(
+              statusrequest: controller.statusrequest,
+              widget: Container(
+                padding: EdgeInsets.all(15),
+                child: ListView(
+                  children: [
+                    Text(
+                      "select_category_hint".tr,
+                      style: Get.textTheme.headlineSmall?.copyWith(
+                        fontSize: 18,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    ListView.builder(
+                      itemCount: controller.data.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, i) {
+                        return Custemcardcat(
+                          onTap: () {
+                            controller.gotoInfo(controller.data[i].id);
+                          },
+                          body: controller.data[i].localizedName,
+                          color1: Color(0xff4F46E5),
+                          color2: Color(0xff8B5CF6),
+                          sizeText: 24,
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );

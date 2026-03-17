@@ -20,7 +20,7 @@ class _Shwopenaltyg12State extends State<Shwopenaltyg12> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-         Get.find<G12controller>().backFromPenaltyDetails();
+        Get.find<G12controller>().backFromPenaltyDetails();
         return true;
       },
       child: Scaffold(
@@ -91,12 +91,12 @@ class _Shwopenaltyg12State extends State<Shwopenaltyg12> {
 
                         TotalAmountCard(total: controller.total!.toInt()),
 
-                        SizedBox(height: 90),
+                        SizedBox(height: 30),
                         Custemsuberbutton(
                           content: "إنهاء".tr,
                           color: AppColor.typography,
                           onPressed: () {
-                             controller.resetAll();
+                            controller.resetAll();
                           },
                         ),
                         const SizedBox(height: 20),

@@ -17,18 +17,24 @@ class Institutionsinfo extends StatefulWidget {
 }
 
 class _InstitutionsinfoState extends State<Institutionsinfo> {
+  final controller = Get.put(InstitutioninfocontrollerImp());
+
   @override
   Widget build(BuildContext context) {
-    Get.put(InstitutioninfocontrollerImp());
     return GetBuilder<InstitutioninfocontrollerImp>(
       builder: (controller) {
         return Scaffold(
           backgroundColor: AppColor.white,
           appBar: AppBar(title: Text("${controller.nameappar}".tr)),
-          body: Handlingview(
-            statusrequest: controller.statusrequest,
-            widget: Container(
-              child: ListView.builder(
+          body: RefreshIndicator(
+            color: AppColor.typography,
+            onRefresh: () async {
+              await controller.getData(); // دالة إعادة جلب البيانات
+            },
+            child: Handlingview(
+              statusrequest: controller.statusrequest,
+              widget: ListView.builder(
+                physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: controller.data.length,
                 itemBuilder: (context, i) {
                   return Custemcardinfo(
@@ -46,10 +52,8 @@ class _InstitutionsinfoState extends State<Institutionsinfo> {
                     },
                     title: controller.data[i].localizedName,
                     body: controller.data[i].localizedBody,
-                    Calculator: controller.data[i].calcul != null
-                        ? true
-                        : false,
-                    Link: controller.data[i].lawId != null ? true : false,
+                    Calculator: controller.data[i].calcul != null,
+                    Link: controller.data[i].lawId != null,
                     onCalculator: () {
                       handleLoginRequired(
                         () => Get.toNamed(

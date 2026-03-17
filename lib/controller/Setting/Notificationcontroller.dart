@@ -63,6 +63,10 @@ class Notificationcontroller extends GetxController {
     update();
   }
 
+  Future<void> getData() async {
+    viewdata();
+  }
+
   @override
   void onInit() {
     viewdata();

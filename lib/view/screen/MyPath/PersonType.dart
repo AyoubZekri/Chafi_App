@@ -15,9 +15,10 @@ class Persontype extends StatefulWidget {
 }
 
 class _PersontypeState extends State<Persontype> {
+  final controller = Get.put(MypathcontrollerImp());
+
   @override
   Widget build(BuildContext context) {
-    Get.put(MypathcontrollerImp());
     return Scaffold(
       backgroundColor: AppColor.typography,
       appBar: AppBar(

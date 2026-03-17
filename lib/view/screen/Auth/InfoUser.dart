@@ -16,9 +16,10 @@ class Infouser extends StatefulWidget {
 }
 
 class _InfouserState extends State<Infouser> {
+  final controller = Get.put(InfousercontrollerImp());
+
   @override
   Widget build(BuildContext context) {
-    Get.put(InfousercontrollerImp());
     return GetBuilder<InfousercontrollerImp>(
       builder: (controller) {
         return Scaffold(

@@ -91,7 +91,7 @@ class _ResearchanddevelopmentState extends State<Researchanddevelopment> {
                           total: controller.netTax.round(),
                           title: "قيمة الخصم",
                         ),
-                        SizedBox(height: 50),
+                        SizedBox(height: 30),
                         Custemsuberbutton(
                           content: "إنهاء".tr,
                           color: AppColor.typography,

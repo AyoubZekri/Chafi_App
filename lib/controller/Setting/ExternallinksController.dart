@@ -24,18 +24,17 @@ class Externallinkscontroller extends GetxController {
 
     statusrequest = handlingData(response);
 
-      if (response.containsKey("data") && response["data"] is List) {
-        data.clear();
-        List listdata = response['data'];
-        data.addAll(listdata.map((e) => dataModel.fromJson(e)));
-        data = List.from(data);
-        if (data.isEmpty) {
-          statusrequest = Statusrequest.failure;
-        }
-      } else {
+    if (response.containsKey("data") && response["data"] is List) {
+      data.clear();
+      List listdata = response['data'];
+      data.addAll(listdata.map((e) => dataModel.fromJson(e)));
+      data = List.from(data);
+      if (data.isEmpty) {
         statusrequest = Statusrequest.failure;
       }
-   
+    } else {
+      statusrequest = Statusrequest.failure;
+    }
 
     update();
   }
@@ -51,5 +50,9 @@ class Externallinkscontroller extends GetxController {
   void onInit() {
     viewdata();
     super.onInit();
+  }
+
+  Future<void> getData() async {
+    viewdata();
   }
 }

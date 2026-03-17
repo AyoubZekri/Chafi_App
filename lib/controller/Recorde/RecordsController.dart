@@ -9,6 +9,7 @@ import '../../data/model/MypathModel.dart';
 
 abstract class Recordscontroller extends GetxController {
   void gotoInfoRecord(int id, int taxid) {}
+  void getData() {}
 }
 
 class RecordscontrollerImp extends Recordscontroller {
@@ -53,5 +54,9 @@ class RecordscontrollerImp extends Recordscontroller {
   void onInit() {
     viewdata();
     super.onInit();
+  }
+
+  Future<void> getData() async {
+    viewdata();
   }
 }

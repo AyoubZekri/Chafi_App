@@ -84,7 +84,7 @@ class _ShwototalguidanceState extends State<Shwototalguidance> {
                           total: controller.total.toInt(),
                           title: "deductible_total".tr,
                         ),
-                        const SizedBox(height: 90),
+                        const SizedBox(height: 30),
 
                         Custemsuberbutton(
                           content: "finish".tr,

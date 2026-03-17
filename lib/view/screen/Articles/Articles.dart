@@ -6,8 +6,6 @@ import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-
-import '../../../LinkApi.dart';
 import '../../widget/Articles/CustemCardArticles.dart';
 
 class Articles extends StatefulWidget {
@@ -18,9 +16,10 @@ class Articles extends StatefulWidget {
 }
 
 class _ArticlesState extends State<Articles> {
+  final controller = Get.put(ArticlescontrollerImp());
+
   @override
   Widget build(BuildContext context) {
-    Get.put(ArticlescontrollerImp());
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(title: Text("40".tr)),
@@ -34,7 +33,7 @@ class _ArticlesState extends State<Articles> {
                 itemBuilder: (context, index) {
                   final item = controller.datapost[index];
                   return Custemcardarticles(
-                    imgae:  File(item.image!),
+                    imgae: File(item.image!),
                     body: item.localizedTitle,
                     isStatus: item.isExclusive(),
                     onTap: () {

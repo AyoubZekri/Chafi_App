@@ -17,7 +17,6 @@ class Moralactivities extends StatefulWidget {
 class _MoralactivitiesState extends State<Moralactivities> {
   @override
   Widget build(BuildContext context) {
-    Get.put(MypathcontrollerImp());
     return WillPopScope(
       onWillPop: () async {
         Get.find<MypathcontrollerImp>().backtoPersonType2();

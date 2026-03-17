@@ -110,7 +110,7 @@ class _ShwovalueState extends State<Shwovalue> {
                           /// =====================
                           TotalAmountCard(total: controller.total.toInt()),
 
-                          const SizedBox(height: 40),
+                          const SizedBox(height: 30),
 
                           Custemsuberbutton(
                             content: "إنهاء".tr,

@@ -98,7 +98,7 @@ class _ShwovalueState extends State<Shwovalue> {
                             // subtitle: "المبلغ بعد احتساب التنازل".tr,
                             total: controller.total.toInt(),
                           ),
-                          const SizedBox(height: 150),
+                          const SizedBox(height: 30),
 
                           Custemsuberbutton(
                             content: "إنهاء".tr,

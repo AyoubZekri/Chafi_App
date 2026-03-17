@@ -51,4 +51,8 @@ class AppointmentscommitmentscontrollerImp extends GetxController {
     viewdata();
     super.onInit();
   }
+
+  Future<void> getData() async {
+    viewdata();
+  }
 }

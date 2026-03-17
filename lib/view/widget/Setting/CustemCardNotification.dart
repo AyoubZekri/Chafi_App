@@ -54,12 +54,7 @@ class Custemcardnotification extends StatelessWidget {
                         color: color2,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Center(
-                        child: Icon(
-                          Icons.warning_amber_rounded,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: Center(child: Icon(icon, color: Colors.white)),
                     ),
                     SizedBox(width: 15),
                     Column(
@@ -84,7 +79,7 @@ class Custemcardnotification extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: ontap2,
-                  child: Icon(icon, color: Colors.grey, size: 30),
+                  child: Icon(Icons.close, color: Colors.grey, size: 30),
                 ),
               ],
             ),

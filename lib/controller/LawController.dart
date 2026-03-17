@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 
 import '../core/class/Statusrequest.dart';
@@ -13,7 +12,6 @@ class Lawcontroller extends GetxController {
   Statusrequest statusrequest = Statusrequest.none;
 
   List<LawModel> data = [];
-
 
   Future<void> viewdata() async {
     statusrequest = Statusrequest.loadeng;
@@ -41,9 +39,13 @@ class Lawcontroller extends GetxController {
     update();
   }
 
-    @override
+  @override
   void onInit() {
     viewdata();
     super.onInit();
+  }
+
+  Future<void> getData() async {
+    viewdata();
   }
 }

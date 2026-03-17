@@ -25,29 +25,35 @@ class _LawState extends State<Law> {
       appBar: AppBar(title: Text("78".tr)),
       body: GetBuilder<Lawcontroller>(
         builder: (controller) {
-          return Handlingview(
-            statusrequest: controller.statusrequest,
-            widget: ListView.builder(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              padding: const EdgeInsets.only(top: 20),
-              itemCount: controller.data.length,
-              itemBuilder: (context, i) {
-                final item = controller.data[i];
-                return Custoumbuttoncard(
-                  title: item.localizedName,
-                  description:
-                      'خرج في ${item.updatedAt.toString().substring(0, 4)}',
-                  onTap: () {
-                    Get.to(
-                      () => PdfSearchPage(
-                        url: "${Applink.image}${item.pdf}",
-                        initialPage: 1,
-                      ),
-                    );
-                  },
-                );
-              },
+          return RefreshIndicator(
+            color: AppColor.typography,
+            onRefresh: () async {
+              await controller.getData(); // دالة إعادة جلب البيانات
+            },
+            child: Handlingview(
+              statusrequest: controller.statusrequest,
+              widget: ListView.builder(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                padding: const EdgeInsets.only(top: 20),
+                itemCount: controller.data.length,
+                itemBuilder: (context, i) {
+                  final item = controller.data[i];
+                  return Custoumbuttoncard(
+                    title: item.localizedName,
+                    description:
+                        'خرج في ${item.updatedAt.toString().substring(0, 4)}',
+                    onTap: () {
+                      Get.to(
+                        () => PdfSearchPage(
+                          url: "${Applink.image}${item.pdf}",
+                          initialPage: 1,
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           );
         },

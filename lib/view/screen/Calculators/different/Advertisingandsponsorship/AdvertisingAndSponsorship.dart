@@ -98,7 +98,7 @@ class _AdvertisingandsponsorshipState extends State<Advertisingandsponsorship> {
                           title: "deduction_value".tr,
                         ),
 
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 30),
 
                         Custemsuberbutton(
                           content: "finish".tr,

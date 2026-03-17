@@ -16,10 +16,9 @@ class Inforecord extends StatefulWidget {
 }
 
 class _InforecordState extends State<Inforecord> {
+  final controller = Get.put(InforecordcontrollerImp());
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(InforecordcontrollerImp());
-
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(title: Text("تفاصيل السجل".tr)),
@@ -155,15 +154,18 @@ class _InforecordState extends State<Inforecord> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: controller.appointments.length,
                             itemBuilder: (context, i) {
-                              final appt = controller.appointments[i];
-                              return AppointmentCard(
-                                title: appt.declaration,
-                                date: appt.deadline,
-                                dec: appt.declaration,
-                                status: DateTime.parse(
-                                  appt.deadline,
-                                ).isBefore(DateTime.now()),
-                              );
+                              if (i < 3) {
+                                final appt = controller.appointments[i];
+                                return AppointmentCard(
+                                  title: appt.declaration,
+                                  date: appt.deadline,
+                                  dec: appt.declaration,
+                                  status: DateTime.parse(
+                                    appt.deadline,
+                                  ).isBefore(DateTime.now()),
+                                );
+                              }
+                              return null;
                             },
                           ),
                       ],
@@ -342,7 +344,7 @@ class _AppointmentCardState extends State<AppointmentCard>
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              "الموعد النهائي: ${widget.date}",
+                              "${"الموعد النهائي".tr} : ${widget.date}",
                               style: TextStyle(
                                 fontSize: 12,
                                 color: isPast

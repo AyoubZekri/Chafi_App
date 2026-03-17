@@ -180,4 +180,12 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
         : viewdata();
     super.onInit();
   }
+
+  Future<void> getData() async {
+    (type == 8 || type == 9)
+        ? viewdataTax()
+        : type == 10
+        ? viewdataDifferent()
+        : viewdata();
+  }
 }

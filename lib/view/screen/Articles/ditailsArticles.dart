@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:chafi/LinkApi.dart';
 import 'package:chafi/controller/Articles/Ditailsarticlescontroller.dart';
 import 'package:chafi/core/class/handlingview.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +16,10 @@ class Ditailsarticles extends StatefulWidget {
 }
 
 class _DitailsarticlesState extends State<Ditailsarticles> {
+  final controller = Get.put(DitailsArticlesController());
+
   @override
   Widget build(BuildContext context) {
-    Get.put(DitailsArticlesController());
     return Scaffold(
       backgroundColor: AppColor.white,
       body: GetBuilder<DitailsArticlesController>(
@@ -64,9 +64,7 @@ class _DitailsarticlesState extends State<Ditailsarticles> {
                             bottomRight: Radius.circular(20),
                           ),
                           image: DecorationImage(
-                            image: FileImage(
-                               File(item.image!),
-                            ),
+                            image: FileImage(File(item.image!)),
                             fit: BoxFit.fill,
                           ),
                         ),

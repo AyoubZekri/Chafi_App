@@ -297,7 +297,7 @@ class MyTranslation extends Translations {
       "تسبيقة ضريبية 3": "تسبيقة ضريبية 3",
 
       "دينار الجزائري": "دينار الجزائري",
-      "DA": "DA",
+      "DA": "دج",
       "DZD": "DZD",
 
       "ضريبة  G12": "ضريبة  G12",
@@ -589,6 +589,9 @@ class MyTranslation extends Translations {
       "تاريخ التنازل مطلوب": "تاريخ التنازل مطلوب",
       "Must be an integer": "يجب أن يكون عددًا صحيحًا",
       "Must be a decimal number": "يجب أن يكون رقمًا عشريًا",
+      'الموعد النهائي': 'الموعد النهائي',
+      'No Internet Connection': 'لا يوجد اتصال بالإنترنت',
+      'لا توجد بيانات لعرضها': 'لا توجد بيانات لعرضها',
     },
 
     ///////////////////////////////////////
@@ -1255,6 +1258,9 @@ class MyTranslation extends Translations {
       "تاريخ التنازل مطلوب": "La date de renonciation est requise",
       "Must be an integer": "Must be an integer",
       "Must be a decimal number": "Must be a decimal number",
+      'الموعد النهائي': 'Date limite',
+      'No Internet Connection': 'Pas de connexion Internet',
+      'لا توجد بيانات لعرضها': "Aucune donnée à afficher",
     },
   };
 }

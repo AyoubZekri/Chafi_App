@@ -14,32 +14,36 @@ class Specialappointments extends StatefulWidget {
 }
 
 class _SpecialappointmentsState extends State<Specialappointments> {
+  final controller = Get.put(AppointmentscommitmentscontrollerImp());
   @override
   Widget build(BuildContext context) {
-    AppointmentscommitmentscontrollerImp controller = Get.put(
-      AppointmentscommitmentscontrollerImp(),
-    );
     return Scaffold(
       backgroundColor: AppColor.white,
       appBar: AppBar(title: Text("المواعيد والإلتزمات".tr)),
       body: GetBuilder<AppointmentscommitmentscontrollerImp>(
         builder: (_) {
-          return Handlingview(
-            statusrequest: controller.statusrequest,
-            widget: Container(
-              child: ListView.builder(
-                itemCount: controller.data.length,
-                itemBuilder: (context, i) {
-                  return DeadlineAlertCard(
-                    title: controller.data[i].declaration,
-                    dateText: controller.data[i].deadline,
-                    subtitleLabel: "التبعات المترتبة",
-                    subtitleValue: controller.data[i].dependencies,
-                    isOverdue: DateTime.parse(
-                      controller.data[i].deadline,
-                    ).isBefore(DateTime.now()),
-                  );
-                },
+          return RefreshIndicator(
+            color: AppColor.typography,
+            onRefresh: () async {
+              await controller.getData(); // دالة إعادة جلب البيانات
+            },
+            child: Handlingview(
+              statusrequest: controller.statusrequest,
+              widget: Container(
+                child: ListView.builder(
+                  itemCount: controller.data.length,
+                  itemBuilder: (context, i) {
+                    return DeadlineAlertCard(
+                      title: controller.data[i].declaration,
+                      dateText: controller.data[i].deadline,
+                      subtitleLabel: "التبعات المترتبة",
+                      subtitleValue: controller.data[i].dependencies,
+                      isOverdue: DateTime.parse(
+                        controller.data[i].deadline,
+                      ).isBefore(DateTime.now()),
+                    );
+                  },
+                ),
               ),
             ),
           );

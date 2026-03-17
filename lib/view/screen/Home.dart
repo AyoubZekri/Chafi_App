@@ -19,6 +19,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final HomecontrollerImp controller;
+  final ScrollController _scrollController = ScrollController();
+  bool showMoreArrow = false;
 
   @override
   void initState() {
@@ -79,24 +81,110 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(bottom: 20, right: 20),
+                padding: EdgeInsets.only(
+                  bottom: 20,
+                  right: Get.locale?.languageCode == "ar" ? 20 : 20,
+                ),
                 height: 280,
-                child: controller.datapost.isEmpty
-                    ? const _EmptyAnimatedSlider()
-                    : ListView.builder(
+                child: Stack(
+                  children: [
+                    NotificationListener<ScrollNotification>(
+                      onNotification: (scrollNotification) {
+                        if (controller.datapost.length > 3) {
+                          // الحالة الأولى: أكبر من 3 عناصر
+                          if (scrollNotification.metrics.pixels > 200 &&
+                              !showMoreArrow) {
+                            setState(() {
+                              showMoreArrow = true;
+                            });
+                          } else if (scrollNotification.metrics.pixels <= 200 &&
+                              showMoreArrow) {
+                            setState(() {
+                              showMoreArrow = false;
+                            });
+                          }
+                        } else {
+                          // الحالة الثانية: أقل أو يساوي 3 عناصر
+                          final maxScroll =
+                              scrollNotification.metrics.maxScrollExtent;
+                          final current = scrollNotification.metrics.pixels;
+                          if (current >= maxScroll - 50 && !showMoreArrow) {
+                            setState(() {
+                              showMoreArrow = true;
+                            });
+                          } else if (current < maxScroll - 50 &&
+                              showMoreArrow) {
+                            setState(() {
+                              showMoreArrow = false;
+                            });
+                          }
+                        }
+                        return false;
+                      },
+                      child: ListView.builder(
+                        controller: _scrollController,
                         scrollDirection: Axis.horizontal,
-                        itemCount: controller.datapost.length,
+                        itemCount: controller.datapost.length > 3
+                            ? 4
+                            : controller.datapost.length + 1,
                         itemBuilder: (context, index) {
-                          final item = controller.datapost[index];
-                          return Custemcardhome(
-                            image: File(item.image!),
-                            content: item.localizedTitle,
-                            onTap: () {
-                              controller.gotoditailsarticles(item.id);
-                            },
-                          );
+                          if (controller.datapost.length > 3) {
+                            // حالة أكثر من 3 عناصر
+                            if (index < 3) {
+                              final item = controller.datapost[index];
+                              return Custemcardhome(
+                                image: File(item.image!),
+                                content: item.localizedTitle,
+                                onTap: () {
+                                  controller.gotoditailsarticles(item.id);
+                                },
+                              );
+                            } else {
+                              return const SizedBox(width: 70); // مساحة للسهم
+                            }
+                          } else {
+                            if (index < controller.datapost.length) {
+                              final item = controller.datapost[index];
+                              return Custemcardhome(
+                                image: File(item.image!),
+                                content: item.localizedTitle,
+                                onTap: () {
+                                  controller.gotoditailsarticles(item.id);
+                                },
+                              );
+                            } else {
+                              return const SizedBox(width: 70); // مساحة للسهم
+                            }
+                          }
                         },
                       ),
+                    ),
+                    // السهم "المزيد"
+                    Positioned(
+                      left: Get.locale?.languageCode == "ar" ? 10 : null,
+                      right: Get.locale?.languageCode == "fr" ? 0 : null,
+                      top: 100,
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 300),
+                        opacity: showMoreArrow ? 1.0 : 0.0,
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.gotoArticles();
+                          },
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.arrow_forward, size: 30),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           );

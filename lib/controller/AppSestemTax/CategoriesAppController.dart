@@ -49,7 +49,7 @@ class Categoriesappcontroller extends GetxController {
   gotoInfo(int id) {
     Get.toNamed(
       Approutes.institutionsinfo,
-      arguments: {"name": nameappar, "type": 9,"cat_id":id},
+      arguments: {"name": nameappar, "type": 9, "cat_id": id},
     );
   }
 
@@ -60,5 +60,9 @@ class Categoriesappcontroller extends GetxController {
     taxid = args["tax_id"];
     viewdata();
     super.onInit();
+  }
+
+  Future<void> getData() async {
+    viewdata();
   }
 }

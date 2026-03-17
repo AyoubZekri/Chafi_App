@@ -1,6 +1,7 @@
 class Applink {
-  static const String server = "http://192.168.164.133:8000/api";
-  static const String image = "http://192.168.164.133:8000/Storage/";
+
+  static const String server = "http://192.168.116.133:8000/api";
+  static const String image = "http://192.168.116.133:8000/Storage/";
 
   //  =============================Auth============================== //
 
@@ -44,6 +45,9 @@ class Applink {
   static const String institutionadd = "$server/institution/add";
 
   static const String nataireActivitysadd = "$server/NataireActivitys/add";
+  static const String addUserEnter = "$server/addUserEnter";
+  static const String addGuestEnter = "$server/addGuestEnter";
+
 
   static const String activitysadd = "$server/Activitys/add";
 

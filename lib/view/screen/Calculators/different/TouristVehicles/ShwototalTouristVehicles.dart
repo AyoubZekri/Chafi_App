@@ -99,7 +99,7 @@ class _ShwototaltouristvehiclesState extends State<Shwototaltouristvehicles> {
                           total: controller.total.toInt(),
                           title: "مجموع القابل للخصم".tr,
                         ),
-                        SizedBox(height: 90),
+                        SizedBox(height: 30),
                         Custemsuberbutton(
                           content: "إنهاء".tr,
                           color: AppColor.typography,
