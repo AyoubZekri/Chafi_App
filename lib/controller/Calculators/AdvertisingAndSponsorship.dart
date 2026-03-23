@@ -17,7 +17,10 @@ class Advertisingandsponsorshipcontroller extends GetxController {
       "int",
     );
     tasStamp =
-        double.tryParse(Businessnumber.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+        double.tryParse(
+          Businessnumber.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        0;
     if (BusinessnumberErorr != null) {
       netTax = 0; // هنا توقف الحساب
       tasStamp = 0;

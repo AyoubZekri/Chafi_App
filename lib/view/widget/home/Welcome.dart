@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../../core/constant/Colorapp.dart';
 import '../../../core/constant/Imageassets.dart';
 
 class Welcome extends StatelessWidget {
@@ -64,6 +65,33 @@ class Welcome extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
+                if (!controller.isLoggedIn) {
+                  Get.defaultDialog(
+                    title: "تنبيه".tr,
+                    middleText: "يجب عليك تسجيل الدخول أولاً".tr,
+                    titleStyle: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: AppColor.typography,
+                    ),
+                    middleTextStyle: const TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF566573),
+                    ),
+                    radius: 15,
+                    textCancel: "إلغاء".tr,
+                    cancelTextColor: AppColor.typography,
+                    textConfirm: "تسجيل الدخول".tr,
+                    confirmTextColor: AppColor.white,
+                    buttonColor: AppColor.typography,
+                    onConfirm: () {
+                      Get.back();
+                      Get.find<HomecontrollerImp>().onClose();
+                      Get.toNamed(Approutes.googleSignIn);
+                    },
+                  );
+                  return;
+                }
                 Get.toNamed(Approutes.notification);
               },
               child: Icon(

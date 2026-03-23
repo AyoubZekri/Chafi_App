@@ -44,7 +44,7 @@ class MyTranslation extends Translations {
       "34": "مؤسسة صغيرة",
       "35": "مؤسسة متوسطة",
       "36": "مؤسسة كبيرة",
-
+      "200": "مؤسسة كبيرة جدا",
       "37": "مشروع مبتكر",
       "38": "مؤسسة ناشئة",
       "39": "حاضنة أعمال",
@@ -80,7 +80,7 @@ class MyTranslation extends Translations {
       "60": "التالي",
       "61": "اختر نشاط مؤسستك لتحديد نظامك الجبائي",
       "62": "رجوع",
-      "63": "إختر الشكل القانوني لمؤسستك3",
+      "63": "إختر الشكل القانوني لمؤسستك",
       "64": "إختر طبيعة نشاط مؤسستك",
       "65":
           "من المستحسن أن يكون نظامك الجبائي حقيقيً بما يتماشى مع طبيعة نشاط مؤسستك لضمان تسيير جبائي سليم.",
@@ -297,6 +297,7 @@ class MyTranslation extends Translations {
       "تسبيقة ضريبية 3": "تسبيقة ضريبية 3",
 
       "دينار الجزائري": "دينار الجزائري",
+      "تاريخ الميزانية مطلوب": "تاريخ الميزانية مطلوب",
       "DA": "دج",
       "DZD": "DZD",
 
@@ -592,6 +593,11 @@ class MyTranslation extends Translations {
       'الموعد النهائي': 'الموعد النهائي',
       'No Internet Connection': 'لا يوجد اتصال بالإنترنت',
       'لا توجد بيانات لعرضها': 'لا توجد بيانات لعرضها',
+      "informationBody1":
+          "تطبيق شافي (CHAFI) هو منصة رقمية مبتكرة تهدف إلى تبسيط العملية الجبائية وتسهيل التواصل بين الإدارة الضريبية والمكلفين بالضريبة. يقدّم التطبيق أدوات متكاملة لمساعدة المؤسسات الناشئة والصغيرة على الامتثال للالتزامات الضريبية بسهولة وسرعة، مع تعزيز الفهم لمفاهيم الجباية لدى الطلبة الأكاديميين والمهتمين بالمحاسبة في المؤسسات العامة والخاصة.",
+      "informationBody2":
+          "من خلال شافي، يمكن للمستخدمين متابعة التزاماتهم الضريبية، الحصول على شروحات وتوضيحات مبسطة، والاستفادة من تجربة رقمية سلسة تدعم التعليم العملي والامتثال القانوني في نفس الوقت.",
+      "خرج في":"خرج في",    
     },
 
     ///////////////////////////////////////
@@ -652,7 +658,7 @@ class MyTranslation extends Translations {
       "34": "Petite entreprise",
       "35": "Moyenne entreprise",
       "36": "Grande entreprise",
-
+      "200": "Très grande entreprise",
       "37": "Projet innovant",
       "38": "Startup",
       "39": "Incubateur d'entreprises",
@@ -1261,6 +1267,27 @@ class MyTranslation extends Translations {
       'الموعد النهائي': 'Date limite',
       'No Internet Connection': 'Pas de connexion Internet',
       'لا توجد بيانات لعرضها': "Aucune donnée à afficher",
+      "تاريخ الميزانية مطلوب": "La date du budget est requise",
+
+      "94": "Politique de confidentialité",
+      "95":
+          "Bienvenue sur Chafi, l'application qui vous aide à vous conformer aux obligations fiscales et à gérer vos engagements fiscaux facilement. Votre vie privée est très importante pour nous. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations.",
+      "96":
+          "Nous ne collectons que les informations nécessaires pour fournir et améliorer notre service, comme les détails des contacts que vous ajoutez à l'application.",
+      "97": "Comment nous utilisons vos informations",
+      "98":
+          "Les informations de vos contacts sont utilisées uniquement dans l'application pour vous aider à gérer vos contacts. Nous ne partageons pas vos données avec des tiers.",
+      "99": "Sécurité des données",
+      "100":
+          "Nous appliquons des mesures de sécurité appropriées pour protéger vos données contre tout accès non autorisé.",
+      "101": "Vos droits",
+      "102":
+          "Vous avez le droit d'accéder, de modifier ou de supprimer les informations de vos contacts à tout moment.",
+      "informationBody1":
+          "L'application Chafi (CHAFI) est une plateforme numérique innovante visant à simplifier le processus fiscal et à faciliter la communication entre l'administration fiscale et les contribuables. L'application propose des outils complets pour aider les startups et les petites entreprises à se conformer facilement et rapidement aux obligations fiscales, tout en renforçant la compréhension des concepts fiscaux pour les étudiants et les personnes intéressées par la comptabilité dans les institutions publiques et privées.",
+      "informationBody2":
+           "Grâce à Chafi, les utilisateurs peuvent suivre leurs obligations fiscales, obtenir des explications simplifiées et profiter d'une expérience numérique fluide qui soutient à la fois l'apprentissage pratique et la conformité légale.",
+      "خرج في": "Publié le"  
     },
   };
 }

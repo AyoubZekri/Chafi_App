@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/functions/trundatefromStringtodate.dart';
+import '../../core/functions/valiedinput.dart';
 import '../../view/screen/Calculators/different/BudgetDeposit/ShwoditailsBudgetDeposit.dart';
 
 class Budgetdepositcontroller extends GetxController {
@@ -96,6 +97,8 @@ class Budgetdepositcontroller extends GetxController {
   }
 
   void calcul() {
+    if (validateAllFields()) return;
+
     String cleanBudget = budgetdeposit.text.replaceAll(RegExp(r'[^0-9]'), '');
 
     if (cleanBudget.isEmpty) return;
@@ -154,6 +157,50 @@ class Budgetdepositcontroller extends GetxController {
     paymentPenalty = 0;
     update();
     Get.until((route) => Get.currentRoute == fromPage);
+  }
+
+  bool validateAllFields() {
+    bool hasError = false;
+
+    budgetdepositErorr = validInput(
+      budgetdeposit.text.replaceAll(RegExp(r'[^0-9]'), ''),
+      20,
+      4,
+      "int",
+    );
+    if (budgetdepositErorr != null) hasError = true;
+
+    if (datedeposit.text.isEmpty) {
+      datedepositErorr = "تاريخ الإيداع مطلوب".tr;
+      hasError = true;
+    } else {
+      datedepositErorr = validInput(datedeposit.text, 20, 3, "Text");
+      if (datedepositErorr != null) hasError = true;
+    }
+
+    if (datepyment.text.isEmpty) {
+      datepymentErorr = "تاريخ الدفع مطلوب";
+      hasError = true;
+    } else {
+      datepymentErorr = validInput(datepyment.text, 20, 4, "Text");
+      if (datepymentErorr != null) hasError = true;
+    }
+
+    if (datebudgetdeposit.text.isEmpty) {
+      datebudgetdepositErorr = "تاريخ الميزانية مطلوب".tr;
+      hasError = true;
+    } else {
+      datebudgetdepositErorr = validInput(
+        datebudgetdeposit.text,
+        20,
+        3,
+        "Text",
+      );
+      if (datebudgetdepositErorr != null) hasError = true;
+    }
+
+    update();
+    return hasError;
   }
 
   @override

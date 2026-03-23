@@ -1,4 +1,5 @@
 import 'package:chafi/controller/Setting/EditProfaileController.dart';
+import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -103,13 +104,19 @@ class _EditprofaileState extends State<Editprofaile> {
                   iconData: Icons.phone,
                 ),
                 SizedBox(height: 50),
-                Custemsuberbutton(
-                  content: "تأكيد".tr,
-                  color: AppColor.typography,
-                  onPressed: () {
-                    controller.edituser();
-                  },
-                ),
+                controller.statusrequest == Statusrequest.loadeng
+                    ? Custemsuberbutton(
+                        laoding: true,
+                        content: "تأكيد".tr,
+                        color: AppColor.typography,
+                      )
+                    : Custemsuberbutton(
+                        content: "تأكيد".tr,
+                        color: AppColor.typography,
+                        onPressed: () {
+                          controller.edituser();
+                        },
+                      ),
               ],
             ),
           );

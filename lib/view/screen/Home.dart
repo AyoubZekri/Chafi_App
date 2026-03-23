@@ -18,22 +18,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late final HomecontrollerImp controller;
+  // late final HomecontrollerImp controller;
   final ScrollController _scrollController = ScrollController();
   bool showMoreArrow = false;
 
-  @override
-  void initState() {
-    super.initState();
-    controller = Get.put(HomecontrollerImp(), permanent: true);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   controller = Get.put(HomecontrollerImp(), permanent: true);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
       body: GetBuilder<HomecontrollerImp>(
-        builder: (_) {
+        builder: (controller) {
           return ListView(
             children: [
               Container(

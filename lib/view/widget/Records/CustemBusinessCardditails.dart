@@ -179,26 +179,39 @@ class Custembusinesscardditails extends StatelessWidget {
 
                     SizedBox(height: 20),
 
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 12,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF1A406D),
-                        borderRadius: BorderRadius.circular(13),
-                      ),
-                      child: Row(
-                        // mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "76".tr,
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          ),
-                          SizedBox(width: 10),
-                          Icon(Icons.calculate_outlined, color: Colors.white),
-                        ],
+                    InkWell(
+                      onTap: () {
+                        print("==========$numperTax");
+                        numperTax == "49".tr
+                            ? Get.toNamed("/calactivityType")
+                            : numperTax == "50".tr
+                            ? Get.toNamed("/Taxstamp")
+                            : Get.toNamed("/calPersontype");
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF1A406D),
+                          borderRadius: BorderRadius.circular(13),
+                        ),
+                        child: Row(
+                          // mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "76".tr,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Icon(Icons.calculate_outlined, color: Colors.white),
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -85,49 +85,58 @@ class Handlingview extends StatelessWidget {
   // }
 
   Widget _errorView({required IconData icon, required String message}) {
-    return Expanded(
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Folder card with pulse animation
-              Stack(
-                alignment: Alignment.center,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          physics:
+              const AlwaysScrollableScrollPhysics(), // 🔹 مهم للـ RefreshIndicator
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight, // يشغل كل مساحة الشاشة
+            ),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    width: 150,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0x0D034d81),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(40),
-                      border: Border.all(
-                        color: Color(0xFF034d81).withOpacity(0.1),
-                        width: 1,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x33034d81),
-                          blurRadius: 20,
-                          spreadRadius: 5,
+                  // Folder card with pulse animation
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        width: 150,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color(0x0D034d81),
                         ),
-                      ],
-                    ),
-                    child: Icon(icon, size: 80, color: Color(0xFF034d81)),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(40),
+                          border: Border.all(
+                            color: const Color(0xFF034d81).withOpacity(0.1),
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0x33034d81),
+                              blurRadius: 20,
+                              spreadRadius: 5,
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          icon,
+                          size: 80,
+                          color: const Color(0xFF034d81),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              // Text
-              Column(
-                children: [
+                  const SizedBox(height: 24),
+                  // Text
                   Text(
                     message,
                     style: TextStyle(
@@ -139,10 +148,10 @@ class Handlingview extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

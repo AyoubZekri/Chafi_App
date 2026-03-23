@@ -25,7 +25,17 @@ class _InforecordState extends State<Inforecord> {
       body: GetBuilder<InforecordcontrollerImp>(
         builder: (_) {
           if (controller.recordStatus == Statusrequest.loadeng) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(
+                  strokeWidth: 6,
+                  backgroundColor: Color(0xFFF0F5FF),
+                  valueColor: AlwaysStoppedAnimation(Color(0xFF034D82)),
+                ),
+              ),
+            );
           }
 
           if (controller.recordStatus == Statusrequest.failure ||
@@ -59,7 +69,7 @@ class _InforecordState extends State<Inforecord> {
                           : item.taxId == 1
                           ? "50".tr
                           : "48".tr,
-                      codeActeve: item.codeActivity ?? "",
+                      codeActeve: item.codeActivity.toString(),
                     ),
                     const SizedBox(height: 20),
                     // ===== Appointments Section =====

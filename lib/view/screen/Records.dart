@@ -37,8 +37,9 @@ class _RecordsState extends State<Records> {
           child: Stack(
             children: [
               ListView.builder(
+                padding: EdgeInsets.only(bottom: 80),
                 itemCount: controller.data.isEmpty
-                    ? 1
+                    ? 2
                     : controller.data.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) {

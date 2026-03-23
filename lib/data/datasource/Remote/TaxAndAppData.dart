@@ -59,7 +59,7 @@ class Taxandappdata {
   Future<dynamic> isRead(int institutionId) async {
     if (isLoggedIn) {
       final response = await crud.postWithheaders(
-        Applink.institutionShowisReade,
+        Applink.taxAndAppShwoisReade,
         {"table_id": institutionId},
       );
       return response.fold((r) => r, (l) => l);

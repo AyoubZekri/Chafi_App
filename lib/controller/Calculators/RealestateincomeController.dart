@@ -296,6 +296,8 @@ class Realestateincomecontroller extends GetxController {
 
 
 
+
+
     
   
 

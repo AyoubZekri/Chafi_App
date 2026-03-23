@@ -65,16 +65,10 @@ class _GooglesigninState extends State<Googlesignin> {
                       Custemtextbodysmall(content: "11".tr),
                       SizedBox(height: 30),
                       controller.statusrequest == Statusrequest.loadeng
-                          ? Padding(
-                              padding: const EdgeInsets.all(17.5),
-                              child: const SizedBox(
-                                width: 15,
-                                height: 15,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: AppColor.typography,
-                                ),
-                              ),
+                          ? Custembuttonsignin(
+                              contentText: "12".tr,
+                              contentImage: Appimageassets.google,
+                              laoding: true,
                             )
                           : Custembuttonsignin(
                               onTap: () {
@@ -82,6 +76,7 @@ class _GooglesigninState extends State<Googlesignin> {
                               },
                               contentText: "12".tr,
                               contentImage: Appimageassets.google,
+                              laoding: false,
                             ),
                       SizedBox(height: 30),
                       Custembuttonprimary(

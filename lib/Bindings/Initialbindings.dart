@@ -10,6 +10,7 @@ class Initialbindings extends Bindings {
   void dependencies() {
     Get.put(Crud());
     Get.put(Myservices());
+    Get.put(HomecontrollerImp(), permanent: true);
   }
 }
 

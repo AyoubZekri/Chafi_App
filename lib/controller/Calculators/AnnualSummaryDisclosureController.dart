@@ -7,6 +7,7 @@ import '../../core/functions/valiedinput.dart';
 import '../../view/screen/Calculators/Realsystem/AnnualSummaryDisclosure/AnnualSummaryDisclosure.dart';
 
 class Annualsummarydisclosurecontroller extends GetxController {
+  String? fromPage;
   String? annualSummaryDisclosureErorr;
   int lossORprofit = 0;
   TextEditingController annualSummaryDisclosure = TextEditingController();
@@ -72,7 +73,13 @@ class Annualsummarydisclosurecontroller extends GetxController {
     lossORprofit = 0;
     annualSummaryDisclosure.clear();
     netTax = 0;
-    Get.until((route) => Get.currentRoute == Approutes.calculatorsrealsystem);
+    Get.until((route) => Get.currentRoute == fromPage);
     update();
+  }
+
+  @override
+  void onInit() {
+    fromPage = Get.arguments?['fromPage'] ?? '';
+    super.onInit();
   }
 }

@@ -110,13 +110,6 @@ class HomecontrollerImp extends Homecontroller {
   void onClose() {
     _timer?.cancel();
     _timer = null;
-
-    if (pageController.hasClients) {
-      pageController.dispose();
-    } else {
-      pageController = PageController();
-    }
-
     super.onClose();
   }
 

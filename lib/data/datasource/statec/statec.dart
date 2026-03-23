@@ -222,6 +222,19 @@ List<Institutiontypemodel> institutionType = [
     color2: Color(0xff164573),
     sizeText: 24,
   ),
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(
+        Approutes.institutionsinfo,
+        arguments: {"name": 36, "type": 5},
+      );
+    },
+    body: "200",
+    imgae: Appimageassets.sexCard,
+    color1: Color(0xff164573),
+    color2: Color(0xff164573),
+    sizeText: Get.locale == Locale("fr") ? 20 : 24,
+  ),
 ];
 
 List<Institutiontypemodel> regulatedInstitutionTypes = [
@@ -229,7 +242,7 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
     ontap: () {
       Get.toNamed(
         Approutes.institutionsinfo,
-        arguments: {"name": 37, "type": 5},
+        arguments: {"name": 37, "type": 6},
       );
     },
     body: "37",
@@ -242,7 +255,7 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
     ontap: () {
       Get.toNamed(
         Approutes.institutionsinfo,
-        arguments: {"name": 38, "type": 6},
+        arguments: {"name": 38, "type": 7},
       );
     },
     body: "38",
@@ -255,7 +268,7 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
     ontap: () {
       Get.toNamed(
         Approutes.institutionsinfo,
-        arguments: {"name": 39, "type": 7},
+        arguments: {"name": 39, "type": 8},
       );
     },
     body: "39",

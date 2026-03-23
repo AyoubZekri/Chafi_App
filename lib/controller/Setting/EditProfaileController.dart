@@ -29,7 +29,7 @@ class EditprofailecontrollerImp extends Editprofailecontroller {
   File? image;
   @override
   Future<void> uploadimagefile() async {
-    image = await fileuploadGallery(false);
+    image = await fileuploadGallery();
     update();
   }
 

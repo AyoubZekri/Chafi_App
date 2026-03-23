@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "562990232848-ett3be3uvi9t72lff4kpfus6pf10845b.apps.googleusercontent.com",
+          "client_id": "562990232848-ppeqfkrjuphk023f567dnpj9rbpcsoqn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.chafi",
-            "certificate_hash": "ef9d5b5ec221b7d400edf37017a1be7e091b5eb2"
+            "certificate_hash": "7d73fbe4289ac1f41f1a319ec1f709d812613dd0"
           }
         },
         {

@@ -8,7 +8,6 @@ Future<File?> downloadAndCacheImage(String imageUrl) async {
 
     final directory = await getApplicationDocumentsDirectory();
 
-    // اسم الصورة من الرابط
     final fileName = imageUrl.split('/').last;
     final filePath = "${directory.path}/images/$fileName";
 

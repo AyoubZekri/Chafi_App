@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:chafi/controller/HomeController.dart';
 import 'package:chafi/core/constant/routes.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +87,14 @@ class InfousercontrollerImp extends Infousercontroller {
 
         if (file != null) {
           myServices.sharedPreferences!.setString("image", file.path);
+        }
+        var imagepath = myServices.sharedPreferences?.getString("image");
+        if (imagepath != null && imagepath.isNotEmpty) {
+          final file = File(imagepath);
+          if (file.existsSync()) {
+            Get.find<HomecontrollerImp>().image = file;
+            Get.find<HomecontrollerImp>().update();
+          }
         }
 
         Get.offNamed(Approutes.navigationBar);

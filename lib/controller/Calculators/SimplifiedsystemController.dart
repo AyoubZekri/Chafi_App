@@ -15,6 +15,8 @@ import '../../view/screen/Calculators/Simplified system/IBS/TxsLastyear.dart';
 import '../../view/screen/Calculators/Simplified system/IRG/CreateRecord.dart';
 
 class Simplifiedsystemcontroller extends GetxController {
+  String? fromPage;
+
   String? taxLastyearErorr;
   String? surplusErorr;
   String? dataCreateErorr;
@@ -113,14 +115,28 @@ class Simplifiedsystemcontroller extends GetxController {
   }
 
   void divideTaxToAdvance() {
-    taxLastyearErorr = validInput(TaxLastyear.text.replaceAll(RegExp(r'[^0-9]'), ''), 20, 3, "int".tr);
-    surplusErorr = validInput(surplus.text.replaceAll(RegExp(r'[^0-9]'), ''), 20, 3, "int".tr);
+    taxLastyearErorr = validInput(
+      TaxLastyear.text.replaceAll(RegExp(r'[^0-9]'), ''),
+      20,
+      3,
+      "int".tr,
+    );
+    surplusErorr = validInput(
+      surplus.text.replaceAll(RegExp(r'[^0-9]'), ''),
+      20,
+      3,
+      "int".tr,
+    );
     if (taxLastyearErorr != null || surplusErorr != null) {
       update();
       return;
     }
-    double? tax = double.tryParse(TaxLastyear.text.replaceAll(RegExp(r'[^0-9]'), ''));
-    double? remainingSurplus = double.tryParse(surplus.text.replaceAll(RegExp(r'[^0-9]'), ''));
+    double? tax = double.tryParse(
+      TaxLastyear.text.replaceAll(RegExp(r'[^0-9]'), ''),
+    );
+    double? remainingSurplus = double.tryParse(
+      surplus.text.replaceAll(RegExp(r'[^0-9]'), ''),
+    );
 
     if (tax == null || remainingSurplus == null) {
       Get.snackbar(
@@ -159,12 +175,21 @@ class Simplifiedsystemcontroller extends GetxController {
   }
 
   void divideTaxToCapital() {
-    capitalErorr = validInput(capital.text.replaceAll(RegExp(r'[^0-9]'), '').replaceAll(RegExp(r'[^0-9]'), ''), 20, 3, "int".tr);
+    capitalErorr = validInput(
+      capital.text
+          .replaceAll(RegExp(r'[^0-9]'), '')
+          .replaceAll(RegExp(r'[^0-9]'), ''),
+      20,
+      3,
+      "int".tr,
+    );
     if (capitalErorr != null) {
       update();
       return;
     }
-    double? taxValue = double.tryParse(capital.text.replaceAll(RegExp(r'[^0-9]'), ''));
+    double? taxValue = double.tryParse(
+      capital.text.replaceAll(RegExp(r'[^0-9]'), ''),
+    );
 
     if (taxValue == null) {
       Get.snackbar(
@@ -326,9 +351,14 @@ class Simplifiedsystemcontroller extends GetxController {
       update();
       return;
     }
-    productions = double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    constructions = double.tryParse(construction.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    other = double.tryParse(otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    productions =
+        double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    constructions =
+        double.tryParse(construction.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
+        0;
+    other =
+        double.tryParse(otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
+        0;
 
     double taxProduction = productions * 0.19;
     double taxConstruction = constructions * 0.23;
@@ -389,7 +419,8 @@ class Simplifiedsystemcontroller extends GetxController {
       update();
       return;
     }
-    productions = double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    productions =
+        double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
     final dueDate1 = DateTime(DateTime.now().year, 3, 20);
     final dueDate2 = DateTime(DateTime.now().year, 6, 20);
     final dueDatefinal = DateTime(DateTime.now().year, 5, 1);
@@ -526,9 +557,7 @@ class Simplifiedsystemcontroller extends GetxController {
     surplusErorr = null;
     dataCreateErorr = null;
 
-    Get.until(
-      (route) => Get.currentRoute == Approutes.calculatorsrealsystem,
-    );
+    Get.until((route) => Get.currentRoute == fromPage);
 
     update();
   }
@@ -591,7 +620,9 @@ class Simplifiedsystemcontroller extends GetxController {
     ];
 
     for (var field in fields) {
-      String text = (field['controller'] as TextEditingController).text.replaceAll(RegExp(r'[^0-9]'), '').trim();
+      String text = (field['controller'] as TextEditingController).text
+          .replaceAll(RegExp(r'[^0-9]'), '')
+          .trim();
 
       if (text.isNotEmpty || personType == 1) {
         String? error = validInput(text, 20, 4, "int".tr);
@@ -604,5 +635,11 @@ class Simplifiedsystemcontroller extends GetxController {
     }
     update();
     return hasError;
+  }
+
+  @override
+  void onInit() {
+    fromPage = Get.arguments?['fromPage'] ?? '';
+    super.onInit();
   }
 }

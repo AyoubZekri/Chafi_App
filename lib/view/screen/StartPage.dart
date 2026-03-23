@@ -4,6 +4,7 @@ import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/core/services/Services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controller/HomeController.dart';
 import '../../core/constant/imageassets.DART';
 
 class Startpage extends StatefulWidget {

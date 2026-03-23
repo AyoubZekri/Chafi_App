@@ -9,6 +9,8 @@ import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/ShwopenaltyG12.da
 import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/TaxinputdataRecorde.dart';
 
 class G12controller extends GetxController {
+  String? fromPage;
+
   String? dateofpaymentErorr;
   String? dateofdepositandErorr;
   String? productionErorr;
@@ -166,11 +168,24 @@ class G12controller extends GetxController {
     }
 
     if (validateAllFields()) return;
-    productions = double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    other = double.tryParse(otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    profitmargins = double.tryParse(profitmargin.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    extractedfromSources = double.tryParse(extractedfromSource.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    selfcontractors = double.tryParse(selfcontractor.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    productions =
+        double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    other =
+        double.tryParse(otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
+        0;
+    profitmargins =
+        double.tryParse(profitmargin.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
+        0;
+    extractedfromSources =
+        double.tryParse(
+          extractedfromSource.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        0;
+    selfcontractors =
+        double.tryParse(
+          selfcontractor.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        0;
 
     double taxProduction = productions * 0.05;
     double taxother = other * 0.12;
@@ -236,9 +251,7 @@ class G12controller extends GetxController {
     otherActivity.clear();
     dateofdepositand.clear();
     dateofpayment.clear();
-    Get.until(
-      (route) => Get.currentRoute == Approutes.calculatorsofSystemSimpli,
-    );
+    Get.until((route) => Get.currentRoute == fromPage);
   }
 
   void backFromCalTypeActivite() {
@@ -306,7 +319,12 @@ class G12controller extends GetxController {
     }
 
     if (activityType == 1) {
-      selfcontractorErorr = validInput(selfcontractor.text.replaceAll(RegExp(r'[^0-9]'), ''), 20, 3, "Text");
+      selfcontractorErorr = validInput(
+        selfcontractor.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        20,
+        3,
+        "Text",
+      );
       if (selfcontractorErorr != null) hasError = true;
     } else {
       selfcontractorErorr = null;
@@ -331,7 +349,8 @@ class G12controller extends GetxController {
     bool foundNonEmpty = false;
 
     for (var field in fields) {
-      String text = (field['controller'] as TextEditingController).text.replaceAll(RegExp(r'[^0-9]'), '');
+      String text = (field['controller'] as TextEditingController).text
+          .replaceAll(RegExp(r'[^0-9]'), '');
 
       if (!foundNonEmpty && text.isNotEmpty) {
         String? error = validInput(text, 20, 3, "Text");
@@ -345,5 +364,11 @@ class G12controller extends GetxController {
 
     update();
     return hasError;
+  }
+
+  @override
+  void onInit() {
+    fromPage = Get.arguments?['fromPage'] ?? '';
+    super.onInit();
   }
 }

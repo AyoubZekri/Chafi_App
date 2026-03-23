@@ -33,8 +33,7 @@ class _LawState extends State<Law> {
             child: Handlingview(
               statusrequest: controller.statusrequest,
               widget: ListView.builder(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.only(top: 20),
                 itemCount: controller.data.length,
                 itemBuilder: (context, i) {
@@ -42,7 +41,7 @@ class _LawState extends State<Law> {
                   return Custoumbuttoncard(
                     title: item.localizedName,
                     description:
-                        'خرج في ${item.updatedAt.toString().substring(0, 4)}',
+                       '${"خرج في".tr} ${item.updatedAt.toString().substring(0, 4)}',
                     onTap: () {
                       Get.to(
                         () => PdfSearchPage(

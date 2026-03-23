@@ -16,7 +16,7 @@ class  Appimageassets {
 
 
   static const String onBardinImagethree ="$rootimage/onBardinImageoneThree.png";
-  static const String onBardinImagetwo ="$rootimage/onBardinImageTow.jpg";
+  static const String onBardinImagetwo ="$rootimage/onBardinImageTow.png";
   static const String onBardinImageone ="$rootimage/onBardinImageone.png";
 
 

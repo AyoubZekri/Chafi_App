@@ -14,7 +14,7 @@ class MypathModel {
   final String wilaya;
   final String? activityName;
   final String? activityNameFr;
-  final String? codeActivity;
+  final int? codeActivity;
   final String? nataireActivitysName;
   final String? nataireActivitysNameFr;
 
@@ -93,7 +93,7 @@ class MypathModel {
     String? wilaya,
     String? activityName,
     String? activityNameFr,
-    String? codeActivity,
+    int? codeActivity,
     String? nataireActivitysName,
     String? nataireActivitysNameFr,
   }) {

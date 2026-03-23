@@ -98,11 +98,12 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
     statusrequest = handlingData(response);
 
     if (statusrequest == Statusrequest.success) {
-      if (response["status"] == 1) {
+      if (response.containsKey("data") && response["data"] is List) {
         data.clear();
         List listdata = response['data'];
         data.addAll(listdata.map((e) => dataModel.fromJson(e)));
         data = List.from(data);
+        print("=====$data");
         if (data.isEmpty) {
           statusrequest = Statusrequest.failure;
         }
@@ -173,7 +174,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
     catid = args["cat_id"] ?? 0;
     typedeff = args["type_deff"] ?? 0;
 
-    (type == 8 || type == 9)
+    ((type == 8 || type == 9) && catid != 0)
         ? viewdataTax()
         : type == 10
         ? viewdataDifferent()
@@ -182,7 +183,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
   }
 
   Future<void> getData() async {
-    (type == 8 || type == 9)
+    ((type == 8 || type == 9)&& catid != 0)
         ? viewdataTax()
         : type == 10
         ? viewdataDifferent()

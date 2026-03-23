@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:chafi/controller/HomeController.dart';
 import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/core/functions/SaveImage.dart';
@@ -92,6 +95,17 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
         print("===========$file");
         if (file != null) {
           myServices.sharedPreferences!.setString("image", file.path);
+        }
+        if (file != null) {
+          myServices.sharedPreferences!.setString("image", file.path);
+        }
+        var imagepath = myServices.sharedPreferences?.getString("image");
+        if (imagepath != null && imagepath.isNotEmpty) {
+          final file = File(imagepath);
+          if (file.existsSync()) {
+            Get.find<HomecontrollerImp>().image = file;
+            Get.find<HomecontrollerImp>().update();
+          }
         }
 
         statusrequest = Statusrequest.success;
