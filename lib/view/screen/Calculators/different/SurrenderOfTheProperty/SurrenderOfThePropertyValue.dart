@@ -53,111 +53,112 @@ class _SurrenderofthepropertyvalueState
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
 
-                        const SizedBox(height: 20),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content: "أدخل معلومات التنازل العقاري".tr,
+                          ),
 
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content: "أدخل معلومات التنازل العقاري".tr,
-                        ),
+                          const SizedBox(height: 30),
 
-                        const SizedBox(height: 30),
+                          /// =======================
+                          /// القيم المالية
+                          /// =======================
+                          SectionHeader(
+                            icon: Icons.real_estate_agent_outlined,
+                            title: "القيم المالية".tr,
+                          ),
 
-                        /// =======================
-                        /// القيم المالية
-                        /// =======================
-                        SectionHeader(
-                          icon: Icons.real_estate_agent_outlined,
-                          title: "القيم المالية".tr,
-                        ),
+                          const SizedBox(height: 20),
 
-                        const SizedBox(height: 20),
+                          CustomInputField(
+                            label: "سعر إقتناء العقار".tr,
+                            icon: Icons.attach_money,
+                            isCurrency: true,
+                            controller: controller.sellingprice,
+                            errorText: controller.sellingpriceErorr,
+                          ),
 
-                        CustomInputField(
-                          label: "سعر إقتناء العقار".tr,
-                          icon: Icons.attach_money,
-                          isCurrency: true,
-                          controller: controller.sellingprice,
-                          errorText: controller.sellingpriceErorr,
-                        ),
+                          const SizedBox(height: 16),
 
-                        const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "سعر تنازل العقار".tr,
+                            icon: Icons.sell_outlined,
+                            isCurrency: true,
+                            controller: controller.purchaseprice,
+                            errorText: controller.purchasepriceErorr,
+                          ),
 
-                        CustomInputField(
-                          label: "سعر تنازل العقار".tr,
-                          icon: Icons.sell_outlined,
-                          isCurrency: true,
-                          controller: controller.purchaseprice,
-                          errorText: controller.purchasepriceErorr,
-                        ),
+                          const SizedBox(height: 16),
 
-                        const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "مصاريف الإقتناء".tr,
+                            icon: Icons.account_balance_wallet_outlined,
+                            isCurrency: true,
+                            controller: controller.sellingexpenses,
+                            errorText: controller.sellingexpensesErorr,
+                          ),
 
-                        CustomInputField(
-                          label: "مصاريف الإقتناء".tr,
-                          icon: Icons.account_balance_wallet_outlined,
-                          isCurrency: true,
-                          controller: controller.sellingexpenses,
-                          errorText: controller.sellingexpensesErorr,
-                        ),
+                          const SizedBox(height: 16),
 
-                        const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "مصاريف التنازل".tr,
+                            icon: Icons.request_quote_outlined,
+                            isCurrency: true,
+                            controller: controller.purchaseexpenses,
+                            errorText: controller.purchaseexpensesErorr,
+                          ),
 
-                        CustomInputField(
-                          label: "مصاريف التنازل".tr,
-                          icon: Icons.request_quote_outlined,
-                          isCurrency: true,
-                          controller: controller.purchaseexpenses,
-                          errorText: controller.purchaseexpensesErorr,
-                        ),
+                          const SizedBox(height: 30),
 
-                        const SizedBox(height: 30),
+                          /// =======================
+                          /// التواريخ
+                          /// =======================
+                          SectionHeader(
+                            icon: Icons.date_range_outlined,
+                            title: "التواريخ".tr,
+                          ),
 
-                        /// =======================
-                        /// التواريخ
-                        /// =======================
-                        SectionHeader(
-                          icon: Icons.date_range_outlined,
-                          title: "التواريخ".tr,
-                        ),
+                          const SizedBox(height: 20),
 
-                        const SizedBox(height: 20),
+                          CustomInputField(
+                            label: "تاريخ الإقتناء".tr,
+                            icon: Icons.calendar_today_outlined,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.purchasedate,
+                            errorText: controller.purchasedateErorr,
+                          ),
 
-                        CustomInputField(
-                          label: "تاريخ الإقتناء".tr,
-                          icon: Icons.calendar_today_outlined,
-                          placeholder: 'mm/dd/yyyy',
-                          isDate: true,
-                          controller: controller.purchasedate,
-                          errorText: controller.purchasedateErorr,
-                        ),
+                          const SizedBox(height: 16),
 
-                        const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "تاريخ التنازل".tr,
+                            icon: Icons.event_available_outlined,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.saledate,
+                            errorText: controller.saledateErorr,
+                          ),
 
-                        CustomInputField(
-                          label: "تاريخ التنازل".tr,
-                          icon: Icons.event_available_outlined,
-                          placeholder: 'mm/dd/yyyy',
-                          isDate: true,
-                          controller: controller.saledate,
-                          errorText: controller.saledateErorr,
-                        ),
+                          const SizedBox(height: 40),
 
-                        const SizedBox(height: 80),
+                          Custemsuberbutton(
+                            content: "حساب".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.calcul();
+                            },
+                          ),
 
-                        Custemsuberbutton(
-                          content: "حساب".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.calcul();
-                          },
-                        ),
-
-                        const SizedBox(height: 20),
-                      ],
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

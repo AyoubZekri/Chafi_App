@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../../../../../controller/Calculators/AnnualSummaryDisclosureController.dart';
 import '../../../../../core/constant/Colorapp.dart';
@@ -53,57 +52,60 @@ class _AnnualsummarydisclosureState extends State<Annualsummarydisclosure> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        SizedBox(height: 20),
-                        if (controller.lossORprofit == 1)
-                          CustemtextbodyMedium18(
-                            color: AppColor.grey,
-                            content:
-                                "يرجى إدخال النتيجة الجبائية لتحديد قيمة كشف التلخيص السنوي"
-                                    .tr,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
+                          if (controller.lossORprofit == 1)
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content:
+                                  "يرجى إدخال النتيجة الجبائية لتحديد قيمة كشف التلخيص السنوي"
+                                      .tr,
+                            ),
+
+                          SizedBox(height: 60),
+                          if (controller.lossORprofit == 1)
+                            SectionHeader(
+                              icon: Icons.summarize_outlined,
+                              title: 'النتيجةالجبائية'.tr,
+                            ),
+                          if (controller.lossORprofit == 1)
+                            const SizedBox(height: 16),
+                          if (controller.lossORprofit == 1)
+                            CustomInputField(
+                              label: 'النتيجة الجبائية'.tr,
+                              icon: Icons.summarize_outlined,
+                              isCurrency: true,
+                              controller: controller.annualSummaryDisclosure,
+                              errorText:
+                                  controller.annualSummaryDisclosureErorr,
+                              onChanged: (value) {
+                                controller.calcul();
+                              },
+                            ),
+
+                          const SizedBox(height: 24),
+
+                          TotalAmountCard(
+                            total: controller.lossORprofit == 1
+                                ? controller.netTax.toInt()
+                                : 10000000,
+                            text: controller.lossORprofit == 1 ? true : false,
                           ),
 
-                        SizedBox(height: 60),
-                        if (controller.lossORprofit == 1)
-                          SectionHeader(
-                            icon: Icons.summarize_outlined,
-                            title: 'النتيجةالجبائية'.tr,
-                          ),
-                        if (controller.lossORprofit == 1)
-                          const SizedBox(height: 16),
-                        if (controller.lossORprofit == 1)
-                          CustomInputField(
-                            label: 'النتيجة الجبائية'.tr,
-                            icon: Icons.summarize_outlined,
-                            isCurrency: true,
-                            controller: controller.annualSummaryDisclosure,
-                            errorText: controller.annualSummaryDisclosureErorr,
-                            onChanged: (value) {
-                              controller.calcul();
+                          SizedBox(height: 40),
+                          Custemsuberbutton(
+                            content: "إنهاء".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.resetAll();
                             },
                           ),
-
-                        const SizedBox(height: 24),
-
-                        TotalAmountCard(
-                          total: controller.lossORprofit == 1
-                              ? controller.netTax.toInt()
-                              : 10000000,
-                          text: controller.lossORprofit == 1 ? true : false,
-                        ),
-
-                        SizedBox(height: 110),
-                        Custemsuberbutton(
-                          content: "إنهاء".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.resetAll();
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

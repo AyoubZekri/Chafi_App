@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../core/constant/Colorapp.dart';
 import '../../widget/Button/CustemSuberButton.dart';
 import '../../widget/TextFild/CustemTextFromFildInfoUser.dart';
+import '../../widget/TextFild/Dropdownfild.dart';
 
 class Editprofaile extends StatefulWidget {
   const Editprofaile({super.key});
@@ -24,9 +25,9 @@ class _EditprofaileState extends State<Editprofaile> {
       appBar: AppBar(title: Text("تعديل الملف الشخصي".tr)),
       body: GetBuilder<EditprofailecontrollerImp>(
         builder: (controller) {
-          return Container(
+          return SingleChildScrollView(
             padding: EdgeInsets.all(15),
-            child: ListView(
+            child: Column(
               children: [
                 SizedBox(height: 50),
 
@@ -35,9 +36,14 @@ class _EditprofaileState extends State<Editprofaile> {
                   height: 150,
                   width: 150,
                   decoration: BoxDecoration(
-                    color: AppColor.white,
-                    borderRadius: BorderRadius.circular(180),
+                    shape: BoxShape.circle,
                     border: Border.all(width: 2, color: AppColor.primarycolor),
+                    image: controller.image != null
+                        ? DecorationImage(
+                            image: FileImage(controller.image!),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
                   ),
                   child: controller.image == null
                       ? MaterialButton(
@@ -48,14 +54,6 @@ class _EditprofaileState extends State<Editprofaile> {
                         )
                       : Stack(
                           children: [
-                            ClipOval(
-                              child: Image.file(
-                                controller.image!,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: double.infinity,
-                              ),
-                            ),
                             Positioned(
                               bottom: 5,
                               right: 5,
@@ -64,19 +62,17 @@ class _EditprofaileState extends State<Editprofaile> {
                                 height: 35,
                                 decoration: BoxDecoration(
                                   color: const Color.fromARGB(83, 0, 0, 0),
-                                  borderRadius: BorderRadius.circular(180),
+                                  shape: BoxShape.circle,
                                 ),
-                                child: Center(
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      Icons.edit,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                    onPressed: () {
-                                      controller.uploadimagefile();
-                                    },
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                    size: 20,
                                   ),
+                                  onPressed: () {
+                                    controller.uploadimagefile();
+                                  },
                                 ),
                               ),
                             ),
@@ -91,12 +87,33 @@ class _EditprofaileState extends State<Editprofaile> {
                   enabled: true,
                   iconData: Icons.person,
                 ),
-                CustemtextfromfildInfoUser(
-                  myController: controller.welaya,
+                // CustemtextfromfildInfoUser(
+                //   myController: controller.welaya,
+                //   hintText: "16".tr,
+                //   enabled: true,
+                //   iconData: Icons.location_on,
+                // ),
+                Dropdownfild(
                   hintText: "16".tr,
-                  enabled: true,
-                  iconData: Icons.location_on,
+                  items: controller.state
+                      .map(
+                        (f) => DropdownMenuItem<String>(
+                          value: f['state'].toString(),
+                          child: Text(
+                            "${f['number'].toString()} - ${f['state'].toString().tr}",
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  value: controller.selectedstate,
+                  onChanged: (val) {
+                    setState(() {
+                      controller.selectedstate = val;
+                    });
+                  },
                 ),
+
                 CustemtextfromfildInfoUser(
                   myController: controller.numperphone,
                   hintText: "17".tr,

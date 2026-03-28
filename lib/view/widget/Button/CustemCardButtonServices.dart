@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,10 +53,13 @@ class Custemcardbuttonservices extends StatelessWidget {
               ),
               child: Image.asset(image, height: 35, width: 35),
             ),
-            Text(
+            AutoSizeText(
               title,
+              minFontSize: 9,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 10,
+                fontSize: 9,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

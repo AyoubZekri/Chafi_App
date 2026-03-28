@@ -41,11 +41,11 @@ class _NatureofactivityState extends State<Natureofactivity> {
         body: GetBuilder<MypathcontrollerImp>(
           builder: (controller) {
             return RefreshIndicator(
-            color: AppColor.typography,
-            onRefresh: () async {
-              await controller.getData1(); // دالة إعادة جلب البيانات
-            },
-            child: Container(
+              color: AppColor.typography,
+              onRefresh: () async {
+                await controller.getData1(); // دالة إعادة جلب البيانات
+              },
+              child: Container(
                 color: AppColor.typography,
                 child: Container(
                   margin: const EdgeInsets.only(top: 30),
@@ -57,83 +57,81 @@ class _NatureofactivityState extends State<Natureofactivity> {
                     ),
                     child: Container(
                       color: AppColor.white,
-                      child: ListView(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                CustemtextbodyMedium18(
-                                  color: AppColor.grey,
-                                  content: "56".tr,
-                                ),
-                                SizedBox(height: 40),
-                                CustemtextbodyMedium18(
-                                  content: "64".tr,
-                                  color: AppColor.black,
-                                ),
-                                SizedBox(height: 70),
-                                controller.natureoftheactivity.isEmpty
-                                    ? SizedBox(
-                                        height: 350,
-                                        child: Handlingview(
-                                          statusrequest: controller.statusrequest,
-                                          widget: SizedBox(),
-                                        ),
-                                      )
-                                    : ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: const ClampingScrollPhysics(),
-                                        itemCount:
-                                            controller.natureoftheactivity.length,
-                                        itemBuilder: (context, i) {
-                                          return Cardpersontype(
-                                            padding: 20,
-                                            marginb: 30,
-                                            index: controller
-                                                .natureoftheactivity[i]
-                                                .id,
-                                            title: controller
-                                                .natureoftheactivity[i]
-                                                .localizedName,
-                                            selectedPerson:
-                                                controller.natureofactivity,
-                                            onTap: () {
-                                              controller.selectNatureofactivity(
-                                                controller
-                                                    .natureoftheactivity[i]
-                                                    .id,
-                                              );
-                                            },
-                                          );
-                                        },
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20),
+                              CustemtextbodyMedium18(
+                                color: AppColor.grey,
+                                content: "56".tr,
+                              ),
+                              SizedBox(height: 40),
+                              CustemtextbodyMedium18(
+                                content: "64".tr,
+                                color: AppColor.black,
+                              ),
+                              SizedBox(height: 70),
+                              controller.natureoftheactivity.isEmpty
+                                  ? SizedBox(
+                                      height: 350,
+                                      child: Handlingview(
+                                        statusrequest: controller.statusrequest,
+                                        widget: SizedBox(),
                                       ),
-              
-                                Custemsuberbutton(
-                                  content: "60".tr,
-                                  color: AppColor.typography,
-                                  onPressed: () {
-                                    controller.gotoActivitytype();
-                                  },
-                                ),
-              
-                                const SizedBox(height: 20),
-              
-                                Custemsuberbutton(
-                                  content: "62".tr,
-                                  color: Color(0xffE8F1FF),
-                                  color2: AppColor.brand,
-                                  onPressed: () {
-                                    controller.backtoPersonType();
-                                  },
-                                ),
-              
-                                SizedBox(height: 20),
-                              ],
-                            ),
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const ClampingScrollPhysics(),
+                                      itemCount:
+                                          controller.natureoftheactivity.length,
+                                      itemBuilder: (context, i) {
+                                        return Cardpersontype(
+                                          padding: 20,
+                                          marginb: 30,
+                                          index: controller
+                                              .natureoftheactivity[i]
+                                              .id,
+                                          title: controller
+                                              .natureoftheactivity[i]
+                                              .localizedName,
+                                          selectedPerson:
+                                              controller.natureofactivity,
+                                          onTap: () {
+                                            controller.selectNatureofactivity(
+                                              controller
+                                                  .natureoftheactivity[i]
+                                                  .id,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+
+                              Custemsuberbutton(
+                                content: "60".tr,
+                                color: AppColor.typography,
+                                onPressed: () {
+                                  controller.gotoActivitytype();
+                                },
+                              ),
+
+                              const SizedBox(height: 20),
+
+                              Custemsuberbutton(
+                                content: "62".tr,
+                                color: Color(0xffE8F1FF),
+                                color2: AppColor.brand,
+                                onPressed: () {
+                                  controller.backtoPersonType();
+                                },
+                              ),
+
+                              SizedBox(height: 20),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -142,7 +140,6 @@ class _NatureofactivityState extends State<Natureofactivity> {
             );
           },
         ),
-      
       ),
     );
   }

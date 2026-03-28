@@ -59,176 +59,173 @@ class _InboutvalouState extends State<Inboutvalou> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20),
-                              CustemtextbodyMedium18(
-                                color: AppColor.grey,
-                                content: "enter_data_correctly".tr,
-                              ),
-                              SizedBox(height: 40),
-                              CustemtextbodyMedium18(
-                                content:
-                                    "choose_taxable_bonuses".tr,
-                                color: AppColor.black,
-                              ),
-                              SizedBox(height: 40),
-                              SectionHeader(
-                                icon: Icons.account_balance_wallet_outlined,
-                                title:
-                                    "taxable_and_contributions".tr,
-                              ),
-                              const SizedBox(height: 16),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+
+                      child: Container(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content: "enter_data_correctly".tr,
+                            ),
+                            SizedBox(height: 40),
+                            CustemtextbodyMedium18(
+                              content: "choose_taxable_bonuses".tr,
+                              color: AppColor.black,
+                            ),
+                            SizedBox(height: 40),
+                            SectionHeader(
+                              icon: Icons.account_balance_wallet_outlined,
+                              title: "taxable_and_contributions".tr,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: "Enter base salary".tr,
+                              icon: FontAwesomeIcons.wallet,
+                              isCurrency: true,
+                              controller: controller.fixedValueController,
+                              errorText: controller.fixedValueControllerError,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: controller.hasspeciallogictype == 1
+                                  ? "Bonus percentage".tr
+                                  : "Number of working days".tr,
+                              icon: controller.hasspeciallogictype == 1
+                                  ? Icons.percent
+                                  : Icons.calendar_today,
+                              controller: controller.numday,
+                              errorText: controller.numdayError,
+                            ),
+                            const SizedBox(height: 16),
+                            if (controller.hasspeciallogictype == 2) ...[
                               CustomInputField(
-                                label: "Enter base salary".tr,
-                                icon: FontAwesomeIcons.wallet,
+                                label: "Day price".tr,
+                                icon: FontAwesomeIcons.moneyBillWave,
                                 isCurrency: true,
-                                controller: controller.fixedValueController,
-                                errorText: controller.fixedValueControllerError,
+                                controller: controller.hasspeciallogic,
+                                errorText: controller.hasspeciallogicError,
                               ),
                               const SizedBox(height: 16),
-                              CustomInputField(
-                                label: controller.hasspeciallogictype == 1
-                                    ? "Bonus percentage".tr
-                                    : "Number of working days".tr,
-                                icon: controller.hasspeciallogictype == 1
-                                    ? Icons.percent
-                                    : Icons.calendar_today,
-                                controller: controller.numday,
-                                errorText: controller.numdayError,
-                              ),
-                              const SizedBox(height: 16),
-                              if (controller.hasspeciallogictype == 2) ...[
-                                CustomInputField(
-                                  label: "Day price".tr,
-                                  icon: FontAwesomeIcons.moneyBillWave,
-                                  isCurrency: true,
-                                  controller: controller.hasspeciallogic,
-                                  errorText: controller.hasspeciallogicError,
-                                ),
-                                const SizedBox(height: 16),
-                              ],
-                              if (keys.isNotEmpty)
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const ClampingScrollPhysics(),
-                                  itemCount: keys.length,
-                                  itemBuilder: (context, i) {
-                                    final id = keys[i];
-                                    final textController = controllers[id]!;
+                            ],
+                            if (keys.isNotEmpty)
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: keys.length,
+                                itemBuilder: (context, i) {
+                                  final id = keys[i];
+                                  final textController = controllers[id]!;
 
-                                    final bonus = controller.data
-                                        .firstWhereOrNull((e) => e.id == id);
-                                    final label = bonus != null
-                                        ? bonus.localizedName
-                                        : "Enter value".tr;
+                                  final bonus = controller.data
+                                      .firstWhereOrNull((e) => e.id == id);
+                                  final label = bonus != null
+                                      ? bonus.localizedName
+                                      : "Enter value".tr;
 
-                                    return Column(
-                                      children: [
-                                        CustomInputField(
-                                          label: label,
-                                          icon: FontAwesomeIcons.moneyBillWave,
-                                          isCurrency: true,
-                                          controller: textController,
-                                          errorText:
-                                              controller.bonusErrorsGroups[1]?[id],
-                                        ),
-                                        const SizedBox(height: 16),
-                                      ],
-                                    );
-                                  },
-                                ),
-                              const SizedBox(height: 24),
-                              if (keys2.isNotEmpty) ...[
-                                SectionHeader(
-                                  icon: Icons.request_quote_outlined,
-                                  title: "taxable_only".tr,
-                                ),
-                                const SizedBox(height: 16),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const ClampingScrollPhysics(),
-                                  itemCount: keys2.length,
-                                  itemBuilder: (context, i) {
-                                    final id = keys2[i];
-                                    final textController = controllers2[id]!;
-
-                                    final bonus = controller.data
-                                        .firstWhereOrNull((e) => e.id == id);
-                                    final label = bonus != null
-                                        ? bonus.localizedName
-                                        : "Enter value".tr;
-
-                                    return Column(
-                                      children: [
-                                        CustomInputField(
-                                          label: label,
-                                          icon: FontAwesomeIcons.moneyBillWave,
-                                          isCurrency: true,
-                                          controller: textController,
-                                          errorText:
-                                              controller.bonusErrorsGroups[2]?[id],
-                                        ),
-                                        const SizedBox(height: 16),
-                                      ],
-                                    );
-                                  },
-                                ),
-                                const SizedBox(height: 24),
-                              ],
-                              if (keys3.isNotEmpty) ...[
-                                SectionHeader(
-                                  icon: Icons.verified_outlined,
-                                  title: "Non imposable".tr,
-                                ),
-                                const SizedBox(height: 16),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const ClampingScrollPhysics(),
-                                  itemCount: keys3.length,
-                                  itemBuilder: (context, i) {
-                                    final id = keys3[i];
-                                    final textController = controllers3[id]!;
-
-                                    final bonus = controller.data
-                                        .firstWhereOrNull((e) => e.id == id);
-                                    final label = bonus != null
-                                        ? bonus.localizedName
-                                        : "Enter value".tr;
-
-                                    return Column(
-                                      children: [
-                                        CustomInputField(
-                                          label: label,
-                                          icon: FontAwesomeIcons.moneyBillWave,
-                                          isCurrency: true,
-                                          controller: textController,
-                                          errorText:
-                                              controller.bonusErrorsGroups[3]?[id],
-                                        ),
-                                        const SizedBox(height: 16),
-                                      ],
-                                    );
-                                  },
-                                ),
-                              ],
-                              const SizedBox(height: 30),
-                              Custemsuberbutton(
-                                content: "next".tr,
-                                color: AppColor.typography,
-                                onPressed: () {
-                                  controller.calcul();
+                                  return Column(
+                                    children: [
+                                      CustomInputField(
+                                        label: label,
+                                        icon: FontAwesomeIcons.moneyBillWave,
+                                        isCurrency: true,
+                                        controller: textController,
+                                        errorText: controller
+                                            .bonusErrorsGroups[1]?[id],
+                                      ),
+                                      const SizedBox(height: 16),
+                                    ],
+                                  );
                                 },
                               ),
-                              SizedBox(height: 20),
+                            const SizedBox(height: 24),
+                            if (keys2.isNotEmpty) ...[
+                              SectionHeader(
+                                icon: Icons.request_quote_outlined,
+                                title: "taxable_only".tr,
+                              ),
+                              const SizedBox(height: 16),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: keys2.length,
+                                itemBuilder: (context, i) {
+                                  final id = keys2[i];
+                                  final textController = controllers2[id]!;
+
+                                  final bonus = controller.data
+                                      .firstWhereOrNull((e) => e.id == id);
+                                  final label = bonus != null
+                                      ? bonus.localizedName
+                                      : "Enter value".tr;
+
+                                  return Column(
+                                    children: [
+                                      CustomInputField(
+                                        label: label,
+                                        icon: FontAwesomeIcons.moneyBillWave,
+                                        isCurrency: true,
+                                        controller: textController,
+                                        errorText: controller
+                                            .bonusErrorsGroups[2]?[id],
+                                      ),
+                                      const SizedBox(height: 16),
+                                    ],
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: 24),
                             ],
-                          ),
+                            if (keys3.isNotEmpty) ...[
+                              SectionHeader(
+                                icon: Icons.verified_outlined,
+                                title: "Non imposable".tr,
+                              ),
+                              const SizedBox(height: 16),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: keys3.length,
+                                itemBuilder: (context, i) {
+                                  final id = keys3[i];
+                                  final textController = controllers3[id]!;
+
+                                  final bonus = controller.data
+                                      .firstWhereOrNull((e) => e.id == id);
+                                  final label = bonus != null
+                                      ? bonus.localizedName
+                                      : "Enter value".tr;
+
+                                  return Column(
+                                    children: [
+                                      CustomInputField(
+                                        label: label,
+                                        icon: FontAwesomeIcons.moneyBillWave,
+                                        isCurrency: true,
+                                        controller: textController,
+                                        errorText: controller
+                                            .bonusErrorsGroups[3]?[id],
+                                      ),
+                                      const SizedBox(height: 16),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ],
+                            const SizedBox(height: 30),
+                            Custemsuberbutton(
+                              content: "next".tr,
+                              color: AppColor.typography,
+                              onPressed: () {
+                                controller.calcul();
+                              },
+                            ),
+                            SizedBox(height: 20),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

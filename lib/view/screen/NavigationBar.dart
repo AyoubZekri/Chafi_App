@@ -30,6 +30,8 @@ class NavigationBar extends StatelessWidget {
               middleText: "هل تريد الخروج من التطبيق".tr,
               onConfirm: () => exit(0),
               onCancel: () => Get.back(),
+              textCancel: "إلغاء".tr,
+              textConfirm: "نعم".tr,
               buttonColor: AppColor.typography,
               confirmTextColor: AppColor.white,
               cancelTextColor: AppColor.typography,

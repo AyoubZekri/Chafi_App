@@ -29,7 +29,7 @@ class Notificationcontroller extends GetxController {
         data.addAll(listdata.map((e) => NotificationModel.fromJson(e)));
         data = List.from(data);
         if (data.isEmpty) {
-          statusrequest = Statusrequest.failure;
+          statusrequest = Statusrequest.nodata;
         }
       } else {
         statusrequest = Statusrequest.failure;

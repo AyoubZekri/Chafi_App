@@ -15,8 +15,8 @@ bool get isLoggedIn => myServices.sharedPreferences?.getString("token") != null;
 void handleLoginRequired(void Function() onSuccess) {
   if (!isLoggedIn) {
     Get.defaultDialog(
-      title: "تنبيه",
-      middleText: "يجب عليك تسجيل الدخول أولاً",
+      title: "تنبيه".tr,
+      middleText: "يجب عليك تسجيل الدخول أولاً".tr,
       titleStyle: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 18,
@@ -32,7 +32,7 @@ void handleLoginRequired(void Function() onSuccess) {
       onConfirm: () {
         Get.back();
         Get.find<HomecontrollerImp>().onClose();
-        Get.toNamed(Approutes.googleSignIn);
+        Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
       },
     );
     return;
@@ -222,19 +222,20 @@ List<Institutiontypemodel> institutionType = [
     color2: Color(0xff164573),
     sizeText: 24,
   ),
-  Institutiontypemodel(
-    ontap: () {
-      Get.toNamed(
-        Approutes.institutionsinfo,
-        arguments: {"name": 36, "type": 5},
-      );
-    },
-    body: "200",
-    imgae: Appimageassets.sexCard,
-    color1: Color(0xff164573),
-    color2: Color(0xff164573),
-    sizeText: Get.locale == Locale("fr") ? 20 : 24,
-  ),
+
+  // Institutiontypemodel(
+  //   ontap: () {
+  //     Get.toNamed(
+  //       Approutes.institutionsinfo,
+  //       arguments: {"name": 36, "type": 5},
+  //     );
+  //   },
+  //   body: "200",
+  //   imgae: Appimageassets.sexCard,
+  //   color1: Color(0xff164573),
+  //   color2: Color(0xff164573),
+  //   sizeText: Get.locale == Locale("fr") ? 20 : 24,
+  // ),
 ];
 
 List<Institutiontypemodel> regulatedInstitutionTypes = [

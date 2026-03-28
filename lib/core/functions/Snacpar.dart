@@ -50,3 +50,52 @@ void showSnackbar(String titleKey, String messageKey, Color color) {
           });
   });
 }
+
+void showTopError(String messageKey) {
+  final context = Get.context;
+  if (context == null) return;
+
+  _currentFlushbar?.dismiss();
+  _currentFlushbar = null;
+
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    _currentFlushbar =
+        Flushbar(
+            margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            borderRadius: BorderRadius.circular(20),
+
+            backgroundColor: Colors.black.withOpacity(0.5),
+
+            // ❌ بدون title
+            titleText: const SizedBox(),
+
+            // ✅ النص في الوسط
+            messageText: Center(
+              child: Text(
+                messageKey.tr,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white, fontSize: 13),
+              ),
+            ),
+
+            duration: const Duration(seconds: 2),
+
+            flushbarPosition: FlushbarPosition.BOTTOM,
+
+            // animation ناعمة
+            animationDuration: const Duration(milliseconds: 550),
+
+            // يمنع swipe
+            isDismissible: false,
+
+            // shadow خفيف
+            boxShadows: [
+              BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 8),
+            ],
+          )
+          ..show(context).then((_) {
+            _currentFlushbar = null;
+          });
+  });
+}

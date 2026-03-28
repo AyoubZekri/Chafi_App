@@ -35,13 +35,13 @@ class HomecontrollerImp extends Homecontroller {
   }) async {
     update();
     var response = await postdata.getLocalPosts({"type": type});
-
+    print("=================$response");
     if (response.isNotEmpty) {
       targetList.clear();
       targetList.addAll(response.map((e) => PostModel.fromJson(e)));
       statusrequest = Statusrequest.success;
     } else {
-      statusrequest = Statusrequest.failure;
+      statusrequest = Statusrequest.nodata;
     }
 
     update();
@@ -68,18 +68,6 @@ class HomecontrollerImp extends Homecontroller {
     update();
   }
 
-  Future<void> addenter() async {
-    update();
-
-    var response = await postdata.adddata();
-
-    if (response["status"] == 1) {
-      print('==================enter+1');
-      statusrequest = Statusrequest.success;
-    }
-    update();
-  }
-
   @override
   void onInit() {
     var imagepath = myServices.sharedPreferences?.getString("image");
@@ -97,7 +85,6 @@ class HomecontrollerImp extends Homecontroller {
     }
 
     pageController = PageController();
-    addenter();
     loadPosts(type: 2, targetList: dataimg);
     loadPosts(type: 1, targetList: datapost);
 
@@ -160,7 +147,6 @@ class HomecontrollerImp extends Homecontroller {
     }
 
     pageController = PageController();
-    addenter();
     loadPosts(type: 2, targetList: dataimg);
     loadPosts(type: 1, targetList: datapost);
 

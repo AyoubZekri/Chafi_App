@@ -50,71 +50,72 @@ class _ShwototaltouristvehiclesState extends State<Shwototaltouristvehicles> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        SizedBox(height: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
 
-                        SectionHeader(
-                          icon: Icons.directions_car_outlined,
-                          title: 'تفاصيل المركبات'.tr,
-                        ),
-                        const SizedBox(height: 12),
+                          SectionHeader(
+                            icon: Icons.directions_car_outlined,
+                            title: 'تفاصيل المركبات'.tr,
+                          ),
+                          const SizedBox(height: 12),
 
-                        PenaltyCard(
-                          title: "الحد الأقصى للخصم".tr,
-                          subtitle: "لكل مركبة".tr,
-                          icon: Icons.rule_outlined,
-                          amount: controller.type == 2
-                              ? "200,000,00"
-                              : "20,000,00",
-                        ),
-                        const SizedBox(height: 12),
+                          PenaltyCard(
+                            title: "الحد الأقصى للخصم".tr,
+                            subtitle: "لكل مركبة".tr,
+                            icon: Icons.rule_outlined,
+                            amount: controller.type == 2
+                                ? "200,000,00"
+                                : "20,000,00",
+                          ),
+                          const SizedBox(height: 12),
 
-                        PenaltyCard(
-                          title: "مجموع كل المركبات".tr,
-                          subtitle: "القيمة الإجمالية المدخلة".tr,
-                          icon: Icons.summarize_outlined,
-                          amount: controller.netTax
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
-                        const SizedBox(height: 12),
+                          PenaltyCard(
+                            title: "مجموع كل المركبات".tr,
+                            subtitle: "القيمة الإجمالية المدخلة".tr,
+                            icon: Icons.summarize_outlined,
+                            amount: controller.netTax
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 12),
 
-                        PenaltyCard(
-                          title: "الجزء غير القابل للخصم".tr,
-                          subtitle: controller.type == 2
-                              ? "المبلغ الذي يتجاوز DA 200,000,00".tr
-                              : "المبلغ الذي يتجاوز DA 20,000,00".tr,
-                          icon: Icons.remove_circle_outline,
-                          amount: controller.addreselttax
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
-                        const SizedBox(height: 24),
+                          PenaltyCard(
+                            title: "الجزء غير القابل للخصم".tr,
+                            subtitle: controller.type == 2
+                                ? "المبلغ الذي يتجاوز DA 200,000,00".tr
+                                : "المبلغ الذي يتجاوز DA 20,000,00".tr,
+                            icon: Icons.remove_circle_outline,
+                            amount: controller.addreselttax
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 24),
 
-                        TotalAmountCard(
-                          total: controller.total.toInt(),
-                          title: "مجموع القابل للخصم".tr,
-                        ),
-                        SizedBox(height: 30),
-                        Custemsuberbutton(
-                          content: "إنهاء".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.resetAll();
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          TotalAmountCard(
+                            total: controller.total.toInt(),
+                            title: "مجموع القابل للخصم".tr,
+                          ),
+                          SizedBox(height: 30),
+                          Custemsuberbutton(
+                            content: "إنهاء".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.resetAll();
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             );
-         
           },
         ),
       ),

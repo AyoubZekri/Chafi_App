@@ -50,62 +50,64 @@ class _ValuotaxState extends State<Valuotax> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        SizedBox(height: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
 
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content:
-                              "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
-                        ),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content:
+                                "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
+                          ),
 
-                        SizedBox(height: 60),
+                          SizedBox(height: 60),
 
-                        SectionHeader(
-                          icon: Icons.receipt_long_outlined,
-                          title: controller.typeTax == 1
-                              ? "أدخل فائض القيمة".tr
-                              : controller.typeTax == 2
-                              ? "أدخل ريوع رؤوس الأموال".tr
-                              : "أدخل إيرادات الودائع والفوائد".tr,
-                        ),
+                          SectionHeader(
+                            icon: Icons.receipt_long_outlined,
+                            title: controller.typeTax == 1
+                                ? "أدخل فائض القيمة".tr
+                                : controller.typeTax == 2
+                                ? "أدخل ريوع رؤوس الأموال".tr
+                                : "أدخل إيرادات الودائع والفوائد".tr,
+                          ),
 
-                        const SizedBox(height: 16),
+                          const SizedBox(height: 16),
 
-                        CustomInputField(
-                          label: controller.typeTax == 1
-                              ? "فائض القيمة".tr
-                              : controller.typeTax == 2
-                              ? "ريوع رؤوس الأموال".tr
-                              : "إيرادات الودائع والفوائد".tr,
-                          icon: Icons.receipt_long_outlined,
-                          isCurrency: true,
-                          controller: controller.fixedValueController,
-                          errorText: controller.fixedValueControllerError,
-                          onChanged: (value) {
-                            controller.calcul();
-                          },
-                        ),
+                          CustomInputField(
+                            label: controller.typeTax == 1
+                                ? "فائض القيمة".tr
+                                : controller.typeTax == 2
+                                ? "ريوع رؤوس الأموال".tr
+                                : "إيرادات الودائع والفوائد".tr,
+                            icon: Icons.receipt_long_outlined,
+                            isCurrency: true,
+                            controller: controller.fixedValueController,
+                            errorText: controller.fixedValueControllerError,
+                            onChanged: (value) {
+                              controller.calcul();
+                            },
+                          ),
 
-                        const SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
-                        TotalAmountCard(
-                          total: controller.netTax.round(),
-                          title: "قيمة الضريبة".tr,
-                        ),
+                          TotalAmountCard(
+                            total: controller.netTax.round(),
+                            title: "قيمة الضريبة".tr,
+                          ),
 
-                        SizedBox(height: 150),
-                        Custemsuberbutton(
-                          content: "إنهاء".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.resetAll();
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          SizedBox(height: 50),
+                          Custemsuberbutton(
+                            content: "إنهاء".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.resetAll();
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

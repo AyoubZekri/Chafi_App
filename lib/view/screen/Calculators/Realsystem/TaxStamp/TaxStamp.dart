@@ -51,55 +51,57 @@ class _TaxstampState extends State<Taxstamp> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        SizedBox(height: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
 
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content:
-                              "يرجى إدخال  إجمالي مبلغ الفاتورة بدون طابع لتحديد قيمة الطابع الجبائي"
-                                  .tr,
-                        ),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content:
+                                "يرجى إدخال  إجمالي مبلغ الفاتورة بدون طابع لتحديد قيمة الطابع الجبائي"
+                                    .tr,
+                          ),
 
-                        SizedBox(height: 60),
+                          SizedBox(height: 60),
 
-                        SectionHeader(
-                          icon: Icons.receipt_long_outlined,
-                          title: 'إجمالي مبلغ الفاتورة'.tr,
-                        ),
+                          SectionHeader(
+                            icon: Icons.receipt_long_outlined,
+                            title: 'إجمالي مبلغ الفاتورة'.tr,
+                          ),
 
-                        const SizedBox(height: 16),
+                          const SizedBox(height: 16),
 
-                        CustomInputField(
-                          label: 'إجمالي مبلغ الفاتورة'.tr,
-                          icon: Icons.receipt_long_outlined,
-                          isCurrency: true,
-                          controller: controller.tasStamps,
-                          errorText: controller.tasStampsErorr,
-                          onChanged: (value) {
-                            controller.calcul();
-                          },
-                        ),
+                          CustomInputField(
+                            label: 'إجمالي مبلغ الفاتورة'.tr,
+                            icon: Icons.receipt_long_outlined,
+                            isCurrency: true,
+                            controller: controller.tasStamps,
+                            errorText: controller.tasStampsErorr,
+                            onChanged: (value) {
+                              controller.calcul();
+                            },
+                          ),
 
-                        const SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
-                        TotalAmountCard(
-                          total: controller.netTax.round(),
-                          title: "قيمة الطابع الجبائي".tr,
-                        ),
+                          TotalAmountCard(
+                            total: controller.netTax.round(),
+                            title: "قيمة الطابع الجبائي".tr,
+                          ),
 
-                        SizedBox(height: 110),
-                        Custemsuberbutton(
-                          content: "إنهاء".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.Back();
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          SizedBox(height: 40),
+                          Custemsuberbutton(
+                            content: "إنهاء".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.Back();
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

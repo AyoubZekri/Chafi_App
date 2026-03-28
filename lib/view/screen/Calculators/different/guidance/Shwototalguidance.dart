@@ -48,53 +48,61 @@ class _ShwototalguidanceState extends State<Shwototalguidance> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        const SizedBox(height: 20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
 
-                        SectionHeader(
-                          icon: Icons.card_giftcard,
-                          title: 'gifts_details'.tr,
-                        ),
-                        const SizedBox(height: 12),
+                          SectionHeader(
+                            icon: Icons.card_giftcard,
+                            title: 'gifts_details'.tr,
+                          ),
+                          const SizedBox(height: 12),
 
-                        PenaltyCard(
-                          title: "max_deduction".tr,
-                          subtitle: "per_gift".tr,
-                          amount: "1,000,00",
-                        ),
-                        const SizedBox(height: 12),
+                          PenaltyCard(
+                            title: "max_deduction".tr,
+                            subtitle: "per_gift".tr,
+                            amount: "1,000,00",
+                          ),
+                          const SizedBox(height: 12),
 
-                        PenaltyCard(
-                          title: "total_gifts".tr,
-                          subtitle: "total_entered_value".tr,
-                          amount: controller.netTax.toInt().formatCustomint().toString(),
-                        ),
-                        const SizedBox(height: 12),
+                          PenaltyCard(
+                            title: "total_gifts".tr,
+                            subtitle: "total_entered_value".tr,
+                            amount: controller.netTax
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 12),
 
-                        PenaltyCard(
-                          title: "non_deductible_part".tr,
-                          subtitle: "amount_exceeding_limit".tr,
-                          amount: controller.addreselttax.toInt().formatCustomint().toString(),
-                        ),
-                        const SizedBox(height: 24),
+                          PenaltyCard(
+                            title: "non_deductible_part".tr,
+                            subtitle: "amount_exceeding_limit".tr,
+                            amount: controller.addreselttax
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 24),
 
-                        TotalAmountCard(
-                          total: controller.total.toInt(),
-                          title: "deductible_total".tr,
-                        ),
-                        const SizedBox(height: 30),
+                          TotalAmountCard(
+                            total: controller.total.toInt(),
+                            title: "deductible_total".tr,
+                          ),
+                          const SizedBox(height: 30),
 
-                        Custemsuberbutton(
-                          content: "finish".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.resetAll();
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          Custemsuberbutton(
+                            content: "finish".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.resetAll();
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -20,7 +20,6 @@ class _PersontypeState extends State<Persontype> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.typography,
       appBar: AppBar(
         title: Text("55".tr),
         titleTextStyle: TextStyle(
@@ -36,67 +35,68 @@ class _PersontypeState extends State<Persontype> {
 
       body: GetBuilder<MypathcontrollerImp>(
         builder: (controller) {
-          return Column(
-            children: [
-              SizedBox(height: 30),
-              Expanded(
+          return Container(
+            color: AppColor.typography,
+            child: Container(
+              margin: const EdgeInsets.only(top: 30),
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(50),
+                  topLeft: Radius.circular(50),
+                ),
                 child: Container(
-                  padding: EdgeInsets.all(20),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: AppColor.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(50),
-                      topLeft: Radius.circular(50),
+                  color: AppColor.white,
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        CustemtextbodyMedium18(
+                          color: AppColor.grey,
+                          content: "56".tr,
+                        ),
+                        SizedBox(height: 40),
+                        CustemtextbodyMedium18(
+                          content: "57".tr,
+                          color: AppColor.black,
+                        ),
+                        SizedBox(height: 70),
+                        Cardpersontype(
+                          padding: 30,
+                          index: 1,
+                          title: "58".tr,
+                          selectedPerson: controller.personType,
+                          onTap: () {
+                            controller.selectedPerson(1);
+                          },
+                        ),
+
+                        Cardpersontype(
+                          padding: 30,
+                          index: 2,
+                          title: "59".tr,
+                          selectedPerson: controller.personType,
+                          onTap: () {
+                            controller.selectedPerson(2);
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        Custemsuberbutton(
+                          content: "60".tr,
+                          color: AppColor.typography,
+                          onPressed: () {
+                            controller.gotoNatureofactivity();
+                          },
+                        ),
+
+                        SizedBox(height: 20),
+                      ],
                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      CustemtextbodyMedium18(
-                        color: AppColor.grey,
-                        content: "56".tr,
-                      ),
-                      SizedBox(height: 40),
-                      CustemtextbodyMedium18(
-                        content: "57".tr,
-                        color: AppColor.black,
-                      ),
-                      SizedBox(height: 70),
-                      Cardpersontype(
-                        padding: 30,
-                        index: 1,
-                        title: "58".tr,
-                        selectedPerson: controller.personType,
-                        onTap: () {
-                          controller.selectedPerson(1);
-                        },
-                      ),
-
-                      Cardpersontype(
-                        padding: 30,
-                        index: 2,
-                        title: "59".tr,
-                        selectedPerson: controller.personType,
-                        onTap: () {
-                          controller.selectedPerson(2);
-                        },
-                      ),
-                      const Spacer(),
-                      Custemsuberbutton(
-                        content: "60".tr,
-                        color: AppColor.typography,
-                        onPressed: () {
-                          controller.gotoNatureofactivity();
-                        },
-                      ),
-
-                      SizedBox(height: 20),
-                    ],
                   ),
                 ),
               ),
-            ],
+            ),
           );
         },
       ),

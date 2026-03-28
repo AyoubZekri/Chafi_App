@@ -25,8 +25,6 @@ class _TxslastyearState extends State<Txslastyear> {
         return true;
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: AppColor.typography,
         appBar: AppBar(
           title: Text("حاسبة النظام الحقيقي".tr),
           titleTextStyle: TextStyle(
@@ -42,20 +40,20 @@ class _TxslastyearState extends State<Txslastyear> {
         body: GetBuilder<Simplifiedsystemcontroller>(
           builder: (controller) {
             return Container(
-              margin: const EdgeInsets.only(top: 30),
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(50),
-                  topLeft: Radius.circular(50),
-                ),
-                child: Container(
-                  color: AppColor.white,
-                  child: ListView(
-                    children: [
-                      SizedBox(height: 30),
-                      Container(
-                        padding: const EdgeInsets.all(20),
+              color: AppColor.typography,
+              child: Container(
+                margin: const EdgeInsets.only(top: 30),
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(50),
+                  ),
+                  child: Container(
+                    color: AppColor.white,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
                         child: Column(
                           children: [
                             SizedBox(height: 20),
@@ -87,7 +85,7 @@ class _TxslastyearState extends State<Txslastyear> {
                               errorText: controller.surplusErorr,
                               isCurrency: true,
                             ),
-                            SizedBox(height: 130),
+                            SizedBox(height: 40),
                             Custemsuberbutton(
                               content: "60".tr,
                               color: AppColor.typography,
@@ -99,7 +97,7 @@ class _TxslastyearState extends State<Txslastyear> {
                           ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),

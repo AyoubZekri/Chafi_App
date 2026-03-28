@@ -215,7 +215,7 @@ class bonusesandcompensationcontroller extends GetxController {
           groupedData[bonus.category]!.add(bonus);
         }
         if (data.isEmpty) {
-          statusrequest = Statusrequest.failure;
+          statusrequest = Statusrequest.nodata;
         }
       } else {
         statusrequest = Statusrequest.failure;

@@ -16,7 +16,8 @@ class CustemtextfromfildInfoUser extends StatelessWidget {
     this.myController,
     this.keyboardType,
     this.obscureText,
-    required this.enabled, required this.iconData,
+    required this.enabled,
+    required this.iconData,
   });
 
   @override

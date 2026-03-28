@@ -27,7 +27,6 @@ class _SurrenderofthepropertytypeState
         return true;
       },
       child: Scaffold(
-        backgroundColor: AppColor.typography,
         appBar: AppBar(
           title: Text("التنازل عن العقارات".tr),
           titleTextStyle: TextStyle(
@@ -43,70 +42,73 @@ class _SurrenderofthepropertytypeState
 
         body: GetBuilder<Surrenderofthepropertycontroller>(
           builder: (_) {
-            return Column(
-              children: [
-                SizedBox(height: 30),
-                Expanded(
+            return Container(
+              color: AppColor.typography,
+              child: Container(
+                margin: const EdgeInsets.only(top: 30),
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(50),
+                  ),
+
                   child: Container(
-                    padding: EdgeInsets.all(20),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.white,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(50),
-                        topLeft: Radius.circular(50),
+                    color: AppColor.white,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content:
+                                "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
+                          ),
+                          SizedBox(height: 40),
+                          CustemtextbodyMedium18(
+                            content: "هل العقار سكن رئيسي وحيد".tr,
+                            color: AppColor.black,
+                          ),
+                          SizedBox(height: 100),
+                          Cardpersontype(
+                            padding: 30,
+                            marginb: 25,
+                            index: 1,
+                            title: "نعم".tr,
+                            selectedPerson: controller.singleResidence,
+                            onTap: () {
+                              controller.selectedOvercome(1);
+                            },
+                          ),
+
+                          Cardpersontype(
+                            padding: 30,
+                            index: 2,
+                            marginb: 25,
+                            title: "لا".tr,
+                            selectedPerson: controller.singleResidence,
+                            onTap: () {
+                              controller.selectedOvercome(2);
+                            },
+                          ),
+                          SizedBox(height: 40),
+                          Custemsuberbutton(
+                            content: "60".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.gotoPropertytype();
+                            },
+                          ),
+
+                          SizedBox(height: 20),
+                        ],
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20),
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content:
-                              "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
-                        ),
-                        SizedBox(height: 40),
-                        CustemtextbodyMedium18(
-                          content: "هل العقار سكن رئيسي وحيد".tr,
-                          color: AppColor.black,
-                        ),
-                        SizedBox(height: 100),
-                        Cardpersontype(
-                          padding: 30,
-                          marginb: 25,
-                          index: 1,
-                          title: "نعم".tr,
-                          selectedPerson: controller.singleResidence,
-                          onTap: () {
-                            controller.selectedOvercome(1);
-                          },
-                        ),
-
-                        Cardpersontype(
-                          padding: 30,
-                          index: 2,
-                          marginb: 25,
-                          title: "لا".tr,
-                          selectedPerson: controller.singleResidence,
-                          onTap: () {
-                            controller.selectedOvercome(2);
-                          },
-                        ),
-                        const Spacer(),
-                        Custemsuberbutton(
-                          content: "60".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.gotoPropertytype();
-                          },
-                        ),
-
-                        SizedBox(height: 20),
-                      ],
                     ),
                   ),
                 ),
-              ],
+              ),
             );
           },
         ),

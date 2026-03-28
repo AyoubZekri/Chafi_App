@@ -184,7 +184,7 @@ class MypathcontrollerImp extends Mypathcontroller {
         );
         natureoftheactivity = List.from(natureoftheactivity);
         if (natureoftheactivity.isEmpty) {
-          statusrequest = Statusrequest.failure;
+          statusrequest = Statusrequest.nodata;
         }
       } else {
         statusrequest = Statusrequest.failure;
@@ -212,7 +212,7 @@ class MypathcontrollerImp extends Mypathcontroller {
         data.addAll(listdata.map((e) => ActivityModel.fromJson(e)));
         filteredData = List.from(data);
         if (filteredData.isEmpty) {
-          statusrequest = Statusrequest.failure;
+          statusrequest = Statusrequest.nodata;
         }
       } else {
         statusrequest = Statusrequest.failure;
@@ -264,7 +264,7 @@ class MypathcontrollerImp extends Mypathcontroller {
         onConfirm: () {
           Get.back();
           Get.find<HomecontrollerImp>().onClose();
-          Get.toNamed(Approutes.googleSignIn);
+          Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
         },
       );
       return;
@@ -287,6 +287,12 @@ class MypathcontrollerImp extends Mypathcontroller {
     print("=================$requestData");
 
     var response = await mypathdata.adddata(requestData);
+    if (response == Statusrequest.serverfailure) {
+      showSnackbar("خطأ".tr, "No Internet Connection".tr, Colors.red);
+      statusrequest = Statusrequest.none;
+      update();
+      return;
+    }
     print("Add Response: $response");
 
     statusrequest = handlingData(response);
@@ -294,6 +300,7 @@ class MypathcontrollerImp extends Mypathcontroller {
     if (statusrequest == Statusrequest.success && response["status"] == 1) {
       Get.offAllNamed(Approutes.navigationBar);
     } else {
+      showSnackbar("خطأ".tr, "حدث خطأ".tr, Colors.red);
       statusrequest = Statusrequest.failure;
     }
 

@@ -49,88 +49,91 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        const SizedBox(height: 10),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
 
-                        /// عنوان القسم
-                        SectionHeader(
-                          icon: Icons.gavel_outlined,
-                          title: "تفاصيل الإخضاع الضريبي النهائي".tr,
-                        ),
+                          /// عنوان القسم
+                          SectionHeader(
+                            icon: Icons.gavel_outlined,
+                            title: "تفاصيل الإخضاع الضريبي النهائي".tr,
+                          ),
 
-                        const SizedBox(height: 20),
+                          const SizedBox(height: 20),
 
-                        /// الضريبة المؤقتة (إذا موجودة)
-                        if (controller.typeOvercome == 1)
+                          /// الضريبة المؤقتة (إذا موجودة)
+                          if (controller.typeOvercome == 1)
+                            PenaltyCard(
+                              icon: Icons.schedule_outlined,
+                              title: "الضريبة المؤقتة".tr,
+                              subtitle:
+                                  "المبلغ المستحق قبل التسوية النهائية".tr,
+                              amount: controller.tax
+                                  .toInt()
+                                  .formatCustomint()
+                                  .toString(),
+                            ),
+
+                          if (controller.typeOvercome == 1)
+                            const SizedBox(height: 12),
+
+                          /// الضريبة النهائية
                           PenaltyCard(
-                            icon: Icons.schedule_outlined,
-                            title: "الضريبة المؤقتة".tr,
-                            subtitle: "المبلغ المستحق قبل التسوية النهائية".tr,
-                            amount: controller.tax
+                            icon: Icons.receipt_long_outlined,
+                            title: "الضريبة النهائية".tr,
+                            subtitle: "المبلغ النهائي".tr,
+                            amount: controller.netTax
                                 .toInt()
                                 .formatCustomint()
                                 .toString(),
                           ),
 
-                        if (controller.typeOvercome == 1)
+                          if (controller.typeOvercome == 1)
+                            const SizedBox(height: 12),
+
+                          /// التخفيض السكني
+                          if (controller.typeOvercome == 1)
+                            PenaltyCard(
+                              icon: Icons.home_outlined,
+                              title: "التخفيض السكني".tr,
+                              subtitle: "نسبة التخفيض للإستعمال السكني ".tr,
+                              amount: controller.discout
+                                  .toInt()
+                                  .formatCustomint()
+                                  .toString(),
+                            ),
+
                           const SizedBox(height: 12),
 
-                        /// الضريبة النهائية
-                        PenaltyCard(
-                          icon: Icons.receipt_long_outlined,
-                          title: "الضريبة النهائية".tr,
-                          subtitle: "المبلغ النهائي".tr,
-                          amount: controller.netTax
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
-
-                        if (controller.typeOvercome == 1)
-                          const SizedBox(height: 12),
-
-                        /// التخفيض السكني
-                        if (controller.typeOvercome == 1)
+                          /// غرامة التأخير
                           PenaltyCard(
-                            icon: Icons.home_outlined,
-                            title: "التخفيض السكني".tr,
-                            subtitle: "نسبة التخفيض للإستعمال السكني ".tr,
-                            amount: controller.discout
-                                .toInt()
+                            icon: Icons.warning_amber_rounded,
+                            title: "غرامة التأخير".tr,
+                            subtitle: "المبلغ الإضافي الناتج عن تأخر السداد".tr,
+                            amount: controller.Penalty.toInt()
                                 .formatCustomint()
                                 .toString(),
                           ),
 
-                        const SizedBox(height: 12),
+                          const SizedBox(height: 24),
 
-                        /// غرامة التأخير
-                        PenaltyCard(
-                          icon: Icons.warning_amber_rounded,
-                          title: "غرامة التأخير".tr,
-                          subtitle: "المبلغ الإضافي الناتج عن تأخر السداد".tr,
-                          amount: controller.Penalty.toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
+                          /// المجموع الكلي
+                          TotalAmountCard(total: controller.total.toInt()),
 
-                        const SizedBox(height: 24),
+                          SizedBox(height: 30),
 
-                        /// المجموع الكلي
-                        TotalAmountCard(total: controller.total.toInt()),
-
-                        SizedBox(height: 30),
-
-                        /// زر إنهاء
-                        Custemsuberbutton(
-                          content: "إنهاء".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.resetAll();
-                          },
-                        ),
-                      ],
+                          /// زر إنهاء
+                          Custemsuberbutton(
+                            content: "إنهاء".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.resetAll();
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

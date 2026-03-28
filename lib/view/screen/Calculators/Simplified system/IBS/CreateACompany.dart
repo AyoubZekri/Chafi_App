@@ -24,7 +24,6 @@ class _CreateacompanyState extends State<Createacompany> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: AppColor.typography,
         appBar: AppBar(
           title: Text("حاسبة النظام الحقيقي".tr),
           titleTextStyle: TextStyle(
@@ -40,57 +39,60 @@ class _CreateacompanyState extends State<Createacompany> {
 
         body: GetBuilder<Simplifiedsystemcontroller>(
           builder: (controller) {
-            return Column(
-              children: [
-                SizedBox(height: 30),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.white,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(50),
-                        topLeft: Radius.circular(50),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20),
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content:
-                              "أدخل البيانات بدقة للحصول على نتيجة  صحيحة".tr,
-                        ),
-                        SizedBox(height: 40),
-                        CustemtextbodyMedium18(
-                          content: "أدخل تاريخ إنشاء الشركة".tr,
-                          color: AppColor.black,
-                        ),
-                        SizedBox(height: 70),
-                        CustomInputField(
-                          icon: Icons.event_available_outlined,
-                          controller: controller.dataCreate,
-                          label: "أدخل التاريخ".tr,
-                          placeholder: 'mm/dd/yyyy',
-                          errorText: controller.dataCreateErorr,
-                          isDate: true,
-                        ),
-                        const Spacer(),
-                        Custemsuberbutton(
-                          content: "60".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.gotoAfter();
-                          },
-                        ),
+            return Container(
+              color: AppColor.typography,
+              child: Container(
+                margin: const EdgeInsets.only(top: 30),
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(50),
+                  ),
 
-                        SizedBox(height: 20),
-                      ],
+                  child: Container(
+                    color: AppColor.white,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content:
+                                "أدخل البيانات بدقة للحصول على نتيجة  صحيحة".tr,
+                          ),
+                          SizedBox(height: 40),
+                          CustemtextbodyMedium18(
+                            content: "أدخل تاريخ إنشاء الشركة".tr,
+                            color: AppColor.black,
+                          ),
+                          SizedBox(height: 70),
+                          CustomInputField(
+                            icon: Icons.event_available_outlined,
+                            controller: controller.dataCreate,
+                            label: "أدخل التاريخ".tr,
+                            placeholder: 'mm/dd/yyyy',
+                            errorText: controller.dataCreateErorr,
+                            isDate: true,
+                          ),
+                          SizedBox(height: 60),
+                          Custemsuberbutton(
+                            content: "60".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.gotoAfter();
+                            },
+                          ),
+
+                          SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ],
+              ),
             );
           },
         ),

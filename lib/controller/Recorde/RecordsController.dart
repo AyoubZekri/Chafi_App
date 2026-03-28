@@ -20,6 +20,11 @@ class RecordscontrollerImp extends Recordscontroller {
   RxList<MypathModel> data = <MypathModel>[].obs;
 
   Future<void> viewdata() async {
+    if (myServices.sharedPreferences!.getString("token") == null) {
+      statusrequest.value = Statusrequest.login;
+      update();
+      return;
+    }
     statusrequest.value = Statusrequest.loadeng;
 
     var response = await categorydata.viewdata({});
@@ -33,12 +38,13 @@ class RecordscontrollerImp extends Recordscontroller {
         List listdata = response['data'];
         data.value = listdata.map((e) => MypathModel.fromJson(e)).toList();
         if (data.isEmpty) {
-          statusrequest.value = Statusrequest.failure;
+          statusrequest.value = Statusrequest.nodata;
         }
       } else {
         statusrequest.value = Statusrequest.failure;
       }
     }
+    update();
   }
 
   @override

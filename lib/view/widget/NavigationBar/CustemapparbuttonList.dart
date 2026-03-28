@@ -27,13 +27,15 @@ class CustemapparbuttonList extends StatelessWidget {
         color: AppColor.white,
         child: Obx(() {
           return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(controller.Screen.length, (i) {
-              return Custemapparbutton(
-                onPressed: () => controller.ChangePage(i),
-                icondata: controller.IconsScreen[i]["icon"],
-                textButton: controller.texts[i]["Text"]!, // النصوص تتغير تلقائياً
-                active: controller.currentpage.value == i,
+              return Expanded(
+                child: Custemapparbutton(
+                  onPressed: () => controller.ChangePage(i),
+                  icondata: controller.IconsScreen[i]["icon"],
+                  textButton:
+                      controller.texts[i]["Text"]!, 
+                  active: controller.currentpage.value == i,
+                ),
               );
             }),
           );

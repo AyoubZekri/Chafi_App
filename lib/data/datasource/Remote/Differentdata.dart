@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../LinkApi.dart';
 import '../../../core/class/Crud.dart';
 import '../../../core/class/Sqldb.dart';
+import '../../../core/class/Statusrequest.dart';
 import '../../../core/services/Services.dart';
 
 class Differentdata {
@@ -14,12 +15,16 @@ class Differentdata {
   bool get isLoggedIn =>
       myservices.sharedPreferences?.getString("token") != null;
 
-  Future<Map<String, dynamic>> viewdata(Map data) async {
+  Future<dynamic> viewdata(Map data) async {
     Map<String, List<dynamic>> result = {"data": []};
 
     if (isLoggedIn) {
       var response = await crud.postWithheaders(Applink.differentShow, data);
       var body = response.fold((l) => l, (r) => r);
+
+      if (body == Statusrequest.failure) {
+        return Statusrequest.failure;
+      }
 
       if (body is Map && body.containsKey("data")) {
         result["data"] = body["data"];
@@ -32,6 +37,9 @@ class Differentdata {
         data,
       );
       var body = response.fold((l) => l, (r) => r);
+      if (body == Statusrequest.failure) {
+        return Statusrequest.failure;
+      }
 
       List items = [];
       if (body is Map && body.containsKey("data")) {
@@ -68,9 +76,7 @@ class Differentdata {
       return response.fold((r) => r, (l) => l);
     } else {
       try {
-        await sqldb.insert('read_differents', {
-          "different_id": institutionId,
-        });
+        await sqldb.insert('read_differents', {"different_id": institutionId});
         return {"status": 1, "message": "Success", "data": "تم الإنشاء بنجاح"};
       } catch (e) {
         print("خطأ في تسجيل القراءة محليًا: $e");

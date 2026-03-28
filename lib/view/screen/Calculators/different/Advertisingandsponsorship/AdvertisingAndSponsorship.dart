@@ -53,63 +53,65 @@ class _AdvertisingandsponsorshipState extends State<Advertisingandsponsorship> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        const SizedBox(height: 20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
 
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content: "enter_business_number".tr,
-                        ),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content: "enter_business_number".tr,
+                          ),
 
-                        const SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
-                        SectionHeader(
-                          icon: Icons.receipt_long_outlined,
-                          title: "business_number".tr,
-                        ),
+                          SectionHeader(
+                            icon: Icons.receipt_long_outlined,
+                            title: "business_number".tr,
+                          ),
 
-                        const SizedBox(height: 12),
+                          const SizedBox(height: 12),
 
-                        CustomInputField(
-                          label: "business_number".tr,
-                          icon: Icons.confirmation_num_outlined,
-                          isCurrency: true,
-                          controller: controller.Businessnumber,
-                          errorText: controller.BusinessnumberErorr,
-                          onChanged: (value) {
-                            controller.calcul();
-                          },
-                        ),
+                          CustomInputField(
+                            label: "business_number".tr,
+                            icon: Icons.confirmation_num_outlined,
+                            isCurrency: true,
+                            controller: controller.Businessnumber,
+                            errorText: controller.BusinessnumberErorr,
+                            onChanged: (value) {
+                              controller.calcul();
+                            },
+                          ),
 
-                        const SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
-                        PenaltyCard(
-                          title: "max_deduction".tr,
-                          subtitle: "ads_sponsorship".tr,
-                          amount: "300,00",
-                        ),
+                          PenaltyCard(
+                            title: "max_deduction".tr,
+                            subtitle: "ads_sponsorship".tr,
+                            amount: "300,00",
+                          ),
 
-                        const SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
-                        TotalAmountCard(
-                          total: controller.netTax.round(),
-                          title: "deduction_value".tr,
-                        ),
+                          TotalAmountCard(
+                            total: controller.netTax.round(),
+                            title: "deduction_value".tr,
+                          ),
 
-                        const SizedBox(height: 30),
+                          const SizedBox(height: 30),
 
-                        Custemsuberbutton(
-                          content: "finish".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.Back();
-                          },
-                        ),
+                          Custemsuberbutton(
+                            content: "finish".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.Back();
+                            },
+                          ),
 
-                        const SizedBox(height: 20),
-                      ],
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

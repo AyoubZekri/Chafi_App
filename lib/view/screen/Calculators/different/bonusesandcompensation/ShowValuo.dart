@@ -49,117 +49,118 @@ class _ShowvaluoState extends State<Showvaluo> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: EdgeInsets.all(20),
-                      children: [
-                        const SizedBox(height: 10),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          /// عنوان القسم
+                          SectionHeader(
+                            icon: Icons.gavel_outlined,
+                            title: "bonus_details".tr,
+                          ),
 
-                        /// عنوان القسم
-                        SectionHeader(
-                          icon: Icons.gavel_outlined,
-                          title: "bonus_details".tr,
-                        ),
+                          const SizedBox(height: 20),
 
-                        const SizedBox(height: 20),
+                          PenaltyCard(
+                            icon: Icons.account_balance_wallet_outlined,
+                            title: "basic_wage".tr,
+                            subtitle: "base_salary".tr,
+                            amount: controller.Basicwage.toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 12),
+                          PenaltyCard(
+                            icon: Icons.location_on_outlined,
+                            title: "zone_bonus".tr,
+                            subtitle: "zone_bonus_desc".tr,
+                            amount: controller.zoon
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
 
-                        PenaltyCard(
-                          icon: Icons.account_balance_wallet_outlined,
-                          title: "basic_wage".tr,
-                          subtitle: "base_salary".tr,
-                          amount: controller.Basicwage.toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
-                        const SizedBox(height: 12),
-                        PenaltyCard(
-                          icon: Icons.location_on_outlined,
-                          title: "zone_bonus".tr,
-                          subtitle: "zone_bonus_desc".tr,
-                          amount: controller.zoon
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
+                          const SizedBox(height: 12),
 
-                        const SizedBox(height: 12),
+                          PenaltyCard(
+                            icon: Icons.percent_outlined,
+                            title: "social_security".tr,
+                            subtitle: "social_security_desc".tr,
+                            amount: controller.person9
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
 
-                        PenaltyCard(
-                          icon: Icons.percent_outlined,
-                          title: "social_security".tr,
-                          subtitle: "social_security_desc".tr,
-                          amount: controller.person9
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
+                          const SizedBox(height: 12),
 
-                        const SizedBox(height: 12),
+                          /// غرامة التأخير
+                          PenaltyCard(
+                            icon: Icons.payments_outlined,
+                            title: "taxable_income".tr,
+                            subtitle: "taxable_income_desc".tr,
+                            amount: controller.grossincome
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 12),
 
-                        /// غرامة التأخير
-                        PenaltyCard(
-                          icon: Icons.payments_outlined,
-                          title: "taxable_income".tr,
-                          subtitle: "taxable_income_desc".tr,
-                          amount: controller.grossincome
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
-                        const SizedBox(height: 12),
+                          /// غرامة التأخير
+                          PenaltyCard(
+                            icon: Icons.trending_down_outlined,
+                            title: "first_discount".tr,
+                            subtitle: "first_discount_desc".tr,
+                            amount: controller.discount1
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 12),
 
-                        /// غرامة التأخير
-                        PenaltyCard(
-                          icon: Icons.trending_down_outlined,
-                          title: "first_discount".tr,
-                          subtitle: "first_discount_desc".tr,
-                          amount: controller.discount1
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
-                        const SizedBox(height: 12),
+                          /// غرامة التأخير
+                          PenaltyCard(
+                            icon: Icons.volunteer_activism_outlined,
+                            title: "second_discount".tr,
+                            subtitle: controller.personscondition == 6
+                                ? "second_discount_desc_low_income".tr
+                                : "second_discount_desc_special".tr,
+                            amount: controller.discount2
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
 
-                        /// غرامة التأخير
-                        PenaltyCard(
-                          icon: Icons.volunteer_activism_outlined,
-                          title: "second_discount".tr,
-                          subtitle: controller.personscondition == 6
-                              ? "second_discount_desc_low_income".tr
-                              : "second_discount_desc_special".tr,
-                          amount: controller.discount2
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
+                          const SizedBox(height: 24),
 
-                        const SizedBox(height: 24),
+                          /// المجموع الكلي
+                          TotalAmountCard(total: controller.discount2.toInt()),
 
-                        /// المجموع الكلي
-                        TotalAmountCard(total: controller.discount2.toInt()),
+                          const SizedBox(height: 30),
+                          Custemsuberbutton(
+                            content: "show_salary_slip".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                barrierColor: Colors.black.withOpacity(0.6),
+                                builder: (_) => const SalarySlipDialog(),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 30),
 
-                        const SizedBox(height: 30),
-                        Custemsuberbutton(
-                          content: "show_salary_slip".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              barrierColor: Colors.black.withOpacity(0.6),
-                              builder: (_) => const SalarySlipDialog(),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 30),
-
-                        /// زر إنهاء
-                        Custemsuberbutton(
-                          content: "finish".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.resetAll();
-                          },
-                        ),
-                      ],
+                          /// زر إنهاء
+                          Custemsuberbutton(
+                            content: "finish".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.resetAll();
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -25,7 +25,6 @@ class _CapitalState extends State<Capital> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: AppColor.typography,
         appBar: AppBar(
           title: Text("حاسبة النظام الحقيقي".tr),
           titleTextStyle: TextStyle(
@@ -54,63 +53,64 @@ class _CapitalState extends State<Capital> {
 
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
-                        const SizedBox(height: 30),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30),
+                          Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(50),
+                                topLeft: Radius.circular(50),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20),
 
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(50),
-                              topLeft: Radius.circular(50),
+                                CustemtextbodyMedium18(
+                                  color: AppColor.grey,
+                                  content:
+                                      "أدخل البيانات بدقة للحصول على نتيجة  صحيحة"
+                                          .tr,
+                                ),
+
+                                const SizedBox(height: 40),
+
+                                CustemtextbodyMedium18(
+                                  content: "أدخل رأس مال الشركة".tr,
+                                  color: AppColor.black,
+                                ),
+
+                                const SizedBox(height: 70),
+
+                                CustomInputField(
+                                  icon: Icons.account_balance_wallet_outlined,
+                                  controller: controller.capital,
+                                  label: "رأس المال".tr,
+                                  errorText: controller.capitalErorr,
+                                  isCurrency: true,
+                                ),
+
+                                const SizedBox(height: 60),
+
+                                Custemsuberbutton(
+                                  content: "60".tr,
+                                  color: AppColor.typography,
+                                  onPressed: () {
+                                    controller.divideTaxToCapital();
+                                  },
+                                ),
+
+                                const SizedBox(height: 20),
+                              ],
                             ),
                           ),
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 20),
-
-                              CustemtextbodyMedium18(
-                                color: AppColor.grey,
-                                content:
-                                    "أدخل البيانات بدقة للحصول على نتيجة  صحيحة"
-                                        .tr,
-                              ),
-
-                              const SizedBox(height: 40),
-
-                              CustemtextbodyMedium18(
-                                content: "أدخل رأس مال الشركة".tr,
-                                color: AppColor.black,
-                              ),
-
-                              const SizedBox(height: 70),
-
-                              CustomInputField(
-                                icon: Icons.account_balance_wallet_outlined,
-                                controller: controller.capital,
-                                label: "رأس المال".tr,
-                                errorText: controller.capitalErorr,
-                                isCurrency: true,
-                              ),
-
-                              const SizedBox(height: 260),
-
-                              Custemsuberbutton(
-                                content: "60".tr,
-                                color: AppColor.typography,
-                                onPressed: () {
-                                  controller.divideTaxToCapital();
-                                },
-                              ),
-
-                              const SizedBox(height: 20),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

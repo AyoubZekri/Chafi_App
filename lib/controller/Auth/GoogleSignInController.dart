@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:chafi/controller/HomeController.dart';
+import 'package:chafi/controller/ProfaileController.dart';
 import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/core/functions/SaveImage.dart';
+import 'package:chafi/core/functions/handlingdatacontroller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
   LoginData loginData = LoginData(Get.find());
   Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
+  int type = 0;
 
   @override
   void signInWithGoogle() async {
@@ -63,63 +66,101 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
 
       var response = await loginData.login({"uid": uid, "token": fcmToken});
 
-      print("Login Response: $response");
+      if (response == Statusrequest.serverfailure) {
+        return showSnackbar("خطأ".tr, "لا يوجد اتصال بالإنترنت".tr, Colors.red);
+      }
+      print("Response: $response");
+      statusrequest = handlingData(response);
+      if (statusrequest == Statusrequest.success) {
+        if (response["status"] == 1) {
+          myServices.sharedPreferences!.setString(
+            "email",
+            response["user"]["email"],
+          );
+          myServices.sharedPreferences!.setString(
+            "username",
+            response["user"]["username"],
+          );
+          myServices.sharedPreferences!.setString(
+            "wilaya",
+            response["user"]["wilaya"],
+          );
+          myServices.sharedPreferences!.setString(
+            "numperPhone",
+            response["user"]["numperPhone"],
+          );
+          myServices.sharedPreferences!.setInt("user_notify_status", 1);
+          myServices.sharedPreferences!.setString(
+            "token",
+            response["access_token"],
+          );
+          String imageName = response["user"]["image"] ?? "";
+          print("===========$imageName");
+          String imageUrl = "${Applink.image}$imageName";
+          print("===========$imageUrl");
+          final file = await downloadAndCacheImage(imageUrl);
+          print("===========$file");
+          if (file != null) {
+            myServices.sharedPreferences!.setString("image", file.path);
+          }
+          if (file != null) {
+            myServices.sharedPreferences!.setString("image", file.path);
+          }
+          var imagepath = myServices.sharedPreferences?.getString("image");
+          if (imagepath != null && imagepath.isNotEmpty) {
+            final file = File(imagepath);
+            if (file.existsSync()) {
+              Get.find<HomecontrollerImp>().image = file;
+              Get.find<HomecontrollerImp>().update();
+              Get.find<ProfailecontrollerImp>().onInit();
+              Get.find<ProfailecontrollerImp>().update();
+            }
+          }
 
-      if (response["status"] == 1) {
-        myServices.sharedPreferences!.setString(
-          "email",
-          response["user"]["email"],
-        );
-        myServices.sharedPreferences!.setString(
-          "username",
-          response["user"]["username"],
-        );
-        myServices.sharedPreferences!.setString(
-          "wilaya",
-          response["user"]["wilaya"],
-        );
-        myServices.sharedPreferences!.setString(
-          "numperPhone",
-          response["user"]["numperPhone"],
-        );
-        myServices.sharedPreferences!.setInt("user_notify_status", 1);
-        myServices.sharedPreferences!.setString(
-          "token",
-          response["access_token"],
-        );
-        String imageName = response["user"]["image"] ?? "";
-        print("===========$imageName");
-        String imageUrl = "${Applink.image}$imageName";
-        print("===========$imageUrl");
-        final file = await downloadAndCacheImage(imageUrl);
-        print("===========$file");
-        if (file != null) {
-          myServices.sharedPreferences!.setString("image", file.path);
-        }
-        if (file != null) {
-          myServices.sharedPreferences!.setString("image", file.path);
-        }
-        var imagepath = myServices.sharedPreferences?.getString("image");
-        if (imagepath != null && imagepath.isNotEmpty) {
-          final file = File(imagepath);
-          if (file.existsSync()) {
-            Get.find<HomecontrollerImp>().image = file;
-            Get.find<HomecontrollerImp>().update();
+          statusrequest = Statusrequest.success;
+          if (type == 1) {
+            Get.put(ProfailecontrollerImp());
+            Get.back();
+          } else {
+            Get.offAllNamed(Approutes.navigationBar, arguments: {"uid": uid});
+          }
+        } else {
+          if (type == 1) {
+            Get.toNamed(
+              Approutes.infouser,
+              arguments: {"uid": uid, "type": type},
+            );
+          } else {
+            Get.offAllNamed(
+              Approutes.infouser,
+              arguments: {"uid": uid, "type": type},
+            );
           }
         }
-
-        statusrequest = Statusrequest.success;
-        Get.offAllNamed(Approutes.navigationBar, arguments: {"uid": uid});
       } else {
-        Get.offAllNamed(Approutes.infouser, arguments: {"uid": uid});
+        statusrequest == Statusrequest.none;
+        showTopError("حدث خطأ".tr);
+        update();
       }
     } catch (e) {
       print("login Error: $e");
-      // Get.snackbar("خطأ", e.toString());
+      showTopError("حدث خطأ".tr);
+      statusrequest == Statusrequest.none;
+      update();
     }
   }
 
   void gotonavBar() {
+    Get.find<ProfailecontrollerImp>().onInit();
+    Get.find<ProfailecontrollerImp>().update();
     Get.offAllNamed(Approutes.navigationBar);
+  }
+
+  @override
+  void onInit() {
+    final args = Get.arguments ?? {};
+    type = args['type'] ?? 0;
+    print("============type   $type");
+    super.onInit();
   }
 }

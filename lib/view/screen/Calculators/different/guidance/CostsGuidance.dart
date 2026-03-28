@@ -104,7 +104,7 @@ class _CostsguidanceState extends State<Costsguidance> {
             return Container(
               color: AppColor.typography,
               child: Container(
-                margin: const EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.only(top: 30),
                 width: double.infinity,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -113,19 +113,20 @@ class _CostsguidanceState extends State<Costsguidance> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              CustemtextbodyMedium18(
-                                color: AppColor.grey,
-                                content: "add_gifts_description".tr,
-                              ),
-                              const SizedBox(height: 20),
-                              ListView.builder(
-                                shrinkWrap: true,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content: "add_gifts_description".tr,
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              height: MediaQuery.of(context).size.height * 0.7,
+                              padding: EdgeInsets.only(bottom: 20),
+                              child: ListView.builder(
                                 padding: const EdgeInsets.only(bottom: 80),
                                 itemCount: controller.gifts.length,
                                 itemBuilder: (context, index) {
@@ -144,14 +145,15 @@ class _CostsguidanceState extends State<Costsguidance> {
                                     totalText: "added_to_tax_result".tr,
                                     onPressed: () {
                                       controller.gifts.remove(gift.key);
+                                      controller.update();
                                     },
                                   );
                                 },
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

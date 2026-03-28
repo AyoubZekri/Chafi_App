@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../LinkApi.dart';
 import '../../../core/class/Crud.dart';
+import '../../../core/class/Statusrequest.dart';
 
 class InstitutionData {
   final Crud crud;
@@ -15,12 +16,15 @@ class InstitutionData {
   bool get isLoggedIn =>
       myservices.sharedPreferences?.getString("token") != null;
 
-  Future<Map<String, dynamic>> viewdata(Map data) async {
+  Future<dynamic> viewdata(Map data) async {
     Map<String, List<dynamic>> result = {"data": []};
 
     if (isLoggedIn) {
       var response = await crud.postWithheaders(Applink.institutionShow, data);
       var body = response.fold((l) => l, (r) => r);
+      if (body == Statusrequest.failure) {
+        return Statusrequest.failure;
+      }
 
       if (body is Map && body.containsKey("data")) {
         result["data"] = body["data"];
@@ -33,6 +37,9 @@ class InstitutionData {
         data,
       );
       var body = response.fold((l) => l, (r) => r);
+      if (body == Statusrequest.failure) {
+        return Statusrequest.failure;
+      }
 
       List items = [];
       if (body is Map && body.containsKey("data")) {

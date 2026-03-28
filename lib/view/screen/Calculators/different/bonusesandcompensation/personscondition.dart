@@ -50,90 +50,92 @@ class _PersonsconditionState extends State<Personscondition> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: EdgeInsets.all(20),
-                      children: [
-                        SizedBox(height: 20),
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content: "enter_data_correctly".tr,
-                        ),
-                        SizedBox(height: 40),
-                        CustemtextbodyMedium18(
-                          content: "are_you_in_these_people".tr,
-                          color: AppColor.black,
-                        ),
-                        SizedBox(height: 60),
-                        Cardpersontype(
-                          padding: 30,
-                          marginb: 25,
-                          index: 1,
-                          title: "physically_disabled".tr,
-                          selectedPerson: controller.personscondition,
-                          onTap: () {
-                            controller.selectedpersonscondition(1);
-                          },
-                        ),
-                        Cardpersontype(
-                          padding: 30,
-                          index: 2,
-                          marginb: 25,
-                          title: "mentally_disabled".tr,
-                          selectedPerson: controller.personscondition,
-                          onTap: () {
-                            controller.selectedpersonscondition(2);
-                          },
-                        ),
-                        Cardpersontype(
-                          padding: 30,
-                          index: 3,
-                          marginb: 25,
-                          title: "blind".tr,
-                          selectedPerson: controller.personscondition,
-                          onTap: () {
-                            controller.selectedpersonscondition(3);
-                          },
-                        ),
-                        Cardpersontype(
-                          padding: 30,
-                          index: 4,
-                          marginb: 25,
-                          title: "deaf_mute".tr,
-                          selectedPerson: controller.personscondition,
-                          onTap: () {
-                            controller.selectedpersonscondition(4);
-                          },
-                        ),
-                        Cardpersontype(
-                          padding: 30,
-                          index: 5,
-                          marginb: 25,
-                          title: "retired_workers".tr,
-                          selectedPerson: controller.personscondition,
-                          onTap: () {
-                            controller.selectedpersonscondition(5);
-                          },
-                        ),
-                        Cardpersontype(
-                          padding: 30,
-                          index: 6,
-                          marginb: 25,
-                          title: "none_of_them".tr,
-                          selectedPerson: controller.personscondition,
-                          onTap: () {
-                            controller.selectedpersonscondition(6);
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        Custemsuberbutton(
-                          content: "next".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.gotoSpeciallogictype();
-                          },
-                        ),
-                        SizedBox(height: 20),
-                      ],
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content: "enter_data_correctly".tr,
+                          ),
+                          SizedBox(height: 40),
+                          CustemtextbodyMedium18(
+                            content: "are_you_in_these_people".tr,
+                            color: AppColor.black,
+                          ),
+                          SizedBox(height: 60),
+                          Cardpersontype(
+                            padding: 30,
+                            marginb: 25,
+                            index: 1,
+                            title: "physically_disabled".tr,
+                            selectedPerson: controller.personscondition,
+                            onTap: () {
+                              controller.selectedpersonscondition(1);
+                            },
+                          ),
+                          Cardpersontype(
+                            padding: 30,
+                            index: 2,
+                            marginb: 25,
+                            title: "mentally_disabled".tr,
+                            selectedPerson: controller.personscondition,
+                            onTap: () {
+                              controller.selectedpersonscondition(2);
+                            },
+                          ),
+                          Cardpersontype(
+                            padding: 30,
+                            index: 3,
+                            marginb: 25,
+                            title: "blind".tr,
+                            selectedPerson: controller.personscondition,
+                            onTap: () {
+                              controller.selectedpersonscondition(3);
+                            },
+                          ),
+                          Cardpersontype(
+                            padding: 30,
+                            index: 4,
+                            marginb: 25,
+                            title: "deaf_mute".tr,
+                            selectedPerson: controller.personscondition,
+                            onTap: () {
+                              controller.selectedpersonscondition(4);
+                            },
+                          ),
+                          Cardpersontype(
+                            padding: 30,
+                            index: 5,
+                            marginb: 25,
+                            title: "retired_workers".tr,
+                            selectedPerson: controller.personscondition,
+                            onTap: () {
+                              controller.selectedpersonscondition(5);
+                            },
+                          ),
+                          Cardpersontype(
+                            padding: 30,
+                            index: 6,
+                            marginb: 25,
+                            title: "none_of_them".tr,
+                            selectedPerson: controller.personscondition,
+                            onTap: () {
+                              controller.selectedpersonscondition(6);
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          Custemsuberbutton(
+                            content: "next".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.gotoSpeciallogictype();
+                            },
+                          ),
+                          SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

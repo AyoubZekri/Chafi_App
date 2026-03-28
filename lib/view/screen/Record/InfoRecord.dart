@@ -1,3 +1,4 @@
+import 'package:chafi/core/class/handlingview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,23 +25,11 @@ class _InforecordState extends State<Inforecord> {
       appBar: AppBar(title: Text("تفاصيل السجل".tr)),
       body: GetBuilder<InforecordcontrollerImp>(
         builder: (_) {
-          if (controller.recordStatus == Statusrequest.loadeng) {
-            return const Center(
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: CircularProgressIndicator(
-                  strokeWidth: 6,
-                  backgroundColor: Color(0xFFF0F5FF),
-                  valueColor: AlwaysStoppedAnimation(Color(0xFF034D82)),
-                ),
-              ),
+          if (controller.recordStatus != Statusrequest.success) {
+            return Handlingview(
+              statusrequest: controller.recordStatus,
+              widget: SizedBox(),
             );
-          }
-
-          if (controller.recordStatus == Statusrequest.failure ||
-              controller.data.isEmpty) {
-            return Center(child: Text("لا توجد بيانات".tr));
           }
 
           final item = controller.data[0];
@@ -63,13 +52,13 @@ class _InforecordState extends State<Inforecord> {
                       condition: 1,
                       persontype: item.personType == 1 ? "58".tr : "59".tr,
                       name: item.username,
-                      address: item.wilaya,
+                      address: item.wilaya.tr,
                       numperTax: item.taxId == 0
                           ? "49".tr
                           : item.taxId == 1
                           ? "50".tr
                           : "48".tr,
-                      codeActeve: item.codeActivity.toString(),
+                      codeActeve: item.codeActivity.toString().tr,
                     ),
                     const SizedBox(height: 20),
                     // ===== Appointments Section =====

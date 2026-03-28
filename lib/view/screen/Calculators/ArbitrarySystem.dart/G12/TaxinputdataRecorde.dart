@@ -53,8 +53,8 @@ class _TaxinputdatarecordeState extends State<Taxinputdatarecorde> {
 
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
+                    child: SingleChildScrollView(
+                      child: 
                         Container(
                           padding: const EdgeInsets.all(20),
 
@@ -170,7 +170,7 @@ class _TaxinputdatarecordeState extends State<Taxinputdatarecorde> {
                             ],
                           ),
                         ),
-                      ],
+                     
                     ),
                   ),
                 ),

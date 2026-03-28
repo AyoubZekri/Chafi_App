@@ -51,56 +51,58 @@ class _ResearchanddevelopmentState extends State<Researchanddevelopment> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        SizedBox(height: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
 
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content:
-                              "أدخل الربح المحاسبي ليتم حساب قيمة الخصم الضريبي المسموح به",
-                        ),
-                        SizedBox(height: 24),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content:
+                                "أدخل الربح المحاسبي ليتم حساب قيمة الخصم الضريبي المسموح به",
+                          ),
+                          SizedBox(height: 24),
 
-                        SectionHeader(
-                          icon: Icons.receipt_long_outlined,
-                          title: "ربح المحاسبي",
-                        ),
-                        SizedBox(height: 12),
+                          SectionHeader(
+                            icon: Icons.receipt_long_outlined,
+                            title: "ربح المحاسبي",
+                          ),
+                          SizedBox(height: 12),
 
-                        CustomInputField(
-                          label: "ربح المحاسبي",
-                          icon: Icons.confirmation_num_outlined,
-                          isCurrency: true,
-                          controller: controller.accountingprofit,
-                          errorText: controller.accountingprofitErorr,
-                          onChanged: (value) {
-                            controller.calcul();
-                          },
-                        ),
-                        SizedBox(height: 24),
+                          CustomInputField(
+                            label: "ربح المحاسبي",
+                            icon: Icons.confirmation_num_outlined,
+                            isCurrency: true,
+                            controller: controller.accountingprofit,
+                            errorText: controller.accountingprofitErorr,
+                            onChanged: (value) {
+                              controller.calcul();
+                            },
+                          ),
+                          SizedBox(height: 24),
 
-                        PenaltyCard(
-                          title: "الحد الأقصى للخصم",
-                          subtitle: "للبحث والتطوير",
-                          amount: "2,000,000,00",
-                        ),
-                        SizedBox(height: 24),
-                        TotalAmountCard(
-                          total: controller.netTax.round(),
-                          title: "قيمة الخصم",
-                        ),
-                        SizedBox(height: 30),
-                        Custemsuberbutton(
-                          content: "إنهاء".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.Back();
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          PenaltyCard(
+                            title: "الحد الأقصى للخصم",
+                            subtitle: "للبحث والتطوير",
+                            amount: "2,000,000,00",
+                          ),
+                          SizedBox(height: 24),
+                          TotalAmountCard(
+                            total: controller.netTax.round(),
+                            title: "قيمة الخصم",
+                          ),
+                          SizedBox(height: 30),
+                          Custemsuberbutton(
+                            content: "إنهاء".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.Back();
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

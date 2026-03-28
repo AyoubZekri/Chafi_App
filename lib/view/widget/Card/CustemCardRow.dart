@@ -55,22 +55,22 @@ class Custemcardrow extends StatelessWidget {
                 child: Image.asset(imgae, height: 70, fit: BoxFit.cover),
               ),
             ),
-            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 230,
-                    child: Text(
+                    width: 240,
+                    child: AutoSizeText(
                       body,
                       style: context.textTheme.bodyMedium?.copyWith(
                         fontSize: sizeText,
                         color: AppColor.white,
                       ),
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      minFontSize: 14,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],

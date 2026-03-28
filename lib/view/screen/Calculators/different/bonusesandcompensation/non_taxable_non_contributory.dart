@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../controller/Calculators/bonusesandcompensationcontroller.dart';
+import '../../../../../core/class/Statusrequest.dart';
 import '../../../../../core/class/handlingview.dart';
 import '../../../../../data/model/BonusModel.dart';
 import '../../../../widget/Button/CustemSuberButton.dart';
@@ -27,7 +28,6 @@ class _NonTaxableNonContributoryState extends State<NonTaxableNonContributory> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: AppColor.typography,
         appBar: AppBar(
           title: Text("bonuses_compensations".tr),
           titleTextStyle: TextStyle(
@@ -55,86 +55,92 @@ class _NonTaxableNonContributoryState extends State<NonTaxableNonContributory> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20),
-                              CustemtextbodyMedium18(
-                                color: AppColor.grey,
-                                content: "enter_data_correctly".tr,
-                              ),
-                              SizedBox(height: 40),
-                              CustemtextbodyMedium18(
-                                content: "choose_non_taxable".tr,
-                                color: AppColor.black,
-                              ),
-                              SizedBox(height: 70),
-                              controller.groupedData.isEmpty
-                                  ? SizedBox(
-                                      height: 350,
-                                      child: Handlingview(
-                                        statusrequest: controller.statusrequest,
-                                        widget: SizedBox(),
-                                      ),
-                                    )
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: const ClampingScrollPhysics(),
-                                      itemCount:
-                                          controller.groupedData[3]!.length,
-                                      itemBuilder: (context, i) {
-                                        final List<BonusModel> data =
-                                            controller.groupedData[3] ?? [];
-                                        final item = data[i];
-                                        final isSelected = controller
-                                            .selectedGroups[3]!
-                                            .contains(item.id);
-                                        return Cardpersontype(
-                                          padding: 20,
-                                          marginb: 30,
-                                          index: data[i].id,
-                                          title: data[i].localizedName,
-                                          selectedPerson: isSelected
-                                              ? data[i].id
-                                              : 0,
-                                          onTap: () {
-                                            controller.togglegroup(
-                                              data[i].id,
-                                              !controller.selectedGroups[3]!
-                                                  .contains(data[i].id),
-                                              3,
-                                            );
-                                          },
-                                        );
-                                      },
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content: "enter_data_correctly".tr,
+                            ),
+                            SizedBox(height: 40),
+                            CustemtextbodyMedium18(
+                              content: "choose_non_taxable".tr,
+                              color: AppColor.black,
+                            ),
+                            SizedBox(height: 70),
+                            controller.statusrequest != Statusrequest.success
+                                ? SizedBox(
+                                    height: 350,
+                                    child: Handlingview(
+                                      statusrequest: controller.statusrequest,
+                                      widget: const SizedBox(),
                                     ),
+                                  )
+                                : controller.groupedData[3] == null
+                                ? SizedBox(
+                                    height: 350,
+                                    child: Handlingview(
+                                      statusrequest: Statusrequest.failure,
+                                      widget: const SizedBox(),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const ClampingScrollPhysics(),
+                                    itemCount:
+                                        controller.groupedData[3]!.length,
+                                    itemBuilder: (context, i) {
+                                      final List<BonusModel> data =
+                                          controller.groupedData[3] ?? [];
+                                      final item = data[i];
+                                      final isSelected = controller
+                                          .selectedGroups[3]!
+                                          .contains(item.id);
+                                      return Cardpersontype(
+                                        padding: 20,
+                                        marginb: 30,
+                                        index: data[i].id,
+                                        title: data[i].localizedName,
+                                        selectedPerson: isSelected
+                                            ? data[i].id
+                                            : 0,
+                                        onTap: () {
+                                          controller.togglegroup(
+                                            data[i].id,
+                                            !controller.selectedGroups[3]!
+                                                .contains(data[i].id),
+                                            3,
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
 
-                              Custemsuberbutton(
-                                content: "60".tr,
-                                color: AppColor.typography,
-                                onPressed: () {
-                                  controller.gotoInboutvalou();
-                                },
-                              ),
+                            Custemsuberbutton(
+                              content: "60".tr,
+                              color: AppColor.typography,
+                              onPressed: () {
+                                controller.gotoInboutvalou();
+                              },
+                            ),
 
-                              // const SizedBox(height: 20),
+                            // const SizedBox(height: 20),
 
-                              // Custemsuberbutton(
-                              //   content: "62".tr,
-                              //   color: Color(0xffE8F1FF),
-                              //   color2: AppColor.brand,
-                              //   onPressed: () {
-                              //     controller.backtoPersonType();
-                              //   },
-                              // ),
-                              SizedBox(height: 20),
-                            ],
-                          ),
+                            // Custemsuberbutton(
+                            //   content: "62".tr,
+                            //   color: Color(0xffE8F1FF),
+                            //   color2: AppColor.brand,
+                            //   onPressed: () {
+                            //     controller.backtoPersonType();
+                            //   },
+                            // ),
+                            SizedBox(height: 20),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

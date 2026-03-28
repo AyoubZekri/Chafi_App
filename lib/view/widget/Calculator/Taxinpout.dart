@@ -82,7 +82,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
     }
   }
 
-  
   @override
   void initState() {
     super.initState();
@@ -153,8 +152,8 @@ class _CustomInputFieldState extends State<CustomInputField> {
                   Expanded(
                     child: AbsorbPointer(
                       absorbing: widget.isDate,
-
                       child: TextField(
+                        readOnly: widget.isDate,
                         controller: widget.controller,
                         onChanged: widget.onChanged,
                         textAlign: widget.isDate

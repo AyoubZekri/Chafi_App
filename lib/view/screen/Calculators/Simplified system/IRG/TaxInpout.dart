@@ -52,92 +52,91 @@ class _TaxinpoutState extends State<Taxinpout> {
 
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
 
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20),
-                              CustemtextbodyMedium18(
-                                color: AppColor.grey,
-                                content:
-                                    "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع المقررة بدقة.".tr,
-                              ),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content:
+                                  "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع المقررة بدقة."
+                                      .tr,
+                            ),
 
-                              SizedBox(height: 40),
+                            SizedBox(height: 40),
 
-                               SectionHeader(
-                                title: "النتيجة الجبائية".tr,
-                                icon: Icons.analytics_outlined,
-                              ),
-                              const SizedBox(height: 16),
+                            SectionHeader(
+                              title: "النتيجة الجبائية".tr,
+                              icon: Icons.analytics_outlined,
+                            ),
+                            const SizedBox(height: 16),
 
+                            CustomInputField(
+                              label: "النتيجة الجبائية".tr,
+                              icon: Icons.request_quote_outlined,
+                              isCurrency: true,
+                              controller: controller.production,
+                              errorText: controller.productionErorr,
+                            ),
+                            const SizedBox(height: 32),
+
+                            // 4. عنوان قسم التواريخ
+                            SectionHeader(
+                              title: 'تواريخ الدفع والإيداع'.tr,
+                              icon: Icons.calendar_month,
+                            ),
+                            const SizedBox(height: 16),
+
+                            // 5. حقول التواريخ
+                            if (controller.type != 3)
                               CustomInputField(
-                                label: "النتيجة الجبائية".tr,
-                                icon: Icons.request_quote_outlined,
-                                isCurrency: true,
-                                controller: controller.production,
-                                errorText: controller.productionErorr,
-                              ),
-                              const SizedBox(height: 32),
-
-                              // 4. عنوان قسم التواريخ
-                               SectionHeader(
-                                title: 'تواريخ الدفع والإيداع'.tr,
-                                icon: Icons.calendar_month,
-                              ),
-                              const SizedBox(height: 16),
-
-                              // 5. حقول التواريخ
-                              if (controller.type != 3)
-                                CustomInputField(
-                                  label: 'تاريخ دفع التسبيقة الأولى'.tr,
-                                  icon: Icons.date_range,
-                                  placeholder: 'mm/dd/yyyy',
-                                  isDate: true,
-                                  controller: controller.advance1Date,
-                                  errorText: controller.advance1DateErorr,
-                                ),
-                              if (controller.type != 3)
-                                const SizedBox(height: 16),
-                              if (controller.type != 3)
-                                CustomInputField(
-                                  label: 'تاريخ دفع التسبيقة الثانية'.tr,
-                                  icon: Icons.date_range,
-                                  placeholder: 'mm/dd/yyyy',
-                                  isDate: true,
-                                  controller: controller.advance2Date,
-                                  errorText: controller.advance2DateErorr,
-                                ),
-
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label: 'تاريخ الايداع و الدفع النهائي'.tr,
-                                icon: Icons.check_circle_outline,
+                                label: 'تاريخ دفع التسبيقة الأولى'.tr,
+                                icon: Icons.date_range,
                                 placeholder: 'mm/dd/yyyy',
                                 isDate: true,
-                                controller: controller.finalPaymentDate,
-                                errorText: controller.finalPaymentDateErorr,
+                                controller: controller.advance1Date,
+                                errorText: controller.advance1DateErorr,
+                              ),
+                            if (controller.type != 3)
+                              const SizedBox(height: 16),
+                            if (controller.type != 3)
+                              CustomInputField(
+                                label: 'تاريخ دفع التسبيقة الثانية'.tr,
+                                icon: Icons.date_range,
+                                placeholder: 'mm/dd/yyyy',
+                                isDate: true,
+                                controller: controller.advance2Date,
+                                errorText: controller.advance2DateErorr,
                               ),
 
-                              SizedBox(height: controller.type == 3 ? 190 : 32),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: 'تاريخ الايداع و الدفع النهائي'.tr,
+                              icon: Icons.check_circle_outline,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.finalPaymentDate,
+                              errorText: controller.finalPaymentDateErorr,
+                            ),
 
-                              // 6. زر الحفظ
-                              Custemsuberbutton(
-                                content: "التالي".tr,
-                                color: AppColor.typography,
-                                onPressed: () {
-                                  controller.calculateTaxperson1();
-                                },
-                              ),
+                            SizedBox(height: controller.type == 3 ? 50 : 32),
 
-                              const SizedBox(height: 20),
-                            ],
-                          ),
+                            // 6. زر الحفظ
+                            Custemsuberbutton(
+                              content: "التالي".tr,
+                              color: AppColor.typography,
+                              onPressed: () {
+                                controller.calculateTaxperson1();
+                              },
+                            ),
+
+                            const SizedBox(height: 20),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

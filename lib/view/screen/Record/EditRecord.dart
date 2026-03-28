@@ -1,3 +1,4 @@
+import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:flutter/material.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:get/get.dart';
@@ -88,14 +89,19 @@ class _EditrecordState extends State<Editrecord> {
                           },
                         ),
                         const SizedBox(height: 20),
-
-                        Custemsuberbutton(
-                          content: "حفظ".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.ediddata();
-                          },
-                        ),
+                        controller.statusrequest == Statusrequest.loadeng
+                            ? Custemsuberbutton(
+                                content: "حفظ".tr,
+                                color: AppColor.typography,
+                                laoding: true,
+                              )
+                            : Custemsuberbutton(
+                                content: "حفظ".tr,
+                                color: AppColor.typography,
+                                onPressed: () {
+                                  controller.ediddata();
+                                },
+                              ),
 
                         // const SizedBox(height: 20),
                         // Custemsuberbutton(

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/constant/Imageassets.dart';
+import '../core/functions/Snacpar.dart';
 import '../core/functions/handlingdatacontroller.dart';
 import '../core/services/Services.dart';
 import '../view/widget/Setting/custemLanguge.dart';
@@ -57,7 +58,7 @@ class ProfailecontrollerImp extends Profailecontroller {
         onConfirm: () {
           Get.back();
           Get.find<HomecontrollerImp>().onClose();
-          Get.toNamed(Approutes.googleSignIn);
+          Get.toNamed(Approutes.googleSignIn, arguments: {"type": 1});
         },
       );
 
@@ -91,7 +92,7 @@ class ProfailecontrollerImp extends Profailecontroller {
         onConfirm: () {
           Get.back();
           Get.find<HomecontrollerImp>().onClose();
-          Get.toNamed(Approutes.googleSignIn);
+          Get.toNamed(Approutes.googleSignIn, arguments: {"type": 1});
         },
       );
 
@@ -173,7 +174,9 @@ class ProfailecontrollerImp extends Profailecontroller {
         myServices.sharedPreferences!.setBool("onbording", true);
         Get.offNamed(Approutes.googleSignIn);
       }
-    } else {}
+    } else {
+      showSnackbar("خطأ".tr, "حدث خطأ".tr, Colors.red);
+    }
     update();
   }
 
@@ -195,5 +198,13 @@ class ProfailecontrollerImp extends Profailecontroller {
       image = null;
     }
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    image = null;
+    username = null;
+    email = null;
+    super.onClose();
   }
 }

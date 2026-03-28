@@ -49,8 +49,8 @@ class _ShwovalueState extends State<Shwovalue> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    padding: const EdgeInsets.all(20),
                     child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

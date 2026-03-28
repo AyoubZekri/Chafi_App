@@ -87,7 +87,7 @@ class Welcome extends StatelessWidget {
                     onConfirm: () {
                       Get.back();
                       Get.find<HomecontrollerImp>().onClose();
-                      Get.toNamed(Approutes.googleSignIn);
+                      Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
                     },
                   );
                   return;

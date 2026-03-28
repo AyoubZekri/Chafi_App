@@ -1,3 +1,4 @@
+import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:flutter/material.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:get/get.dart';
@@ -52,63 +53,71 @@ class _MoralactivitiesState extends State<Moralactivities> {
                 ),
                 clipBehavior: Clip.hardEdge,
                 child: Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      CustemtextbodyMedium18(
-                        color: AppColor.grey,
-                        content: "56".tr,
-                      ),
-                      SizedBox(height: 40),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        CustemtextbodyMedium18(
+                          color: AppColor.grey,
+                          content: "56".tr,
+                        ),
+                        SizedBox(height: 40),
 
-                      CustemtextbodyMedium18(
-                        content: "63".tr,
-                        color: AppColor.black,
-                      ),
-                      SizedBox(height: 70),
-                      Cardpersontype(
-                        padding: 20,
-                        marginb: 50,
-                        index: 1,
-                        title: "شركة مدنية".tr,
-                        selectedPerson: controller.moralactivities,
-                        onTap: () {
-                          controller.selectMoralactivities(1);
-                        },
-                      ),
-                      Cardpersontype(
-                        padding: 20,
-                        marginb: 50,
-                        index: 2,
-                        title: "شركات أخرى".tr,
-                        selectedPerson: controller.moralactivities,
-                        onTap: () {
-                          controller.selectMoralactivities(2);
-                        },
-                      ),
-                      Spacer(),
+                        CustemtextbodyMedium18(
+                          content: "63".tr,
+                          color: AppColor.black,
+                        ),
+                        SizedBox(height: 70),
+                        Cardpersontype(
+                          padding: 20,
+                          marginb: 50,
+                          index: 1,
+                          title: "شركة مدنية".tr,
+                          selectedPerson: controller.moralactivities,
+                          onTap: () {
+                            controller.selectMoralactivities(1);
+                          },
+                        ),
+                        Cardpersontype(
+                          padding: 20,
+                          marginb: 50,
+                          index: 2,
+                          title: "شركات أخرى".tr,
+                          selectedPerson: controller.moralactivities,
+                          onTap: () {
+                            controller.selectMoralactivities(2);
+                          },
+                        ),
 
-                      Custemsuberbutton(
-                        content: "حفظ".tr,
-                        color: AppColor.typography,
-                        onPressed: () {
-                          controller.adddata();
-                        },
-                      ),
+                        SizedBox(height: 20),
+                        controller.statusrequest == Statusrequest.loadeng
+                            ? Custemsuberbutton(
+                                content: "حفظ".tr,
+                                color: AppColor.typography,
+                                laoding: true,
+                              )
+                            : Custemsuberbutton(
+                                content: "حفظ".tr,
+                                color: AppColor.typography,
+                                onPressed: () {
+                                  controller.adddata();
+                                },
+                              ),
 
-                      const SizedBox(height: 20),
-                      Custemsuberbutton(
-                        content: "62".tr,
-                        color: Color(0xffE8F1FF),
-                        color2: AppColor.brand,
-                        onPressed: () {
-                          controller.backtoPersonType();
-                        },
-                      ),
+                        const SizedBox(height: 20),
+                        Custemsuberbutton(
+                          content: "62".tr,
+                          color: Color(0xffE8F1FF),
+                          color2: AppColor.brand,
+                          onPressed: () {
+                            controller.backtoPersonType();
+                          },
+                        ),
 
-                      SizedBox(height: 20),
-                    ],
+                        SizedBox(height: 20),
+                      ],
+                    ),
                   ),
                 ),
               ),

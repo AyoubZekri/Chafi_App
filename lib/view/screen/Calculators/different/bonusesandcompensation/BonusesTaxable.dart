@@ -1,3 +1,4 @@
+import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,6 @@ class _BonusestaxableState extends State<Bonusestaxable> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: AppColor.typography,
         appBar: AppBar(
           title: Text("bonuses_compensations".tr),
           titleTextStyle: const TextStyle(
@@ -52,85 +52,90 @@ class _BonusestaxableState extends State<Bonusestaxable> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 20),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 20),
 
-                              CustemtextbodyMedium18(
-                                color: AppColor.grey,
-                                content: "enter_data_correctly".tr,
-                              ),
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content: "enter_data_correctly".tr,
+                            ),
 
-                              const SizedBox(height: 40),
+                            const SizedBox(height: 40),
 
-                              CustemtextbodyMedium18(
-                                content: "choose_taxable_bonuses_only".tr,
-                                color: AppColor.black,
-                              ),
+                            CustemtextbodyMedium18(
+                              content: "choose_taxable_bonuses_only".tr,
+                              color: AppColor.black,
+                            ),
 
-                              const SizedBox(height: 70),
+                            const SizedBox(height: 70),
 
-                              controller.groupedData.isEmpty
-                                  ? SizedBox(
-                                      height: 350,
-                                      child: Handlingview(
-                                        statusrequest: controller.statusrequest,
-                                        widget: const SizedBox(),
-                                      ),
-                                    )
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const ClampingScrollPhysics(),
-                                      itemCount:
-                                          controller.groupedData[2]!.length,
-                                      itemBuilder: (context, i) {
-                                        final List<BonusModel> data =
-                                            controller.groupedData[2] ?? [];
-
-                                        final item = data[i];
-
-                                        final isSelected = controller
-                                            .selectedGroups[2]!
-                                            .contains(item.id);
-
-                                        return Cardpersontype(
-                                          padding: 20,
-                                          marginb: 30,
-                                          index: item.id,
-                                          title: item.localizedName,
-                                          selectedPerson:
-                                              isSelected ? item.id : 0,
-                                          onTap: () {
-                                            controller.togglegroup(
-                                              item.id,
-                                              !controller.selectedGroups[2]!
-                                                  .contains(item.id),
-                                              2,
-                                            );
-                                          },
-                                        );
-                                      },
+                            controller.statusrequest != Statusrequest.success
+                                ? SizedBox(
+                                    height: 350,
+                                    child: Handlingview(
+                                      statusrequest: controller.statusrequest,
+                                      widget: const SizedBox(),
                                     ),
+                                  )
+                                : controller.groupedData[2] == null
+                                ? SizedBox(
+                                    height: 350,
+                                    child: Handlingview(
+                                      statusrequest: Statusrequest.failure,
+                                      widget: const SizedBox(),
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const ClampingScrollPhysics(),
+                                    itemCount:
+                                        controller.groupedData[2]!.length,
+                                    itemBuilder: (context, i) {
+                                      final List<BonusModel> data =
+                                          controller.groupedData[2] ?? [];
 
-                              Custemsuberbutton(
-                                content: "next".tr,
-                                color: AppColor.typography,
-                                onPressed: () {
-                                  controller
-                                      .gotoNonTaxableNonContributory();
-                                },
-                              ),
+                                      final item = data[i];
 
-                              const SizedBox(height: 20),
-                            ],
-                          ),
+                                      final isSelected = controller
+                                          .selectedGroups[2]!
+                                          .contains(item.id);
+
+                                      return Cardpersontype(
+                                        padding: 20,
+                                        marginb: 30,
+                                        index: item.id,
+                                        title: item.localizedName,
+                                        selectedPerson: isSelected
+                                            ? item.id
+                                            : 0,
+                                        onTap: () {
+                                          controller.togglegroup(
+                                            item.id,
+                                            !controller.selectedGroups[2]!
+                                                .contains(item.id),
+                                            2,
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+
+                            Custemsuberbutton(
+                              content: "next".tr,
+                              color: AppColor.typography,
+                              onPressed: () {
+                                controller.gotoNonTaxableNonContributory();
+                              },
+                            ),
+
+                            const SizedBox(height: 20),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

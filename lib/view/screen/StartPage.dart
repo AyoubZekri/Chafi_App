@@ -4,8 +4,8 @@ import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/core/services/Services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controller/HomeController.dart';
 import '../../core/constant/imageassets.DART';
+import 'package:uuid/uuid.dart';
 
 class Startpage extends StatefulWidget {
   const Startpage({super.key});
@@ -21,6 +21,13 @@ class _StartpageState extends State<Startpage> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 3), () {
+      String? deviceId = myServices.sharedPreferences?.getString('device_id');
+
+      if (deviceId == null) {
+        deviceId = Uuid().v4(); 
+        myServices.sharedPreferences?.setString('device_id', deviceId);
+      }
+
       if (myServices.sharedPreferences!.getBool("onbording") == true) {
         if (myServices.sharedPreferences!.getString("email") == null) {
           Get.offNamed(Approutes.googleSignIn);

@@ -25,7 +25,6 @@ class _AccounttypeState extends State<Accounttype> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: AppColor.typography,
         appBar: AppBar(
           title: Text("bonuses_compensations".tr),
           titleTextStyle: const TextStyle(
@@ -40,76 +39,78 @@ class _AccounttypeState extends State<Accounttype> {
         ),
         body: GetBuilder<bonusesandcompensationcontroller>(
           builder: (_) {
-            return Column(
-              children: [
-                const SizedBox(height: 30),
-                Expanded(
+            return Container(
+              color: AppColor.typography,
+              child: Container(
+                margin: const EdgeInsets.only(top: 30),
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(50),
+                  ),
+
                   child: Container(
-                    padding: const EdgeInsets.all(20),
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: AppColor.white,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(50),
-                        topLeft: Radius.circular(50),
+                    color: AppColor.white,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content: "enter_data_correctly".tr,
+                          ),
+
+                          const SizedBox(height: 40),
+
+                          CustemtextbodyMedium18(
+                            content: "choose_account_type".tr,
+                            color: AppColor.black,
+                          ),
+
+                          const SizedBox(height: 100),
+
+                          Cardpersontype(
+                            padding: 30,
+                            marginb: 25,
+                            index: 1,
+                            title: "monthly".tr,
+                            selectedPerson: controller.typeAccount,
+                            onTap: () {
+                              controller.selectedtypeAccount(1);
+                            },
+                          ),
+
+                          Cardpersontype(
+                            padding: 30,
+                            index: 2,
+                            marginb: 25,
+                            title: "yearly".tr,
+                            selectedPerson: controller.typeAccount,
+                            onTap: () {
+                              controller.selectedtypeAccount(2);
+                            },
+                          ),
+
+                          SizedBox(height: 50),
+                          Custemsuberbutton(
+                            content: "next".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.gotoPersonscondition();
+                            },
+                          ),
+
+                          const SizedBox(height: 20),
+                        ],
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content: "enter_data_correctly".tr,
-                        ),
-
-                        const SizedBox(height: 40),
-
-                        CustemtextbodyMedium18(
-                          content: "choose_account_type".tr,
-                          color: AppColor.black,
-                        ),
-
-                        const SizedBox(height: 100),
-
-                        Cardpersontype(
-                          padding: 30,
-                          marginb: 25,
-                          index: 1,
-                          title: "monthly".tr,
-                          selectedPerson: controller.typeAccount,
-                          onTap: () {
-                            controller.selectedtypeAccount(1);
-                          },
-                        ),
-
-                        Cardpersontype(
-                          padding: 30,
-                          index: 2,
-                          marginb: 25,
-                          title: "yearly".tr,
-                          selectedPerson: controller.typeAccount,
-                          onTap: () {
-                            controller.selectedtypeAccount(2);
-                          },
-                        ),
-
-                        const Spacer(),
-
-                        Custemsuberbutton(
-                          content: "next".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.gotoPersonscondition();
-                          },
-                        ),
-
-                        const SizedBox(height: 20),
-                      ],
                     ),
                   ),
                 ),
-              ],
+              ),
             );
           },
         ),

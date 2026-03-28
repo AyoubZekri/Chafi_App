@@ -37,13 +37,6 @@ class GiftCard extends StatelessWidget {
         color: isDark ? Colors.grey[900] : Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.grey[300]!),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Row(
         children: [
@@ -201,7 +194,12 @@ class _AddGiftDialogState extends State<AddGiftDialog> {
                       Icons.payments,
                       true,
                       widget.costController,
-                      (value) => validInput(value!, 20, 3, "int"),
+                      (value) => validInput(
+                        value!.replaceAll(RegExp(r'[^0-9]'), ''),
+                        20,
+                        3,
+                        "int",
+                      ),
                     ),
                   ],
                 ),

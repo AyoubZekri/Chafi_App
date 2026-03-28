@@ -50,57 +50,61 @@ class _Shwopenaltyg12State extends State<Shwopenaltyg12> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        SizedBox(height: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
 
-                        SectionHeader(
-                          icon: Icons.payments_outlined,
-                          title: 'عقوبات التأخير والإداع'.tr,
-                        ),
-                        const SizedBox(height: 12),
+                          SectionHeader(
+                            icon: Icons.payments_outlined,
+                            title: 'عقوبات التأخير والإداع'.tr,
+                          ),
+                          const SizedBox(height: 12),
 
-                        PenaltyCard(
-                          title: "ضريبة تاخير الإداع".tr,
-                          subtitle: 'تأخير الإداع'.tr,
-                          amount: controller.penalty!.toInt().toString(),
-                        ),
-                        const SizedBox(height: 12),
+                          PenaltyCard(
+                            title: "ضريبة تاخير الإداع".tr,
+                            subtitle: 'تأخير الإداع'.tr,
+                            amount: controller.penalty!.toInt().toString(),
+                          ),
+                          const SizedBox(height: 12),
 
-                        PenaltyCard(
-                          title: "ضريبة تاخير الدفع".tr,
-                          subtitle: 'تأخير الدفع'.tr,
-                          amount: controller.penaltypyment!.toInt().toString(),
-                        ),
-                        SizedBox(height: 20),
+                          PenaltyCard(
+                            title: "ضريبة تاخير الدفع".tr,
+                            subtitle: 'تأخير الدفع'.tr,
+                            amount: controller.penaltypyment!
+                                .toInt()
+                                .toString(),
+                          ),
+                          SizedBox(height: 20),
 
-                        SectionHeader(
-                          icon: Icons.receipt_long,
-                          title: 'الضريبة النهائية'.tr,
-                        ),
-                        const SizedBox(height: 12),
-                        FinalTaxCard(
-                          penaltys: false,
-                          title: "الضريبة النهائية".tr,
-                          netTax: controller.netTax.round(),
-                          penalty: controller.penalty!.toInt(),
-                        ),
+                          SectionHeader(
+                            icon: Icons.receipt_long,
+                            title: 'الضريبة النهائية'.tr,
+                          ),
+                          const SizedBox(height: 12),
+                          FinalTaxCard(
+                            penaltys: false,
+                            title: "الضريبة النهائية".tr,
+                            netTax: controller.netTax.round(),
+                            penalty: controller.penalty!.toInt(),
+                          ),
 
-                        const SizedBox(height: 24),
+                          const SizedBox(height: 24),
 
-                        TotalAmountCard(total: controller.total!.toInt()),
+                          TotalAmountCard(total: controller.total!.toInt()),
 
-                        SizedBox(height: 30),
-                        Custemsuberbutton(
-                          content: "إنهاء".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.resetAll();
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          SizedBox(height: 30),
+                          Custemsuberbutton(
+                            content: "إنهاء".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.resetAll();
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

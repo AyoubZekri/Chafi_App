@@ -1,4 +1,5 @@
 import 'package:chafi/controller/HomeController.dart';
+import 'package:chafi/controller/ProfaileController.dart';
 import 'package:get/get.dart';
 
 import '../controller/Auth/GoogleSignInController.dart';
@@ -11,6 +12,8 @@ class Initialbindings extends Bindings {
     Get.put(Crud());
     Get.put(Myservices());
     Get.put(HomecontrollerImp(), permanent: true);
+    // Get.put(ProfailecontrollerImp());
+
   }
 }
 

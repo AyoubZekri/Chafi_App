@@ -147,7 +147,7 @@ class _ProfaileState extends State<Profaile> {
                                 onConfirm: () {
                                   Get.back();
                                   Get.find<HomecontrollerImp>().onClose();
-                                  Get.toNamed(Approutes.googleSignIn);
+                                  Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
                                 },
                               );
                               return;

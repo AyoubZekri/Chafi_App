@@ -45,56 +45,58 @@ class _ShwoditailsbudgetdepositState extends State<Shwoditailsbudgetdeposit> {
                 ),
                 child: Container(
                   color: AppColor.white,
-                  child: ListView(
+                  child: SingleChildScrollView(
                     padding: const EdgeInsets.all(20),
-                    children: [
-                      const SizedBox(height: 20),
-                      SectionHeader(
-                        icon: Icons.payments_outlined,
-                        title: 'penalties_and_deposit'.tr,
-                      ),
-                      const SizedBox(height: 12),
-                      PenaltyCard(
-                        title: "deposit_delay_tax".tr,
-                        subtitle: 'deposit_delay'.tr,
-                        amount: controller.deposit
-                            .toInt()
-                            .formatCustomint()
-                            .toString(),
-                      ),
-                      const SizedBox(height: 12),
-                      PenaltyCard(
-                        title: "payment_delay_tax".tr,
-                        subtitle: 'payment_delay'.tr,
-                        amount: controller.pyment
-                            .toInt()
-                            .formatCustomint()
-                            .toString(),
-                      ),
-                      const SizedBox(height: 12),
-                      PenaltyCard(
-                        title: "threat_tax".tr,
-                        subtitle: 'threat'.tr,
-                        amount: controller.paymentPenalty
-                            .toInt()
-                            .formatCustomint()
-                            .toString(),
-                      ),
-                      const SizedBox(height: 24),
-                      TotalAmountCard(
-                        total: controller.netTax.toInt(),
-                        title: "total_tax".tr,
-                      ),
-                      const SizedBox(height: 30),
-                      Custemsuberbutton(
-                        content: "finish".tr,
-                        color: AppColor.typography,
-                        onPressed: () {
-                          controller.resetAll();
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                    ],
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        SectionHeader(
+                          icon: Icons.payments_outlined,
+                          title: 'penalties_and_deposit'.tr,
+                        ),
+                        const SizedBox(height: 12),
+                        PenaltyCard(
+                          title: "deposit_delay_tax".tr,
+                          subtitle: 'deposit_delay'.tr,
+                          amount: controller.deposit
+                              .toInt()
+                              .formatCustomint()
+                              .toString(),
+                        ),
+                        const SizedBox(height: 12),
+                        PenaltyCard(
+                          title: "payment_delay_tax".tr,
+                          subtitle: 'payment_delay'.tr,
+                          amount: controller.pyment
+                              .toInt()
+                              .formatCustomint()
+                              .toString(),
+                        ),
+                        const SizedBox(height: 12),
+                        PenaltyCard(
+                          title: "threat_tax".tr,
+                          subtitle: 'threat'.tr,
+                          amount: controller.paymentPenalty
+                              .toInt()
+                              .formatCustomint()
+                              .toString(),
+                        ),
+                        const SizedBox(height: 24),
+                        TotalAmountCard(
+                          total: controller.netTax.toInt(),
+                          title: "total_tax".tr,
+                        ),
+                        const SizedBox(height: 30),
+                        Custemsuberbutton(
+                          content: "finish".tr,
+                          color: AppColor.typography,
+                          onPressed: () {
+                            controller.resetAll();
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -7,6 +7,7 @@ import '../../../controller/Auth/InfoUserController.dart';
 import '../../../core/class/Statusrequest.dart';
 import '../../widget/Button/CustemSuberButton.dart';
 import '../../widget/TextFild/CustemTextFromFildInfoUser.dart';
+import '../../widget/TextFild/Dropdownfild.dart';
 
 class Infouser extends StatefulWidget {
   const Infouser({super.key});
@@ -74,12 +75,34 @@ class _InfouserState extends State<Infouser> {
                   enabled: true,
                   iconData: Icons.person,
                 ),
-                CustemtextfromfildInfoUser(
-                  myController: controller.wilaya,
+
+                // CustemtextfromfildInfoUser(
+                //   myController: controller.wilaya,
+                //   hintText: "16".tr,
+                //   enabled: true,
+                //   iconData: Icons.location_on,
+                // ),
+                Dropdownfild(
                   hintText: "16".tr,
-                  enabled: true,
-                  iconData: Icons.location_on,
+                  items: controller.state
+                      .map(
+                        (f) => DropdownMenuItem<int>(
+                          value: f['number'] as int,
+                          child: Text(
+                            "${f['number'].toString()} - ${f['state'].toString().tr}",
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  value: controller.selectedstate,
+                  onChanged: (val) {
+                    setState(() {
+                      controller.selectedstate = val;
+                    });
+                  },
                 ),
+
                 CustemtextfromfildInfoUser(
                   myController: controller.numperPhone,
                   hintText: "17".tr,

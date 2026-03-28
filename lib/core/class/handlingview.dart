@@ -1,5 +1,8 @@
+import 'package:chafi/core/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import '../../view/widget/Text/CustemheadlineMedium.dart';
 import '../constant/Colorapp.dart';
 import 'Statusrequest.dart';
 
@@ -34,6 +37,17 @@ class Handlingview extends StatelessWidget {
           ),
         );
 
+      case Statusrequest.failure:
+        return _errorView(
+          icon: Icons.report_problem_outlined,
+          message: "حدث خطأ".tr,
+        );
+      case Statusrequest.login:
+        return _errorView(
+          icon: Icons.login,
+          message: "يجب عليك تسجيل الدخول أولاً".tr,
+          button: true,
+        );
       case Statusrequest.serverfailure:
         return _errorView(
           icon: Icons.wifi_off,
@@ -43,7 +57,7 @@ class Handlingview extends StatelessWidget {
       case Statusrequest.offlinefailure:
         return _errorView(icon: Icons.cloud_off, message: "Server Error");
 
-      case Statusrequest.failure:
+      case Statusrequest.nodata:
         return _errorView(
           icon: Icons.folder_open_rounded,
           message: title ?? 'لا توجد بيانات لعرضها'.tr,
@@ -84,7 +98,11 @@ class Handlingview extends StatelessWidget {
   //   );
   // }
 
-  Widget _errorView({required IconData icon, required String message}) {
+  Widget _errorView({
+    required IconData icon,
+    required String message,
+    bool button = false,
+  }) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
@@ -146,6 +164,27 @@ class Handlingview extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
+
+                  if (button) ...[
+                    SizedBox(height: 20),
+                    Container(
+                      height: 55,
+                      width: 180,
+                      decoration: BoxDecoration(
+                        color: AppColor.typography,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        onPressed: () {
+                          Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
+                        },
+                        child: Custemheadlinemedium(content: "تسجيل الدخول".tr),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),

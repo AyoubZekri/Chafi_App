@@ -92,10 +92,11 @@ class Postdata {
     return url;
   }
 
-  adddata() async {
+  adddata(Map data) async {
+    print("===========$isLoggedIn");
     var response = isLoggedIn
-        ? await crud.getWithheaders(Applink.addUserEnter)
-        : await crud.getWithheaders(Applink.addGuestEnter);
+        ? await crud.postWithheaders(Applink.addUserEnter, data)
+        : await crud.postWithheaders(Applink.addGuestEnter, data);
     return response.fold((l) => l, (r) => r);
   }
 }

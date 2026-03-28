@@ -1,7 +1,9 @@
 import 'package:chafi/data/datasource/Remote/MyPathData.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
+import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
 import 'InforecordController.dart';
@@ -24,7 +26,12 @@ class Editrecordcontroller extends GetxController {
 
     var response = await mypathdata.editdata({"id": id, "tax_id": taxid});
     print("Response: $response");
-
+    if (response == Statusrequest.serverfailure) {
+      showSnackbar("خطأ".tr, "No Internet Connection".tr, Colors.red);
+      statusrequest = Statusrequest.none;
+      update();
+      return;
+    }
     statusrequest = handlingData(response);
 
     if (statusrequest == Statusrequest.success) {
@@ -41,6 +48,9 @@ class Editrecordcontroller extends GetxController {
       } else {
         statusrequest = Statusrequest.failure;
       }
+    } else {
+      statusrequest = Statusrequest.none;
+      showSnackbar("خطأ".tr, "حدث خطأ".tr, Colors.red);
     }
 
     update();

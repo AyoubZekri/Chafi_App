@@ -17,6 +17,7 @@ class DitailsArticlesController extends GetxController {
     update();
 
     var response = await postdata.getLocalPosts({"type": 1});
+    print("===========$response");
 
     final postMap = response.firstWhere(
       (element) =>

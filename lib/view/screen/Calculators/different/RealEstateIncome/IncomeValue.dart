@@ -50,78 +50,79 @@ class _IncomevalueState extends State<Incomevalue> {
                   ),
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
+                    child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      children: [
-                        SizedBox(height: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
 
-                        CustemtextbodyMedium18(
-                          color: AppColor.grey,
-                          content: "أدخل قيمة الدخل العقاري".tr,
-                        ),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content: "أدخل قيمة الدخل العقاري".tr,
+                          ),
 
-                        SizedBox(height: 30),
+                          SizedBox(height: 30),
 
-                        SectionHeader(
-                          icon: Icons.receipt_long_outlined,
-                          title: "قيمة الدخل العقاري".tr,
-                        ),
+                          SectionHeader(
+                            icon: Icons.receipt_long_outlined,
+                            title: "قيمة الدخل العقاري".tr,
+                          ),
 
-                        const SizedBox(height: 16),
+                          const SizedBox(height: 16),
 
-                        CustomInputField(
-                          label: "أدخل قيمة الدخل العقاري".tr,
-                          icon: Icons.receipt_long_outlined,
-                          isCurrency: true,
-                          controller: controller.incmevalue,
-                          errorText: controller.incmevalueErorr,
-                        ),
-                        const SizedBox(height: 24),
-                        SectionHeader(
-                          icon: Icons.receipt_long_outlined,
-                          title: "قيمة الدخل العقاري".tr,
-                        ),
+                          CustomInputField(
+                            label: "أدخل قيمة الدخل العقاري".tr,
+                            icon: Icons.receipt_long_outlined,
+                            isCurrency: true,
+                            controller: controller.incmevalue,
+                            errorText: controller.incmevalueErorr,
+                          ),
+                          const SizedBox(height: 24),
+                          SectionHeader(
+                            icon: Icons.receipt_long_outlined,
+                            title: "قيمة الدخل العقاري".tr,
+                          ),
 
-                        const SizedBox(height: 16),
-                        CustomInputField(
-                          label: "تاريخ عقد الإيجار".tr,
-                          icon: Icons.event_available,
-                          placeholder: 'mm/dd/yyyy',
-                          isDate: true,
-                          controller: controller.dataTheContract,
-                          errorText: controller.dataTheContractErorr,
-                        ),
+                          const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "تاريخ عقد الإيجار".tr,
+                            icon: Icons.event_available,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.dataTheContract,
+                            errorText: controller.dataTheContractErorr,
+                          ),
 
-                        const SizedBox(height: 16),
-                        // CustomInputField(
-                        //   label: "تاريخ التحصيل".tr,
-                        //   icon: Icons.receipt_long_outlined,
-                        //   placeholder: 'mm/dd/yyyy',
-                        //   isDate: true,
-                        //   controller: controller.datacollection,
-                        //   errorText: controller.datacollectionErorr,
-                        // ),
-                        // const SizedBox(height: 16),
-                        CustomInputField(
-                          label: "payment_date".tr,
-                          icon: Icons.receipt_long_outlined,
-                          placeholder: 'mm/dd/yyyy',
-                          isDate: true,
-                          controller: controller.datapayment,
-                          errorText: controller.datapaymentErorr,
-                        ),
+                          const SizedBox(height: 16),
+                          // CustomInputField(
+                          //   label: "تاريخ التحصيل".tr,
+                          //   icon: Icons.receipt_long_outlined,
+                          //   placeholder: 'mm/dd/yyyy',
+                          //   isDate: true,
+                          //   controller: controller.datacollection,
+                          //   errorText: controller.datacollectionErorr,
+                          // ),
+                          // const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "payment_date".tr,
+                            icon: Icons.receipt_long_outlined,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.datapayment,
+                            errorText: controller.datapaymentErorr,
+                          ),
 
-                        const SizedBox(height: 100),
-
-                        Custemsuberbutton(
-                          content: "حساب".tr,
-                          color: AppColor.typography,
-                          onPressed: () {
-                            controller.calcul();
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          const SizedBox(height: 40),
+                          Custemsuberbutton(
+                            content: "حساب".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.calcul();
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
                   ),
                 ),

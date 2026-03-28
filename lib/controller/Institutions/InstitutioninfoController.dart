@@ -40,6 +40,12 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
     print("Response: $response");
     if (response == Statusrequest.serverfailure) {
       statusrequest = Statusrequest.serverfailure;
+      update();
+      return;
+    } else if (response == Statusrequest.failure) {
+      statusrequest = Statusrequest.failure;
+      update();
+      return;
     }
     statusrequest = handlingData(response);
 
@@ -50,7 +56,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
       data.addAll(listdata.map((e) => dataModel.fromJson(e)));
       data = List.from(data);
       if (data.isEmpty) {
-        statusrequest = Statusrequest.failure;
+        statusrequest = Statusrequest.nodata;
       }
     } else {
       statusrequest = Statusrequest.failure;
@@ -94,7 +100,11 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
 
     var response = await taxandappdata.viewdata(dat);
     print("Response: $response");
-
+    if (response == Statusrequest.failure) {
+      statusrequest = Statusrequest.failure;
+      update();
+      return;
+    }
     statusrequest = handlingData(response);
 
     if (statusrequest == Statusrequest.success) {
@@ -105,7 +115,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
         data = List.from(data);
         print("=====$data");
         if (data.isEmpty) {
-          statusrequest = Statusrequest.failure;
+          statusrequest = Statusrequest.nodata;
         }
       } else {
         statusrequest = Statusrequest.failure;
@@ -127,6 +137,11 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
 
     var response = await differentdata.viewdata(dat);
     print("Response: $response");
+    if (response == Statusrequest.failure) {
+      statusrequest = Statusrequest.failure;
+      update();
+      return;
+    }
 
     statusrequest = handlingData(response);
 
@@ -137,7 +152,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
         data.addAll(listdata.map((e) => dataModel.fromJson(e)));
         data = List.from(data);
         if (data.isEmpty) {
-          statusrequest = Statusrequest.failure;
+          statusrequest = Statusrequest.nodata;
         }
       } else {
         statusrequest = Statusrequest.failure;
@@ -183,7 +198,7 @@ class InstitutioninfocontrollerImp extends Institutioninfocontroller {
   }
 
   Future<void> getData() async {
-    ((type == 8 || type == 9)&& catid != 0)
+    ((type == 8 || type == 9) && catid != 0)
         ? viewdataTax()
         : type == 10
         ? viewdataDifferent()

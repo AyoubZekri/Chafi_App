@@ -1,9 +1,11 @@
 import 'package:chafi/controller/Recorde/RecordsController.dart';
 import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/data/datasource/Remote/MyPathData.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
+import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/AppointmentscommitmentsData.dart';
@@ -51,7 +53,7 @@ class InforecordcontrollerImp extends Inforecordcontroller {
         data = MypathModel.fromJsonList(listdata);
 
         if (data.isEmpty) {
-          recordStatus = Statusrequest.failure;
+          recordStatus = Statusrequest.nodata;
         }
       } else {
         recordStatus = Statusrequest.failure;
@@ -81,7 +83,7 @@ class InforecordcontrollerImp extends Inforecordcontroller {
         appointments.addAll(listdata.map((e) => Appointmentsmodel.fromJson(e)));
 
         if (appointments.isEmpty) {
-          appointmentStatus = Statusrequest.failure;
+          appointmentStatus = Statusrequest.nodata;
         }
       } else {
         appointmentStatus = Statusrequest.failure;
@@ -111,8 +113,11 @@ class InforecordcontrollerImp extends Inforecordcontroller {
 
         Get.back();
       } else {
+        showSnackbar("خطأ".tr, "حدث خطأ".tr, Colors.red);
         deleteStatus = Statusrequest.failure;
       }
+    } else {
+      showSnackbar("خطأ".tr, "حدث خطأ".tr, Colors.red);
     }
 
     update();

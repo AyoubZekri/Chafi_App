@@ -52,120 +52,118 @@ class _TaxinputpageState extends State<Taxinputpage> {
 
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content:
+                                  "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة."
+                                      .tr,
+                            ),
 
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20),
-                              CustemtextbodyMedium18(
-                                color: AppColor.grey,
-                                content:
-                                    "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.".tr,
-                              ),
+                            SizedBox(height: 40),
 
-                              SizedBox(height: 40),
+                            // 2. عنوان قسم الضرائب
+                            SectionHeader(
+                              title: 'قيم النتيجة الجبائية حسب النشاط'.tr,
+                              icon: Icons.category, // أيقونة مشابهة للمثلثات
+                            ),
+                            const SizedBox(height: 16),
 
-                              // 2. عنوان قسم الضرائب
-                             SectionHeader(
-                                title: 'قيم النتيجة الجبائية حسب النشاط'.tr,
-                                icon: Icons.category, // أيقونة مشابهة للمثلثات
-                              ),
-                              const SizedBox(height: 16),
+                            CustomInputField(
+                              label: 'إنتاج سلع'.tr,
+                              icon: Icons.factory,
+                              isCurrency: true,
+                              controller: controller.production,
+                              errorText: controller.productionErorr,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label:
+                                  'البناء والاشغال العمومية والري والأنشطة السياحة والحمامات'
+                                      .tr,
+                              icon: Icons.architecture, // أيقونة مشابهة للفرجار
+                              isCurrency: true,
+                              controller: controller.construction,
+                              errorText: controller.constructionErorr,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: 'نشاطات أخرى'.tr,
+                              icon: Icons.more_horiz,
+                              isCurrency: true,
+                              controller: controller.otherActivity,
+                              errorText: controller.otherActivityErorr,
+                            ),
 
-                              CustomInputField(
-                                label: 'إنتاج سلع'.tr,
-                                icon: Icons.factory,
-                                isCurrency: true,
-                                controller: controller.production,
-                                errorText: controller.productionErorr,
-                              ),
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label:
-                                    'البناء والاشغال العمومية والري والأنشطة السياحة والحمامات'.tr,
-                                icon:
-                                    Icons.architecture, // أيقونة مشابهة للفرجار
-                                isCurrency: true,
-                                controller: controller.construction,
-                                errorText: controller.constructionErorr,
-                              ),
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label: 'نشاطات أخرى'.tr,
-                                icon: Icons.more_horiz,
-                                isCurrency: true,
-                                controller: controller.otherActivity,
-                                errorText: controller.otherActivityErorr,
-                              ),
+                            const SizedBox(height: 32),
 
-                              const SizedBox(height: 32),
+                            // 4. عنوان قسم التواريخ
+                            SectionHeader(
+                              title: 'تواريخ الدفع والإيداع'.tr,
+                              icon: Icons.calendar_month,
+                            ),
+                            const SizedBox(height: 16),
 
-                              // 4. عنوان قسم التواريخ
-                               SectionHeader(
-                                title: 'تواريخ الدفع والإيداع'.tr,
-                                icon: Icons.calendar_month,
-                              ),
-                              const SizedBox(height: 16),
+                            // 5. حقول التواريخ
+                            CustomInputField(
+                              label: 'تاريخ دفع التسبيقة الأولى'.tr,
+                              icon: Icons.date_range,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.advance1Date,
+                              errorText: controller.advance1DateErorr,
+                            ),
 
-                              // 5. حقول التواريخ
-                              CustomInputField(
-                                label: 'تاريخ دفع التسبيقة الأولى'.tr,
-                                icon: Icons.date_range,
-                                placeholder: 'mm/dd/yyyy',
-                                isDate: true,
-                                controller: controller.advance1Date,
-                                errorText: controller.advance1DateErorr,
-                              ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: 'تاريخ دفع التسبيقة الثانية'.tr,
+                              icon: Icons.date_range,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.advance2Date,
+                              errorText: controller.advance2DateErorr,
+                            ),
 
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label: 'تاريخ دفع التسبيقة الثانية'.tr,
-                                icon: Icons.date_range,
-                                placeholder: 'mm/dd/yyyy',
-                                isDate: true,
-                                controller: controller.advance2Date,
-                                errorText: controller.advance2DateErorr,
-                              ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: 'تاريخ دفع التسبيقة الثالثة'.tr,
+                              icon: Icons.date_range,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.advance3Date,
+                              errorText: controller.advance3DateErorr,
+                            ),
 
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label: 'تاريخ دفع التسبيقة الثالثة'.tr,
-                                icon: Icons.date_range,
-                                placeholder: 'mm/dd/yyyy',
-                                isDate: true,
-                                controller: controller.advance3Date,
-                                errorText: controller.advance3DateErorr,
-                              ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: 'تاريخ الايداع او الدفع النهائي'.tr,
+                              icon: Icons.check_circle_outline,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.finalPaymentDate,
+                              errorText: controller.finalPaymentDateErorr,
+                            ),
 
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label: 'تاريخ الايداع او الدفع النهائي'.tr,
-                                icon: Icons.check_circle_outline,
-                                placeholder: 'mm/dd/yyyy',
-                                isDate: true,
-                                controller: controller.finalPaymentDate,
-                                errorText: controller.finalPaymentDateErorr,
-                              ),
+                            const SizedBox(height: 32),
 
-                              const SizedBox(height: 32),
+                            // 6. زر الحفظ
+                            Custemsuberbutton(
+                              content: "التالي".tr,
+                              color: AppColor.typography,
+                              onPressed: () {
+                                controller.calculateTax();
+                              },
+                            ),
 
-                              // 6. زر الحفظ
-                              Custemsuberbutton(
-                                content: "التالي".tr,
-                                color: AppColor.typography,
-                                onPressed: () {
-                                  controller.calculateTax();
-                                },
-                              ),
-
-                              const SizedBox(height: 20),
-                            ],
-                          ),
+                            const SizedBox(height: 20),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

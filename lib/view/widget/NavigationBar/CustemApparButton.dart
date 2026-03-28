@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constant/Colorapp.dart';
@@ -27,7 +28,10 @@ class Custemapparbutton extends StatelessWidget {
             color: active == true ? AppColor.typography : AppColor.grey,
             size: 30,
           ),
-          Text(
+          AutoSizeText(
+            maxLines: 1,
+            minFontSize: 10,
+            overflow: TextOverflow.ellipsis,
             textButton,
             style: TextStyle(
               color: active == true ? AppColor.typography : AppColor.grey,

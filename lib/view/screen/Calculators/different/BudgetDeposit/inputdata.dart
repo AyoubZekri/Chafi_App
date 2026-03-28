@@ -52,85 +52,82 @@ class _InputdataState extends State<Inputdata> {
 
                   child: Container(
                     color: AppColor.white,
-                    child: ListView(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(20),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20),
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content: "please_enter_budget_value".tr,
+                            ),
 
-                          child: Column(
-                            children: [
-                              SizedBox(height: 20),
-                              CustemtextbodyMedium18(
-                                color: AppColor.grey,
-                                content: "please_enter_budget_value".tr,
-                              ),
+                            SizedBox(height: 40),
+                            SectionHeader(
+                              title: "budget".tr,
+                              icon: Icons.analytics_outlined,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: "budget_value".tr,
+                              icon: Icons.payments_outlined,
+                              isCurrency: true,
+                              controller: controller.budgetdeposit,
+                              errorText: controller.budgetdepositErorr,
+                            ),
+                            const SizedBox(height: 32),
 
-                              SizedBox(height: 40),
-                              SectionHeader(
-                                title: "budget".tr,
-                                icon: Icons.analytics_outlined,
-                              ),
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label: "budget_value".tr,
-                                icon: Icons.payments_outlined,
-                                isCurrency: true,
-                                controller: controller.budgetdeposit,
-                                errorText: controller.budgetdepositErorr,
-                              ),
-                              const SizedBox(height: 32),
+                            SectionHeader(
+                              title: "payment_and_deposit_dates".tr,
+                              icon: Icons.event_note_outlined,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: "budget_date".tr,
+                              icon: Icons.event_available,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.datebudgetdeposit,
+                              errorText: controller.datebudgetdepositErorr,
+                            ),
 
-                              SectionHeader(
-                                title: "payment_and_deposit_dates".tr,
-                                icon: Icons.event_note_outlined,
-                              ),
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label: "budget_date".tr,
-                                icon: Icons.event_available,
-                                placeholder: 'mm/dd/yyyy',
-                                isDate: true,
-                                controller: controller.datebudgetdeposit,
-                                errorText: controller.datebudgetdepositErorr,
-                              ),
+                            const SizedBox(height: 16),
 
-                              const SizedBox(height: 16),
+                            CustomInputField(
+                              label: "deposit_date".tr,
+                              icon: Icons.event_available,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.datedeposit,
+                              errorText: controller.datedepositErorr,
+                            ),
 
-                              CustomInputField(
-                                label: "deposit_date".tr,
-                                icon: Icons.event_available,
-                                placeholder: 'mm/dd/yyyy',
-                                isDate: true,
-                                controller: controller.datedeposit,
-                                errorText: controller.datedepositErorr,
-                              ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: "payment_date".tr,
+                              icon: Icons.payments_outlined,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.datepyment,
+                              errorText: controller.datepymentErorr,
+                            ),
 
-                              const SizedBox(height: 16),
-                              CustomInputField(
-                                label: "payment_date".tr,
-                                icon: Icons.payments_outlined,
-                                placeholder: 'mm/dd/yyyy',
-                                isDate: true,
-                                controller: controller.datepyment,
-                                errorText: controller.datepymentErorr,
-                              ),
+                            const SizedBox(height: 32),
 
-                              const SizedBox(height: 32),
+                            // 6. زر الحفظ
+                            Custemsuberbutton(
+                              content: "next".tr,
+                              color: AppColor.typography,
+                              onPressed: () {
+                                controller.calcul();
+                              },
+                            ),
 
-                              // 6. زر الحفظ
-                              Custemsuberbutton(
-                                content: "next".tr,
-                                color: AppColor.typography,
-                                onPressed: () {
-                                  controller.calcul();
-                                },
-                              ),
-
-                              const SizedBox(height: 20),
-                            ],
-                          ),
+                            const SizedBox(height: 20),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
