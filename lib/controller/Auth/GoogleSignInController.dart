@@ -151,8 +151,10 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
   }
 
   void gotonavBar() {
-    Get.find<ProfailecontrollerImp>().onInit();
-    Get.find<ProfailecontrollerImp>().update();
+    if (type == 1) {
+      Get.find<ProfailecontrollerImp>().onInit();
+      Get.find<ProfailecontrollerImp>().update();
+    }
     Get.offAllNamed(Approutes.navigationBar);
   }
 

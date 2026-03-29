@@ -78,6 +78,7 @@ dependencies:
   geolocator: ^14.0.2
   geocoding: ^4.0.0
   dio: ^5.9.2
+  responsive_framework: ^1.5.1
   
 
 
