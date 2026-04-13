@@ -16,12 +16,16 @@ class Taxstampcontroller extends GetxController {
       netTax = 0; // هنا توقف الحساب
       tasStamp = 0;
     } else {
-      if (tasStamp <= 300000) {
+      if (tasStamp <= 3000000) {
         netTax = tasStamp * 0.01;
-      } else if (tasStamp > 300000 && tasStamp <= 1000000) {
+      } else if (tasStamp > 3000000 && tasStamp <= 10000000) {
         netTax = tasStamp * 0.015;
-      } else if (tasStamp > 1000000) {
+      } else if (tasStamp > 10000000) {
         netTax = tasStamp * 0.02;
+      }
+
+      if (netTax <= 500) {
+        netTax = 500;
       }
     }
     update();

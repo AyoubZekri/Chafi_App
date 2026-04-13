@@ -20,20 +20,27 @@ class Externallinkscontroller extends GetxController {
     final dat = {"type": 2};
 
     var response = await differentdata.viewdata(dat);
+    if (response == Statusrequest.failure) {
+      statusrequest = Statusrequest.failure;
+      update();
+      return;
+    }
     print("Response: $response");
 
     statusrequest = handlingData(response);
 
-    if (response.containsKey("data") && response["data"] is List) {
-      data.clear();
-      List listdata = response['data'];
-      data.addAll(listdata.map((e) => dataModel.fromJson(e)));
-      data = List.from(data);
-      if (data.isEmpty) {
-        statusrequest = Statusrequest.nodata;
+    if (statusrequest == Statusrequest.success) {
+      if (response.containsKey("data") && response["data"] is List) {
+        data.clear();
+        List listdata = response['data'];
+        data.addAll(listdata.map((e) => dataModel.fromJson(e)));
+        data = List.from(data);
+        if (data.isEmpty) {
+          statusrequest = Statusrequest.nodata;
+        }
+      } else {
+        statusrequest = Statusrequest.failure;
       }
-    } else {
-      statusrequest = Statusrequest.failure;
     }
 
     update();

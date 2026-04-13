@@ -1,5 +1,4 @@
 import 'package:chafi/core/class/handlingview.dart';
-import 'package:chafi/core/functions/handlingdatacontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

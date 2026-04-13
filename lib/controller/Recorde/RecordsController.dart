@@ -26,7 +26,7 @@ class RecordscontrollerImp extends Recordscontroller {
       return;
     }
     statusrequest.value = Statusrequest.loadeng;
-
+    update();
     var response = await categorydata.viewdata({});
     print("Response: $response");
 
