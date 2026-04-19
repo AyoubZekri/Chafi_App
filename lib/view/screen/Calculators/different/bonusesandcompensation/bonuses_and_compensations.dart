@@ -87,7 +87,7 @@ class _BonusesAndCompensationsState extends State<BonusesAndCompensations> {
                                 ? SizedBox(
                                     height: 350,
                                     child: Handlingview(
-                                      statusrequest: Statusrequest.failure,
+                                      statusrequest: Statusrequest.nodata,
                                       widget: const SizedBox(),
                                     ),
                                   )

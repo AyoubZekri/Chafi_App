@@ -144,6 +144,17 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                             ),
                             const SizedBox(height: 16),
                             CustomInputField(
+                              label: 'سنة التصريح'.tr,
+                              icon: Icons.event_available,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.dataTax,
+                              errorText: controller.dataTaxErorr,
+                              dateFormatType: DateFormatType.year,
+                            ),
+                            const SizedBox(height: 16),
+
+                            CustomInputField(
                               label: 'تاريخ الايداع'.tr,
                               icon: Icons.event_available,
                               placeholder: 'mm/dd/yyyy',

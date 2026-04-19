@@ -85,7 +85,7 @@ class _BonusestaxableState extends State<Bonusestaxable> {
                                 ? SizedBox(
                                     height: 350,
                                     child: Handlingview(
-                                      statusrequest: Statusrequest.failure,
+                                      statusrequest: Statusrequest.nodata,
                                       widget: const SizedBox(),
                                     ),
                                   )

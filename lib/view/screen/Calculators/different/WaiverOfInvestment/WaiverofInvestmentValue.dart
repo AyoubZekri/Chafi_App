@@ -107,7 +107,7 @@ class _WaiverofinvestmentvalueState extends State<Waiverofinvestmentvalue> {
                           const SizedBox(height: 20),
 
                           CustomInputField(
-                            label: "تاريخ الإقتناء".tr,
+                            label: 'سنوات الصلاحية'.tr,
                             icon: Icons.calendar_today_outlined,
                             placeholder: 'سنوات الصلاحية'.tr,
                             controller: controller.yearsofvalidity,

@@ -89,6 +89,16 @@ class _TaxinpoutState extends State<Taxinpout> {
                               icon: Icons.calendar_month,
                             ),
                             const SizedBox(height: 16),
+                            CustomInputField(
+                              label: 'سنة التصريح'.tr,
+                              icon: Icons.event_available,
+                              placeholder: 'mm/dd/yyyy',
+                              isDate: true,
+                              controller: controller.dataTax,
+                              errorText: controller.dataTaxErorr,
+                              dateFormatType: DateFormatType.year,
+                            ),
+                            const SizedBox(height: 16),
 
                             // 5. حقول التواريخ
                             if (controller.type != 3)

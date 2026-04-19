@@ -52,8 +52,9 @@ class _InstitutionsinfoState extends State<Institutionsinfo> {
                     },
                     title: controller.data[i].localizedName,
                     body: controller.data[i].localizedBody,
+                    laws: controller.data[i].laws,
                     Calculator: controller.data[i].calcul != null,
-                    Link: controller.data[i].lawId != null,
+                    Link: controller.data[i].laws!.isNotEmpty,
                     onCalculator: () {
                       handleLoginRequired(
                         () => Get.toNamed(
@@ -62,18 +63,26 @@ class _InstitutionsinfoState extends State<Institutionsinfo> {
                         ),
                       );
                     },
-                    onLink: () {
-                      Get.to(
-                        () => PdfSearchPage(
-                          url: "${Applink.image}${controller.data[i].pdf}",
-                          initialPage:
-                              int.tryParse(
-                                controller.data[i].indexLink ?? '',
-                              ) ??
-                              1,
-                        ),
-                      );
-                    },
+                    // onLawTap: (law) {
+                    //   Get.to(
+                    //     () => PdfSearchPage(
+                    //       url: "${Applink.image}${law['pdf']}",
+                    //       initialPage: law['index'] ?? 1,
+                    //     ),
+                    //   );
+                    // },
+                    // onLink: () {
+                    //   Get.to(
+                    //     () => PdfSearchPage(
+                    //       url: "${Applink.image}${controller.data[i].pdf}",
+                    //       initialPage:
+                    //           int.tryParse(
+                    //             controller.data[i].indexLink ?? '',
+                    //           ) ??
+                    //           1,
+                    //     ),
+                    //   );
+                    // },
                   );
                 },
               ),

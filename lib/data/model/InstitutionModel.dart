@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'LawModel.dart';
 
 class dataModel {
   final int id;
@@ -10,13 +11,12 @@ class dataModel {
   final String body;
   final String titleFr;
   final String bodyFr;
-  final int? lawId;
   final String? indexLink;
   final String? calcul;
   final DateTime createdAt;
   final DateTime updatedAt;
   bool? isread;
-  final String pdf;
+  final List<dynamic>? laws;
 
   dataModel({
     required this.id,
@@ -27,14 +27,13 @@ class dataModel {
     required this.body,
     required this.titleFr,
     required this.bodyFr,
-    this.lawId,
     this.indexLink,
     this.calcul,
     required this.createdAt,
     required this.updatedAt,
     required this.isread,
-    required this.pdf,
     required this.catId,
+    this.laws,
   });
 
   factory dataModel.fromJson(Map<String, dynamic> json) {
@@ -48,13 +47,12 @@ class dataModel {
       catId: json['cat_id'] ?? 0,
       titleFr: json['title_fr'],
       bodyFr: json['body_fr'] ?? "",
-      pdf: json['pdf'] ?? "",
-      lawId: json['law_id'],
       indexLink: json['index_link'],
       calcul: json['calcul'],
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
       isread: json['is_read'],
+      laws: json['laws'] 
     );
   }
 
@@ -68,14 +66,13 @@ class dataModel {
       'body': body,
       'title_fr': titleFr,
       'body_fr': bodyFr,
-      'law_id': lawId,
-      'pdf': pdf,
       'cat_id': catId,
       'index_link': indexLink,
       'calcul': calcul,
       'is_read': isread,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
+      'laws': laws,
     };
   }
 

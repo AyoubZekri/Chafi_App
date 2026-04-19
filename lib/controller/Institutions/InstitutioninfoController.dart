@@ -9,9 +9,7 @@ import '../../data/datasource/Remote/TaxAndAppData.dart';
 import '../../data/datasource/Remote/institution.dart';
 import '../../data/model/InstitutionModel.dart';
 
-abstract class Institutioninfocontroller extends GetxController {}
-
-class InstitutioninfocontrollerImp extends Institutioninfocontroller {
+class InstitutioninfocontrollerImp extends GetxController {
   late final int nameappar;
   int? type;
   int? catid;

@@ -83,7 +83,7 @@ class _NonTaxableNonContributoryState extends State<NonTaxableNonContributory> {
                                 ? SizedBox(
                                     height: 350,
                                     child: Handlingview(
-                                      statusrequest: Statusrequest.failure,
+                                      statusrequest: Statusrequest.nodata,
                                       widget: const SizedBox(),
                                     ),
                                   )

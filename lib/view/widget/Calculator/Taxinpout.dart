@@ -1,13 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-// --- ويدجت مساعدة للعناوين ---
 import 'package:flutter/material.dart';
-
-import 'package:chafi/view/widget/Calculator/DateButtonSheep.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constant/Colorapp.dart';
 import '../../../core/constant/extension.dart';
+import 'package:chafi/view/widget/Calculator/DateButtonSheep.dart';
 
+// =======================
+// نوع الفورمات
+// =======================
+enum DateFormatType { year, yearMonth, full }
+
+// =======================
+// Header
+// =======================
 class SectionHeader extends StatelessWidget {
   final String title;
   final IconData icon;
@@ -19,9 +25,7 @@ class SectionHeader extends StatelessWidget {
     return Row(
       children: [
         Icon(icon, color: AppColor.typography, size: 24),
-
         const SizedBox(width: 8),
-
         Text(
           title,
           style: const TextStyle(
@@ -35,6 +39,9 @@ class SectionHeader extends StatelessWidget {
   }
 }
 
+// =======================
+// Input Field
+// =======================
 class CustomInputField extends StatefulWidget {
   final String label;
   final IconData icon;
@@ -45,7 +52,9 @@ class CustomInputField extends StatefulWidget {
   final TextEditingController? controller;
   final Function(DateTime)? onDateSelected;
   final Function(String)? onChanged;
-  final Function(String)? onPressed;
+
+  // الجديد
+  final DateFormatType dateFormatType;
 
   const CustomInputField({
     Key? key,
@@ -58,7 +67,7 @@ class CustomInputField extends StatefulWidget {
     this.controller,
     this.onDateSelected,
     this.onChanged,
-    this.onPressed,
+    this.dateFormatType = DateFormatType.full,
   }) : super(key: key);
 
   @override
@@ -66,6 +75,9 @@ class CustomInputField extends StatefulWidget {
 }
 
 class _CustomInputFieldState extends State<CustomInputField> {
+  // =======================
+  // فتح Date Picker
+  // =======================
   Future<void> _openSmartDatePicker() async {
     final result = await showModalBottomSheet<DateTime>(
       context: context,
@@ -75,13 +87,29 @@ class _CustomInputFieldState extends State<CustomInputField> {
     );
 
     if (result != null) {
-      widget.controller?.text =
-          "${result.year}/${result.month.toString().padLeft(2, '0')}/${result.day.toString().padLeft(2, '0')}";
+      widget.controller?.text = _formatDate(result);
       widget.onDateSelected?.call(result);
       setState(() {});
     }
   }
 
+  // =======================
+  // فورمات التاريخ
+  // =======================
+  String _formatDate(DateTime date) {
+    switch (widget.dateFormatType) {
+      case DateFormatType.year:
+        return "${date.year}";
+      case DateFormatType.yearMonth:
+        return "${date.year}/${date.month.toString().padLeft(2, '0')}";
+      case DateFormatType.full:
+        return "${date.year}/${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')}";
+    }
+  }
+
+  // =======================
+  // Currency format
+  // =======================
   @override
   void initState() {
     super.initState();
@@ -106,6 +134,9 @@ class _CustomInputFieldState extends State<CustomInputField> {
     }
   }
 
+  // =======================
+  // UI
+  // =======================
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -125,6 +156,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Label
           Text(
             widget.label,
             style: const TextStyle(
@@ -133,7 +165,10 @@ class _CustomInputFieldState extends State<CustomInputField> {
               color: Color(0xFF37474F),
             ),
           ),
+
           const SizedBox(height: 12),
+
+          // Input
           InkWell(
             onTap: widget.isDate ? _openSmartDatePicker : null,
             borderRadius: BorderRadius.circular(8),
@@ -145,7 +180,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
                 border: Border.all(color: Colors.grey.shade300),
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(widget.icon, color: Colors.grey.shade600),
 
@@ -156,13 +190,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
                         readOnly: widget.isDate,
                         controller: widget.controller,
                         onChanged: widget.onChanged,
-                        textAlign: widget.isDate
-                            ? TextAlign.left
-                            : TextAlign.center,
+                        textAlign: TextAlign.center,
                         textAlignVertical: TextAlignVertical.center,
-                        style: TextStyle(
-                          fontSize:
-                              16, // حجم النص أثناء الكتابة → صغّره كما تريد
+                        keyboardType: widget.isDate
+                            ? TextInputType.none
+                            : TextInputType.number,
+                        style: const TextStyle(
+                          fontSize: 16,
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
@@ -177,20 +211,16 @@ class _CustomInputFieldState extends State<CustomInputField> {
                             fontSize: 16,
                           ),
                         ),
-                        keyboardType: widget.isDate
-                            ? TextInputType.none
-                            : TextInputType.number,
                       ),
                     ),
                   ),
 
-                  if (widget.isDate) const Spacer(),
                   if (widget.isCurrency)
                     Padding(
-                      padding: EdgeInsets.only(left: 12),
+                      padding: const EdgeInsets.only(left: 12),
                       child: Text(
                         'DZD'.tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey,
                         ),
@@ -201,6 +231,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
             ),
           ),
 
+          // Error
           if (widget.errorText != null)
             Padding(
               padding: const EdgeInsets.only(top: 8),

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../core/constant/routes.dart';
 import '../../core/functions/Snacpar.dart';
+import '../../core/functions/trundatefromStringtodate.dart';
 import '../../core/functions/valiedinput.dart';
 import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/ShwopenaltyG12.dart';
 import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/TaxinputdataRecorde.dart';
@@ -19,6 +20,7 @@ class G12controller extends GetxController {
   String? extractedfromSourceErorr;
   String? selfcontractorErorr;
   String? otherActivityErorr;
+  String? dataTaxErorr;
 
   int activityType = 0;
   TextEditingController production = TextEditingController();
@@ -39,6 +41,7 @@ class G12controller extends GetxController {
   // تاريخ الايداع والدفع
   TextEditingController dateofdepositand = TextEditingController();
   TextEditingController dateofpayment = TextEditingController();
+  TextEditingController dataTax = TextEditingController();
 
   double penaltyfinalpayment = 0;
   double penaltyfinaldepositand = 0;
@@ -111,12 +114,13 @@ class G12controller extends GetxController {
   ) {
     if (datePayment == null) return 0;
     if (!datePayment.isAfter(dueDate)) return 0;
-
+    print("datePayment: $datePayment, dueDate: $dueDate");
     int monthsLate =
         (datePayment.year - dueDate.year) * 12 +
         (datePayment.month - dueDate.month);
 
     double percent;
+    print("monthsLate: $monthsLate");
 
     if (monthsLate == 0) {
       percent = 0.20;
@@ -155,6 +159,8 @@ class G12controller extends GetxController {
   }
 
   void calculateTax() {
+    print("===============dataTax ${dataTax.text}");
+
     if (production.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
         profitmargin.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
         extractedfromSource.text.replaceAll(RegExp(r'[^0-9]'), '').isEmpty &&
@@ -198,22 +204,12 @@ class G12controller extends GetxController {
         taxprofitmargins +
         taxextractedfromSources +
         taxselfcontractors;
-
-    final dueDatedepositand = DateTime(DateTime.now().year, 7, 1);
-    // final dueDatede = DateTime(DateTime.now().year, 1, 21);
-
-    DateTime? parseDate(String text) {
-      if (text.isEmpty) return null;
-      try {
-        return DateFormat('yyyy/MM/dd').parseStrict(text);
-      } catch (_) {
-        try {
-          return DateFormat('yyyy-MM-dd').parseStrict(text);
-        } catch (_) {
-          return null;
-        }
-      }
-    }
+    final year = int.parse(dataTax.text);
+    final dueDatedepositand = DateTime(
+      year,
+      7,
+      1,
+    ); // final dueDatede = DateTime(DateTime.now().year, 1, 21);
 
     final datepositand = parseDate(dateofdepositand.text);
     final datepayment = parseDate(dateofpayment.text);
@@ -251,6 +247,7 @@ class G12controller extends GetxController {
     otherActivity.clear();
     dateofdepositand.clear();
     dateofpayment.clear();
+    dataTax.clear();
     Get.until((route) => Get.currentRoute == fromPage);
   }
 
@@ -267,6 +264,8 @@ class G12controller extends GetxController {
     otherActivity.clear();
     dateofdepositand.clear();
     dateofpayment.clear();
+    dataTax.clear();
+
     Get.back();
   }
 
@@ -303,6 +302,14 @@ class G12controller extends GetxController {
     } else {
       dateofpaymentErorr = validInput(dateofpayment.text, 20, 3, "Text");
       if (dateofpaymentErorr != null) hasError = true;
+    }
+
+    if (dataTax.text.isEmpty) {
+      dataTaxErorr = "تاريخ الضريبة مطلوب".tr;
+      hasError = true;
+    } else {
+      dataTaxErorr = validInput(dataTax.text, 20, 3, "Text");
+      if (dataTaxErorr != null) hasError = true;
     }
 
     // ======= الحقول الخاصة بالنشاط =======

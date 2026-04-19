@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/functions/Snacpar.dart';
+import '../../core/functions/trundatefromStringtodate.dart';
 import '../../core/functions/valiedinput.dart';
 import '../../view/screen/Calculators/Simplified system/IBS/CreateACompany.dart';
 import '../../view/screen/Calculators/Simplified system/PenaltyDetailsScreen.dart';
@@ -29,6 +30,7 @@ class Simplifiedsystemcontroller extends GetxController {
   String? advance2DateErorr;
   String? advance3DateErorr;
   String? finalPaymentDateErorr;
+  String? dataTaxErorr;
 
   int personType = 0;
 
@@ -53,6 +55,8 @@ class Simplifiedsystemcontroller extends GetxController {
 
   // كنترولر تاريخ الدفع النهائي
   TextEditingController finalPaymentDate = TextEditingController();
+  TextEditingController dataTax = TextEditingController();
+
   double penalty1 = 0;
   double penalty2 = 0;
   double penalty3 = 0;
@@ -366,24 +370,11 @@ class Simplifiedsystemcontroller extends GetxController {
 
     double totalTax = taxProduction + taxConstruction + taxOther;
     double totalAdvance = (advance1 ?? 0) + (advance2 ?? 0) + (advance3 ?? 0);
-
-    final dueDate1 = DateTime(DateTime.now().year, 3, 20);
-    final dueDate2 = DateTime(DateTime.now().year, 6, 20);
-    final dueDate3 = DateTime(DateTime.now().year, 11, 20);
-    final dueDatefinal = DateTime(DateTime.now().year, 5, 1);
-
-    DateTime? parseDate(String text) {
-      if (text.isEmpty) return null;
-      try {
-        return DateFormat('yyyy/MM/dd').parseStrict(text);
-      } catch (_) {
-        try {
-          return DateFormat('yyyy-MM-dd').parseStrict(text);
-        } catch (_) {
-          return null;
-        }
-      }
-    }
+    final year = int.parse(dataTax.text);
+    final dueDate1 = DateTime(year, 3, 20);
+    final dueDate2 = DateTime(year, 6, 20);
+    final dueDate3 = DateTime(year, 11, 20);
+    final dueDatefinal = DateTime(year, 5, 1);
 
     final paymentDate1 = parseDate(advance1Date.text);
     final paymentDate2 = parseDate(advance2Date.text);
@@ -498,6 +489,7 @@ class Simplifiedsystemcontroller extends GetxController {
     construction.clear();
     otherActivity.clear();
     finalPaymentDate.clear();
+    dataTax.clear();
     advance1Date.clear();
     advance2Date.clear();
     advance3Date.clear();
@@ -535,6 +527,7 @@ class Simplifiedsystemcontroller extends GetxController {
     advance2Date.clear();
     advance3Date.clear();
     finalPaymentDate.clear();
+    dataTax.clear();
     advance1 = 0;
     advance2 = 0;
     advance3 = 0;
@@ -592,6 +585,7 @@ class Simplifiedsystemcontroller extends GetxController {
     }
 
     finalPaymentDateErorr = validInput(finalPaymentDate.text, 20, 3, "Text".tr);
+    dataTaxErorr = validInput(dataTax.text, 20, 3, "Text".tr);
 
     if (advance1DateErorr != null ||
         advance2DateErorr != null ||

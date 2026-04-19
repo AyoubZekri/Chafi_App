@@ -19,6 +19,8 @@ class G12bescontroller extends GetxController {
   String? extractedfromSourceErorr;
   String? selfcontractorErorr;
   String? otherActivityErorr;
+  String? dataTaxErorr;
+
   int activityType = 0;
   TextEditingController production = TextEditingController();
   TextEditingController g12 = TextEditingController();
@@ -38,6 +40,7 @@ class G12bescontroller extends GetxController {
   // تاريخ الايداع والدفع
   TextEditingController dateofdepositand = TextEditingController();
   TextEditingController dateofpayment = TextEditingController();
+  TextEditingController dataTax = TextEditingController();
 
   double penaltyfinalpayment = 0;
   double penaltyfinaldepositand = 0;
@@ -200,9 +203,13 @@ class G12bescontroller extends GetxController {
         taxprofitmargins +
         taxextractedfromSources +
         taxselfcontractors;
-
-    final dueDatedepositand = DateTime(DateTime.now().year, 7, 1);
-    final dueDatede = DateTime(DateTime.now().year, 1, 21);
+    final year = int.parse(dataTax.text);
+    final dueDatedepositand = DateTime(
+      year,
+      7,
+      1,
+    ); // final dueDatede = DateTime(DateTime.now().year, 1, 21);
+    final dueDatede = DateTime(year, 1, 21);
 
     final datepositand = parseDate(dateofdepositand.text);
     final datepayment = parseDate(dateofpayment.text);
@@ -242,6 +249,7 @@ class G12bescontroller extends GetxController {
     otherActivity.clear();
     dateofdepositand.clear();
     dateofpayment.clear();
+    dataTax.clear();
     Get.until((route) => Get.currentRoute == fromPage);
   }
 
@@ -259,6 +267,7 @@ class G12bescontroller extends GetxController {
     otherActivity.clear();
     dateofdepositand.clear();
     dateofpayment.clear();
+    dataTax.clear();
     Get.back();
   }
 
@@ -290,12 +299,20 @@ class G12bescontroller extends GetxController {
     }
 
     if (dateofpayment.text.isEmpty) {
-      dateofpaymentErorr = "تاريخ الدفع مطلوب";
+      dateofpaymentErorr = "تاريخ الدفع مطلوب".tr;
       hasError = true;
     } else {
       dateofpaymentErorr = validInput(dateofpayment.text, 20, 4, "Text");
       if (dateofpaymentErorr != null) hasError = true;
     }
+
+      if (dataTax.text.isEmpty) {
+        dataTaxErorr = "تاريخ التصريح مطلوب".tr;
+        hasError = true;
+      } else {
+        dataTaxErorr = validInput(dataTax.text, 20, 3, "Text");
+        if (dataTaxErorr != null) hasError = true;
+      }
 
     g12Erorr = validInput(g12.text, 20, 4, "Text");
     if (g12Erorr != null) hasError = true;
