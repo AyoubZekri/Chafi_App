@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../LinkApi.dart';
 import '../../../core/constant/Colorapp.dart';
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Custemcardinfo extends StatefulWidget {
   final String body;
@@ -99,12 +101,8 @@ class _CustemcardinfoState extends State<Custemcardinfo>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 12),
-                            Text(
-                              widget.body,
-                              style: context.textTheme.bodyLarge?.copyWith(
-                                fontSize: 15,
-                              ),
-                            ),
+                            buildRichText(widget.body, context),
+
                             if (widget.Calculator ||
                                 widget.Link ||
                                 (widget.laws != null &&
@@ -310,5 +308,82 @@ class _CustemcardinfoState extends State<Custemcardinfo>
         ],
       ),
     );
+  }
+
+  Widget buildRichText(String text, BuildContext context) {
+    final urlRegex = RegExp(r'(https?:\/\/[^\s]+)');
+    final keywordRegex = RegExp(
+      r'(المادة\s*\d+([\-–]\d+)?(\s*مكرر(\s*\d+)?)?)',
+    );
+    List<TextSpan> spans = [];
+    int currentIndex = 0;
+
+    final matches = RegExp(
+      '${urlRegex.pattern}|${keywordRegex.pattern}',
+    ).allMatches(text);
+
+    for (final match in matches) {
+      if (match.start > currentIndex) {
+        spans.add(
+          TextSpan(
+            text: text.substring(currentIndex, match.start),
+            style: context.textTheme.bodyLarge?.copyWith(
+              fontSize: 15,
+              color: Colors.black,
+            ),
+          ),
+        );
+      }
+
+      final matchedText = match.group(0)!;
+
+      if (urlRegex.hasMatch(matchedText)) {
+        spans.add(
+          TextSpan(
+            text: matchedText,
+            style: TextStyle(
+              color: Colors.blue,
+              decoration: TextDecoration.underline,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () async {
+                final uri = Uri.parse(matchedText);
+                if (!await launchUrl(
+                  uri,
+                  mode: LaunchMode.externalApplication,
+                )) {
+                  throw 'Could not launch $matchedText';
+                }
+              },
+          ),
+        );
+      }
+      // ✅ إذا كلمة مميزة
+      else if (keywordRegex.hasMatch(matchedText)) {
+        spans.add(
+          TextSpan(
+            text: matchedText,
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+        );
+      }
+
+      currentIndex = match.end;
+    }
+
+    // باقي النص
+    if (currentIndex < text.length) {
+      spans.add(
+        TextSpan(
+          text: text.substring(currentIndex),
+          style: context.textTheme.bodyLarge?.copyWith(
+            fontSize: 15,
+            color: Colors.black,
+          ),
+        ),
+      );
+    }
+
+    return RichText(text: TextSpan(children: spans));
   }
 }

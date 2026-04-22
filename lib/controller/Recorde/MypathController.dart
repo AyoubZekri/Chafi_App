@@ -234,6 +234,9 @@ class MypathcontrollerImp extends Mypathcontroller {
                 ) ||
                 (element.localizedBody.toLowerCase().contains(
                   query.toLowerCase(),
+                )) ||
+                (element.codeActivity.toString().toLowerCase().contains(
+                  query.toLowerCase(),
                 )),
           )
           .toList();
@@ -264,7 +267,7 @@ class MypathcontrollerImp extends Mypathcontroller {
         onConfirm: () {
           Get.back();
           Get.find<HomecontrollerImp>().onClose();
-          Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
+          Get.toNamed(Approutes.googleSignIn, arguments: {"type": 1});
         },
       );
       return;
