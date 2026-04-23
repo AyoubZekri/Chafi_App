@@ -32,7 +32,7 @@ void handleLoginRequired(void Function() onSuccess) {
       onConfirm: () {
         Get.back();
         Get.find<HomecontrollerImp>().onClose();
-        Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
+        Get.toNamed(Approutes.googleSignIn, arguments: {"type": 1});
       },
     );
     return;
@@ -147,6 +147,19 @@ List<Cardservicesmodel> Cardservices = [
 ];
 
 List<Institutiontypemodel> institutionfild = [
+  Institutiontypemodel(
+    ontap: () {
+      Get.toNamed(
+        Approutes.institutionsinfo,
+        arguments: {"name": 103, "type": 5},
+      );
+    },
+    body: "103",
+    imgae: Appimageassets.oneCard,
+    color1: Color(0xff164573),
+    color2: Color(0xff473BF0),
+    sizeText: 36,
+  ),
   Institutiontypemodel(
     ontap: () {
       Get.toNamed(Approutes.institutiontype);

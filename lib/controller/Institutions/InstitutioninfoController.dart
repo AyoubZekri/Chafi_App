@@ -32,7 +32,10 @@ class InstitutioninfocontrollerImp extends GetxController {
     }
     statusrequest = Statusrequest.loadeng;
     update();
-    final dat = {"scope": type};
+    final dat = {
+      "scope": type == 5 ? 0 : type,
+      if (type == 5) "type_institution": 3,
+    };
 
     var response = await institutionData.viewdata(dat);
     print("Response: $response");
