@@ -158,7 +158,7 @@ class _InforecordState extends State<Inforecord> {
                                 return AppointmentCard(
                                   title: appt.declaration,
                                   date: appt.deadline,
-                                  dec: appt.declaration,
+                                  dec: appt.dependencies,
                                   status: DateTime.parse(
                                     appt.deadline,
                                   ).isBefore(DateTime.now()),

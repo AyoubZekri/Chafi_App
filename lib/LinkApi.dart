@@ -68,4 +68,5 @@ class Applink {
   static const String taxAndAppadd = "$server/TaxAndApp/add";
   static const String bonusesandcompensations =
       "$server/bonusesandcompensations/Show";
+  static const String addFeedback = "$server/addFeedback";
 }

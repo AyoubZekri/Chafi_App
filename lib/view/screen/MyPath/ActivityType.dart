@@ -24,6 +24,7 @@ class _ActivitytypeState extends State<Activitytype> {
         Get.find<MypathcontrollerImp>().backtonatureofactivity();
         return true;
       },
+
       child: Scaffold(
         backgroundColor: AppColor.white,
         appBar: AppBar(
@@ -43,105 +44,103 @@ class _ActivitytypeState extends State<Activitytype> {
             return RefreshIndicator(
               color: AppColor.typography,
               onRefresh: () async {
-                await controller.getData(); // دالة إعادة جلب البيانات
+                await controller.getData();
               },
               child: Container(
                 color: AppColor.typography,
                 child: Container(
-                  margin: EdgeInsets.only(top: 30),
+                  margin: const EdgeInsets.only(top: 30),
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: AppColor.white,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(50),
                       topLeft: Radius.circular(50),
                     ),
                   ),
-                  clipBehavior: Clip.hardEdge,
-                  child: SingleChildScrollView(
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          CustemtextbodyMedium18(
-                            color: AppColor.grey,
-                            content: "56".tr,
-                          ),
-                          SizedBox(height: 40),
-                          LawSearchBar(
-                            onChanged: (value) {
-                              controller.search(value);
-                            },
-                          ),
-
-                          const SizedBox(height: 30),
-                          CustemtextbodyMedium18(
-                            content: "61".tr,
-                            color: AppColor.black,
-                          ),
-                          SizedBox(height: 70),
-                          controller.filteredData.isEmpty
-                              ? SizedBox(
-                                  height: 250,
-                                  child: Handlingview(
-                                    statusrequest: controller.statusrequest,
-                                    widget: SizedBox(),
-                                  ),
-                                )
-                              : ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: controller.filteredData.length,
-                                  itemBuilder: (context, i) {
-                                    return Cardacteve(
-                                      description: controller
-                                          .filteredData[i]
-                                          .localizedBody,
-                                      padding: 20,
-                                      marginb: 30,
-                                      index: controller.filteredData[i].id,
-                                      title: controller
-                                          .filteredData[i]
-                                          .localizedName,
-                                      selectedPerson: controller.ativitytype,
-                                      onTap: () {
-                                        controller.selectativitytype(
-                                          controller.filteredData[i].id,
-                                          controller.filteredData[i].statusTax,
-                                          controller.filteredData[i].taxId,
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-
-                          Custemsuberbutton(
-                            content: "60".tr,
-                            color: AppColor.typography,
-                            onPressed: () {
-                              controller.gotoTaxsystemstype();
-                            },
-                          ),
-                          const SizedBox(height: 20),
-
-                          Custemsuberbutton(
-                            content: "62".tr,
-                            color: Color(0xffE8F1FF),
-                            color2: AppColor.brand,
-                            onPressed: () {
-                              controller.backtonatureofactivity();
-                            },
-                          ),
-
-                          SizedBox(height: 20),
-                        ],
+                  child: Column(
+                    children: [
+                      // ===== Fixed Top Section =====
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 30),
+                            CustemtextbodyMedium18(
+                              color: AppColor.grey,
+                              content: "61".tr,
+                            ),
+                            const SizedBox(height: 15),
+                            LawSearchBar(
+                              controller: controller.searchController,
+                              onChanged: (value) {
+                                controller.search(value);
+                              },
+                            ),
+                            // const SizedBox(height: 30),
+                            // CustemtextbodyMedium18(
+                            //   content: "61".tr,
+                            //   color: AppColor.black,
+                            // ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       ),
-                    ),
+
+                      // ===== Scrollable List Section =====
+                      Expanded(
+                        child: controller.filteredData.isEmpty
+                            ? Center(
+                                child: Handlingview(
+                                  statusrequest: controller.statusrequest,
+                                  widget: const SizedBox(),
+                                ),
+                              )
+                            : ListView.builder(
+                                padding: const EdgeInsets.fromLTRB(
+                                  25,
+                                  10,
+                                  25,
+                                  180,
+                                ), // Added bottom padding for buttons
+                                itemCount: controller.filteredData.length,
+                                itemBuilder: (context, i) {
+                                  return Cardacteve(
+                                    description: controller
+                                        .filteredData[i]
+                                        .localizedBody,
+                                    padding: 20,
+                                    marginb: 30,
+                                    index: controller.filteredData[i].id,
+                                    selectedPerson: controller.ativitytype,
+                                    onTap: () {
+                                      controller.selectativitytype(
+                                        controller.filteredData[i].id,
+                                        controller.filteredData[i].statusTax,
+                                        controller.filteredData[i].taxId,
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             );
           },
+        ),
+
+        bottomSheet: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Custemsuberbutton(
+            content: "60".tr,
+            color: AppColor.typography,
+            onPressed: () {
+              Get.find<MypathcontrollerImp>().gotoTaxsystemstype();
+            },
+          ),
         ),
       ),
     );

@@ -65,7 +65,7 @@ List<Cardservicesmodel> Cardservices = [
     color: const Color(0xFF2563EB), // Blue
     color2: const Color(0xFF1E40AF),
     onTap: () {
-      Get.toNamed(Approutes.institutionfield);
+      Get.toNamed(Approutes.categoriesinstutions);
     },
   ),
 
@@ -96,8 +96,8 @@ List<Cardservicesmodel> Cardservices = [
     color2: const Color(0xFF0369A1),
     onTap: () {
       Get.toNamed(
-        Approutes.institutionsinfo,
-        arguments: {"name": 30, "type": 10, "type_deff": 3},
+        Approutes.categoriesDiff,
+        // arguments: {"name": 30, "type": 10, "type_deff": 3},
       );
     },
   ),

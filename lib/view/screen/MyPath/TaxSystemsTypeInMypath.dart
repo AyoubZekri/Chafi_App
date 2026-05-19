@@ -23,6 +23,7 @@ class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
         Get.find<MypathcontrollerImp>().backtoativitytype();
         return true;
       },
+
       child: Scaffold(
         backgroundColor: AppColor.white,
         appBar: AppBar(
@@ -59,7 +60,9 @@ class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
                         SizedBox(height: 20),
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
-                          content: "65".tr,
+                          content: controller.taxidsup == 0
+                              ? controller.taxs0
+                              : controller.taxs1,
                         ),
                         SizedBox(height: 40),
                         CustemtextbodyMedium18(
@@ -67,39 +70,40 @@ class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
                           color: AppColor.black,
                         ),
                         SizedBox(height: 70),
-
-                        Cardpersontype(
-                          padding: 20,
-                          marginb: 30,
-                          index: 0,
-                          title: "49".tr,
-                          selectedPerson: controller.taxid,
-                          onTap: () {
-                            controller.selectTaxsystemstype(0);
-                          },
-                        ),
-
-                        Cardpersontype(
-                          padding: 20,
-                          marginb: 30,
-                          index: 1,
-                          title: "50".tr,
-                          selectedPerson: controller.taxid,
-                          onTap: () {
-                            controller.selectTaxsystemstype(1);
-                          },
-                        ),
-
-                        Cardpersontype(
-                          padding: 20,
-                          marginb: 30,
-                          index: 2,
-                          title: "48".tr,
-                          selectedPerson: controller.taxid,
-                          onTap: () {
-                            controller.selectTaxsystemstype(2);
-                          },
-                        ),
+                        if (controller.taxidsup == 0 ||
+                            controller.taxidsup == 1)
+                          Cardpersontype(
+                            padding: 20,
+                            marginb: 30,
+                            index: 0,
+                            title: "49".tr,
+                            selectedPerson: controller.taxid,
+                            onTap: () {
+                              controller.selectTaxsystemstype(0);
+                            },
+                          ),
+                        if (controller.taxidsup == 1)
+                          Cardpersontype(
+                            padding: 20,
+                            marginb: 30,
+                            index: 1,
+                            title: "50".tr,
+                            selectedPerson: controller.taxid,
+                            onTap: () {
+                              controller.selectTaxsystemstype(1);
+                            },
+                          ),
+                        if (controller.taxidsup == 0)
+                          Cardpersontype(
+                            padding: 20,
+                            marginb: 30,
+                            index: 2,
+                            title: "48".tr,
+                            selectedPerson: controller.taxid,
+                            onTap: () {
+                              controller.selectTaxsystemstype(2);
+                            },
+                          ),
                         const SizedBox(height: 20),
 
                         controller.statusrequest == Statusrequest.loadeng

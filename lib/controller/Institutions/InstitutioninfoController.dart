@@ -1,3 +1,4 @@
+import 'package:chafi/data/datasource/Remote/PostData.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
@@ -18,11 +19,34 @@ class InstitutioninfocontrollerImp extends GetxController {
   InstitutionData institutionData = InstitutionData(Get.find());
   Taxandappdata taxandappdata = Taxandappdata(Get.find());
   Differentdata differentdata = Differentdata(Get.find());
+  Postdata postdata = Postdata(Get.find());
 
   Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
+  Statusrequest statusrequestenter = Statusrequest.none;
 
   List<dataModel> data = [];
+
+  Future<void> addenter(int type_stats) async {
+    update();
+    if (!await checkInternet()) {
+      print("=======checkInternet false=====${await checkInternet()}");
+      return;
+    }
+    var response = await postdata.adddata({
+      'device_id': myServices.sharedPreferences?.getString('device_id'),
+      "type_stats": type_stats,
+    });
+    print("=======================$response");
+    statusrequestenter = handlingData(response);
+    if (statusrequestenter == Statusrequest.success) {
+      if (response["status"] == 1) {
+        print('==================enter+1');
+        statusrequestenter = Statusrequest.success;
+      }
+    }
+    update();
+  }
 
   Future<void> viewdata() async {
     if (!await checkInternet()) {
@@ -33,8 +57,9 @@ class InstitutioninfocontrollerImp extends GetxController {
     statusrequest = Statusrequest.loadeng;
     update();
     final dat = {
-      "scope": type == 5 ? 0 : type,
-      if (type == 5) "type_institution": 3,
+      // "scope": type == 5 ? 0 : type,
+      // if (type == 5) "type_institution": 3,
+      "cat_id": catid,
     };
 
     var response = await institutionData.viewdata(dat);
@@ -56,6 +81,7 @@ class InstitutioninfocontrollerImp extends GetxController {
       print('==============$data');
       data.addAll(listdata.map((e) => dataModel.fromJson(e)));
       data = List.from(data);
+      addenter(1);
       if (data.isEmpty) {
         statusrequest = Statusrequest.nodata;
       }
@@ -100,6 +126,7 @@ class InstitutioninfocontrollerImp extends GetxController {
     final dat = {"cat_id": catid};
 
     var response = await taxandappdata.viewdata(dat);
+
     print("Response: $response");
     if (response == Statusrequest.failure) {
       statusrequest = Statusrequest.failure;
@@ -115,6 +142,7 @@ class InstitutioninfocontrollerImp extends GetxController {
         data.addAll(listdata.map((e) => dataModel.fromJson(e)));
         data = List.from(data);
         print("=====$data");
+        addenter(type == 8 ? 2 : 3);
         if (data.isEmpty) {
           statusrequest = Statusrequest.nodata;
         }
@@ -134,7 +162,10 @@ class InstitutioninfocontrollerImp extends GetxController {
     }
     statusrequest = Statusrequest.loadeng;
     update();
-    final dat = {"type": typedeff};
+    print("==================cat $catid");
+    print("==================cat $typedeff");
+
+    final dat = {"type": typedeff, if (typedeff == 3) "cat_id": catid};
 
     var response = await differentdata.viewdata(dat);
     print("Response: $response");

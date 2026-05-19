@@ -35,12 +35,26 @@ class _SpecialappointmentsState extends State<Specialappointments> {
                   itemBuilder: (context, i) {
                     return DeadlineAlertCard(
                       title: controller.data[i].declaration,
-                      dateText: controller.data[i].deadline,
+                      dateText: controller.data[i].deadline
+                          .toString()
+                          .substring(5, 10),
                       subtitleLabel: "التبعات المترتبة",
                       subtitleValue: controller.data[i].dependencies,
-                      isOverdue: DateTime.parse(
-                        controller.data[i].deadline,
-                      ).isBefore(DateTime.now()),
+                      isOverdue: () {
+                        try {
+                          String mmdd = controller.data[i].deadline.toString().substring(5, 10);
+                          List<String> parts = mmdd.split('-');
+                          int month = int.parse(parts[0]);
+                          int day = int.parse(parts[1]);
+                          DateTime now = DateTime.now();
+                          DateTime deadlineDate = DateTime(now.year, month, day);
+                          // قارن التاريخ فقط (بدون الوقت) لضمان الدقة
+                          DateTime today = DateTime(now.year, now.month, now.day);
+                          return deadlineDate.isBefore(today);
+                        } catch (e) {
+                          return false;
+                        }
+                      }(),
                     );
                   },
                 ),

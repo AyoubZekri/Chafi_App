@@ -13,8 +13,7 @@ class dataModel {
   final String bodyFr;
   final String? indexLink;
   final String? calcul;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+
   bool? isread;
   final List<dynamic>? laws;
 
@@ -29,8 +28,7 @@ class dataModel {
     required this.bodyFr,
     this.indexLink,
     this.calcul,
-    required this.createdAt,
-    required this.updatedAt,
+
     required this.isread,
     required this.catId,
     this.laws,
@@ -49,10 +47,8 @@ class dataModel {
       bodyFr: json['body_fr'] ?? "",
       indexLink: json['index_link'],
       calcul: json['calcul'],
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
       isread: json['is_read'],
-      laws: json['laws'] 
+      laws: json['laws'],
     );
   }
 
@@ -70,8 +66,6 @@ class dataModel {
       'index_link': indexLink,
       'calcul': calcul,
       'is_read': isread,
-      'created_at': createdAt.toIso8601String(),
-      'updated_at': updatedAt.toIso8601String(),
       'laws': laws,
     };
   }

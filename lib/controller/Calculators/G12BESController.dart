@@ -2,14 +2,19 @@ import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/G12BES/Shwope
 import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/G12BES/TaxinputdataRecordeG12BES.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
-import '../../core/constant/routes.dart';
+import '../../core/class/Statusrequest.dart';
+import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/Snacpar.dart';
+import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/functions/trundatefromStringtodate.dart';
 import '../../core/functions/valiedinput.dart';
+import '../../core/services/Services.dart';
+import '../../data/datasource/Remote/PostData.dart';
 
 class G12bescontroller extends GetxController {
+  Postdata postdata = Postdata(Get.find());
+  Myservices myServices = Get.find();
+  Statusrequest statusrequest = Statusrequest.none;
   String? fromPage;
   String? dateofpaymentErorr;
   String? dateofdepositandErorr;
@@ -306,13 +311,13 @@ class G12bescontroller extends GetxController {
       if (dateofpaymentErorr != null) hasError = true;
     }
 
-      if (dataTax.text.isEmpty) {
-        dataTaxErorr = "تاريخ التصريح مطلوب".tr;
-        hasError = true;
-      } else {
-        dataTaxErorr = validInput(dataTax.text, 20, 3, "Text");
-        if (dataTaxErorr != null) hasError = true;
-      }
+    if (dataTax.text.isEmpty) {
+      dataTaxErorr = "تاريخ التصريح مطلوب".tr;
+      hasError = true;
+    } else {
+      dataTaxErorr = validInput(dataTax.text, 20, 3, "Text");
+      if (dataTaxErorr != null) hasError = true;
+    }
 
     g12Erorr = validInput(g12.text, 20, 4, "Text");
     if (g12Erorr != null) hasError = true;
@@ -378,9 +383,31 @@ class G12bescontroller extends GetxController {
     return hasError;
   }
 
+  Future<void> addenter(int type_stats) async {
+    update();
+    if (!await checkInternet()) {
+      print("=======checkInternet false=====${await checkInternet()}");
+      return;
+    }
+    var response = await postdata.adddata({
+      'device_id': myServices.sharedPreferences?.getString('device_id'),
+      "type_stats": type_stats,
+    });
+    print("=======================$response");
+    statusrequest = handlingData(response);
+    if (statusrequest == Statusrequest.success) {
+      if (response["status"] == 1) {
+        print('==================enter+1');
+        statusrequest = Statusrequest.success;
+      }
+    }
+    update();
+  }
+
   @override
   void onInit() {
     fromPage = Get.arguments?['fromPage'] ?? '';
+    addenter(4);
     super.onInit();
   }
 }

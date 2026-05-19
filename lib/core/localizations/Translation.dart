@@ -34,7 +34,7 @@ class MyTranslation extends Translations {
       "26": "أنظمة جبائية",
       "27": "مساري",
       "28": "الحاسبة",
-      "29": "التطبيقات",
+      "29": "الجزاءات ",
       "30": "مختلفة",
 
       "31": "مؤسسات",
@@ -69,7 +69,7 @@ class MyTranslation extends Translations {
       "52":
           "اختر النضام الذي يهمّك للحصول على محتوى دقيق، مبسّط، ومحدّث باستمرار",
       "53":
-          "تصفّح مجموعة متنوعة من التطبيقات التنضيمية المتخصصة في عالم الأنضمة الجبائية والقوانين الخاصة",
+          "تصفّح مجموعة متنوعة من الجزاءات  التنضيمية المتخصصة في عالم الأنضمة الجبائية والقوانين الخاصة",
       "54":
           "بعد اختيار النظام، سنعرض لك مجموعة من الجوانب التطبيقية والتنظيمية لتسهيل الفهم والاستخدام",
       "55": "مساري",
@@ -125,7 +125,7 @@ class MyTranslation extends Translations {
       "101": "حقوقك",
       "102":
           "لديك الحق في الوصول إلى معلومات جهات الاتصال الخاصة بك أو تعديلها أو حذفها في أي وقت.",
-      "103":"تعريفات",
+      "103": "تعريفات",
       "select_category_hint":
           "اختر الفئة المناسبة، ثم اطّلع على العناوين الخاصة بها",
       "خطأ": "خطأ",
@@ -673,6 +673,22 @@ class MyTranslation extends Translations {
       "مسعد": "مسعد",
       "null": "فارغ",
       "يرجى اختيار الولاية": "يرجى اختيار الولاية",
+      "feedback_title": "ما هو رأيك في التطبيق؟",
+      "feedback_easy": "سهل التصفح",
+      "feedback_instructive": "ارشادي",
+      "feedback_motivating": "محفز وداعم",
+      "feedback_correcting": "مصوب",
+      "feedback_reassuring": "مطمئن",
+      "feedback_cancel": "إلغاء",
+      "feedback_send": "إرسال",
+      "feedback_thanks": "شكراً لك",
+      "feedback_success": "تم إرسال رأيك بنجاح",
+      "feedback_error": "خطأ",
+      "feedback_error_msg": "حدث خطأ ما أثناء الإرسال",
+      "feedback_question": "كيف تجد تجربتك معنا؟",
+      "feedback_subtitle": "ملاحظاتك تساعدنا على تقديم الأفضل دوماً",
+      "feedback_send_button": "إرسال الملاحظات",
+      "feedback_share_thoughts": "شاركنا رأيك",
     },
 
     ///////////////////////////////////////
@@ -723,7 +739,7 @@ class MyTranslation extends Translations {
       "26": "Tax Systems",
       "27": "My Path",
       "28": "Calculator",
-      "29": "Applications",
+      "29": "Sanctions",
       "30": "Miscellaneous",
 
       "31": "Institutions",
@@ -759,7 +775,7 @@ class MyTranslation extends Translations {
       "52":
           "Choisissez le système qui vous intéresse pour un contenu précis, simplifié et constamment mis à jour",
       "53":
-          "Parcourez une variété d'applications organisationnelles spécialisées dans le monde des systèmes fiscaux et des lois spécifiques",
+          "Parcourez une variété d'Sanctions organisationnelles spécialisées dans le monde des systèmes fiscaux et des lois spécifiques",
 
       "54":
           "Après avoir choisi le système, nous vous présenterons un ensemble d'aspects pratiques et organisationnels pour faciliter la compréhension et l'utilisation",
@@ -1437,6 +1453,23 @@ class MyTranslation extends Translations {
       "مسعد": "Mossad",
       "null": "vide",
       "يرجى اختيار الولاية": "Veuillez sélectionner un état.",
+      "feedback_title": "Que pensez-vous de l'application ?",
+      "feedback_easy": "Facile à naviguer",
+      "feedback_instructive": "Instructif",
+      "feedback_motivating": "Motivant et encourageant",
+      "feedback_correcting": "Correctif",
+      "feedback_reassuring": "Rassurant",
+      "feedback_cancel": "Annuler",
+      "feedback_send": "Envoyer",
+      "feedback_thanks": "Merci",
+      "feedback_success": "Votre avis a été envoyé avec succès",
+      "feedback_error": "Erreur",
+      "feedback_error_msg": "Une erreur est survenue lors de l'envoi",
+      "feedback_question": "Comment trouvez-vous votre expérience avec nous ?",
+      "feedback_subtitle":
+          "Vos commentaires nous aident à toujours fournir le meilleur",
+      "feedback_send_button": "Envoyer les commentaires",
+      "feedback_share_thoughts": "Partagez vos pensées",
     },
   };
 }

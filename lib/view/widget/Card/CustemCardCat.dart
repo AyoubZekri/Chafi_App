@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,15 +39,16 @@ class Custemcardcat extends StatelessWidget {
         child: Center(
           child: SizedBox(
             width: 230,
-            child: Text(
+            child: AutoSizeText(
               body,
               style: context.textTheme.bodyMedium?.copyWith(
                 fontSize: sizeText,
                 color: AppColor.white,
               ),
-              maxLines: 1,
-              textAlign: TextAlign.center,
+              maxLines: 2,
+              minFontSize: 14,
               overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
           ),
         ),

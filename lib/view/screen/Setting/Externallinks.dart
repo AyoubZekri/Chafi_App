@@ -30,10 +30,10 @@ class _ExternallinksState extends State<Externallinks> {
               await controller.getData(); // دالة إعادة جلب البيانات
             },
             child: Container(
-              padding: EdgeInsets.all(15),
               child: Handlingview(
                 statusrequest: controller.statusrequest,
                 widget: ListView.builder(
+                  padding: EdgeInsets.all(15),
                   itemCount: controller.data.length,
                   itemBuilder: (context, i) {
                     final item = controller.data[i];

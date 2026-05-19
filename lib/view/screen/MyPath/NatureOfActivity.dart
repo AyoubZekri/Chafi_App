@@ -109,26 +109,7 @@ class _NatureofactivityState extends State<Natureofactivity> {
                                       },
                                     ),
 
-                              Custemsuberbutton(
-                                content: "60".tr,
-                                color: AppColor.typography,
-                                onPressed: () {
-                                  controller.gotoActivitytype();
-                                },
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              Custemsuberbutton(
-                                content: "62".tr,
-                                color: Color(0xffE8F1FF),
-                                color2: AppColor.brand,
-                                onPressed: () {
-                                  controller.backtoPersonType();
-                                },
-                              ),
-
-                              SizedBox(height: 20),
+                              SizedBox(height: 70),
                             ],
                           ),
                         ),
@@ -139,6 +120,16 @@ class _NatureofactivityState extends State<Natureofactivity> {
               ),
             );
           },
+        ),
+        bottomSheet: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Custemsuberbutton(
+            content: "60".tr,
+            color: AppColor.typography,
+            onPressed: () {
+              Get.find<MypathcontrollerImp>().gotoActivitytype();
+            },
+          ),
         ),
       ),
     );

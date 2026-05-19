@@ -1,12 +1,19 @@
 import 'package:chafi/core/functions/valiedinput.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../core/class/Statusrequest.dart';
+import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/Snacpar.dart';
+import '../../core/functions/handlingdatacontroller.dart';
+import '../../core/services/Services.dart';
+import '../../data/datasource/Remote/PostData.dart';
 import '../../view/screen/Calculators/different/InterestTax/InterestTaxType.dart';
 import '../../view/screen/Calculators/different/InterestTax/ValuoTax.dart';
 
 class Interesttaxcontroller extends GetxController {
+  Postdata postdata = Postdata(Get.find());
+  Myservices myServices = Get.find();
+  Statusrequest statusrequest = Statusrequest.none;
   int typeTax = 0;
   int interesttaxtype = 0;
   String? frompage;
@@ -51,14 +58,18 @@ class Interesttaxcontroller extends GetxController {
 
   void calcul() {
     fixedValueControllerError = validInput(
-      fixedValueController.text.replaceAll(RegExp(r'[^0-9]'), '').replaceAll(RegExp(r'[^0-9]'), ''),
+      fixedValueController.text
+          .replaceAll(RegExp(r'[^0-9]'), '')
+          .replaceAll(RegExp(r'[^0-9]'), ''),
       20,
       3,
       "int",
     );
     value =
         double.tryParse(
-          fixedValueController.text.replaceAll(RegExp(r'[^0-9]'), '').replaceAll(RegExp(r'[^0-9]'), ''),
+          fixedValueController.text
+              .replaceAll(RegExp(r'[^0-9]'), '')
+              .replaceAll(RegExp(r'[^0-9]'), ''),
         ) ??
         0;
     if (fixedValueControllerError == null) {
@@ -90,9 +101,31 @@ class Interesttaxcontroller extends GetxController {
     update();
   }
 
+  Future<void> addenter(int type_stats) async {
+    update();
+    if (!await checkInternet()) {
+      print("=======checkInternet false=====${await checkInternet()}");
+      return;
+    }
+    var response = await postdata.adddata({
+      'device_id': myServices.sharedPreferences?.getString('device_id'),
+      "type_stats": type_stats,
+    });
+    print("=======================$response");
+    statusrequest = handlingData(response);
+    if (statusrequest == Statusrequest.success) {
+      if (response["status"] == 1) {
+        print('==================enter+1');
+        statusrequest = Statusrequest.success;
+      }
+    }
+    update();
+  }
+
   @override
   void onInit() {
     frompage = Get.arguments?['fromPage'] ?? '';
+    addenter(4);
     super.onInit();
   }
 

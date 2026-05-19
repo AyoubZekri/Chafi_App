@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/functions/Snacpar.dart';
-import '../../core/functions/trundatefromStringtodate.dart';
-import '../../core/functions/valiedinput.dart';
-import '../../view/screen/Calculators/different/SurrenderOfTheProperty/Shwovalue.dart';
-import '../../view/screen/Calculators/different/SurrenderOfTheProperty/SurrenderOfThePropertyValue.dart';
+import 'package:chafi/core/class/Statusrequest.dart';
+import 'package:chafi/core/functions/CheckInternat.dart';
+import 'package:chafi/core/functions/handlingdatacontroller.dart';
+import 'package:chafi/core/services/Services.dart';
+import 'package:chafi/data/datasource/Remote/PostData.dart';
+import 'package:chafi/core/functions/Snacpar.dart';
+import 'package:chafi/core/functions/trundatefromStringtodate.dart';
+import 'package:chafi/core/functions/valiedinput.dart';
+import 'package:chafi/view/screen/Calculators/different/SurrenderOfTheProperty/Shwovalue.dart';
+import 'package:chafi/view/screen/Calculators/different/SurrenderOfTheProperty/SurrenderOfThePropertyValue.dart';
 
 class Surrenderofthepropertycontroller extends GetxController {
+  Postdata postdata = Postdata(Get.find());
+  Myservices myServices = Get.find();
+  Statusrequest statusrequest = Statusrequest.none;
   String? fromPage;
   int singleResidence = 0; //YES 1 NO 2
 
@@ -118,12 +126,6 @@ class Surrenderofthepropertycontroller extends GetxController {
     Get.until((route) => Get.currentRoute == fromPage);
   }
 
-  @override
-  void onInit() {
-    fromPage = Get.arguments?['fromPage'] ?? '';
-    super.onInit();
-  }
-
   bool validateAllFields() {
     bool hasError = false;
 
@@ -198,4 +200,31 @@ class Surrenderofthepropertycontroller extends GetxController {
   }
 
   void backFromShwovalue() {}
+
+  Future<void> addenter(int type_stats) async {
+    update();
+    if (!await checkInternet()) {
+      print("=======checkInternet false=====${await checkInternet()}");
+      return;
+    }
+    var response = await postdata.adddata({
+      'device_id': myServices.sharedPreferences?.getString('device_id'),
+      "type_stats": type_stats,
+    });
+    print("=======================$response");
+    statusrequest = handlingData(response);
+    if (statusrequest == Statusrequest.success) {
+      if (response["status"] == 1) {
+        print('==================enter+1');
+        statusrequest = Statusrequest.success;
+      }
+    }
+    update();
+  }
+
+  @override
+  void onInit() {
+    fromPage = Get.arguments?['fromPage'] ?? '';
+    super.onInit();
+  }
 }

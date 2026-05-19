@@ -1,0 +1,59 @@
+import 'package:get/get.dart';
+
+import '../../core/class/Statusrequest.dart';
+import '../../core/constant/routes.dart';
+import '../../core/functions/handlingdatacontroller.dart';
+import '../../core/services/Services.dart';
+import '../../data/datasource/Remote/Categorydata.dart';
+import '../../data/model/CategoryModel.dart';
+
+class Categoriesinstitutionscontroller extends GetxController {
+  Myservices myServices = Get.find();
+  Statusrequest statusrequest = Statusrequest.none;
+  Categorydata categorydata = Categorydata(Get.find());
+
+  List<CategoryModel> data = [];
+
+  // عرض البيانات
+  Future<void> viewdata() async {
+    statusrequest = Statusrequest.loadeng;
+    update();
+
+    final actData = {"type_cat": 1, "type": 3};
+
+    var response = await categorydata.viewdata(actData);
+    print("Response: $response");
+
+    statusrequest = handlingData(response);
+
+    if (statusrequest == Statusrequest.success) {
+      if (response["status"] == 1) {
+        data.clear();
+        List listdata = response['data'];
+        data.addAll(listdata.map((e) => CategoryModel.fromJson(e)));
+        data = List.from(data);
+        if (data.isEmpty) {
+          statusrequest = Statusrequest.nodata;
+        }
+      } else {
+        statusrequest = Statusrequest.failure;
+      }
+    }
+
+    update();
+  }
+
+  gotoChildCategory(int id) {
+    Get.toNamed(Approutes.childcategories, arguments: {"cat_id": id});
+  }
+
+  @override
+  void onInit() {
+    viewdata();
+    super.onInit();
+  }
+
+  Future<void> getData() async {
+    viewdata();
+  }
+}

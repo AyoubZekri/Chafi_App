@@ -1,10 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:chafi/view/screen/pdf.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../LinkApi.dart';
 import '../../../core/constant/Colorapp.dart';
-import 'package:flutter/gestures.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Custemcardinfo extends StatefulWidget {
   final String body;
@@ -17,6 +18,8 @@ class Custemcardinfo extends StatefulWidget {
   final bool Link;
   final VoidCallback? onOpen;
   final bool? isRead;
+  final int? type;
+  final int? typedeff;
 
   const Custemcardinfo({
     super.key,
@@ -30,6 +33,8 @@ class Custemcardinfo extends StatefulWidget {
     required this.Link,
     this.onOpen,
     this.isRead,
+    this.type,
+    this.typedeff,
   });
 
   @override
@@ -43,11 +48,12 @@ class _CustemcardinfoState extends State<Custemcardinfo>
   @override
   Widget build(BuildContext context) {
     String lang = Get.locale?.languageCode ?? 'ar';
+    bool isQuestion = widget.type == 10 && widget.typedeff == 1;
+
     return GestureDetector(
       onTap: () {
         setState(() {
           isOpen = !isOpen;
-
           if (isOpen && widget.onOpen != null) {
             widget.onOpen!();
           }
@@ -61,11 +67,21 @@ class _CustemcardinfoState extends State<Custemcardinfo>
             decoration: BoxDecoration(
               color: AppColor.white,
               borderRadius: BorderRadius.circular(20),
+              border: isQuestion
+                  ? Border.all(
+                      color: isOpen
+                          ? AppColor.primarycolor.withOpacity(0.5)
+                          : Colors.transparent,
+                      width: 1.5,
+                    )
+                  : null,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
+                  color: isQuestion
+                      ? AppColor.primarycolor.withOpacity(0.1)
+                      : Colors.black.withOpacity(0.15),
+                  blurRadius: isQuestion ? 15 : 10,
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),
@@ -75,19 +91,46 @@ class _CustemcardinfoState extends State<Custemcardinfo>
                 /// ===== TITLE =====
                 Row(
                   children: [
+                    if (isQuestion) ...[
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: AppColor.primarycolor.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.help_outline,
+                          size: 20,
+                          color: AppColor.primarycolor,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                    ],
                     Expanded(
-                      child: Text(
+                      child: AutoSizeText(
                         widget.title,
                         style: context.textTheme.headlineMedium?.copyWith(
-                          color: AppColor.black,
                           fontSize: 17,
+                          fontWeight: isQuestion
+                              ? FontWeight.w600
+                              : FontWeight.normal,
+                          color: isQuestion
+                              ? AppColor.primarycolor
+                              : AppColor.black,
                         ),
+                        maxLines: 2,
+                        minFontSize: 14,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
                       ),
                     ),
                     AnimatedRotation(
                       turns: isOpen ? 0.5 : 0,
                       duration: const Duration(milliseconds: 300),
-                      child: const Icon(Icons.keyboard_arrow_down),
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: isQuestion ? AppColor.primarycolor : Colors.grey,
+                      ),
                     ),
                   ],
                 ),
@@ -329,7 +372,7 @@ class _CustemcardinfoState extends State<Custemcardinfo>
             text: text.substring(currentIndex, match.start),
             style: context.textTheme.bodyLarge?.copyWith(
               fontSize: 15,
-              color: Colors.black,
+              color: Colors.grey[700],
             ),
           ),
         );
@@ -378,7 +421,7 @@ class _CustemcardinfoState extends State<Custemcardinfo>
           text: text.substring(currentIndex),
           style: context.textTheme.bodyLarge?.copyWith(
             fontSize: 15,
-            color: Colors.black,
+            color: Colors.grey[700],
           ),
         ),
       );

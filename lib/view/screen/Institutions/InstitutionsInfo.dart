@@ -38,6 +38,8 @@ class _InstitutionsinfoState extends State<Institutionsinfo> {
                 itemCount: controller.data.length,
                 itemBuilder: (context, i) {
                   return Custemcardinfo(
+                    type: controller.type,
+                    typedeff: controller.typedeff,
                     isRead: controller.data[i].isread == false,
                     onOpen: () {
                       if (controller.data[i].isread == false) {

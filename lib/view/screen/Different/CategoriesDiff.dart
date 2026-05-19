@@ -1,38 +1,39 @@
-import 'package:chafi/controller/Taxsystemstype/Categoriestaxcontroller.dart';
+import 'package:chafi/core/class/handlingview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/class/handlingview.dart';
+import '../../../controller/Different/CategoriesAppController.dart';
 import '../../../core/constant/Colorapp.dart';
 import '../../widget/Card/CustemCardCat.dart';
 
-class Categoriestax extends StatefulWidget {
-  const Categoriestax({super.key});
+class CategoriesDiff extends StatefulWidget {
+  const CategoriesDiff({super.key});
 
   @override
-  State<Categoriestax> createState() => _CategoriestaxState();
+  State<CategoriesDiff> createState() => _CategoriesDiffState();
 }
 
-class _CategoriestaxState extends State<Categoriestax> {
-  final controller = Get.put(Categoriestaxcontroller());
-
+class _CategoriesDiffState extends State<CategoriesDiff> {
+  final controller = Get.put(CategoriesDiffcontroller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("${controller.nameappar}".tr)),
-      body: GetBuilder<Categoriestaxcontroller>(
+      appBar: AppBar(title: Text("30".tr)),
+      body: GetBuilder<CategoriesDiffcontroller>(
         builder: (controller) {
           return RefreshIndicator(
             color: AppColor.typography,
             onRefresh: () async {
-              await controller.getData(); // دالة إعادة جلب البيانات
+              await controller.getData();
             },
             child: Handlingview(
               statusrequest: controller.statusrequest,
-              widget: Container(
-                padding: EdgeInsets.all(15),
-                child: ListView(
+              widget: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "select_category_hint".tr,
@@ -40,15 +41,16 @@ class _CategoriestaxState extends State<Categoriestax> {
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
+
                     ...List.generate(controller.data.length, (i) {
                       return Custemcardcat(
                         onTap: () {
                           controller.gotoInfo(controller.data[i].id);
                         },
                         body: controller.data[i].localizedName,
-                        color1: Color(0xff4F46E5),
-                        color2: Color(0xff8B5CF6),
+                        color1: const Color(0xFF0EA5E9), // Sky
+                        color2: const Color(0xFF0369A1),
                         sizeText: 24,
                       );
                     }),

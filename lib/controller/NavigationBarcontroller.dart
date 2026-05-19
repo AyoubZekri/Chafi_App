@@ -77,6 +77,10 @@ class NavigationBarcontrollerImp extends NavigationBarcontroller {
 
   @override
   void onInit() {
+    int numEnter = myServices.sharedPreferences?.getInt('numEnter') ??0;
+    numEnter +=1;
+    print("=============================$numEnter");
+    myServices.sharedPreferences?.setInt('numEnter',numEnter);
     var imagepath = myServices.sharedPreferences?.getString("image");
     addenter();
     if (imagepath != null && imagepath.isNotEmpty) {

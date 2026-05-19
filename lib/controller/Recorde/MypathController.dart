@@ -41,6 +41,21 @@ class Mypathcontroller extends GetxController {
 }
 
 class MypathcontrollerImp extends Mypathcontroller {
+  String taxs0 =
+      "من المستحسن أن يكون نظامك الجبائي جزافي\n"
+      "لكنه يمكن أن يكون حقيقي بطلب منذ التأسيس\n"
+      "أو قبل 01 فيفري من السنة\n"
+      "أو عند تجاوز سنتين متتاليتين\n"
+      "عتبة 8.000.000.00 د.ج.";
+  String taxs1 =
+      "من المستحسن أن يكون نظامك الجبائي مبسط\n"
+      "يجب أن يكون في البداية جزافي،\n"
+      "ويتم التحويل الى المبسط\n"
+      "عند تجاوز سنتين متتاليتين\n"
+      "عتبة 8.000.000.00 د.ج \n"
+      "أو بطلب قبل 01 فيفري أو منذ التأسيس.";
+  String taxs2 = "نظامك الجبائي حقيقي";
+
   Mypathdata mypathdata = Mypathdata(Get.find());
   Activitydata activitydata = Activitydata(Get.find());
   Natureoftheactivitydata natureoftheactivitydata = Natureoftheactivitydata(
@@ -100,6 +115,7 @@ class MypathcontrollerImp extends Mypathcontroller {
       showSnackbar("خطأ".tr, "يرجى اختيار طبيعة النشاط".tr, Colors.red);
       return;
     }
+    filteredData.clear();
     viewdataactivity();
     Get.to(Activitytype());
   }
@@ -108,6 +124,9 @@ class MypathcontrollerImp extends Mypathcontroller {
   int ativitytype = -1;
   int statustax = -1;
   int taxid = -1;
+  int taxidsup = -1;
+
+  String? tax;
 
   @override
   selectativitytype(int i, int statustaxs, int taxids) {
@@ -122,6 +141,8 @@ class MypathcontrollerImp extends Mypathcontroller {
     ativitytype = -1;
     statustax = -1;
     taxid = -1;
+    taxidsup = -1;
+    tax = null;
     Get.back();
   }
 
@@ -131,7 +152,18 @@ class MypathcontrollerImp extends Mypathcontroller {
       showSnackbar("خطأ".tr, "يرجى اختيار  النشاط".tr, Colors.red);
       return;
     }
-    statustax == 1 ? Get.to(Taxsystemstypeinmypath()) : adddata();
+    print("============$statustax");
+    print("============$taxid");
+    taxidsup = taxid == -1 ? taxidsup : taxid;
+
+    statustax == 1 && taxidsup != 2
+        ? Get.to(Taxsystemstypeinmypath())
+        : adddata();
+    if (taxidsup == 0) {
+      tax = "جزافي";
+    } else if (taxid == 1) {
+      tax = "مبسط";
+    }
   }
 
   //taxsystemstype
@@ -145,6 +177,7 @@ class MypathcontrollerImp extends Mypathcontroller {
   backtoativitytype() {
     taxid = -1;
     Get.back();
+    update();
   }
 
   //Moralactivities
@@ -310,7 +343,10 @@ class MypathcontrollerImp extends Mypathcontroller {
     update();
   }
 
+  TextEditingController searchController = TextEditingController();
+
   Future<void> getData() async {
+    searchController.clear();
     viewdataactivity();
   }
 

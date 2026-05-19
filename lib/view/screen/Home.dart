@@ -22,7 +22,13 @@ class _HomeState extends State<Home> {
   final ScrollController _scrollController = ScrollController();
   bool showMoreArrow = false;
 
-  // @override
+  @override
+  void initState() {
+    super.initState();
+    Get.find<HomecontrollerImp>().checkAndShowFeedback();
+  }
+
+  @override
   // void initState() {
   //   super.initState();
   //   controller = Get.put(HomecontrollerImp(), permanent: true);

@@ -48,6 +48,11 @@ class Approutes {
   static const String waiverofinvestmentvalue = "/Waiverofinvestmentvalue";
   static const String accounttype = "/Accounttype";
   static const String taxtype = "/Taxtype";
+  static const String categoriesDiff = "/CategoriesDiff";
+
+  static const String categoriesinstutions = "/Categoriesinstutions";
+  static const String childcategories = "/Childcategories";
+
 
 
 

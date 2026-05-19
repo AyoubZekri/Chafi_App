@@ -27,6 +27,9 @@ import 'view/screen/Calculators/different/TouristVehicles/ToueistType.dart';
 import 'view/screen/Calculators/different/WaiverOfInvestment/WaiverofInvestmentValue.dart';
 import 'view/screen/Calculators/different/bonusesandcompensation/AccountType.dart';
 import 'view/screen/Calculators/different/guidance/CostsGuidance.dart';
+import 'view/screen/Different/CategoriesDiff.dart';
+import 'view/screen/Institutions/Categoriesinstutions.dart';
+import 'view/screen/Institutions/ChildCategories.dart';
 import 'view/screen/NavigationBar.dart';
 import 'view/screen/Obligations/Obligations.dart';
 import 'view/screen/Obligations/Specialappointments.dart';
@@ -152,5 +155,10 @@ List<GetPage<dynamic>> routes = [
 
   GetPage(name: Approutes.accounttype, page: () => const Accounttype()),
   GetPage(name: Approutes.taxtype, page: () => const Taxtype()),
+  GetPage(name: Approutes.categoriesDiff, page: () => const CategoriesDiff()),
+
+  GetPage(name: Approutes.categoriesinstutions, page: () => const Categoriesinstutions()),
+  GetPage(name: Approutes.childcategories, page: () => const Childcategories()),
+
 
 ];
