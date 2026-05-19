@@ -56,8 +56,7 @@ class _EditrecordState extends State<Editrecord> {
                         SizedBox(height: 20),
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
-                          content:
-                              "يمكن تعديل نظامك الجبائي من خلال هذي الصفحة".tr,
+                          content:controller.activityTaxId==0?controller.taxs0:controller.taxs1,
                         ),
                         SizedBox(height: 40),
                         CustemtextbodyMedium18(

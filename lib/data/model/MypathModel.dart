@@ -15,6 +15,7 @@ class MypathModel {
   final String? activityName;
   final String? activityNameFr;
   final int? codeActivity;
+  final int? activityTaxId;
   final String? nataireActivitysName;
   final String? nataireActivitysNameFr;
 
@@ -35,6 +36,7 @@ class MypathModel {
     this.codeActivity,
     this.nataireActivitysName,
     this.nataireActivitysNameFr,
+    this.activityTaxId,
   });
 
   factory MypathModel.fromJson(Map<String, dynamic> json) {
@@ -44,6 +46,7 @@ class MypathModel {
       personType: json['person_type'],
       nataireActivityId: json['nataire_activity_id'],
       activityId: json['activity_id'],
+      activityTaxId: json['activity_tax_id'],
       taxId: json['tax_id'],
       activitSpecial: json['activit_special'],
       createdAt: DateTime.parse(json['created_at']),
@@ -65,6 +68,7 @@ class MypathModel {
       'person_type': personType,
       'nataire_activity_id': nataireActivityId,
       'activity_id': activityId,
+      'activity_tax_id': activityTaxId,
       'tax_id': taxId,
       'activit_special': activitSpecial,
       'created_at': createdAt.toIso8601String(),
@@ -85,6 +89,7 @@ class MypathModel {
     int? personType,
     int? nataireActivityId,
     int? activityId,
+    int? activityTaxId,
     int? taxId,
     int? activitSpecial,
     DateTime? createdAt,
@@ -103,6 +108,7 @@ class MypathModel {
       personType: personType ?? this.personType,
       nataireActivityId: nataireActivityId ?? this.nataireActivityId,
       activityId: activityId ?? this.activityId,
+      activityTaxId: activityTaxId ?? this.activityTaxId,
       taxId: taxId ?? this.taxId,
       activitSpecial: activitSpecial ?? this.activitSpecial,
       createdAt: createdAt ?? this.createdAt,

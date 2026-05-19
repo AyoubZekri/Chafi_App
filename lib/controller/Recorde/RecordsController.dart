@@ -49,7 +49,10 @@ class RecordscontrollerImp extends Recordscontroller {
 
   @override
   gotoInfoRecord(int id, int taxid) {
-    Get.toNamed(Approutes.inforecord, arguments: {"id": id, "taxid": taxid});
+    Get.toNamed(
+      Approutes.inforecord,
+      arguments: {"id": id, "taxid": taxid, "type": 2},
+    );
   }
 
   gotoMypath() {

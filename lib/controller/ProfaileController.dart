@@ -118,7 +118,10 @@ class ProfailecontrollerImp extends Profailecontroller {
 
   @override
   gotoExternallinks() {
-    Get.toNamed(Approutes.externallinks);
+    Get.toNamed(
+      Approutes.institutionsinfo,
+      arguments: {"name": 93, "type": 10, "type_deff": 1},
+    );
   }
 
   void showLanguageSheet(BuildContext context) {

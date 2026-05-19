@@ -30,8 +30,8 @@ class Appsystemstype extends StatelessWidget {
                   onTap: taxsystemstypeapp[i].ontap,
                   body: taxsystemstypeapp[i].body.tr,
                   imgae: taxsystemstypeapp[i].imgae,
-                  color1: Color(0xff4F46E5),
-                  color2: Color(0xff8B5CF6),
+                  color1: const Color(0xFF14B8A6),
+                  color2: const Color(0xFF0F766E),
                   sizeText: taxsystemstypeapp[i].sizeText,
                 );
               },

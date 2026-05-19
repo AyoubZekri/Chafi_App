@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
+import '../../core/constant/Colorapp.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
@@ -13,13 +14,14 @@ import '../../data/model/AppointmentsModel.dart';
 import '../../data/model/MypathModel.dart';
 
 abstract class Inforecordcontroller extends GetxController {
-  void gotoEditRecord();
+  void gotoEditRecord(int activityTaxId);
   Future<void> refreshAll();
 }
 
 class InforecordcontrollerImp extends Inforecordcontroller {
   int? id;
   int? taxid;
+  int? frompage;
 
   final Myservices myServices = Get.find();
   final Mypathdata categorydata = Mypathdata(Get.find());
@@ -43,7 +45,7 @@ class InforecordcontrollerImp extends Inforecordcontroller {
     update();
 
     var response = await categorydata.viewdata({"id": id});
-
+    print("=====================$response");
     recordStatus = handlingData(response);
 
     if (recordStatus == Statusrequest.success) {
@@ -106,7 +108,7 @@ class InforecordcontrollerImp extends Inforecordcontroller {
 
     if (deleteStatus == Statusrequest.success) {
       if (response["status"] == 1) {
-        data.removeWhere((element) => element.id == id);
+        // data.removeWhere((element) => element.id == id);
 
         final recordsController = Get.find<RecordscontrollerImp>();
         recordsController.data.removeWhere((element) => element.id == id);
@@ -134,11 +136,12 @@ class InforecordcontrollerImp extends Inforecordcontroller {
   // ===============================
   // Navigation
   // ===============================
+
   @override
-  Future<void> gotoEditRecord() async {
+  Future<void> gotoEditRecord(int activityTaxId) async {
     final result = await Get.toNamed(
       Approutes.editrecord,
-      arguments: {"id": id},
+      arguments: {"id": id, "activityTaxId": activityTaxId},
     );
 
     if (result == true) {
@@ -146,6 +149,52 @@ class InforecordcontrollerImp extends Inforecordcontroller {
       viewdataappointments();
       final recordsController = Get.find<RecordscontrollerImp>();
       await recordsController.viewdata();
+    }
+  }
+
+  Future<void> updateTaxIdDirectly(int newTaxId) async {
+    // Show loading overlay
+    Get.dialog(
+      const Center(child: CircularProgressIndicator(color: AppColor.white)),
+      barrierDismissible: false,
+    );
+
+    var response = await categorydata.editdata({"id": id, "tax_id": newTaxId});
+    Get.back(); // close loading overlay
+
+    if (response == Statusrequest.serverfailure) {
+      showSnackbar("خطأ".tr, "لا يوجد اتصال بالانترنت".tr, Colors.red);
+      return;
+    }
+
+    Statusrequest status = handlingData(response);
+    if (status == Statusrequest.success && response["status"] == 1) {
+      // Update local data
+      data[0] = data[0].copyWith(taxId: newTaxId, updatedAt: DateTime.now());
+      taxid = newTaxId;
+      update();
+
+      // Show success
+      showSnackbar(
+        "نجاح".tr,
+        "تم تعديل النظام الجبائي بنجاح".tr,
+        AppColor.brand,
+      );
+
+      // Refresh related data
+      viewdataappointments();
+      final recordsController = Get.find<RecordscontrollerImp>();
+      await recordsController.viewdata();
+    } else {
+      showSnackbar("خطأ".tr, "حدث خطأ أثناء التعديل".tr, Colors.red);
+    }
+  }
+
+  back() {
+    if (frompage == 1) {
+      Get.offAllNamed(Approutes.navigationBar);
+    } else {
+      Get.back();
     }
   }
 
@@ -158,6 +207,8 @@ class InforecordcontrollerImp extends Inforecordcontroller {
 
     id = args["id"];
     taxid = args["taxid"];
+    frompage = args["type"];
+
     print("===================$taxid");
     refreshAll();
 

@@ -9,8 +9,20 @@ import '../../core/services/Services.dart';
 import 'InforecordController.dart';
 
 class Editrecordcontroller extends GetxController {
+  String taxs0 =
+      "يمكن تغيير نضام الجبائي إلى حقيقي لاكن بطلب منذ التأسيس \n"
+      "أو قبل 01 فيفري من السنة\n"
+      "أو عند تجاوز سنتين متتاليتين\n"
+      "عتبة 8.000.000.00 د.ج.";
+  String taxs1 =
+      "يمكن التحويل الى المبسط\n"
+      "عند تجاوز سنتين متتاليتين\n"
+      "عتبة 8.000.000.00 د.ج \n"
+      "أو بطلب قبل 01 فيفري أو منذ التأسيس.";
+
   int? id;
   int taxid = -1;
+  int activityTaxId = -1;
   Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
   Mypathdata mypathdata = Mypathdata(Get.find());
@@ -60,6 +72,7 @@ class Editrecordcontroller extends GetxController {
   void onInit() {
     final args = Get.arguments as Map<String, dynamic>;
     id = args["id"];
+    activityTaxId = args["activityTaxId"] ?? -1;
     super.onInit();
   }
 }

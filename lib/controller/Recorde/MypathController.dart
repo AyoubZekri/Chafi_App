@@ -329,12 +329,15 @@ class MypathcontrollerImp extends Mypathcontroller {
       update();
       return;
     }
-    print("Add Response: $response");
+    print("Add Response===================: $response");
 
     statusrequest = handlingData(response);
 
     if (statusrequest == Statusrequest.success && response["status"] == 1) {
-      Get.offAllNamed(Approutes.navigationBar);
+      Get.toNamed(
+        Approutes.inforecord,
+        arguments: {"id": response["data"]["id"], "taxid": taxid,"type":1},
+      );
     } else {
       showSnackbar("خطأ".tr, "حدث خطأ".tr, Colors.red);
       statusrequest = Statusrequest.failure;

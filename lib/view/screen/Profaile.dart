@@ -108,19 +108,19 @@ class _ProfaileState extends State<Profaile> {
                           },
                         ),
                         Builddeadlinetile(
-                          icon: Icons.link,
-                          title: "روابط خارجية".tr,
+                          icon: Icons.help_outline,
+                          title: "93".tr,
                           ontap: () {
                             controller.gotoExternallinks();
                           },
                         ),
-                        Builddeadlinetile(
-                          icon: Icons.language_outlined,
-                          title: "84".tr,
-                          ontap: () {
-                            controller.showLanguageSheet(context);
-                          },
-                        ),
+                        // Builddeadlinetile(
+                        //   icon: Icons.language_outlined,
+                        //   title: "84".tr,
+                        //   ontap: () {
+                        //     controller.showLanguageSheet(context);
+                        //   },
+                        // ),
                         Builddeadlinetile(
                           icon: Icons.logout,
                           title: "85".tr,
@@ -147,7 +147,10 @@ class _ProfaileState extends State<Profaile> {
                                 onConfirm: () {
                                   Get.back();
                                   Get.find<HomecontrollerImp>().onClose();
-                                  Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
+                                  Get.toNamed(
+                                    Approutes.googleSignIn,
+                                    arguments: {"type": 1},
+                                  );
                                 },
                               );
                               return;

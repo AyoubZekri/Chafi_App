@@ -49,8 +49,8 @@ class _CategoriesappState extends State<Categoriesapp> {
                           controller.gotoInfo(controller.data[i].id);
                         },
                         body: controller.data[i].localizedName,
-                        color1: const Color(0xff4F46E5),
-                        color2: const Color(0xff8B5CF6),
+                        color1: const Color(0xFF14B8A6),
+                        color2: const Color(0xFF0F766E),
                         sizeText: 24,
                       );
                     }),

@@ -62,19 +62,47 @@ class Custembusinesscardditails extends StatelessWidget {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            // ${"67".tr} :
-                            Text(
-                              "$acteve",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: AppColor.typography,
-                                fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColor.primarycolor.withOpacity(0.05),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: AppColor.primarycolor.withOpacity(0.1),
                               ),
                             ),
-                          ],
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2),
+                                  child: Icon(
+                                    Icons.work_outline_rounded,
+                                    color: AppColor.primarycolor,
+                                    size: 20,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    "$acteve",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: AppColor.typography,
+                                      fontWeight: FontWeight.bold,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
 
                         // Container(

@@ -70,22 +70,22 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
+    title: "27",
+    image: Appimageassets.rejester,
+    color: const Color(0xFF4F46E5), // Indigo
+    color2: const Color(0xFF3730A3),
+    onTap: () {
+      Get.toNamed(Approutes.persontype);
+    },
+  ),
+
+  Cardservicesmodel(
     title: "26",
     image: Appimageassets.tax,
     color: const Color(0xFF7C3AED), // Violet
     color2: const Color(0xFF4C1D95),
     onTap: () {
       Get.toNamed(Approutes.taxsystemstype);
-    },
-  ),
-
-  Cardservicesmodel(
-    title: "29",
-    image: Appimageassets.app,
-    color: const Color(0xFF4F46E5), // Indigo
-    color2: const Color(0xFF3730A3),
-    onTap: () {
-      Get.toNamed(Approutes.appsystemstype);
     },
   ),
 
@@ -113,25 +113,12 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "93",
-    image: Appimageassets.questions,
-    color: const Color(0xFF10B981),
-    color2: const Color(0xFF065F46),
-    onTap: () {
-      Get.toNamed(
-        Approutes.institutionsinfo,
-        arguments: {"name": 93, "type": 10, "type_deff": 1},
-      );
-    },
-  ),
-
-  Cardservicesmodel(
-    title: "27",
-    image: Appimageassets.rejester,
+    title: "29",
+    image: Appimageassets.app,
     color: const Color(0xFF14B8A6),
     color2: const Color(0xFF0F766E),
     onTap: () {
-      Get.toNamed(Approutes.persontype);
+      Get.toNamed(Approutes.appsystemstype);
     },
   ),
 
@@ -142,6 +129,19 @@ List<Cardservicesmodel> Cardservices = [
     color2: Color(0xff19612B),
     onTap: () {
       Get.toNamed(Approutes.calculators);
+    },
+  ),
+  Cardservicesmodel(
+    title: "روابط خارجية",
+    image: Appimageassets.questions,
+    color: const Color(0xFF10B981),
+    color2: const Color(0xFF065F46),
+    onTap: () {
+      Get.toNamed(
+        Approutes.externallinks,
+        // Approutes.institutionsinfo,
+        // arguments: {"name": 93, "type": 10, "type_deff": 1},
+      );
     },
   ),
 ];

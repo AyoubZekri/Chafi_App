@@ -41,23 +41,35 @@ class BusinessCard extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      "67".tr,
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      active,
-                      style: TextStyle(
-                        color: Color(0xFF1A5276),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                Expanded(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          "67".tr,
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
                       ),
-                    ),
-                  ],
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          active,
+                          style: TextStyle(
+                            color: Color(0xFF1A5276),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            height: 1.4,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
 
                 // Container(
