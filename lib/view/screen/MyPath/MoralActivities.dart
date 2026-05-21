@@ -62,7 +62,7 @@ class _MoralactivitiesState extends State<Moralactivities> {
                           color: AppColor.grey,
                           content: "56".tr,
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: 30),
 
                         CustemtextbodyMedium18(
                           content: "63".tr,
@@ -82,6 +82,16 @@ class _MoralactivitiesState extends State<Moralactivities> {
                         Cardpersontype(
                           padding: 20,
                           marginb: 50,
+                          index: 3,
+                          title: "تعاونيات الفنية والتقليدية".tr,
+                          selectedPerson: controller.moralactivities,
+                          onTap: () {
+                            controller.selectMoralactivities(3);
+                          },
+                        ),
+                        Cardpersontype(
+                          padding: 20,
+                          marginb: 50,
                           index: 2,
                           title: "شركات أخرى".tr,
                           selectedPerson: controller.moralactivities,
@@ -90,7 +100,6 @@ class _MoralactivitiesState extends State<Moralactivities> {
                           },
                         ),
 
-                        SizedBox(height: 20),
                         controller.statusrequest == Statusrequest.loadeng
                             ? Custemsuberbutton(
                                 content: "حفظ".tr,

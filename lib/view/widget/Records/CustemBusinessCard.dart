@@ -1,3 +1,4 @@
+import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,133 +15,288 @@ class BusinessCard extends StatelessWidget {
     this.ontap,
     this.onTap,
   });
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: ontap,
       child: Container(
+        color: Colors.transparent,
         width: double.infinity,
-        padding: EdgeInsets.all(16),
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(
-                0.2,
-              ), // ظل خفيف جداً ليشابه الصورة
-              blurRadius: 10,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            color: Colors.white,
+            border: Border.all(color: const Color(0xFFE2E8F0), width: 1.5),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.04),
+                blurRadius: 16,
+                offset: const Offset(0, 8),
+              ),
+              BoxShadow(
+                color: AppColor.primarycolor.withOpacity(0.02),
+                blurRadius: 10,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(28),
+            child: Stack(
               children: [
-                Expanded(
-                  child: Row(
+                // 1. Light background glow blobs
+                Positioned(
+                  top: -50,
+                  right: -50,
+                  child: Container(
+                    width: 180,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.brand.withOpacity(0.04),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: -60,
+                  left: -40,
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.primarycolor.withOpacity(0.04),
+                    ),
+                  ),
+                ),
+                // 2. Custom Background Waves
+                Positioned.fill(
+                  child: CustomPaint(painter: _BusinessCardBgPainter()),
+                ),
+                // 3. Main Content
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2),
-                        child: Text(
-                          "67".tr,
-                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                      // Header Row: Seal + Title
+                      Row(
+                        children: [
+                          // Gold Emblem / Digital Seal
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.amber.shade100.withOpacity(0.4),
+                              border: Border.all(
+                                color: Colors.amber.shade600,
+                                width: 1.5,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.amber.shade300.withOpacity(0.1),
+                                  blurRadius: 6,
+                                ),
+                              ],
+                            ),
+                            child: Icon(
+                              Icons.gavel_rounded,
+                              color: Colors.amber.shade700,
+                              size: 22,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "البيان الجبائي".tr,
+                                  style: const TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w900,
+                                    color: AppColor.typography,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  "77".tr,
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.typography.withOpacity(0.5),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Arrow indicator
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF1F5F9),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFFE2E8F0),
+                                width: 1,
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: AppColor.typography,
+                              size: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Elegant gold laser line divider
+                      Container(
+                        height: 1.5,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.amber.shade400.withOpacity(0.1),
+                              Colors.amber.shade400.withOpacity(0.6),
+                              Colors.amber.shade400.withOpacity(0.1),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          active,
-                          style: TextStyle(
-                            color: Color(0xFF1A5276),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                            height: 1.4,
+
+                      const SizedBox(height: 20),
+
+                      // Primary Activity - Glass/Light Blue Card
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFEBF5FF), Color(0xFFF4F9FF)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color(0xFFD0E5FF),
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: AppColor.primarycolor.withOpacity(0.12),
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: AppColor.primarycolor.withOpacity(0.2),
+                                ),
+                              ),
+                              child: const Icon(
+                                Icons.storefront_rounded,
+                                color: AppColor.primarycolor,
+                                size: 24,
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "67".tr,
+                                    style: const TextStyle(
+                                      color: Color(0xFFC5A059),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    active,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: AppColor.typography,
+                                      fontWeight: FontWeight.w800,
+                                      height: 1.5,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-
-                // Container(
-                //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                //   decoration: BoxDecoration(
-                //     color: condition == 1 ? AppColor.brand : AppColor.red,
-                //     borderRadius: BorderRadius.circular(20),
-                //   ),
-                //   child: Row(
-                //     children: [
-                //       Text(
-                //         condition == 1 ? "68".tr : "69".tr,
-                //         style: TextStyle(color: Colors.white, fontSize: 12),
-                //       ),
-                //       SizedBox(width: 4),
-                //       Icon(
-                //         condition == 1 ? Icons.check : Icons.close,
-                //         color: Colors.white,
-                //         size: 16,
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
-            SizedBox(height: 10),
-            Text(
-              "70".tr,
-              style: TextStyle(
-                color: Color(0xFF1A5276),
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "77".tr,
-                  style: TextStyle(color: Colors.grey, fontSize: 11),
-                ),
-                InkWell(
-                  onTap: onTap,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1A5276),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "76".tr,
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.calculate_outlined,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
+}
+
+class _BusinessCardBgPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Soft blue curve
+    final paint1 = Paint()
+      ..color = const Color(0xFF034D82).withOpacity(0.025)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
+
+    final path1 = Path();
+    path1.moveTo(0, size.height * 0.85);
+    path1.quadraticBezierTo(
+      size.width * 0.25,
+      size.height * 0.45,
+      size.width * 0.65,
+      size.height * 0.8,
+    );
+    path1.quadraticBezierTo(
+      size.width * 0.85,
+      size.height * 0.95,
+      size.width,
+      size.height * 0.7,
+    );
+    canvas.drawPath(path1, paint1);
+
+    // Soft amber curve
+    final paint2 = Paint()
+      ..color = Colors.amber.withOpacity(0.02)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
+
+    final path2 = Path();
+    path2.moveTo(0, size.height * 0.5);
+    path2.quadraticBezierTo(
+      size.width * 0.35,
+      size.height * 0.75,
+      size.width * 0.7,
+      size.height * 0.35,
+    );
+    path2.quadraticBezierTo(
+      size.width * 0.85,
+      size.height * 0.2,
+      size.width,
+      size.height * 0.45,
+    );
+    canvas.drawPath(path2, paint2);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

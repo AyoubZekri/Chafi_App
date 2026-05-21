@@ -689,6 +689,9 @@ class MyTranslation extends Translations {
       "feedback_subtitle": "ملاحظاتك تساعدنا على تقديم الأفضل دوماً",
       "feedback_send_button": "إرسال الملاحظات",
       "feedback_share_thoughts": "شاركنا رأيك",
+      "تعاونيات الفنية والتقليدية": "تعاونيات الفنية والتقليدية",
+      "الممثل القانوني": "الممثل القانوني",
+      "البيان الجبائي": "البيان الجبائي",
     },
 
     ///////////////////////////////////////
@@ -1491,6 +1494,9 @@ class MyTranslation extends Translations {
       "يمكن التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.": "Il est possible de passer au régime simplifié\nen cas de dépassement sur deux années consécutives\ndu seuil de 8.000.000,00 DZD\nou sur demande avant le 01 février ou dès la création.",
       "تأكيد الحذف": "Confirmer la suppression",
       "هل أنت متأكد من أنك تريد حذف هذا السجل بشكل نهائي؟": "Êtes-vous sûr de vouloir supprimer définitivement ce registre ?",
+      "تعاونيات الفنية والتقليدية": "Coopératives artistiques et traditionnelles",
+      "الممثل القانوني": "Représentant légal",
+      "البيان الجبائي": "Déclaration fiscale",
     },
   };
 }

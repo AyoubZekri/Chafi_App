@@ -28,20 +28,41 @@ class _InforecordState extends State<Inforecord> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFF8F9FA), // Subtle background for depth
+        backgroundColor: const Color(0xFFF8FAFC), // Premium daylight slate gray
         appBar: AppBar(
           title: Text(
             "تفاصيل السجل".tr,
             style: const TextStyle(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w900,
               color: AppColor.typography,
-              fontSize: 22,
+              fontSize: 21,
+              letterSpacing: 0.5,
             ),
           ),
           backgroundColor: AppColor.white,
           elevation: 0,
           centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColor.typography),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(1),
+            child: Container(
+              color: const Color(0xFFF1F5F9), // Thin divider under appBar
+              height: 1,
+            ),
+          ),
+          leading: Container(
+            margin: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              color: Color(0xFFF1F5F9),
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 14),
+              color: AppColor.typography,
+              onPressed: () {
+                Get.find<InforecordcontrollerImp>().back();
+              },
+            ),
+          ),
         ),
         body: GetBuilder<InforecordcontrollerImp>(
           builder: (_) {
@@ -54,697 +75,591 @@ class _InforecordState extends State<Inforecord> {
 
             final item = controller.data[0];
 
-            return Stack(
-              children: [
-                // Scrollable content
-                SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    top: 20,
-                    bottom: 120, // Space for bottom buttons
+            return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 16,
+                bottom: 24, // Optimized padding since floating bar is removed
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // ===== Business Card =====
+                  Custembusinesscardditails(
+                    acteve: item.activityName == null
+                        ? item.activitSpecial == 1
+                              ? "شركة مدنية".tr
+                              : item.activitSpecial == 3
+                              ? "تعاونيات الفنية والتقليدية".tr
+                              : "شركة أخرى".tr
+                        : item.localizedActivityName,
+                    condition: 1,
+                    persontype: item.personType == 1 ? "58".tr : "59".tr,
+                    name: item.username,
+                    address: item.wilaya.tr,
+                    numperTax: item.taxId == 0
+                        ? "49".tr
+                        : item.taxId == 1
+                        ? "50".tr
+                        : "48".tr,
+                    codeActeve: item.codeActivity.toString().tr,
+                    onEdit: () {
+                      int actTaxId = item.activityTaxId ?? -1;
+                      if ((actTaxId == 0 || actTaxId == 1) && item.taxId == 0) {
+                        String message = actTaxId == 0
+                            ? "يمكن تغيير نظام الجبائي إلى حقيقي لكن بطلب منذ التأسيس \nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج."
+                            : "يمكن التحويل إلى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.";
+
+                        _showModernInfoDialog(
+                          title: "تنبيه هام".tr,
+                          message: message.tr,
+                          onConfirm: () {
+                            int newTaxId = actTaxId == 0 ? 2 : 1;
+                            controller.updateTaxIdDirectly(newTaxId);
+                          },
+                        );
+                      } else if (item.taxId == 2 || item.taxId == 1) {
+                        _showModernWarningDialog(
+                          title: "غير مسموح".tr,
+                          message:
+                              "لا يمكن تغيير النظام الجبائي بعد إعتماده.".tr,
+                        );
+                      }
+                    },
+                    onDelete: () {
+                      _showModernConfirmDeleteDialog(
+                        title: "تأكيد الحذف".tr,
+                        message:
+                            "هل أنت متأكد من أنك تريد حذف هذا السجل بشكل نهائي؟"
+                                .tr,
+                        onConfirm: () {
+                          controller.daletedata();
+                        },
+                      );
+                    },
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                  const SizedBox(height: 28),
+
+                  // ===== Appointments Section Header =====
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // ===== Business Card =====
-                      Custembusinesscardditails(
-                        acteve: item.activityName == null
-                            ? item.activitSpecial == 1
-                                  ? "شركة مدنية".tr
-                                  : "شركة أخرى".tr
-                            : item.localizedActivityName,
-                        condition: 1,
-                        persontype: item.personType == 1 ? "58".tr : "59".tr,
-                        name: item.username,
-                        address: item.wilaya.tr,
-                        numperTax: item.taxId == 0
-                            ? "49".tr
-                            : item.taxId == 1
-                            ? "50".tr
-                            : "48".tr,
-                        codeActeve: item.codeActivity.toString().tr,
-                      ),
-
-                      const SizedBox(height: 35),
-
-                      // ===== Appointments Section =====
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: AppColor.primarycolor.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Icon(
-                                  Icons.calendar_month_rounded,
-                                  color: AppColor.primarycolor,
-                                  size: 20,
-                                ),
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColor.primarycolor.withOpacity(0.08),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: AppColor.primarycolor.withOpacity(0.15),
+                                width: 1,
                               ),
-                              const SizedBox(width: 12),
+                            ),
+                            child: const Icon(
+                              Icons.calendar_month_rounded,
+                              color: AppColor.primarycolor,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Text(
                                 'المواعيد والالتزامات'.tr,
                                 style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w800,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w900,
                                   color: AppColor.typography,
                                 ),
                               ),
+                              if (controller.appointments.isNotEmpty)
+                                const SizedBox(height: 2),
+                              if (controller.appointments.isNotEmpty)
+                                Text(
+                                  "${"عدد الالتزامات".tr}: ${controller.appointments.length}",
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.typography.withOpacity(0.4),
+                                  ),
+                                ),
                             ],
                           ),
-                          if (controller.appointments.isNotEmpty)
-                            TextButton(
-                              onPressed: () {
-                                Get.toNamed(
-                                  Approutes.specialappointments,
-                                  arguments: {"tax_id": controller.taxid},
-                                );
-                              },
-                              style: TextButton.styleFrom(
-                                foregroundColor: AppColor.primarycolor,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 4,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              child: Text(
-                                'عرض الكل'.tr,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
                         ],
                       ),
-                      const SizedBox(height: 15),
-
-                      if (controller.appointmentStatus == Statusrequest.loadeng)
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 40),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: AppColor.primarycolor,
-                              strokeWidth: 3,
+                      if (controller.appointments.isNotEmpty)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColor.primarycolor.withOpacity(0.06),
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                              color: AppColor.primarycolor.withOpacity(0.12),
+                              width: 1,
                             ),
                           ),
-                        )
-                      else if (controller.appointments.isEmpty)
-                        Center(
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 20),
-                            padding: const EdgeInsets.all(30),
-                            decoration: BoxDecoration(
-                              color: AppColor.white,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: AppColor.grey.withOpacity(0.1),
+                          child: TextButton(
+                            onPressed: () {
+                              Get.toNamed(
+                                Approutes.specialappointments,
+                                arguments: {"tax_id": controller.taxid},
+                              );
+                            },
+                            style: TextButton.styleFrom(
+                              foregroundColor: AppColor.primarycolor,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 6,
+                              ),
+                              minimumSize: Size.zero,
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
                               ),
                             ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(15),
-                                  decoration: BoxDecoration(
-                                    color: AppColor.grey.withOpacity(0.05),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Icon(
-                                    Icons.event_available_rounded,
-                                    size: 50,
-                                    color: AppColor.grey.withOpacity(0.4),
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  "لا توجد مواعيد حالياً".tr,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.typography.withOpacity(0.5),
-                                  ),
-                                ),
-                              ],
+                            child: Text(
+                              'عرض الكل'.tr,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
-                        )
-                      else
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: controller.appointments.length > 3
-                              ? 3
-                              : controller.appointments.length,
-                          itemBuilder: (context, i) {
-                            final appt = controller.appointments[i];
-                            return AppointmentCard(
-                              title: appt.declaration,
-                              date: appt.deadline.substring(5, 10),
-                              dec: appt.dependencies,
-                              status: DateTime.parse(
-                                appt.deadline,
-                              ).isBefore(DateTime.now()),
-                            );
-                          },
                         ),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 16),
 
-                // ===== Buttons Fixed at Bottom =====
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      bottom: 30, // SafeArea spacing
-                      top: 20,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColor.white,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
+                  if (controller.appointmentStatus == Statusrequest.loadeng)
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 40),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: AppColor.primarycolor,
+                          strokeWidth: 3,
+                        ),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColor.typography.withOpacity(0.05),
-                          blurRadius: 20,
-                          offset: const Offset(0, -5),
+                    )
+                  else if (controller.appointments.isEmpty)
+                    Center(
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 32,
                         ),
-                      ],
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColor.white,
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                            color: const Color(0xFFE2E8F0),
+                            width: 1.2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.015),
+                              blurRadius: 12,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: const BoxDecoration(
+                                color: Color(0xFFF1F5F9),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.event_available_rounded,
+                                size: 42,
+                                color: Color(0xFF94A3B8),
+                              ),
+                            ),
+                            const SizedBox(height: 18),
+                            Text(
+                              "لا توجد مواعيد حالياً".tr,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w800,
+                                color: AppColor.typography,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              "كل الالتزامات والملفات الجبائية مستوفاة".tr,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppColor.typography.withOpacity(0.4),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  else
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: controller.appointments.length > 3
+                          ? 3
+                          : controller.appointments.length,
+                      itemBuilder: (context, i) {
+                        final appt = controller.appointments[i];
+                        return AppointmentCard(
+                          title: appt.declaration,
+                          date: appt.deadline.substring(5, 10),
+                          dec: appt.dependencies,
+                          status: DateTime.parse(
+                            appt.deadline,
+                          ).isBefore(DateTime.now()),
+                        );
+                      },
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColor.typography,
-                              foregroundColor: AppColor.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            onPressed: () {
-                              int actTaxId = item.activityTaxId ?? -1;
-                              if ((actTaxId == 0 || actTaxId == 1) &&
-                                  item.taxId == 0) {
-                                String message = actTaxId == 0
-                                    ? "يمكن تغيير نضام الجبائي إلى حقيقي لاكن بطلب منذ التأسيس \nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج."
-                                    : "يمكن التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.";
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
 
-                                Get.dialog(
-                                  Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    elevation: 0,
-                                    backgroundColor: Colors.transparent,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(25),
-                                      decoration: BoxDecoration(
-                                        color: AppColor.white,
-                                        borderRadius: BorderRadius.circular(25),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(
-                                              0.1,
-                                            ),
-                                            blurRadius: 20,
-                                            offset: const Offset(0, 10),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(15),
-                                            decoration: BoxDecoration(
-                                              color: AppColor.typography
-                                                  .withOpacity(0.1),
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Icon(
-                                              Icons.info_outline_rounded,
-                                              color: AppColor.typography,
-                                              size: 40,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            "تنبيه هام".tr,
-                                            style: const TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColor.typography,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 15),
-                                          Text(
-                                            message.tr,
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              height: 1.6,
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 30),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: ElevatedButton(
-                                                  style: ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        AppColor.typography,
-                                                    foregroundColor:
-                                                        AppColor.white,
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          vertical: 14,
-                                                        ),
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            15,
-                                                          ),
-                                                    ),
-                                                    elevation: 0,
-                                                  ),
-                                                  onPressed: () {
-                                                    Get.back();
-                                                    int newTaxId = actTaxId == 0
-                                                        ? 2
-                                                        : 1;
-                                                    controller
-                                                        .updateTaxIdDirectly(
-                                                          newTaxId,
-                                                        );
-                                                  },
-                                                  child: Text(
-                                                    "تأكيد التغيير".tr,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(width: 15),
-                                              Expanded(
-                                                child: TextButton(
-                                                  style: TextButton.styleFrom(
-                                                    backgroundColor: AppColor
-                                                        .grey
-                                                        .withOpacity(0.1),
-                                                    foregroundColor:
-                                                        AppColor.typography,
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          vertical: 14,
-                                                        ),
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            15,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                  onPressed: () => Get.back(),
-                                                  child: Text(
-                                                    "إلغاء".tr,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              } else if (item.taxId == 2) {
-                                Get.dialog(
-                                  Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    elevation: 0,
-                                    backgroundColor: Colors.transparent,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(25),
-                                      decoration: BoxDecoration(
-                                        color: AppColor.white,
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(15),
-                                            decoration: BoxDecoration(
-                                              color: AppColor.red.withOpacity(
-                                                0.1,
-                                              ),
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Icon(
-                                              Icons.warning_amber_rounded,
-                                              color: AppColor.red,
-                                              size: 40,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            "غير مسموح".tr,
-                                            style: const TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColor.red,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 15),
-                                          Text(
-                                            "لا يمكن تغيير النظام الجبائي بعد إعتماده."
-                                                .tr,
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              height: 1.6,
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 30),
-                                          SizedBox(
-                                            width: double.infinity,
-                                            child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: AppColor.red
-                                                    .withOpacity(0.1),
-                                                foregroundColor: AppColor.red,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      vertical: 14,
-                                                    ),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                ),
-                                                elevation: 0,
-                                              ),
-                                              onPressed: () => Get.back(),
-                                              child: Text(
-                                                "حسنًا".tr,
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              } else if (item.taxId == 1) {
-                                Get.dialog(
-                                  Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    elevation: 0,
-                                    backgroundColor: Colors.transparent,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(25),
-                                      decoration: BoxDecoration(
-                                        color: AppColor.white,
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.all(15),
-                                            decoration: BoxDecoration(
-                                              color: AppColor.red.withOpacity(
-                                                0.1,
-                                              ),
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: const Icon(
-                                              Icons.warning_amber_rounded,
-                                              color: AppColor.red,
-                                              size: 40,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            "غير مسموح".tr,
-                                            style: const TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColor.red,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 15),
-                                          Text(
-                                            "لا يمكن تغيير النظام الجبائي بعد إعتماده."
-                                                .tr,
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              height: 1.6,
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 30),
-                                          SizedBox(
-                                            width: double.infinity,
-                                            child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: AppColor.red
-                                                    .withOpacity(0.1),
-                                                foregroundColor: AppColor.red,
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                      vertical: 14,
-                                                    ),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                ),
-                                                elevation: 0,
-                                              ),
-                                              onPressed: () => Get.back(),
-                                              child: Text(
-                                                "حسنًا".tr,
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              // else {
-                              //   // If there is any other case, we might fallback
-                              //   showSnackbar(
-                              //     "تنبيه".tr,
-                              //     "لا توجد بيانات كافية لتعديل هذا السجل.".tr,
-                              //     AppColor.red,
-                              //   );
-                              // }
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.edit_rounded, size: 20),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "تعديل".tr,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+  // ===== MODERN DIALOG HELPERS =====
+
+  void _showModernInfoDialog({
+    required String title,
+    required String message,
+    required VoidCallback onConfirm,
+  }) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColor.primarycolor.withOpacity(0.08),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColor.primarycolor.withOpacity(0.15),
+                    width: 1.5,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.info_outline_rounded,
+                  color: AppColor.primarycolor,
+                  size: 36,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: AppColor.typography,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  height: 1.6,
+                  color: Color(0xFF475569),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.typography,
+                        foregroundColor: AppColor.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
                         ),
-                        const SizedBox(width: 15),
-                        Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColor.red.withOpacity(0.1),
-                              foregroundColor: AppColor.red,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            onPressed: () {
-                              Get.dialog(
-                                Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  elevation: 0,
-                                  backgroundColor: Colors.transparent,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(25),
-                                    decoration: BoxDecoration(
-                                      color: AppColor.white,
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(15),
-                                          decoration: BoxDecoration(
-                                            color: AppColor.red.withOpacity(0.1),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: const Icon(
-                                            Icons.delete_outline_rounded,
-                                            color: AppColor.red,
-                                            size: 40,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 20),
-                                        Text(
-                                          "تأكيد الحذف".tr,
-                                          style: const TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColor.typography,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 15),
-                                        Text(
-                                          "هل أنت متأكد من أنك تريد حذف هذا السجل بشكل نهائي؟".tr,
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                            fontSize: 15,
-                                            height: 1.6,
-                                            color: Colors.black87,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 30),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: AppColor.red,
-                                                  foregroundColor: AppColor.white,
-                                                  padding: const EdgeInsets.symmetric(vertical: 14),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(15),
-                                                  ),
-                                                  elevation: 0,
-                                                ),
-                                                onPressed: () {
-                                                  Get.back();
-                                                  controller.daletedata();
-                                                },
-                                                child: Text(
-                                                  "حذف".tr,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(width: 15),
-                                            Expanded(
-                                              child: TextButton(
-                                                style: TextButton.styleFrom(
-                                                  backgroundColor: AppColor.grey.withOpacity(0.1),
-                                                  foregroundColor: AppColor.typography,
-                                                  padding: const EdgeInsets.symmetric(vertical: 14),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(15),
-                                                  ),
-                                                ),
-                                                onPressed: () => Get.back(),
-                                                child: Text(
-                                                  "إلغاء".tr,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.delete_outline_rounded,
-                                  size: 20,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "حذف".tr,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                        onConfirm();
+                      },
+                      child: Text(
+                        "تأكيد التغيير".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFFF1F5F9),
+                        foregroundColor: AppColor.typography,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: () => Get.back(),
+                      child: Text(
+                        "إلغاء".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showModernWarningDialog({
+    required String title,
+    required String message,
+  }) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFEF2F2),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: const Color(0xFFFEE2E2),
+                    width: 1.5,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.warning_amber_rounded,
+                  color: Color(0xFFEF4444),
+                  size: 36,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFFEF4444),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  height: 1.6,
+                  color: Color(0xFF475569),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFEF2F2),
+                    foregroundColor: const Color(0xFFEF4444),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  onPressed: () => Get.back(),
+                  child: Text(
+                    "حسنًا".tr,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-              ],
-            );
-          },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showModernConfirmDeleteDialog({
+    required String title,
+    required String message,
+    required VoidCallback onConfirm,
+  }) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFEF2F2),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: const Color(0xFFFEE2E2),
+                    width: 1.5,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.delete_outline_rounded,
+                  color: Color(0xFFEF4444),
+                  size: 36,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: AppColor.typography,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  height: 1.6,
+                  color: Color(0xFF475569),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFEF4444),
+                        foregroundColor: AppColor.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                        onConfirm();
+                      },
+                      child: Text(
+                        "حذف".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFFF1F5F9),
+                        foregroundColor: AppColor.typography,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: () => Get.back(),
+                      child: Text(
+                        "إلغاء".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -785,22 +700,22 @@ class _AppointmentCardState extends State<AppointmentCard>
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColor.typography.withOpacity(0.04),
+            color: Colors.black.withOpacity(0.02),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
         border: Border.all(
           color: isExpanded
-              ? primaryColor.withOpacity(0.3)
-              : Colors.transparent,
-          width: 1.5,
+              ? primaryColor.withOpacity(0.4)
+              : const Color(0xFFE2E8F0),
+          width: isExpanded ? 1.5 : 1.2,
         ),
       ),
       child: ClipRRect(
@@ -834,7 +749,7 @@ class _AppointmentCardState extends State<AppointmentCard>
                           color: primaryColor,
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: 14),
                       // Info
                       Expanded(
                         child: Column(
@@ -843,10 +758,10 @@ class _AppointmentCardState extends State<AppointmentCard>
                             Text(
                               widget.title,
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15.5,
                                 color: isPast
-                                    ? AppColor.grey
+                                    ? const Color(0xFF64748B)
                                     : AppColor.typography,
                               ),
                             ),
@@ -855,17 +770,28 @@ class _AppointmentCardState extends State<AppointmentCard>
                               children: [
                                 Text(
                                   "${"الموعد النهائي".tr} : ",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
-                                    color: AppColor.grey.withOpacity(0.8),
+                                    color: Color(0xFF64748B),
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Text(
-                                  widget.date,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: primaryColor,
-                                    fontWeight: FontWeight.w600,
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: bgColor,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Text(
+                                    widget.date,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: primaryColor,
+                                      fontWeight: FontWeight.w800,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -877,15 +803,15 @@ class _AppointmentCardState extends State<AppointmentCard>
                         turns: isExpanded ? -0.5 : 0,
                         duration: const Duration(milliseconds: 300),
                         child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: AppColor.grey.withOpacity(0.1),
+                          padding: const EdgeInsets.all(6),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFF1F5F9),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.keyboard_arrow_down_rounded,
                             color: AppColor.typography.withOpacity(0.6),
-                            size: 20,
+                            size: 18,
                           ),
                         ),
                       ),
@@ -900,11 +826,18 @@ class _AppointmentCardState extends State<AppointmentCard>
               firstChild: const SizedBox(width: double.infinity),
               secondChild: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
-                  color: AppColor.typography.withOpacity(0.02),
+                  color: isPast
+                      ? const Color(0xFFFFFBEB)
+                      : const Color(0xFFFEF2F2),
                   border: Border(
-                    top: BorderSide(color: AppColor.grey.withOpacity(0.1)),
+                    top: BorderSide(
+                      color: isPast
+                          ? const Color(0xFFFEF3C7)
+                          : const Color(0xFFFEE2E2),
+                      width: 1.2,
+                    ),
                   ),
                 ),
                 child: Column(
@@ -914,16 +847,20 @@ class _AppointmentCardState extends State<AppointmentCard>
                       children: [
                         Icon(
                           Icons.info_outline_rounded,
-                          size: 16,
-                          color: AppColor.red.withOpacity(0.8),
+                          size: 18,
+                          color: isPast
+                              ? Colors.orange.shade800
+                              : const Color(0xFFEF4444),
                         ),
                         const SizedBox(width: 8),
                         Text(
                           "التبعات المترتبة".tr,
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.red.withOpacity(0.8),
+                            fontWeight: FontWeight.w900,
+                            color: isPast
+                                ? Colors.orange.shade800
+                                : const Color(0xFFEF4444),
                           ),
                         ),
                       ],
@@ -931,10 +868,13 @@ class _AppointmentCardState extends State<AppointmentCard>
                     const SizedBox(height: 10),
                     Text(
                       widget.dec,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
-                        color: AppColor.typography,
+                        color: isPast
+                            ? Colors.orange.shade900
+                            : const Color(0xFF7F1D1D),
                         height: 1.6,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],

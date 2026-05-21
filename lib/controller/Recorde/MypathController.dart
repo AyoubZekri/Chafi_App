@@ -188,7 +188,7 @@ class MypathcontrollerImp extends Mypathcontroller {
   @override
   selectMoralactivities(int i) {
     moralactivities = i;
-    i == 1 ? taxid = 0 : taxid = 2;
+    i == 1 || i == 3 ? taxid = 0 : taxid = 2;
     update();
   }
 
@@ -336,7 +336,7 @@ class MypathcontrollerImp extends Mypathcontroller {
     if (statusrequest == Statusrequest.success && response["status"] == 1) {
       Get.toNamed(
         Approutes.inforecord,
-        arguments: {"id": response["data"]["id"], "taxid": taxid,"type":1},
+        arguments: {"id": response["data"]["id"], "taxid": taxid, "type": 1},
       );
     } else {
       showSnackbar("خطأ".tr, "حدث خطأ".tr, Colors.red);

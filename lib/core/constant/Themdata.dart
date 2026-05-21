@@ -20,6 +20,7 @@ ThemeData themeEn = ThemeData(
     iconTheme: IconThemeData(color: AppColor.black),
     backgroundColor: AppColor.white,
     elevation: 0,
+    scrolledUnderElevation: 0.0,
   ),
   textTheme: const TextTheme(
     headlineMedium: TextStyle(
@@ -84,6 +85,7 @@ ThemeData themeAr = ThemeData(
     iconTheme: IconThemeData(color: AppColor.black),
     backgroundColor: AppColor.white,
     elevation: 0,
+    scrolledUnderElevation: 0.0,
   ),
   textTheme: const TextTheme(
     headlineMedium: TextStyle(
