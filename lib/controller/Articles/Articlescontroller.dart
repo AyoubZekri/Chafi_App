@@ -32,10 +32,13 @@ class ArticlescontrollerImp extends Articlescontroller {
     if (response.isNotEmpty) {
       targetList.clear();
       targetList.addAll(response.map((e) => PostModel.fromJson(e)));
-
-      statusrequest = Statusrequest.success;
+      if (targetList.isEmpty) {
+        statusrequest = Statusrequest.nodata;
+      } else {
+        statusrequest = Statusrequest.success;
+      }
     } else {
-      statusrequest = Statusrequest.failure;
+      statusrequest = Statusrequest.nodata;
     }
 
     update();

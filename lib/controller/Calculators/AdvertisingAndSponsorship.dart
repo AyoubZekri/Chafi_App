@@ -36,6 +36,8 @@ class Advertisingandsponsorshipcontroller extends GetxController {
     } else {
       netTax = tasStamp * 0.10;
     }
+
+    netTax = netTax > 3000000000 ? 3000000000 : netTax;
     update();
   }
 

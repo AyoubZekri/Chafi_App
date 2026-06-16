@@ -2,8 +2,11 @@ import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:chafi/view/widget/Calculator/Taxinpout.dart';
+
 class SmartDatePickerSheet extends StatefulWidget {
-  const SmartDatePickerSheet({super.key});
+  final DateFormatType dateFormatType;
+  const SmartDatePickerSheet({super.key, this.dateFormatType = DateFormatType.full});
 
   @override
   State<SmartDatePickerSheet> createState() => _SmartDatePickerSheetState();
@@ -21,7 +24,11 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
+    int length = 3;
+    if (widget.dateFormatType == DateFormatType.yearMonth) length = 2;
+    if (widget.dateFormatType == DateFormatType.year) length = 1;
+
+    tabController = TabController(length: length, vsync: this);
     super.initState();
   }
 
@@ -53,23 +60,30 @@ class _SmartDatePickerSheetState extends State<SmartDatePickerSheet>
           ),
 
           /// Tabs
-          TabBar(
-            controller: tabController,
-            labelColor: Colors.black,
-            indicatorColor: Colors.black,
-            tabs: [
-              Tab(text: "اليوم".tr),
-              Tab(text: "الشهر".tr),
-              Tab(text: "السنة".tr),
-            ],
-          ),
+          if (tabController.length > 1)
+            TabBar(
+              controller: tabController,
+              labelColor: Colors.black,
+              indicatorColor: Colors.black,
+              tabs: [
+                if (widget.dateFormatType == DateFormatType.full) Tab(text: "اليوم".tr),
+                if (widget.dateFormatType != DateFormatType.year) Tab(text: "الشهر".tr),
+                Tab(text: "السنة".tr),
+              ],
+            ),
 
           Expanded(
             child: Container(
-              child: TabBarView(
-                controller: tabController,
-                children: [buildDays(), buildMonths(), buildYears()],
-              ),
+              child: tabController.length > 1
+                  ? TabBarView(
+                      controller: tabController,
+                      children: [
+                        if (widget.dateFormatType == DateFormatType.full) buildDays(),
+                        if (widget.dateFormatType != DateFormatType.year) buildMonths(),
+                        buildYears()
+                      ],
+                    )
+                  : buildYears(),
             ),
           ),
 

@@ -43,7 +43,7 @@ class Custembuttonsignin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(width: Get.locale == Locale("fr") ? 30 : 10),
+                  SizedBox(width: Get.locale == Locale("ar") ? 10 : 30),
                   Transform.translate(
                     offset: const Offset(0, -4),
                     child: Text(

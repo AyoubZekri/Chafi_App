@@ -80,7 +80,7 @@ class PrepaymentCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "نسبة التسبيقة".tr,
+                              "نسبة الدفعة".tr,
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,

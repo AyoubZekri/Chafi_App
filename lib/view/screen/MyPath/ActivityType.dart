@@ -114,11 +114,32 @@ class _ActivitytypeState extends State<Activitytype> {
                                     index: controller.filteredData[i].id,
                                     selectedPerson: controller.ativitytype,
                                     onTap: () {
-                                      controller.selectativitytype(
-                                        controller.filteredData[i].id,
-                                        controller.filteredData[i].statusTax,
-                                        controller.filteredData[i].taxId,
-                                      );
+                                      final item = controller.filteredData[i];
+
+                                      if (item.localizedBody ==
+                                              "نشاط الاستيراد المصغر" ||
+                                          item.localizedBody ==
+                                              "Micro-import activity") {
+                                        _showModernInfoDialog(
+                                          title: "تنبيه هام".tr,
+                                          message:
+                                              "اقتطاع من المصدر في إدارة الجمارك."
+                                                  .tr,
+                                          onConfirm: () {
+                                            controller.selectativitytype(
+                                              item.id,
+                                              item.statusTax,
+                                              item.taxId,
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        controller.selectativitytype(
+                                          item.id,
+                                          item.statusTax,
+                                          item.taxId,
+                                        );
+                                      }
                                     },
                                   );
                                 },
@@ -138,11 +159,139 @@ class _ActivitytypeState extends State<Activitytype> {
             content: "60".tr,
             color: AppColor.typography,
             onPressed: () {
-              Get.find<MypathcontrollerImp>().gotoTaxsystemstype();
+              Get.find<MypathcontrollerImp>().taxid == 3
+                  ? _showModernInfoDialog(
+                      title: "تنبيه هام".tr,
+                      message: Get.find<MypathcontrollerImp>().taxs3.tr,
+                      onConfirm: () {
+                        Get.find<MypathcontrollerImp>().adddata();
+                      },
+                    )
+                  : Get.find<MypathcontrollerImp>().gotoTaxsystemstype();
             },
           ),
         ),
       ),
     );
   }
+
+  void _showModernInfoDialog({
+    required String title,
+    required String message,
+    required VoidCallback onConfirm,
+  }) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColor.primarycolor.withOpacity(0.08),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColor.primarycolor.withOpacity(0.15),
+                    width: 1.5,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.info_outline_rounded,
+                  color: AppColor.primarycolor,
+                  size: 36,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: AppColor.typography,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  height: 1.6,
+                  color: Color(0xFF475569),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.typography,
+                        foregroundColor: AppColor.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                        onConfirm();
+                      },
+                      child: Text(
+                        "تأكيد".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFFF1F5F9),
+                        foregroundColor: AppColor.typography,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: () => Get.back(),
+                      child: Text(
+                        "إلغاء".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 }

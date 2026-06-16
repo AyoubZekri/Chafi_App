@@ -114,13 +114,13 @@ class _ProfaileState extends State<Profaile> {
                             controller.gotoExternallinks();
                           },
                         ),
-                        // Builddeadlinetile(
-                        //   icon: Icons.language_outlined,
-                        //   title: "84".tr,
-                        //   ontap: () {
-                        //     controller.showLanguageSheet(context);
-                        //   },
-                        // ),
+                        Builddeadlinetile(
+                          icon: Icons.language_outlined,
+                          title: "84".tr,
+                          ontap: () {
+                            controller.showLanguageSheet(context);
+                          },
+                        ),
                         Builddeadlinetile(
                           icon: Icons.logout,
                           title: "85".tr,

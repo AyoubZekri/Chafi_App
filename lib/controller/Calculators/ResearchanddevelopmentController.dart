@@ -20,7 +20,7 @@ class Researchanddevelopmentcontroller extends GetxController {
   calcul() {
     accountingprofitErorr = validInput(
       accountingprofit.text.replaceAll(RegExp(r'[^0-9]'), ''),
-      20,
+      200,
       1,
       "int",
     );
@@ -35,6 +35,7 @@ class Researchanddevelopmentcontroller extends GetxController {
     } else {
       netTax = tasStamp * 0.3;
     }
+    netTax = netTax > 20000000000 ? 20000000000 : netTax;
     update();
   }
 

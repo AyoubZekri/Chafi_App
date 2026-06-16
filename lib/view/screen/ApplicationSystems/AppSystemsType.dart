@@ -38,10 +38,10 @@ class Appsystemstype extends StatelessWidget {
             ),
             SizedBox(height: 40),
 
-            Text(
-              "54".tr,
-              style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
-            ),
+            // Text(
+            //   "54".tr,
+            //   style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
+            // ),
           ],
         ),
       ),

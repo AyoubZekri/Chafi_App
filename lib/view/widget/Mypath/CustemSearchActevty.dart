@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../core/constant/Colorapp.dart';
 
@@ -51,8 +52,8 @@ class LawSearchBar extends StatelessWidget {
               controller: controller,
               onChanged: onChanged,
               style: const TextStyle(fontSize: 20),
-              decoration: const InputDecoration(
-                hintText: "ابحث عن نشاطك",
+              decoration: InputDecoration(
+                hintText: "ابحث عن نشاطك".tr,
                 hintStyle: TextStyle(fontSize: 20),
                 border: InputBorder.none,
               ),

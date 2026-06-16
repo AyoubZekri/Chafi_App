@@ -83,7 +83,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => const SmartDatePickerSheet(),
+      builder: (_) => SmartDatePickerSheet(dateFormatType: widget.dateFormatType),
     );
 
     if (result != null) {

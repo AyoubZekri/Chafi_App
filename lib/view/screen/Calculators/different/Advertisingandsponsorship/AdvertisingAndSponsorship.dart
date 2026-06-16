@@ -89,7 +89,7 @@ class _AdvertisingandsponsorshipState extends State<Advertisingandsponsorship> {
                           PenaltyCard(
                             title: "max_deduction".tr,
                             subtitle: "ads_sponsorship".tr,
-                            amount: "300,00",
+                            amount: "30,000,000,00",
                           ),
 
                           const SizedBox(height: 24),

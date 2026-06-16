@@ -289,7 +289,7 @@ List<Institutiontypemodel> regulatedInstitutionTypes = [
     imgae: Appimageassets.nineCard,
     color1: Color(0xff3C581F),
     color2: Color(0xff82BE42),
-    sizeText: Get.locale == Locale("fr") ? 18 : 24,
+    sizeText: Get.locale == Locale("ar") ? 24 : 18,
   ),
 ];
 

@@ -85,7 +85,7 @@ class _ResearchanddevelopmentState extends State<Researchanddevelopment> {
                           PenaltyCard(
                             title: "الحد الأقصى للخصم",
                             subtitle: "للبحث والتطوير",
-                            amount: "2,000,000,00",
+                            amount: "200,000,000,00",
                           ),
                           SizedBox(height: 24),
                           TotalAmountCard(

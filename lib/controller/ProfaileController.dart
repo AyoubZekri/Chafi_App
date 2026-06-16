@@ -154,8 +154,8 @@ class ProfailecontrollerImp extends Profailecontroller {
               const SizedBox(height: 10),
               Custemlanguge(
                 Langugs: "fr",
-                long: "France".tr,
-                image: Appimageassets.fr,
+                long: "English".tr,
+                image: Appimageassets.en,
               ),
             ],
           ),

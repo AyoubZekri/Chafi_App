@@ -61,8 +61,8 @@ class _TaxsystemstypeinmypathState extends State<Taxsystemstypeinmypath> {
                         CustemtextbodyMedium18(
                           color: AppColor.grey,
                           content: controller.taxidsup == 0
-                              ? controller.taxs0
-                              : controller.taxs1,
+                              ? controller.taxs0.tr
+                              : controller.taxs1.tr,
                         ),
                         SizedBox(height: 40),
                         CustemtextbodyMedium18(

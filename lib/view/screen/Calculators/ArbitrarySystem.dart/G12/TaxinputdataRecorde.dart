@@ -109,7 +109,9 @@ class _TaxinputdatarecordeState extends State<Taxinputdatarecorde> {
                               const SizedBox(height: 16),
                             if (controller.activityType == 1)
                               CustomInputField(
-                                label: 'المقاول الذاتي'.tr,
+                                label: controller.selfcontractor == 2
+                                    ? 'المقاول الذاتي'.tr
+                                    : "الرجاء إدخال قيمة السلعة".tr,
                                 icon: Icons.badge_outlined,
                                 isCurrency: true,
                                 controller: controller.selfcontractor,
@@ -137,7 +139,7 @@ class _TaxinputdatarecordeState extends State<Taxinputdatarecorde> {
                             CustomInputField(
                               label: 'سنة التصريح'.tr,
                               icon: Icons.event_available,
-                              placeholder: 'mm/dd/yyyy',
+                              placeholder: 'سنة التصريح'.tr,
                               isDate: true,
                               controller: controller.dataTax,
                               errorText: controller.dataTaxErorr,

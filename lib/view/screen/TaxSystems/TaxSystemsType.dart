@@ -38,10 +38,10 @@ class Taxsystemstype extends StatelessWidget {
             ),
             SizedBox(height: 40),
 
-            Text(
-              "52".tr,
-              style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
-            ),
+            // Text(
+            //   "52".tr,
+            //   style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
+            // ),
           ],
         ),
       ),

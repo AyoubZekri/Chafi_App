@@ -56,6 +56,8 @@ class MypathcontrollerImp extends Mypathcontroller {
       "أو بطلب قبل 01 فيفري أو منذ التأسيس.";
   String taxs2 = "نظامك الجبائي حقيقي";
 
+  String taxs3 ="Contractor's Partner";
+      
   Mypathdata mypathdata = Mypathdata(Get.find());
   Activitydata activitydata = Activitydata(Get.find());
   Natureoftheactivitydata natureoftheactivitydata = Natureoftheactivitydata(

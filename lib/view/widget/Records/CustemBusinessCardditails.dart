@@ -8,7 +8,7 @@ class Custembusinesscardditails extends StatelessWidget {
   final String persontype;
   final String name;
   final String address;
-  final String numperTax;
+  final int numperTax;
   final String codeActeve;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
@@ -154,7 +154,7 @@ class Custembusinesscardditails extends StatelessWidget {
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              if (onEdit != null)
+                              if (onEdit != null && numperTax != 3)
                                 Container(
                                   decoration: BoxDecoration(
                                     color: const Color(0xFFF1F5F9),
@@ -176,7 +176,9 @@ class Custembusinesscardditails extends StatelessWidget {
                                     splashRadius: 18,
                                   ),
                                 ),
-                              if (onEdit != null && onDelete != null)
+                              if (onEdit != null &&
+                                  onDelete != null &&
+                                  numperTax != 3)
                                 const SizedBox(width: 8),
                               if (onDelete != null)
                                 Container(
@@ -310,12 +312,15 @@ class Custembusinesscardditails extends StatelessWidget {
           value: persontype,
           icon: Icons.business_rounded,
         ),
-        const SizedBox(height: 14),
-        _buildDetailTile(
-          label: "75".tr, // "رمز النشاط"
-          value: codeActeve,
-          icon: Icons.tag_rounded,
-        ),
+        if (codeActeve != "null".tr) ...[
+          const SizedBox(height: 14),
+          _buildDetailTile(
+            label: "75".tr, // "رمز النشاط"
+            value: codeActeve,
+            icon: Icons.tag_rounded,
+          ),
+        ],
+
         const SizedBox(height: 14),
         _buildDetailTile(
           label: "الممثل القانوني".tr,
@@ -325,7 +330,11 @@ class Custembusinesscardditails extends StatelessWidget {
         const SizedBox(height: 14),
         _buildDetailTile(
           label: "74".tr, // "النظام الجبائي"
-          value: numperTax,
+          value: numperTax == 0 || numperTax == 3
+              ? "49".tr
+              : numperTax == 1
+              ? "50".tr
+              : "48".tr,
           icon: Icons.receipt_long_rounded,
           valueColor: const Color(0xFFC5A059),
         ),

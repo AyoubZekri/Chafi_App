@@ -28,6 +28,8 @@ class G12controller extends GetxController {
   String? dataTaxErorr;
 
   int activityType = 0;
+  int selfcontractortype = 0;
+
   TextEditingController production = TextEditingController();
   TextEditingController g12 = TextEditingController();
 
@@ -225,7 +227,11 @@ class G12controller extends GetxController {
       dueDatedepositand,
       netTax,
     );
-
+    if (activityType == 1) {
+      netTax = netTax < 1000000 ? 1000000 : netTax;
+    } else {
+      netTax = netTax < 3000000 ? 3000000 : netTax;
+    }
     Get.to(Shwopenaltyg12());
     print("================netTax $netTax");
     print("================penalty $penalty");

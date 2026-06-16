@@ -92,19 +92,16 @@ class _InforecordState extends State<Inforecord> {
                         ? item.activitSpecial == 1
                               ? "شركة مدنية".tr
                               : item.activitSpecial == 3
-                              ? "تعاونيات الفنية والتقليدية".tr
+                              ? "تعاونيات فنية والتقليدية".tr
                               : "شركة أخرى".tr
                         : item.localizedActivityName,
                     condition: 1,
                     persontype: item.personType == 1 ? "58".tr : "59".tr,
                     name: item.username,
                     address: item.wilaya.tr,
-                    numperTax: item.taxId == 0
-                        ? "49".tr
-                        : item.taxId == 1
-                        ? "50".tr
-                        : "48".tr,
+                    numperTax: item.taxId,
                     codeActeve: item.codeActivity.toString().tr,
+
                     onEdit: () {
                       int actTaxId = item.activityTaxId ?? -1;
                       if ((actTaxId == 0 || actTaxId == 1) && item.taxId == 0) {
