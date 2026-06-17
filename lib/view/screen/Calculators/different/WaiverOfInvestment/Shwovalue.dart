@@ -93,7 +93,7 @@ class _ShwovalueState extends State<Shwovalue> {
                           PenaltyCard(
                             icon: Icons.account_balance_wallet_outlined,
                             title: "قيمة التخفيض".tr,
-                            subtitle: "قيمة التخفيض من القيمة الخاضعة للضريبة".tr,
+                            subtitle: "قيمة التخفيض من القيمة الخاضعة للضريب".tr,
                             amount: controller.discount
                                 .toInt()
                                 .formatCustomint()
