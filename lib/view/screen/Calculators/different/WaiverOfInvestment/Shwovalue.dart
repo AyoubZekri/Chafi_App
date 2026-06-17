@@ -68,7 +68,7 @@ class _ShwovalueState extends State<Shwovalue> {
 
                           // ======= سنوات متبقية =======
                           PenaltyCard(
-                            icon: Icons.attach_money_outlined,
+                            icon: Icons.account_balance_wallet_outlined,
                             title: "سنوات متبقية".tr,
                             subtitle: "عدد السنوات المتبقية من مدة الصلاحية".tr,
                             amount: controller.remainingacquisition
@@ -78,13 +78,23 @@ class _ShwovalueState extends State<Shwovalue> {
                           ),
 
                           const SizedBox(height: 14),
-
                           // ======= القيمة الخاضعة =======
                           PenaltyCard(
-                            icon: Icons.attach_money_outlined,
+                            icon: Icons.account_balance_wallet_outlined,
                             title: "القيمة الخاضعة".tr,
                             subtitle: "القيمة التي سيتم احتسابها للضريبة".tr,
                             amount: controller.remaininSale
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+
+                          const SizedBox(height: 14),
+                          PenaltyCard(
+                            icon: Icons.account_balance_wallet_outlined,
+                            title: "قيمة التخفيض".tr,
+                            subtitle: "قيمة التخفيض من القيمة الخاضعة للضريبة".tr,
+                            amount: controller.discount
                                 .toInt()
                                 .formatCustomint()
                                 .toString(),

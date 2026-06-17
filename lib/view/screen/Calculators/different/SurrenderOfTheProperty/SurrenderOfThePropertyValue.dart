@@ -77,21 +77,21 @@ class _SurrenderofthepropertyvalueState
                           const SizedBox(height: 20),
 
                           CustomInputField(
-                            label: "سعر إقتناء العقار".tr,
-                            icon: Icons.attach_money,
-                            isCurrency: true,
-                            controller: controller.sellingprice,
-                            errorText: controller.sellingpriceErorr,
-                          ),
-
-                          const SizedBox(height: 16),
-
-                          CustomInputField(
                             label: "سعر تنازل العقار".tr,
                             icon: Icons.sell_outlined,
                             isCurrency: true,
                             controller: controller.purchaseprice,
                             errorText: controller.purchasepriceErorr,
+                          ),
+
+                          const SizedBox(height: 16),
+
+                          CustomInputField(
+                            label: "سعر إقتناء العقار".tr,
+                            icon: Icons.account_balance_wallet_outlined,
+                            isCurrency: true,
+                            controller: controller.sellingprice,
+                            errorText: controller.sellingpriceErorr,
                           ),
 
                           const SizedBox(height: 16),

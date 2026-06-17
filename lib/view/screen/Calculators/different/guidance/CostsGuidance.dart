@@ -64,10 +64,13 @@ class _CostsguidanceState extends State<Costsguidance> {
                         nameHint: "gift_name_hint".tr,
                         costLabel: "gift_cost".tr,
                         costHint: "gift_cost_hint".tr,
+                        countLabel: "gift_quantity".tr,
+                        countHint: "gift_quantity_hint".tr,
                         addText: "add".tr,
                         cancelText: "cancel".tr,
                         nameController: controller.nameguidance,
                         costController: controller.costsguidance,
+                        countController: controller.countguidance,
                         onPressedBack: () => Navigator.of(context).pop(false),
                         onPressed: () {
                           controller.addGuidance();
@@ -130,21 +133,22 @@ class _CostsguidanceState extends State<Costsguidance> {
                                 padding: const EdgeInsets.only(bottom: 80),
                                 itemCount: controller.gifts.length,
                                 itemBuilder: (context, index) {
-                                  final gift = controller.gifts.entries
-                                      .toList()[index];
+                                  final gift = controller.gifts[index];
+
+                                  int unitDeductible = gift.cost > 100000 ? 100000 : gift.cost;
+                                  int unitNonDeductible = gift.cost > 100000 ? gift.cost - 100000 : 0;
+                                  
+                                  int td = unitDeductible * gift.quantity;
+                                  int tnd = unitNonDeductible * gift.quantity;
 
                                   return GiftCard(
-                                    name: gift.key,
-                                    tax: gift.value > 100000
-                                        ? 100000
-                                        : gift.value,
-                                    total: controller.costsguidances(
-                                      gift.value,
-                                    ),
+                                    name: "${gift.name} (${gift.quantity})",
+                                    tax: td,
+                                    total: tnd,
                                     taxText: "deductible_amount".tr,
                                     totalText: "added_to_tax_result".tr,
                                     onPressed: () {
-                                      controller.gifts.remove(gift.key);
+                                      controller.gifts.removeAt(index);
                                       controller.update();
                                     },
                                   );

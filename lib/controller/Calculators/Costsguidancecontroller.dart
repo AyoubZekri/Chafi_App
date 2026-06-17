@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../core/class/Statusrequest.dart';
 import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/handlingdatacontroller.dart';
@@ -8,6 +7,14 @@ import '../../core/functions/Snacpar.dart';
 import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/PostData.dart';
 import '../../view/screen/Calculators/different/guidance/Shwototalguidance.dart';
+
+class GiftModel {
+  String name;
+  int cost;
+  int quantity;
+
+  GiftModel({required this.name, required this.cost, required this.quantity});
+}
 
 class Costsguidancecontroller extends GetxController {
   Postdata postdata = Postdata(Get.find());
@@ -17,32 +24,28 @@ class Costsguidancecontroller extends GetxController {
 
   TextEditingController nameguidance = TextEditingController();
   TextEditingController costsguidance = TextEditingController();
+  TextEditingController countguidance = TextEditingController();
 
-  // Map لتخزين الهدايا: اسم → قيمة
-  Map<String, int> gifts = {};
+  List<GiftModel> gifts = [];
 
   double total = 0;
   double addreselttax = 0;
   double netTax = 0;
 
-  // حساب قيمة الهدايا إذا تجاوزت 1000
-  int costsguidances(int cost) {
-    return cost > 100000 ? cost - 100000 : 0;
-  }
-
   void addGuidance() {
     String name = nameguidance.text.trim();
     String costText = costsguidance.text.replaceAll(RegExp(r'[^0-9]'), '');
-    if (name.isEmpty || costText.isEmpty) return;
+    String countText = countguidance.text.replaceAll(RegExp(r'[^0-9]'), '');
+    if (name.isEmpty || costText.isEmpty || countText.isEmpty) return;
 
     int cost = int.parse(costText);
+    int count = int.parse(countText);
 
-    gifts[name] = cost; // حفظ الهدية
-
-    netTax += costsguidances(cost); // إضافة القيمة بعد خصم أول 1000
+    gifts.add(GiftModel(name: name, cost: cost, quantity: count));
 
     nameguidance.clear();
     costsguidance.clear();
+    countguidance.clear();
 
     update();
   }
@@ -55,13 +58,30 @@ class Costsguidancecontroller extends GetxController {
     addreselttax = 0;
     netTax = 0; // مهم جدا
 
-    for (var cost in gifts.values) {
-      int deductible = cost > 100000 ? 100000 : cost;
-      int nonDeductible = costsguidances(cost);
+    double sumTD = 0;
+    double sumTND = 0;
 
-      netTax += cost; // مجموع كل الهدايا
-      total += deductible; // الجزء المقبول
-      addreselttax += nonDeductible; // الجزء الواجب إضافته
+    for (var gift in gifts) {
+      int cost = gift.cost;
+      int q = gift.quantity;
+      int unitDeductible = cost > 100000 ? 100000 : cost;
+      int unitNonDeductible = cost > 100000 ? cost - 100000 : 0;
+
+      double td = (unitDeductible * q).toDouble();
+      double tnd = (unitNonDeductible * q).toDouble();
+
+      sumTD += td;
+      sumTND += tnd;
+      netTax += (cost * q); // Total entered value
+    }
+
+    if (sumTD > 50000000) {
+      double excess = sumTD - 50000000;
+      total = 50000000;
+      addreselttax = sumTND + excess;
+    } else {
+      total = sumTD;
+      addreselttax = sumTND;
     }
 
     update();
@@ -71,6 +91,7 @@ class Costsguidancecontroller extends GetxController {
   void Back() {
     nameguidance.clear();
     costsguidance.clear();
+    countguidance.clear();
     netTax = 0;
     gifts.clear();
     update();
@@ -80,6 +101,7 @@ class Costsguidancecontroller extends GetxController {
   void BackfromShow() {
     nameguidance.clear();
     costsguidance.clear();
+    countguidance.clear();
     netTax = 0;
     total = 0;
     addreselttax = 0;
@@ -90,6 +112,7 @@ class Costsguidancecontroller extends GetxController {
   void resetAll() {
     nameguidance.clear();
     costsguidance.clear();
+    countguidance.clear();
     netTax = 0;
     gifts.clear();
     update();

@@ -64,17 +64,17 @@ class _ShwototaltouristvehiclesState extends State<Shwototaltouristvehicles> {
 
                           PenaltyCard(
                             title: "الحد الأقصى للخصم".tr,
-                            subtitle: "لكل مركبة".tr,
+                            subtitle: controller.type == 2 ? "إجمالي كل المركبات".tr : "لكل وحدة".tr,
                             icon: Icons.rule_outlined,
                             amount: controller.type == 2
-                                ? "200,000,00"
-                                : "20,000,00",
+                                ? "20,000,000"
+                                : "2,000,000",
                           ),
                           const SizedBox(height: 12),
 
                           PenaltyCard(
                             title: "مجموع كل المركبات".tr,
-                            subtitle: "القيمة الإجمالية المدخلة".tr,
+                            subtitle: "القيمة الإجمالية للمركبات".tr,
                             icon: Icons.summarize_outlined,
                             amount: controller.netTax
                                 .toInt()
@@ -86,8 +86,8 @@ class _ShwototaltouristvehiclesState extends State<Shwototaltouristvehicles> {
                           PenaltyCard(
                             title: "الجزء غير القابل للخصم".tr,
                             subtitle: controller.type == 2
-                                ? "المبلغ الذي يتجاوز DA 200,000,00".tr
-                                : "المبلغ الذي يتجاوز DA 20,000,00".tr,
+                                ? "المبلغ الذي يتجاوز 20,000,000 دج".tr
+                                : "المبلغ الإجمالي المتجاوز للسقف".tr,
                             icon: Icons.remove_circle_outline,
                             amount: controller.addreselttax
                                 .toInt()

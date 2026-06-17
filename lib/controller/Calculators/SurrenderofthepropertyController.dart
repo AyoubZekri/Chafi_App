@@ -61,9 +61,13 @@ class Surrenderofthepropertycontroller extends GetxController {
     sellingprices =
         double.tryParse(sellingprice.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
         0;
+        
     purchaseprices =
         double.tryParse(purchaseprice.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
         0;
+
+    sellingprices =
+        sellingprices == 0 ? (purchaseprices * 0.4) : sellingprices;
     sellingexpensess =
         double.tryParse(
           sellingexpenses.text.replaceAll(RegExp(r'[^0-9]'), ''),
@@ -151,6 +155,7 @@ class Surrenderofthepropertycontroller extends GetxController {
       20,
       1,
       "int",
+      empty: true,
     );
     purchasepriceErorr = validInput(
       purchaseprice.text.replaceAll(RegExp(r'[^0-9]'), ''),

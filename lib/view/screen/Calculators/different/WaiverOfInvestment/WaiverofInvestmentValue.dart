@@ -78,7 +78,7 @@ class _WaiverofinvestmentvalueState extends State<Waiverofinvestmentvalue> {
 
                           CustomInputField(
                             label: "سعر إقتناء".tr,
-                            icon: Icons.attach_money,
+                            icon: Icons.account_balance_wallet_outlined,
                             isCurrency: true,
                             controller: controller.purchaseprice,
                             errorText: controller.purchasepriceErorr,

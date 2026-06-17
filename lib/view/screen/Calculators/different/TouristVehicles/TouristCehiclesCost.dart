@@ -57,12 +57,16 @@ class _TouristcehiclescostState extends State<Touristcehiclescost> {
                             Get.find<Touristcehiclescontroller>().type == 2
                             ? "تكلفة الكراء".tr
                             : "تكلفة الصيانة".tr,
+                        countLabel: "عدد الوحدات".tr,
+                        countHint: "عدد الوحدات".tr,
                         addText: "إضافة".tr,
                         cancelText: "إلغاء".tr,
                         nameController:
                             Get.find<Touristcehiclescontroller>().nameguidance,
                         costController:
                             Get.find<Touristcehiclescontroller>().costsguidance,
+                        countController:
+                            Get.find<Touristcehiclescontroller>().countguidance,
                         onPressedBack: () => Navigator.of(context).pop(false),
                         onPressed: () {
                           Get.find<Touristcehiclescontroller>().addGuidance();
@@ -139,27 +143,39 @@ class _TouristcehiclescostState extends State<Touristcehiclescost> {
                                 padding: const EdgeInsets.only(bottom: 80),
                                 itemCount: controller.gifts.length,
                                 itemBuilder: (context, index) {
-                                  final gift = controller.gifts.entries
-                                      .toList()[index];
+                                  final gift = controller.gifts[index];
+
+                                  int td = 0;
+                                  int tnd = 0;
+                                  String taxTextLabel = "";
+                                  String totalTextLabel = "";
+
+                                  if (controller.type == 2) {
+                                    // Rental
+                                    td = gift.cost;
+                                    tnd = gift.cost * gift.quantity;
+                                    taxTextLabel = "تكلفة الوحدة".tr;
+                                    totalTextLabel = "التكلفة الإجمالية".tr;
+                                  } else {
+                                    // Maintenance
+                                    int unitDeductible = gift.cost > 2000000 ? 2000000 : gift.cost;
+                                    int unitNonDeductible = gift.cost > 2000000 ? gift.cost - 2000000 : 0;
+                                    td = unitDeductible * gift.quantity;
+                                    tnd = unitNonDeductible * gift.quantity;
+                                    taxTextLabel = "المبلغ القابل لي الخصم".tr;
+                                    totalTextLabel = "يضاف لي نتيجة جبائية".tr;
+                                  }
 
                                   return GiftCard(
-                                    name: gift.key,
-                                    tax: controller.type == 2
-                                        ? (gift.value > 20000000
-                                              ? 20000000
-                                              : gift.value)
-                                        : (gift.value > 2000000
-                                              ? 2000000
-                                              : gift.value),
-                                    total: controller.type == 2
-                                        ? controller.costsRental(gift.value)
-                                        : controller.costsmaintenance(
-                                            gift.value,
-                                          ),
-                                    taxText: "المبلغ القابل لي الخصم".tr,
-                                    totalText: "يضاف لي نتيجة جبائية".tr,
+                                    name: "${gift.name} (${gift.quantity})",
+                                    tax: td,
+                                    total: tnd,
+                                    taxText: taxTextLabel,
+                                    totalText: totalTextLabel,
+                                    icon: Icons.directions_car,
+                                    bgIcon: Icons.directions_car,
                                     onPressed: () {
-                                      controller.gifts.remove(gift.key);
+                                      controller.gifts.removeAt(index);
                                       controller.update();
                                     },
                                   );

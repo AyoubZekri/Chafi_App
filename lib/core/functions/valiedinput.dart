@@ -2,7 +2,10 @@ import 'package:chafi/core/functions/Snacpar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-validInput(String val, int max, int min, String type) {
+validInput(String val, int max, int min, String type, {bool? empty = false}) {
+  if (val.isEmpty && empty == true) {
+    return null;
+  }
   if (val.isEmpty) {
     return "Can't be Empty".tr;
   }

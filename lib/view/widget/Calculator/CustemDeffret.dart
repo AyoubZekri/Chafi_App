@@ -14,6 +14,8 @@ class GiftCard extends StatelessWidget {
   final int total;
   final String taxText;
   final String totalText;
+  final IconData? icon;
+  final IconData? bgIcon;
   final void Function()? onPressed;
 
   const GiftCard({
@@ -23,6 +25,8 @@ class GiftCard extends StatelessWidget {
     required this.total,
     required this.taxText,
     required this.totalText,
+    this.icon,
+    this.bgIcon,
     this.onPressed,
   });
 
@@ -31,57 +35,174 @@ class GiftCard extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[900] : Colors.white,
+        gradient: LinearGradient(
+          colors: isDark
+              ? [const Color(0xFF1E1E1E), const Color(0xFF2C2C2C)]
+              : [Colors.white, const Color(0xFFF8F9FA)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey[300]!),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: isDark ? Colors.black45 : Colors.grey.withOpacity(0.15),
+        //     blurRadius: 15,
+        //     offset: const Offset(0, 8),
+        //   ),
+        // ],
+        border: Border.all(
+          color: isDark ? Colors.grey[800]! : Colors.grey[200]!,
+          width: 1,
+        ),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.white : Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Icon(Icons.receipt_long, size: 14),
-                    const SizedBox(width: 4),
-                    Text(
-                      '$taxText: ${tax.formatCustomint()} DA',
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(Icons.payments, size: 16),
-                    const SizedBox(width: 4),
-                    Text(
-                      '$totalText: ${total.formatCustomint()} DA',
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-              ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Stack(
+          children: [
+            Positioned(
+              right: -20,
+              top: -20,
+              child: Icon(
+                bgIcon ?? Icons.card_giftcard,
+                size: 100,
+                color: isDark
+                    ? Colors.white.withOpacity(0.03)
+                    : AppColor.typography.withOpacity(0.05),
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: onPressed,
-            icon: const Icon(Icons.delete, color: AppColor.red),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: AppColor.typography.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          icon ?? Icons.redeem,
+                          color: AppColor.typography,
+                          size: 24,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            color: isDark ? Colors.white : Colors.black87,
+                            fontFamily: "Almiri",
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: onPressed,
+                        borderRadius: BorderRadius.circular(50),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.delete_outline,
+                            color: Colors.red,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Divider(
+                    color: isDark ? Colors.grey[800] : Colors.grey[200],
+                    height: 1,
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildDetailColumn(
+                          title: taxText,
+                          amount: tax,
+                          icon: Icons.check_circle_outline,
+                          iconColor: Colors.green,
+                          isDark: isDark,
+                        ),
+                      ),
+                      Container(
+                        width: 1,
+                        height: 40,
+                        color: isDark ? Colors.grey[800] : Colors.grey[300],
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: _buildDetailColumn(
+                          title: totalText,
+                          amount: total,
+                          icon: Icons.warning_amber_rounded,
+                          iconColor: Colors.orange,
+                          isDark: isDark,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildDetailColumn({
+    required String title,
+    required int amount,
+    required IconData icon,
+    required Color iconColor,
+    required bool isDark,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(icon, size: 16, color: iconColor),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          '${amount.formatCustomint()} DA',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: isDark ? Colors.white : Colors.black87,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -93,6 +214,7 @@ class GiftCard extends StatelessWidget {
 class AddGiftDialog extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController costController;
+  final TextEditingController? countController;
   final void Function()? onPressedBack;
   final void Function()? onPressed;
 
@@ -102,6 +224,8 @@ class AddGiftDialog extends StatefulWidget {
   final String nameHint;
   final String costLabel;
   final String costHint;
+  final String? countLabel;
+  final String? countHint;
   final String addText;
   final String cancelText;
   final IconData icon;
@@ -117,6 +241,9 @@ class AddGiftDialog extends StatefulWidget {
     required this.nameHint,
     required this.costLabel,
     required this.costHint,
+    this.countLabel,
+    this.countHint,
+    this.countController,
     required this.addText,
     required this.cancelText,
     this.icon = Icons.card_giftcard,
@@ -201,6 +328,23 @@ class _AddGiftDialogState extends State<AddGiftDialog> {
                         "int",
                       ),
                     ),
+                    if (widget.countController != null) ...[
+                      const SizedBox(height: 16),
+                      _buildTextField(
+                        context,
+                        widget.countLabel ?? "",
+                        widget.countHint ?? "",
+                        Icons.numbers,
+                        true,
+                        widget.countController!,
+                        (value) => validInput(
+                          value!.replaceAll(RegExp(r'[^0-9]'), ''),
+                          20,
+                          1,
+                          "int",
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),

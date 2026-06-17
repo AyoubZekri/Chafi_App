@@ -29,6 +29,7 @@ class Waiverofinvestmentcontroller extends GetxController {
   TextEditingController saledate = TextEditingController();
   TextEditingController purchasedate = TextEditingController();
   double total = 0;
+  double discount = 0;
 
   double sellingprices = 0;
   double purchaseprices = 0;
@@ -53,32 +54,44 @@ class Waiverofinvestmentcontroller extends GetxController {
     }
     final datasale = parseDate(saledate.text);
     final datapurchase = parseDate(purchasedate.text);
+    print("========datasale$datasale");
+    print("========datapurchase$datapurchase");
+
     print("==============$datasale");
 
     if (!hasError) {
       if (datasale != null && datapurchase != null) {
-        int years = datasale.year - datapurchase.year;
+        int totalMonths =
+            (datasale.year - datapurchase.year) * 12 +
+            (datasale.month - datapurchase.month) +
+            1;
 
-        // if (datasale.month < datapurchase.month ||
-        //     (datasale.month == datapurchase.month &&
-        //         datasale.day < datapurchase.day)) {
-        //   years--;
-        // }
+        if (datapurchase.day > 15) {
+          totalMonths -= 1;
+        }
+        if (datasale.day <= 15) {
+          totalMonths -= 1;
+        }
 
-        if (years < 0) years = 0;
-        if (years > yearsofvaliditys) years = yearsofvaliditys;
+        if (totalMonths < 0) totalMonths = 0;
+
+        double years = totalMonths / 12.0;
+        print("=================$years");
+        if (years > yearsofvaliditys) years = yearsofvaliditys.toDouble();
 
         double divide = purchaseprices / yearsofvaliditys;
         double remaining = years * divide;
 
         remainingacquisition = purchaseprices - remaining;
         remaininSale = sellingprices - remainingacquisition;
+        print("==============$years");
 
         if (remaininSale <= 0) {
-          total = 0;
+          discount = 0;
         } else {
-          total = years > 3 ? remaininSale * 0.35 : remaininSale * 0.70;
+          discount = years > 3 ? remaininSale * 0.65 : remaininSale * 0.30;
         }
+        total = remaininSale - discount;
       }
       Get.to(() => Shwovalue());
     }

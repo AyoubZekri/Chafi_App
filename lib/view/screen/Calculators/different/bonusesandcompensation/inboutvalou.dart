@@ -77,7 +77,8 @@ class _InboutvalouState extends State<Inboutvalou> {
                             ),
                             SizedBox(height: 40),
                             SectionHeader(
-                              icon: Icons.account_balance_wallet_outlined,
+                              icon: Icons
+                                  .account_balance_wallet_outlined,
                               title: "taxable_and_contributions".tr,
                             ),
                             const SizedBox(height: 16),

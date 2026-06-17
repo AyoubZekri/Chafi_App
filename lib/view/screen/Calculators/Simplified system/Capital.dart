@@ -88,7 +88,8 @@ class _CapitalState extends State<Capital> {
                                 const SizedBox(height: 70),
 
                                 CustomInputField(
-                                  icon: Icons.account_balance_wallet_outlined,
+                                  icon: Icons
+                                      .account_balance_wallet_outlined,
                                   controller: controller.capital,
                                   label: "رأس المال".tr,
                                   errorText: controller.capitalErorr,

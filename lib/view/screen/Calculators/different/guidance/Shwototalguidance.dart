@@ -63,7 +63,7 @@ class _ShwototalguidanceState extends State<Shwototalguidance> {
                           PenaltyCard(
                             title: "max_deduction".tr,
                             subtitle: "per_gift".tr,
-                            amount: "1,000,00",
+                            amount: "500,000,00",
                           ),
                           const SizedBox(height: 12),
 

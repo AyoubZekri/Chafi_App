@@ -80,7 +80,7 @@ class _IncomevalueState extends State<Incomevalue> {
                           const SizedBox(height: 24),
                           SectionHeader(
                             icon: Icons.receipt_long_outlined,
-                            title: "قيمة الدخل العقاري".tr,
+                            title: "التواريخ".tr,
                           ),
 
                           const SizedBox(height: 16),

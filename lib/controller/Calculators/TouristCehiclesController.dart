@@ -9,6 +9,7 @@ import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/PostData.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../view/screen/Calculators/different/TouristVehicles/ShwototalTouristVehicles.dart';
+import 'Costsguidancecontroller.dart';
 
 class Touristcehiclescontroller extends GetxController {
   Postdata postdata = Postdata(Get.find());
@@ -18,9 +19,9 @@ class Touristcehiclescontroller extends GetxController {
   int type = 0;
   TextEditingController nameguidance = TextEditingController();
   TextEditingController costsguidance = TextEditingController();
+  TextEditingController countguidance = TextEditingController();
 
-  // Map لتخزين الهدايا: اسم → قيمة
-  Map<String, int> gifts = {};
+  List<GiftModel> gifts = [];
 
   double total = 0;
   double addreselttax = 0;
@@ -38,30 +39,20 @@ class Touristcehiclescontroller extends GetxController {
     Get.to(Touristcehiclescost());
   }
 
-  // حساب قيمة الهدايا إذا تجاوزت 1000
-  int costsRental(int cost) {
-    return cost > 20000000 ? cost - 20000000 : 0;
-  }
-
-  int costsmaintenance(int cost) {
-    return cost > 2000000 ? cost - 2000000 : 0;
-  }
-
   void addGuidance() {
     String name = nameguidance.text.trim();
     String costText = costsguidance.text.replaceAll(RegExp(r'[^0-9]'), '');
-    if (name.isEmpty || costText.isEmpty) return;
+    String countText = countguidance.text.replaceAll(RegExp(r'[^0-9]'), '');
+    if (name.isEmpty || costText.isEmpty || countText.isEmpty) return;
 
     int cost = int.parse(costText);
+    int count = int.parse(countText);
 
-    gifts[name] = cost; // حفظ الهدية
-
-    netTax += type == 2
-        ? costsRental(cost.toInt())
-        : costsmaintenance(cost.toInt());
+    gifts.add(GiftModel(name: name, cost: cost, quantity: count));
 
     nameguidance.clear();
     costsguidance.clear();
+    countguidance.clear();
 
     update();
   }
@@ -72,19 +63,45 @@ class Touristcehiclescontroller extends GetxController {
     }
     total = 0;
     addreselttax = 0;
-    netTax = 0; // مهم جدا
+    netTax = 0;
 
-    for (var cost in gifts.values) {
-      int deductible = type == 2
-          ? (cost > 20000000 ? 20000000 : cost)
-          : (cost > 2000000 ? 2000000 : cost);
-      int nonDeductible = type == 2
-          ? costsRental(cost)
-          : costsmaintenance(cost);
+    double sumTD = 0;
+    double sumTND = 0;
 
-      netTax += cost; // مجموع كل الهدايا
-      total += deductible; // الجزء المقبول
-      addreselttax += nonDeductible; // الجزء الواجب إضافته
+    for (var gift in gifts) {
+      int cost = gift.cost;
+      int q = gift.quantity;
+
+      if (type == 2) {
+        // كراء: no per unit limit
+        double itemTotal = (cost * q).toDouble();
+        sumTD += itemTotal;
+        netTax += itemTotal;
+      } else {
+        // صيانة: max 2,000,000 per unit
+        int unitDeductible = cost > 2000000 ? 2000000 : cost;
+        int unitNonDeductible = cost > 2000000 ? cost - 2000000 : 0;
+
+        sumTD += (unitDeductible * q).toDouble();
+        sumTND += (unitNonDeductible * q).toDouble();
+        netTax += (cost * q).toDouble();
+      }
+    }
+
+    if (type == 2) {
+      // كراء: global limit 20,000,000
+      if (sumTD > 20000000) {
+        double excess = sumTD - 20000000;
+        total = 20000000;
+        addreselttax = excess;
+      } else {
+        total = sumTD;
+        addreselttax = 0;
+      }
+    } else {
+      // صيانة: no global limit
+      total = sumTD;
+      addreselttax = sumTND;
     }
 
     update();
@@ -94,6 +111,7 @@ class Touristcehiclescontroller extends GetxController {
   void Back() {
     nameguidance.clear();
     costsguidance.clear();
+    countguidance.clear();
     netTax = 0;
     gifts.clear();
     update();
@@ -103,6 +121,7 @@ class Touristcehiclescontroller extends GetxController {
   void BackfromShow() {
     nameguidance.clear();
     costsguidance.clear();
+    countguidance.clear();
     netTax = 0;
     total = 0;
     addreselttax = 0;
@@ -113,6 +132,7 @@ class Touristcehiclescontroller extends GetxController {
   void resetAll() {
     nameguidance.clear();
     costsguidance.clear();
+    countguidance.clear();
     netTax = 0;
     gifts.clear();
     update();
