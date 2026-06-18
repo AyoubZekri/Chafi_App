@@ -2,29 +2,29 @@ import 'package:chafi/core/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../controller/Calculators/WaiverofinvestmentController.dart';
+import '../../../../../../controller/Calculators/FlatratesystemController.dart';
 import '../../../../../core/constant/Colorapp.dart';
 import '../../../../widget/Button/CustemSuberButton.dart';
 import '../../../../widget/Calculator/PinaltyDitails.dart';
 
-class Shwovalue extends StatefulWidget {
-  const Shwovalue({super.key});
+class Shwoflatratesystem extends StatefulWidget {
+  const Shwoflatratesystem({super.key});
 
   @override
-  State<Shwovalue> createState() => _ShwovalueState();
+  State<Shwoflatratesystem> createState() => _ShwoflatratesystemState();
 }
 
-class _ShwovalueState extends State<Shwovalue> {
+class _ShwoflatratesystemState extends State<Shwoflatratesystem> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.find<Waiverofinvestmentcontroller>().backFromShwovalue();
+        Get.find<FlatratesystemController>().backFromShwovalue();
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("التنازل عن الإستثمار".tr),
+          title: Text("النتائج".tr),
           titleTextStyle: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -35,7 +35,7 @@ class _ShwovalueState extends State<Shwovalue> {
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-        body: GetBuilder<Waiverofinvestmentcontroller>(
+        body: GetBuilder<FlatratesystemController>(
           builder: (controller) {
             return Container(
               color: AppColor.typography,
@@ -55,61 +55,26 @@ class _ShwovalueState extends State<Shwovalue> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 10),
-
-                          /// =====================
-                          /// عنوان النتائج
-                          /// =====================
                           SectionHeader(
                             icon: Icons.analytics_outlined,
-                            title: "نتائج التنازل عن الإستثمار".tr,
+                            title: "النتائج المفصلة".tr,
                           ),
-
                           const SizedBox(height: 25),
-
-                          // ======= سنوات متبقية =======
                           PenaltyCard(
-                            icon: Icons.account_balance_wallet_outlined,
-                            title: "القيمة الباقية للإستثمار".tr,
+                            icon: Icons.money,
+                            title: "الضريبة الجزافية الوحيدة".tr,
                             subtitle: "",
-                            amount: controller.remainingacquisition
+                            amount: controller.singleTax
                                 .toInt()
                                 .formatCustomint()
                                 .toString(),
                           ),
-
-                          const SizedBox(height: 14),
-                          // ======= القيمة الخاضعة =======
-                          PenaltyCard(
-                            icon: Icons.account_balance_wallet_outlined,
-                            title: "فائض القيمة عن الإستثمار".tr,
-                            subtitle: "",
-                            amount: controller.remaininSale
-                                .toInt()
-                                .formatCustomint()
-                                .toString(),
-                          ),
-
-                          const SizedBox(height: 14),
-                          PenaltyCard(
-                            icon: Icons.account_balance_wallet_outlined,
-                            title: "قيمة التخفيض".tr,
-                            subtitle: "",
-                            amount: controller.discount
-                                .toInt()
-                                .formatCustomint()
-                                .toString(),
-                          ),
-
                           const SizedBox(height: 30),
-
-                          // ======= المجموع النهائي =======
                           TotalAmountCard(
-                            title: "المبلغ الخاضع لي الضريبة بعد التخفيض".tr,
-                            // subtitle: "المبلغ بعد احتساب التنازل".tr,
-                            total: controller.total.toInt(),
+                            title: "المبلغ المدفوع لمصلحة الجمارك".tr,
+                            total: controller.amountPaidToCustoms.toInt(),
                           ),
                           const SizedBox(height: 30),
-
                           Custemsuberbutton(
                             content: "إنهاء".tr,
                             color: AppColor.typography,
@@ -117,7 +82,6 @@ class _ShwovalueState extends State<Shwovalue> {
                               controller.resetAll();
                             },
                           ),
-
                           const SizedBox(height: 10),
                         ],
                       ),

@@ -1,4 +1,5 @@
 import 'package:chafi/core/constant/routes.dart';
+import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/FlatRate/FlatRateValue.dart';
 import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/G12/TypeActevite.dart';
 import 'package:chafi/view/screen/Calculators/Simplified%20system/CalPersonType.dart';
 import 'package:chafi/view/screen/Calculators/different/InterestTax/TaxType.dart';
@@ -112,6 +113,10 @@ List<GetPage<dynamic>> routes = [
   GetPage(
     name: Approutes.calculatorsarbitrarysystem,
     page: () => const Calculatorsarbitrarysystem(),
+  ),
+  GetPage(
+    name: Approutes.flatratesystem,
+    page: () => const FlatrateValue(),
   ),
   GetPage(
     name: Approutes.typeacteviteg12bes,

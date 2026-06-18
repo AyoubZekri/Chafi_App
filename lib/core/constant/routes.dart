@@ -30,6 +30,7 @@ class Approutes {
   static const String calculatorsofSystemSimpli = "/calculatorsofSystemSimpli";
   static const String calculatorsarbitrarysystem =
       "/Calculatorsarbitrarysystem";
+  static const String flatratesystem = "/Flatratesystem";
   static const String calculatorsrealsystem = "/Calculatorsrealsystem";
   static const String calculatorsdefferent = "/Calculatorsdefferent";
 

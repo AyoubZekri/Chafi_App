@@ -490,6 +490,20 @@ List<Institutiontypemodel> calculatorsofSystemSimpli = [
     color1: Color(0xff270C46),
     sizeText: 27,
   ),
+  Institutiontypemodel(
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.flatratesystem,
+        arguments: {'fromPage': "/calculatorsofSystemSimpli"},
+      ),
+    ),
+
+    body: "الإقتطاع من المصدر",
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 22,
+  ),
 ];
 
 List<Institutiontypemodel> calculatorsofSystemarbitrary = [
@@ -555,9 +569,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
     color1: Color(0xff270C46),
     sizeText: 25,
   ),
-];
 
-List<Institutiontypemodel> calculatorsofDiffernt = [
   Institutiontypemodel(
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
@@ -631,34 +643,7 @@ List<Institutiontypemodel> calculatorsofDiffernt = [
     color1: Color(0xff270C46),
     sizeText: 25,
   ),
-  Institutiontypemodel(
-    ontap: () => handleLoginRequired(
-      () => Get.toNamed(
-        Approutes.realestateincometype,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
-      ),
-    ),
 
-    body: "المداخيل العقارية",
-    imgae: Appimageassets.calculators,
-    color2: Color(0xFF7333BD),
-    color1: Color(0xff270C46),
-    sizeText: 25,
-  ),
-  Institutiontypemodel(
-    ontap: () => handleLoginRequired(
-      () => Get.toNamed(
-        Approutes.surrenderofthepropertytype,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
-      ),
-    ),
-
-    body: "التنازل عن العقارات",
-    imgae: Appimageassets.calculators,
-    color2: Color(0xFF7333BD),
-    color1: Color(0xff270C46),
-    sizeText: 25,
-  ),
   Institutiontypemodel(
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
@@ -683,6 +668,37 @@ List<Institutiontypemodel> calculatorsofDiffernt = [
     ),
 
     body: "bonuses_compensation",
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 25,
+  ),
+];
+
+List<Institutiontypemodel> calculatorsofDiffernt = [
+  Institutiontypemodel(
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.realestateincometype,
+        arguments: {'fromPage': "/Calculatorsdefferent"},
+      ),
+    ),
+
+    body: "المداخيل العقارية",
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 25,
+  ),
+  Institutiontypemodel(
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.surrenderofthepropertytype,
+        arguments: {'fromPage': "/Calculatorsdefferent"},
+      ),
+    ),
+
+    body: "التنازل عن العقارات",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),

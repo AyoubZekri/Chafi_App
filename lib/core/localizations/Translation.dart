@@ -67,10 +67,9 @@ class MyTranslation extends Translations {
       "48": "النظام الحقيقي",
       "49": "النظام الجزافي",
       "50": "النظام المبسط",
-      "51":
-          "تصفّح مجموعة متنوعة من المقالات المتخصصة في عالم الأنضمة الجبائية والقوانين الخاصة",
+      "51":"تصفح الأنظمة الجبائية الجزائرية",
       "52":
-          "اختر النضام الذي يهمّك للحصول على محتوى دقيق، مبسّط، ومحدّث باستمرار",
+          "اختر النظام الذي يهمّك للحصول على محتوى دقيق، مبسّط، ومحدّث باستمرار",
       "53":
           "تصفّح مجموعة متنوعة من الجزاءات  التنضيمية المتخصصة في عالم الأنضمة الجبائية والقوانين الخاصة",
       "54":
@@ -353,7 +352,7 @@ class MyTranslation extends Translations {
       "deduction_value": "قيمة الخصم",
 
       "finish": "إنهاء",
-      "bonuses_compensations": "العلوات والتعويضات",
+      "bonuses_compensations": "العلاوات والتعويضات",
       "enter_data_correctly": "أدخل البيانات بدقة للحصول على نتيجة صحيحة",
       "choose_account_type": "إختر نوع الحساب",
       "monthly": "شهري",
@@ -809,8 +808,7 @@ class MyTranslation extends Translations {
       "48": "Real system",
       "49": "Flat-rate system",
       "50": "Simplified system",
-      "51":
-          "Browse a variety of specialized articles in the world of tax systems and specific laws",
+      "51": "Browse the Algerian tax systems",
       "52":
           "Choose the system that interests you for precise, simplified, and constantly updated content",
       "53":
@@ -1513,7 +1511,7 @@ class MyTranslation extends Translations {
       "التبعات المترتبة": "Consequences",
       "تعديل": "Edit",
       "ملاحظة": "Note",
-      "يمكن تغيير نضام الجبائي إلى حقيقي لاكن بطلب منذ التأسيس \nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج.":
+      "يمكن تغيير  ام الجبائي إلى حقيقي لاكن بطلب منذ التأسيس \nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج.":
           "The tax regime can be changed to real but upon request from inception \nor before February 01 of the year\nor when exceeding two consecutive years\nthe threshold of 8,000,000.00 DZD.",
       "يمكن التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.":
           "It is possible to switch to simplified\nwhen exceeding two consecutive years\nthe threshold of 8,000,000.00 DZD\nor upon request before February 01 or from inception.",
