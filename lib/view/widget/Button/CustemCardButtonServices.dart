@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/constant/Colorapp.dart';
+
 class Custemcardbuttonservices extends StatelessWidget {
   final String title;
   final String image;
@@ -29,39 +31,42 @@ class Custemcardbuttonservices extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: height ?? (Get.width / 3) - 17,
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        width: width ?? (Get.width / 3) - 17,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: color2 == null ? color : null,
-          gradient: color2 != null
-              ? LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [color, ?color2],
-                )
-              : null,
+          color: Colors.grey.shade100,
+          border: Border.all(color: Colors.grey.shade300, width: 1),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(180),
+                shape: BoxShape.circle,
+                color: AppColor.typography,
               ),
-              child: Image.asset(image, height: 35, width: 35),
-            ),
-            AutoSizeText(
-              title,
-              minFontSize: 9,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
+              child: Image.asset(
+                image,
+                height: 26,
+                width: 26,
                 color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: AutoSizeText(
+                title,
+                minFontSize: 9,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.typography,
+                ),
               ),
             ),
           ],

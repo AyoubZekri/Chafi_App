@@ -41,7 +41,7 @@ class _LawState extends State<Law> {
                   return Custoumbuttoncard(
                     title: item.localizedName,
                     description:
-                       '${"خرج في".tr} ${item.updatedAt.toString().substring(0, 4)}',
+                       '${"إصدار".tr} ${item.updatedAt.toString().substring(0, 4)}',
                     onTap: () {
                       Get.to(
                         () => PdfSearchPage(

@@ -101,10 +101,11 @@ class HomecontrollerImp extends Homecontroller {
   void checkAndShowFeedback() {
     bool? hasFeedback = myServices.sharedPreferences?.getBool("hasFeedback");
     int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+
     if (hasFeedback != true &&
         isLoggedIn &&
-        Get.isDialogOpen != true &&
-        numEnter >= 10) {
+        numEnter > 0 &&
+        numEnter % 5 == 0) {
       Future.delayed(const Duration(seconds: 2), () {
         if (Get.isDialogOpen != true) {
           showFeedbackDialog();
@@ -114,26 +115,78 @@ class HomecontrollerImp extends Homecontroller {
   }
 
   void showFeedbackDialog() {
-    List<int> selectedTypes = [];
-    final List<Map<String, dynamic>> options = [
-      {"id": 1, "name": "feedback_easy".tr},
-      {"id": 2, "name": "feedback_instructive".tr},
-      {"id": 3, "name": "feedback_motivating".tr},
-      {"id": 4, "name": "feedback_correcting".tr},
-      {"id": 5, "name": "feedback_reassuring".tr},
+    Map<int, int> selectedAnswers = {};
+    Set<int> expandedQuestions = {}; // لا تفتح أي سؤال افتراضيًا
+
+    final List<Map<String, dynamic>> questions = [
+      {
+        "title": "العدالة الضريبية".tr,
+        "options": [
+          {"id": 11, "name": "ضعيفة".tr},
+          {"id": 12, "name": "مقبولة".tr},
+          {"id": 13, "name": "جيدة ومحفزة".tr},
+        ],
+      },
+      {
+        "title": "العلاقة مع الادارة".tr,
+        "options": [
+          {"id": 21, "name": "متعاونة".tr},
+          {"id": 22, "name": "بطيئة".tr},
+          {"id": 23, "name": "صارمة ومعقدة".tr},
+        ],
+      },
+      {
+        "title": "عوائق الامتثال".tr,
+        "options": [
+          {"id": 31, "name": "تعقيد القوانين الجبائية".tr},
+          {"id": 32, "name": "ارتفاع تكلفة الضرائب".tr},
+          {"id": 33, "name": "غياب التوجيه".tr},
+        ],
+      },
+      {
+        "title": "الدافع نحو الامتثال".tr,
+        "options": [
+          {"id": 41, "name": "واجب وطني".tr},
+          {"id": 42, "name": "الاستفادة من التحفيزات".tr},
+          {"id": 43, "name": "تجنب العقوبات".tr},
+        ],
+      },
+      {
+        "title": "أثر الرقمنة".tr,
+        "options": [
+          {"id": 51, "name": "ضرورة للعمل".tr},
+          {"id": 52, "name": "توفر الوقت والجهد".tr},
+          {"id": 53, "name": "صعبة الاستخدام".tr},
+        ],
+      },
+      {
+        "title": "كيف ساعدك شافي".tr,
+        "options": [
+          {"id": 61, "name": "بسط القوانين الجبائية".tr},
+          {"id": 62, "name": "صحح المفاهيم الخاطئة".tr},
+          {"id": 63, "name": "قلل كلفة الاستشارة".tr},
+          {"id": 64, "name": "تعزيز وتحفيز على الامتثال".tr},
+        ],
+      },
     ];
 
     Get.dialog(
       barrierDismissible: false,
       Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: StatefulBuilder(
           builder: (context, setState) {
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              padding: const EdgeInsets.only(
+                top: 15,
+                left: 15,
+                right: 15,
+                bottom: 5,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -159,126 +212,189 @@ class HomecontrollerImp extends Homecontroller {
                       ), // Spacer to balance the close button
                     ],
                   ),
-                  // Progress Bar
-                  // Container(
-                  //   height: 4,
-                  //   width: double.infinity,
-                  //   margin: const EdgeInsets.symmetric(vertical: 10),
-                  //   decoration: BoxDecoration(
-                  //     color: AppColor.primarycolor.withOpacity(0.2),
-                  //     borderRadius: BorderRadius.circular(2),
-                  //   ),
-                  //   child: FractionallySizedBox(
-                  //     alignment: Alignment.centerRight,
-                  //     widthFactor: 0.7, // Visual aesthetic
-                  //     child: Container(
-                  //       decoration: BoxDecoration(
-                  //         color: AppColor.primarycolor,
-                  //         borderRadius: BorderRadius.circular(2),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   const SizedBox(height: 10),
-                  // Question
-                  Text(
-                    "feedback_question".tr,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                      color: Colors.black87,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 5),
-                  // Subtitle
-                  Text(
-                    "feedback_subtitle".tr,
-                    style: const TextStyle(color: Colors.grey, fontSize: 14),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-                  // Options
-                  ...options.map((option) {
-                    bool isSelected = selectedTypes.contains(option['id']);
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (isSelected) {
-                            selectedTypes.remove(option['id']);
-                          } else {
-                            selectedTypes.add(option['id']);
-                          }
-                        });
+                  Flexible(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: questions.length,
+                      itemBuilder: (context, qIndex) {
+                        final question = questions[qIndex];
+                        bool isExpanded = expandedQuestions.contains(qIndex);
+                        bool isAnswered = selectedAnswers.containsKey(qIndex);
+
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: isAnswered
+                                  ? AppColor.primarycolor.withOpacity(0.5)
+                                  : Colors.grey.shade300,
+                              width: 1.5,
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                borderRadius: BorderRadius.circular(12),
+                                onTap: () {
+                                  setState(() {
+                                    if (isExpanded) {
+                                      expandedQuestions.remove(qIndex);
+                                    } else {
+                                      expandedQuestions.add(qIndex);
+                                    }
+                                  });
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.start,                        
+                                    children: [
+                                    
+                                     Text(
+                                          "${qIndex + 1}- ${question['title']}",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: isAnswered
+                                                ? AppColor.primarycolor
+                                                : Colors.black87,
+                                          ),
+                                        
+                                        ),
+                                      
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              if (isExpanded)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 12,
+                                    right: 12,
+                                    bottom: 12,
+                                  ),
+                                  child: Column(
+                                    children: ((question['options'] as List).map((
+                                      option,
+                                    ) {
+                                      bool isSelected =
+                                          selectedAnswers[qIndex] ==
+                                          option['id'];
+                                      return GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedAnswers[qIndex] =
+                                                option['id'];
+                                            // اختياري: إغلاق السؤال عند اختيار الإجابة والانتقال للتالي
+                                            // expandedQuestions.remove(qIndex);
+                                            // if (qIndex + 1 < questions.length) expandedQuestions.add(qIndex + 1);
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: const EdgeInsets.only(top: 8),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 10,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xFFF5F5F5),
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                            border: Border.all(
+                                              color: isSelected
+                                                  ? AppColor.primarycolor
+                                                  : Colors.transparent,
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  option['name'],
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: isSelected
+                                                        ? FontWeight.bold
+                                                        : FontWeight.w500,
+                                                    color: isSelected
+                                                        ? AppColor.primarycolor
+                                                        : Colors.black87,
+                                                  ),
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Container(
+                                                width: 20,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: isSelected
+                                                        ? AppColor.primarycolor
+                                                        : Colors.grey,
+                                                    width: 2,
+                                                  ),
+                                                  color: isSelected
+                                                      ? AppColor.primarycolor
+                                                      : Colors.transparent,
+                                                ),
+                                                child: isSelected
+                                                    ? Center(
+                                                        child: Container(
+                                                          width: 10,
+                                                          height: 10,
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                                color: Colors
+                                                                    .white,
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                        ),
+                                                      )
+                                                    : null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }).toList()),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        );
                       },
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 12,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF5F5F5),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                option['name'],
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.right,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(
-                                  color: isSelected
-                                      ? AppColor.primarycolor
-                                      : Colors.grey,
-                                  width: 2,
-                                ),
-                                color: isSelected
-                                    ? AppColor.primarycolor
-                                    : Colors.transparent,
-                              ),
-                              child: isSelected
-                                  ? const Icon(
-                                      Icons.check,
-                                      size: 20,
-                                      color: Colors.white,
-                                    )
-                                  : const SizedBox(width: 20, height: 20),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                  const SizedBox(height: 20),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
                   // Buttons
                   Column(
                     children: [
                       SizedBox(
                         width: double.infinity,
-                        height: 55,
+                        height: 50,
                         child: ElevatedButton(
-                          onPressed: selectedTypes.isEmpty
+                          onPressed: selectedAnswers.isEmpty
                               ? null
                               : () async {
-                                  await sendFeedback(selectedTypes);
+                                  await sendFeedback(
+                                    selectedAnswers.values.toList(),
+                                  );
                                 },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.primarycolor,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             disabledBackgroundColor: AppColor.primarycolor
                                 .withOpacity(0.5),
@@ -292,7 +408,6 @@ class HomecontrollerImp extends Homecontroller {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
                       TextButton(
                         onPressed: () => Get.back(),
                         child: Text(

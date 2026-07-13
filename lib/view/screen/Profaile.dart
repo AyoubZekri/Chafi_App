@@ -195,6 +195,26 @@ class _ProfaileState extends State<Profaile> {
                         ),
                       ]),
 
+                      SizedBox(height: 20),
+
+                      _buildSectionTitle("other_services".tr),
+                      _buildSettingsCard([
+                        Builddeadlinetile(
+                          icon: Icons.cast_for_education,
+                          title: "training_courses".tr,
+                          ontap: () {
+                            controller.gotoTrainingCourses();
+                          },
+                        ),
+                        Builddeadlinetile(
+                          icon: Icons.support_agent_outlined,
+                          title: "consultations".tr,
+                          ontap: () {
+                            controller.gotoConsultations();
+                          },
+                        ),
+                      ]),
+
                       SizedBox(height: 50),
                     ],
                   ),

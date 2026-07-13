@@ -36,8 +36,8 @@ class Custemcardrow extends StatelessWidget {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             colors: Get.locale?.languageCode == "ar"
-                ? [color1, color2]
-                : [color2, color1],
+                ? [AppColor.typography, AppColor.typography]
+                : [AppColor.typography, AppColor.typography],
           ),
           borderRadius: BorderRadius.circular(15),
         ),
@@ -219,9 +219,10 @@ class CustomCalculatorCard extends StatelessWidget {
         height: 120,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: Get.locale?.languageCode == "ar"
-                ? [color1, color2]
-                : [color2, color1],
+            // colors: Get.locale?.languageCode == "ar"
+            //     ? [color1, color2]
+            //     : [color2, color1],
+            colors: [AppColor.typography, AppColor.typography],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),

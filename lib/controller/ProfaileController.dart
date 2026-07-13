@@ -21,6 +21,8 @@ class Profailecontroller extends GetxController {
   void gotoInformationapp() {}
   void gotoPrivacypolicy() {}
   void gotoExternallinks() {}
+  void gotoTrainingCourses() {}
+  void gotoConsultations() {}
 }
 
 class ProfailecontrollerImp extends Profailecontroller {
@@ -122,6 +124,16 @@ class ProfailecontrollerImp extends Profailecontroller {
       Approutes.institutionsinfo,
       arguments: {"name": 93, "type": 10, "type_deff": 1},
     );
+  }
+
+  @override
+  gotoTrainingCourses() {
+    Get.toNamed(Approutes.underconstruction, arguments: {"title": "training_courses".tr});
+  }
+
+  @override
+  gotoConsultations() {
+    Get.toNamed(Approutes.underconstruction, arguments: {"title": "consultations".tr});
   }
 
   void showLanguageSheet(BuildContext context) {

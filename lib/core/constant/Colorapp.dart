@@ -10,4 +10,5 @@ class AppColor {
 
   static const Color red = Colors.red;
   static const Color black = Colors.black;
+  static const Color card1 = Color(0xFFF3F4F6);
 }

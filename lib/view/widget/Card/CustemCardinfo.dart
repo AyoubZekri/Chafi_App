@@ -107,20 +107,18 @@ class _CustemcardinfoState extends State<Custemcardinfo>
                       const SizedBox(width: 12),
                     ],
                     Expanded(
-                      child: AutoSizeText(
+                      child: Text(
                         widget.title,
                         style: context.textTheme.headlineMedium?.copyWith(
                           fontSize: 17,
+                          height: 1.4,
                           fontWeight: isQuestion
-                              ? FontWeight.w600
-                              : FontWeight.normal,
+                              ? FontWeight.w700
+                              : FontWeight.w800,
                           color: isQuestion
                               ? AppColor.primarycolor
-                              : AppColor.black,
+                              : AppColor.typography,
                         ),
-                        maxLines: 2,
-                        minFontSize: 14,
-                        overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.start,
                       ),
                     ),
@@ -143,7 +141,7 @@ class _CustemcardinfoState extends State<Custemcardinfo>
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 20),
                             buildRichText(widget.body, context),
 
                             if (widget.Calculator ||

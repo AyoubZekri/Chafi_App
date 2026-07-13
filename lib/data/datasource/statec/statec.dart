@@ -718,4 +718,18 @@ List<Institutiontypemodel> calculatorsofDiffernt = [
     color1: Color(0xff270C46),
     sizeText: 25,
   ),
+  Institutiontypemodel(
+    ontap: () => handleLoginRequired(
+      () => Get.toNamed(
+        Approutes.fiscalcalculator,
+        arguments: {'fromPage': "/Calculatorsdefferent"},
+      ),
+    ),
+
+    body: "حاسبة جبائية",
+    imgae: Appimageassets.calculators,
+    color2: Color(0xFF7333BD),
+    color1: Color(0xff270C46),
+    sizeText: 25,
+  ),
 ];

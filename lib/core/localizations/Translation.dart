@@ -16,7 +16,7 @@ class MyTranslation extends Translations {
       "7": "اكتشف القوانين والجباية بطريقة مبسطة، دقيقة، ومن مصادر رسمية",
       "8": "نساعدك تبني وتسيّر مؤسستك بثقة",
       "9": "أدوات، معلومات، وخدمات تجمع كل ما تحتاجه في مكان واحد",
-      "10": "أهلا بك في شافي رفيقك في الجباية",
+      "10": "أهلا بك في شافي الجباية ببساطة",
       "11": "سجل الدخول",
       "12": "سجل بواسطة GOOGLE",
       "13": "دخول كضيف",
@@ -52,7 +52,7 @@ class MyTranslation extends Translations {
       "38": "مؤسسة ناشئة",
       "39": "حاضنة أعمال",
 
-      "40": "مقالات",
+      "40": "قوانين",
 
       "41": "مؤسسات",
       "42":
@@ -67,7 +67,7 @@ class MyTranslation extends Translations {
       "48": "النظام الحقيقي",
       "49": "النظام الجزافي",
       "50": "النظام المبسط",
-      "51":"تصفح الأنظمة الجبائية الجزائرية",
+      "51": "تصفح الأنظمة الجبائية الجزائرية",
       "52":
           "اختر النظام الذي يهمّك للحصول على محتوى دقيق، مبسّط، ومحدّث باستمرار",
       "53":
@@ -108,7 +108,7 @@ class MyTranslation extends Translations {
       "85": "تسجيل الخروج",
       "86": "تواصل معنا",
       "87": "السياسة الخصوصية",
-      "88": "معلومات عن التطبيق",
+      "88": "عن التطبيق",
       "89": "سجلاتي",
       "90": "يمكنك الاطلاع على سجلاتك والتحكم فيها من خلال هذه الصفحة",
       "91": "مسار جديد",
@@ -147,7 +147,7 @@ class MyTranslation extends Translations {
 
       "Home": "الرئيسية",
       "Records": "السجلات",
-      "Articles": "المقالات",
+      "Articles": "قوانين",
       "Profile": "حسابي",
       "سجلاتي": "سجلاتي",
 
@@ -199,20 +199,18 @@ class MyTranslation extends Translations {
 
       "تعديل الملف الشخصي": "تعديل الملف الشخصي",
       "روابط خارجية": "روابط خارجية",
-      "informationApp": "معلومات التطبيق",
+      "informationApp": "عن التطبيق",
       "الإشعارات": "الإشعارات",
       "لا توجد إشعارات حاليا": "لا توجد إشعارات حالياً",
-
       "المعلومات التي نجمعها": "المعلومات التي نجمعها",
       "Privacy Policy": "سياسة الخصوصية",
-
       "اذهب إلى الصفحة": "اذهب إلى الصفحة",
       "أدخل رقم الصفحة": "أدخل رقم الصفحة",
       "اذهب": "اذهب",
       "PDF Viewer": "عارض PDF",
       "ابحث داخل الملف...": "ابحث داخل الملف...",
       'hello': 'مرحبا',
-      'slogan': "شافي رفيقك في الجباية",
+      'slogan': "شافي… الجباية ببساطة",
       'Invité': 'ضيف',
       'موافق': 'موافق',
 
@@ -574,7 +572,8 @@ class MyTranslation extends Translations {
       "القيمة التي سيتم احتسابها للضريبة": "القيمة التي سيتم احتسابها للضريبة",
       "المجموع النهائي": "المجموع النهائي",
       "المبلغ بعد احتساب التنازل": "المبلغ بعد احتساب التنازل",
-      "أدخل معلومات تنازل الإستثمار": "أدخل معلومات تنازل عن الإستثمار الإستثمار",
+      "أدخل معلومات تنازل الإستثمار":
+          "أدخل معلومات تنازل عن الإستثمار الإستثمار",
       "سعر إقتناء": "سعر إقتناء",
       "سعر تنازل": "سعر تنازل",
       "سنوات الصلاحية": "سنوات الصلاحية",
@@ -606,7 +605,27 @@ class MyTranslation extends Translations {
           "تطبيق شافي (CHAFI) هو منصة رقمية مبتكرة تهدف إلى تبسيط العملية الجبائية وتسهيل التواصل بين الإدارة الضريبية والمكلفين بالضريبة. يقدّم التطبيق أدوات متكاملة لمساعدة المؤسسات الناشئة والصغيرة على الامتثال للالتزامات الضريبية بسهولة وسرعة، مع تعزيز الفهم لمفاهيم الجباية لدى الطلبة الأكاديميين والمهتمين بالمحاسبة في المؤسسات العامة والخاصة.",
       "informationBody2":
           "من خلال شافي، يمكن للمستخدمين متابعة التزاماتهم الضريبية، الحصول على شروحات وتوضيحات مبسطة، والاستفادة من تجربة رقمية سلسة تدعم التعليم العملي والامتثال القانوني في نفس الوقت.",
-      "خرج في": "خرج في",
+      "info_title1": "لمحة عن منصة شافي CHAFI",
+      "info_content1":
+          "منصة رقمية مبتكرة تهدف إلى تبسيط المفاهيم الجبائية وتسهيل العلاقة بين الإدارة الضريبية والمكلفين بالضريبة، خاصة أصحاب المؤسسات الناشئة والمصغرة. كما تسعى المنصة إلى مساعدة الطلبة الجامعيين، الباحثين، المحاسبين، والمهتمين بالمجال الجبائي، من خلال تقديم محتوى مبسط، واضح، وسهل الاستخدام .",
+      "info_title2": "التعريف الأكاديمي لتطبيق \"شافي\"",
+      "info_content2":
+          "يقصد بتسمية “شافي” الدلالة على التبسيط والتوضيح، إذ يسعى التطبيق إلى مساعدة المستخدم على فهم الإشكالات الجبائية بطريقة سهلة ومنظمة. ويعتمد التطبيق على بيئة رقمية مبسطة تجمع بين القوانين، الشروحات، النماذج، والأدوات التفاعلية، بما يساهم في تعزيز الوعي الجبائي لدى المكلفين والمهتمين بالمجال.",
+      "info_title3": "شرح التسمية الرسمية للتطبيق: شافي (CHAFI)",
+      "info_content3":
+          "تحمل كلمة “شافي” في اللغة العربية معنى العلاج والإصلاح، وهي هنا تستعمل مجازًا للدلالة على معالجة الغموض والتعقيد في المجال الجبائي، عبر حلول رقمية مبسطة وواضحة.\nأما الاختصار الإنجليزي CHAFI فهو مشتق من:\n• CHA: من اسم المؤسس Chaib\n• FI: من Fiscal Intelligence، أي الذكاء الجبائي.",
+      "info_title4": "مفهوم الشعار: \"شافي… الجباية ببساطة\"",
+      "info_content4":
+          "لقد تم اختيار شعار \"شافي… الجباية ببساطة\" ليُعبّر عن روح تطبيق \"شافي\" (CHAFI) وعن طبيعة العلاقة التي يسعى إلى بنائها مع المستخدم، خاصةً المؤسسات الناشئة والمصغرة ليبسط لهم فهم الامتثال الضريبي.",
+      "app_logo_title": "CHAFI | شافي",
+      "app_slogan": "شافي… الجباية ببساطة",
+      "other_services": "خدمات أخرى",
+      "training_courses": "دورات تكوينية",
+      "consultations": "إستشارات",
+      "under_construction": "قيد الإنجاز",
+      "under_construction_desc":
+          "هذه الصفحة قيد التطوير حالياً، قريباً ستكون متاحة.",
+      "إصدار": "إصدار",
 
       "أدرار": "أدرار",
       "الشلف": "الشلف",
@@ -722,6 +741,32 @@ class MyTranslation extends Translations {
 
       'قيمة التسبيقة': 'قيمة التسبيقة',
       'حساب القيمة المحققة': "حساب النتيجة",
+      "الإقتطاع من المصدر": "الإقتطاع من المصدر",
+      "العدالة الضريبية": "العدالة الضريبية",
+      "ضعيفة": "ضعيفة",
+      "مقبولة": "مقبولة",
+      "جيدة ومحفزة": "جيدة ومحفزة",
+      "العلاقة مع الادارة": "العلاقة مع الإدارة",
+      "متعاونة": "متعاونة",
+      "بطيئة": "بطيئة",
+      "صارمة ومعقدة": "صارمة ومعقدة",
+      "عوائق الامتثال": "عوائق الامتثال",
+      "تعقيد القوانين الجبائية": "تعقيد القوانين الجبائية",
+      "ارتفاع تكلفة الضرائب": "ارتفاع تكلفة الضرائب",
+      "غياب التوجيه": "غياب التوجيه",
+      "الدافع نحو الامتثال": "الدافع نحو الامتثال",
+      "واجب وطني": "واجب وطني",
+      "الاستفادة من التحفيزات": "الاستفادة من التحفيزات",
+      "تجنب العقوبات": "تجنب العقوبات",
+      "أثر الرقمنة": "أثر الرقمنة",
+      "ضرورة للعمل": "ضرورة للعمل",
+      "توفر الوقت والجهد": "توفر الوقت والجهد",
+      "صعبة الاستخدام": "صعبة الاستخدام",
+      "كيف ساعدك شافي": "كيف ساعدك شافي",
+      "بسط القوانين الجبائية": "بسط القوانين الجبائية",
+      "صحح المفاهيم الخاطئة": "صحح المفاهيم الخاطئة",
+      "قلل كلفة الاستشارة": "قلل كلفة الاستشارة",
+      "تعزيز وتحفيز على الامتثال": "تعزيز وتحفيز على الامتثال",
     },
 
     ///////////////////////////////////////
@@ -792,7 +837,7 @@ class MyTranslation extends Translations {
       "38": "Startup",
       "39": "Business incubator",
 
-      "40": "Articles",
+      "40": "Laws",
 
       "41": "Institutions",
       "42":
@@ -851,7 +896,7 @@ class MyTranslation extends Translations {
       "85": "Logout",
       "86": "Contact us",
       "87": "Privacy policy",
-      "88": "App information",
+      "88": "About the app",
       "89": "My records",
       "90": "You can view and manage your records from this page",
       "91": "New path",
@@ -876,7 +921,7 @@ class MyTranslation extends Translations {
 
       "Home": "Home",
       "Records": "Records",
-      "Articles": "Articles",
+      "Articles": "Laws",
       "Profile": "Profile",
       "سجلاتي": "My records",
 
@@ -926,7 +971,7 @@ class MyTranslation extends Translations {
 
       "تعديل الملف الشخصي": "Edit profile",
       "روابط خارجية": "External links",
-      "informationApp": "App info",
+      "informationApp": "About the app",
       "الإشعارات": "Notifications",
       "لا توجد إشعارات حاليا": "No notifications",
 
@@ -939,7 +984,7 @@ class MyTranslation extends Translations {
       "PDF Viewer": "PDF Reader",
       "ابحث داخل الملف...": "Search...",
       'hello': 'Hello',
-      'slogan': "Chafi, your companion",
+      'slogan': "Chafi... Taxation simply",
       'Invité': 'Guest',
       'موافق': "Agree",
       'يرجى تحديد نتيجة السنة المالية أولا': "First select the tax result",
@@ -1356,7 +1401,8 @@ class MyTranslation extends Translations {
       "القيمة التي سيتم احتسابها للضريبة": "Value to be calculated for tax",
       "المجموع النهائي": "Final total",
       "المبلغ بعد احتساب التنازل": "Amount after calculating transfer",
-      "أدخل معلومات تنازل الإستثمار": "Enter information about the investment transfer",
+      "أدخل معلومات تنازل الإستثمار":
+          "Enter information about the investment transfer",
       "سعر إقتناء": "Acquisition price",
       "سعر تنازل": "Transfer price",
       "سنوات الصلاحية": "Validity years",
@@ -1404,7 +1450,21 @@ class MyTranslation extends Translations {
           "The Chafi app is an innovative digital platform aimed at simplifying the tax process and facilitating communication between the tax administration and taxpayers. The app provides comprehensive tools to help startups and small businesses comply with tax obligations easily and quickly, while strengthening the understanding of tax concepts for students and people interested in accounting in public and private institutions.",
       "informationBody2":
           "Thanks to Chafi, users can track their tax obligations, get simplified explanations, and enjoy a seamless digital experience that supports both practical learning and legal compliance.",
-      "خرج في": "Published on",
+      "info_title1": "About the Chafi Platform",
+      "info_content1":
+          "An innovative digital platform aimed at simplifying tax concepts and facilitating the relationship between the tax administration and taxpayers, especially for startups and micro enterprises. The platform also seeks to assist university students, researchers, accountants, and those interested in the tax field, by providing simplified, clear, and easy-to-use content.",
+      "info_title2": "Academic Definition of the 'Chafi' App",
+      "info_content2":
+          "The name 'Chafi' signifies simplification and clarification, as the application seeks to help the user understand tax issues in an easy and organized manner. The app relies on a simplified digital environment that combines laws, explanations, models, and interactive tools, contributing to enhancing tax awareness among taxpayers and those interested in the field.",
+      "info_title3": "Explanation of the App's Official Name: CHAFI",
+      "info_content3":
+          "The word 'Chafi' in Arabic carries the meaning of healing and reform, and it is used metaphorically here to indicate addressing ambiguity and complexity in the tax field through simplified and clear digital solutions.\nAs for the English acronym CHAFI, it is derived from:\n• CHA: from the founder's name, Chaib\n• FI: from Fiscal Intelligence.",
+      "info_title4": "Concept of the Slogan: \"Chafi... Taxation simply\"",
+      "info_content4":
+          "The slogan \"Chafi... Taxation simply\" was chosen to express the spirit of the \"Chafi\" app and the nature of the relationship it seeks to build with the user, especially startups and micro-enterprises, to simplify their understanding of tax compliance.",
+      "app_logo_title": "CHAFI",
+      "app_slogan": "Chafi... Taxation simply",
+      "إصدار": "Version",
 
       "أدرار": "Adrar",
       "الشلف": "Chlef",
@@ -1533,6 +1593,38 @@ class MyTranslation extends Translations {
       "Arabic": "العربية",
       "Contractor's Partner":
           "For self-employed contractors, if the annual turnover exceeds the threshold of 5,000,000.00 DZD for 3 consecutive years, the status will be revoked, the card withdrawn, and the taxpayer will be notified to obtain a commercial register.\nIf no turnover declaration is submitted, or a zero turnover is declared, the self-employed contractor card will also be withdrawn.",
+      "other_services": "Other services",
+      "training_courses": "Training courses",
+      "consultations": "Consultations",
+      "under_construction": "Under Construction",
+      "under_construction_desc":
+          "This page is currently under development, it will be available soon.",
+      "الإقتطاع من المصدر": "Retenue à la source",
+      "العدالة الضريبية": "Tax fairness",
+      "ضعيفة": "Weak",
+      "مقبولة": "Acceptable",
+      "جيدة ومحفزة": "Good and motivating",
+      "العلاقة مع الادارة": "Relationship with administration",
+      "متعاونة": "Cooperative",
+      "بطيئة": "Slow",
+      "صارمة ومعقدة": "Strict and complex",
+      "عوائق الامتثال": "Compliance barriers",
+      "تعقيد القوانين الجبائية": "Complexity of tax laws",
+      "ارتفاع تكلفة الضرائب": "High tax cost",
+      "غياب التوجيه": "Lack of guidance",
+      "الدافع نحو الامتثال": "Motivation for compliance",
+      "واجب وطني": "National duty",
+      "الاستفادة من التحفيزات": "Benefit from incentives",
+      "تجنب العقوبات": "Avoid penalties",
+      "أثر الرقمنة": "Impact of digitization",
+      "ضرورة للعمل": "A necessity for work",
+      "توفر الوقت والجهد": "Saves time and effort",
+      "صعبة الاستخدام": "Difficult to use",
+      "كيف ساعدك شافي": "How did Chafi help you",
+      "بسط القوانين الجبائية": "Simplified tax laws",
+      "صحح المفاهيم الخاطئة": "Corrected misconceptions",
+      "قلل كلفة الاستشارة": "Reduced consultation cost",
+      "تعزيز وتحفيز على الامتثال": "Promoted and motivated compliance",
     },
   };
 }

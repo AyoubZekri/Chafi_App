@@ -7,8 +7,10 @@ import 'package:chafi/view/screen/Calculators/different/ResearchandDevelopment/R
 import 'package:chafi/view/screen/Setting/ContactUs.dart';
 import 'package:chafi/view/screen/Setting/Externallinks.dart';
 import 'package:chafi/view/screen/Setting/InformationAPP.dart';
+import 'package:chafi/view/screen/Setting/UnderConstruction.dart';
 import 'package:get/get.dart';
 
+import 'view/screen/Calculators/different/FiscalCalculator/FiscalCalculator.dart';
 import 'view/screen/ApplicationSystems/CategoriesApp.dart';
 import 'view/screen/Articles/ditailsArticles.dart';
 import 'view/screen/Auth/GoogleSignIn.dart';
@@ -164,6 +166,6 @@ List<GetPage<dynamic>> routes = [
 
   GetPage(name: Approutes.categoriesinstutions, page: () => const Categoriesinstutions()),
   GetPage(name: Approutes.childcategories, page: () => const Childcategories()),
-
-
+  GetPage(name: Approutes.underconstruction, page: () => const UnderConstruction()),
+  GetPage(name: Approutes.fiscalcalculator, page: () => const FiscalCalculator()),
 ];

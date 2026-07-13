@@ -27,13 +27,13 @@ class Custemcardcat extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: color2.withOpacity(0.35),
-            blurRadius: 15,
-            offset: const Offset(0, 6),
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: color2.withOpacity(0.35),
+        //     blurRadius: 15,
+        //     offset: const Offset(0, 6),
+        //   ),
+        // ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
@@ -48,7 +48,7 @@ class Custemcardcat extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [color1, color2],
+                  colors: [AppColor.typography, AppColor.typography],
                 ),
               ),
               child: Stack(
@@ -81,7 +81,10 @@ class Custemcardcat extends StatelessWidget {
                   ),
                   // Main Content
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 28,
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -97,22 +100,23 @@ class Custemcardcat extends StatelessWidget {
                             maxLines: 2,
                             minFontSize: 16,
                             overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.right, // Assuming Arabic layout
+                            textAlign:
+                                TextAlign.right, // Assuming Arabic layout
                           ),
                         ),
-                        const SizedBox(width: 15),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new_rounded, // Left arrow for Arabic RTL
-                            color: Colors.white,
-                            size: 16,
-                          ),
-                        )
+                        // const SizedBox(width: 15),
+                        // Container(
+                        //   padding: const EdgeInsets.all(8),
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white.withOpacity(0.2),
+                        //     shape: BoxShape.circle,
+                        //   ),
+                        //   child: const Icon(
+                        //     Icons.arrow_back_ios_new_rounded, // Left arrow for Arabic RTL
+                        //     color: Colors.white,
+                        //     size: 16,
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

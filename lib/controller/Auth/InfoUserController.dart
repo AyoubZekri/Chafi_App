@@ -174,10 +174,14 @@ class InfousercontrollerImp extends Infousercontroller {
         if (imagepath != null && imagepath.isNotEmpty) {
           final file = File(imagepath);
           if (file.existsSync()) {
-            Get.find<HomecontrollerImp>().image = file;
-            Get.find<HomecontrollerImp>().update();
-            Get.find<ProfailecontrollerImp>().onInit();
-            Get.find<ProfailecontrollerImp>().update();
+            if (Get.isRegistered<HomecontrollerImp>()) {
+              Get.find<HomecontrollerImp>().image = file;
+              Get.find<HomecontrollerImp>().update();
+            }
+            if (Get.isRegistered<ProfailecontrollerImp>()) {
+              Get.find<ProfailecontrollerImp>().onInit();
+              Get.find<ProfailecontrollerImp>().update();
+            }
           }
         }
 
