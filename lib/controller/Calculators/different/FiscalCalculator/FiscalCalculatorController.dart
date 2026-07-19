@@ -3,17 +3,21 @@ import 'package:get/get.dart';
 class FiscalCalculatorController extends GetxController {
   var userInput = ''.obs;
   var result = '0'.obs;
+  var isResultFinal = false.obs;
 
   void onButtonPressed(String text) {
     if (text == 'C') {
       userInput.value = '';
       result.value = '0';
+      isResultFinal.value = false;
     } else if (text == 'DEL') {
+      isResultFinal.value = false;
       if (userInput.value.isNotEmpty) {
         userInput.value = userInput.value.substring(0, userInput.value.length - 1);
         _calculateResult();
       }
     } else if (text == '%') {
+      isResultFinal.value = false;
       if (userInput.value.isNotEmpty) {
         _calculateResult();
         double current = double.tryParse(result.value) ?? 0.0;
@@ -21,8 +25,18 @@ class FiscalCalculatorController extends GetxController {
         userInput.value = result.value;
       }
     } else if (text == '=') {
+      isResultFinal.value = true;
       _calculateResult(finalResult: true);
     } else {
+      if (isResultFinal.value) {
+        if (isOperator(text)) {
+          userInput.value = result.value;
+        } else {
+          userInput.value = '';
+        }
+        isResultFinal.value = false;
+      }
+
       // Prevent consecutive operators, except maybe negative sign
       if (isOperator(text) && userInput.value.isNotEmpty) {
         String lastChar = userInput.value[userInput.value.length - 1];
@@ -60,9 +74,7 @@ class FiscalCalculatorController extends GetxController {
       } else {
          result.value = eval.toStringAsFixed(2);
       }
-      if (finalResult) {
-         userInput.value = result.value;
-      }
+      // Removed the logic that replaces userInput with result when finalResult is true
     } catch (e) {
       if (finalResult) {
           result.value = "Error";

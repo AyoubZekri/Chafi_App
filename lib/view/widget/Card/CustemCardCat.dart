@@ -9,6 +9,8 @@ class Custemcardcat extends StatelessWidget {
   final Color color1;
   final Color color2;
   final double sizeText;
+  final bool isFavorite;
+  final void Function()? onFavoriteTap;
 
   final void Function()? onTap;
 
@@ -19,6 +21,8 @@ class Custemcardcat extends StatelessWidget {
     required this.color1,
     required this.color2,
     required this.sizeText,
+    this.isFavorite = false,
+    this.onFavoriteTap,
   });
 
   @override
@@ -104,6 +108,15 @@ class Custemcardcat extends StatelessWidget {
                                 TextAlign.right, // Assuming Arabic layout
                           ),
                         ),
+                        if (onFavoriteTap != null)
+                          IconButton(
+                            onPressed: onFavoriteTap,
+                            icon: Icon(
+                              isFavorite ? Icons.favorite : Icons.favorite_border,
+                              color: isFavorite ? Colors.redAccent : Colors.white70,
+                              size: 28,
+                            ),
+                          ),
                         // const SizedBox(width: 15),
                         // Container(
                         //   padding: const EdgeInsets.all(8),

@@ -8,14 +8,13 @@ class FiscalCalculator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FiscalCalculatorController controller = Get.put(FiscalCalculatorController());
+    final FiscalCalculatorController controller = Get.put(
+      FiscalCalculatorController(),
+    );
 
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(
-        title: Text("حاسبة جبائية".tr),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text("حاسبة جبائية".tr), centerTitle: true),
       body: Column(
         children: [
           // Display Section
@@ -35,28 +34,56 @@ class FiscalCalculator extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Obx(() => Text(
-                        controller.userInput.value,
-                        style: const TextStyle(fontSize: 32, color: Colors.grey),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      )),
-                  const SizedBox(height: 10),
-                  Obx(() => Text(
-                        controller.result.value,
-                        style: const TextStyle(
-                          fontSize: 48,
-                          fontWeight: FontWeight.bold,
-                          color: AppColor.typography,
+                  Container(
+                    height: 60,
+                    alignment: Alignment.bottomRight,
+                    child: Obx(
+                      () => FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          controller.userInput.value,
+                          style: TextStyle(
+                            fontSize: controller.isResultFinal.value ? 32 : 48,
+                            color: controller.isResultFinal.value
+                                ? Colors.grey
+                                : AppColor.typography,
+                            fontWeight: controller.isResultFinal.value
+                                ? FontWeight.normal
+                                : FontWeight.bold,
+                          ),
+                          maxLines: 1,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Container(
+                    height: 60,
+                    alignment: Alignment.bottomRight,
+                    child: Obx(
+                      () => FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          controller.result.value,
+                          style: TextStyle(
+                            fontSize: controller.isResultFinal.value ? 48 : 32,
+                            color: controller.isResultFinal.value
+                                ? AppColor.typography
+                                : Colors.grey,
+                            fontWeight: controller.isResultFinal.value
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-          
+
           // Keypad Section
           Expanded(
             flex: 5,
@@ -108,7 +135,7 @@ class FiscalCalculator extends StatelessWidget {
                     return MyButton(
                       buttonText: buttons[index],
                       color: isOperator(buttons[index])
-                          ? AppColor.primarycolor
+                          ? AppColor.typography
                           : Colors.grey[200],
                       textColor: isOperator(buttons[index])
                           ? Colors.white
@@ -181,9 +208,24 @@ class MyButton extends StatelessWidget {
 }
 
 const List<String> buttons = [
-  'C', 'DEL', '%', '/',
-  '7', '8', '9', 'x',
-  '4', '5', '6', '-',
-  '1', '2', '3', '+',
-  '0', '00', '.', '=',
+  'C',
+  'DEL',
+  '%',
+  '/',
+  '7',
+  '8',
+  '9',
+  'x',
+  '4',
+  '5',
+  '6',
+  '-',
+  '1',
+  '2',
+  '3',
+  '+',
+  '0',
+  '00',
+  '.',
+  '=',
 ];

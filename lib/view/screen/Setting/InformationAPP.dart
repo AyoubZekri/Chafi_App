@@ -48,6 +48,12 @@ class Informationapp extends StatelessWidget {
                       icon: Icons.handshake_outlined,
                       content: "info_content4".tr,
                     ),
+                    const SizedBox(height: 16),
+                    _buildSectionCard(
+                      title: "important_alert".tr,
+                      icon: Icons.warning_amber_rounded,
+                      content: "important_alert_content".tr,
+                    ),
                     const SizedBox(height: 30),
                   ],
                 ),

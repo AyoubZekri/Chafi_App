@@ -11,7 +11,7 @@ import '../../data/datasource/Remote/institution.dart';
 import '../../data/model/InstitutionModel.dart';
 
 class InstitutioninfocontrollerImp extends GetxController {
-  late final int nameappar;
+  late final dynamic nameappar;
   int? type;
   int? catid;
   int? typedeff;

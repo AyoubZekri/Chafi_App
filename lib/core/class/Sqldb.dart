@@ -20,7 +20,7 @@ class SQLDB {
     Database mydb = await openDatabase(
       path,
       onCreate: _onCreate,
-      version: 1,
+      version: 2,
       onUpgrade: _onUpgrade,
     );
     return mydb;
@@ -28,6 +28,14 @@ class SQLDB {
 
   Future<void> _onUpgrade(Database db, int oldversion, int newVersion) async {
     print("_onUpgrade ===============");
+    if (oldversion < 2) {
+      await db.execute('''
+        CREATE TABLE favorites(
+          item_id INTEGER,
+          item_type TEXT
+        )
+      ''');
+    }
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -68,6 +76,13 @@ class SQLDB {
     CREATE TABLE read_differents(
       different_id INTEGER,
       id_read INTEGER DEFAULT 1
+    )
+  ''');
+
+    batch.execute('''
+    CREATE TABLE favorites(
+      item_id INTEGER,
+      item_type TEXT
     )
   ''');
 

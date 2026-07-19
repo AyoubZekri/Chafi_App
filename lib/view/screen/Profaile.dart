@@ -101,6 +101,13 @@ class _ProfaileState extends State<Profaile> {
                           },
                         ),
                         Builddeadlinetile(
+                          icon: Icons.favorite_border,
+                          title: "المفضلة".tr,
+                          ontap: () {
+                            controller.gotoFavorites();
+                          },
+                        ),
+                        Builddeadlinetile(
                           icon: Icons.notifications_outlined,
                           title: "83".tr,
                           ontap: () {

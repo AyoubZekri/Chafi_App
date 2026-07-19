@@ -144,6 +144,40 @@ List<Cardservicesmodel> Cardservices = [
       );
     },
   ),
+  Cardservicesmodel(
+    title: "القاموس الجبائي",
+    image: Appimageassets.book,
+    color: const Color(0xFFFACC15),
+    color2: const Color(0xFFA16207),
+    onTap: () {
+      Get.toNamed(
+        Approutes.institutionsinfo,
+        arguments: {
+          "name": "القاموس الجبائي",
+          "type": 10,
+          "type_deff": 4,
+          "cat_id": 0,
+        },
+      );
+    },
+  ),
+  Cardservicesmodel(
+    title: "الأسئلة الشائعة",
+    image: Appimageassets.articles,
+    color: const Color(0xFFF43F5E),
+    color2: const Color(0xFFBE123C),
+    onTap: () {
+      Get.toNamed(
+        Approutes.institutionsinfo,
+        arguments: {
+          "name": "الأسئلة الشائعة",
+          "type": 10,
+          "type_deff": 1,
+          "cat_id": 0,
+        },
+      );
+    },
+  ),
 ];
 
 List<Institutiontypemodel> institutionfild = [

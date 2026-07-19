@@ -55,4 +55,5 @@ class Approutes {
   static const String childcategories = "/Childcategories";
   static const String underconstruction = "/underconstruction";
   static const String fiscalcalculator = "/Fiscalcalculator";
+  static const String favorites = "/Favorites";
 }

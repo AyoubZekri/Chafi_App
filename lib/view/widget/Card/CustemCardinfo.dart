@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:chafi/view/screen/pdf.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../LinkApi.dart';
 import '../../../core/constant/Colorapp.dart';
+import '../../../controller/FavoritesController.dart';
 
 class Custemcardinfo extends StatefulWidget {
   final String body;
@@ -20,6 +20,7 @@ class Custemcardinfo extends StatefulWidget {
   final bool? isRead;
   final int? type;
   final int? typedeff;
+  final int? itemId;
 
   const Custemcardinfo({
     super.key,
@@ -35,6 +36,7 @@ class Custemcardinfo extends StatefulWidget {
     this.isRead,
     this.type,
     this.typedeff,
+    this.itemId,
   });
 
   @override
@@ -122,14 +124,35 @@ class _CustemcardinfoState extends State<Custemcardinfo>
                         textAlign: TextAlign.start,
                       ),
                     ),
-                    AnimatedRotation(
-                      turns: isOpen ? 0.5 : 0,
-                      duration: const Duration(milliseconds: 300),
-                      child: Icon(
-                        Icons.keyboard_arrow_down,
-                        color: isQuestion ? AppColor.primarycolor : Colors.grey,
+                    if (widget.itemId != null && widget.type != null)
+                      GetBuilder<FavoritesController>(
+                        init: FavoritesController(),
+                        builder: (favCtrl) {
+                          bool isFav = favCtrl.isFavorite(
+                            widget.itemId!,
+                            widget.type.toString(),
+                          );
+                          return IconButton(
+                            onPressed: () {
+                              if (isFav) {
+                                favCtrl.removeFavorite(
+                                  widget.itemId!,
+                                  widget.type.toString(),
+                                );
+                              } else {
+                                favCtrl.addFavorite(
+                                  widget.itemId!,
+                                  widget.type.toString(),
+                                );
+                              }
+                            },
+                            icon: Icon(
+                              isFav ? Icons.favorite : Icons.favorite_border,
+                              color: isFav ? Colors.redAccent : Colors.grey,
+                            ),
+                          );
+                        },
                       ),
-                    ),
                   ],
                 ),
 
@@ -354,7 +377,8 @@ class _CustemcardinfoState extends State<Custemcardinfo>
   Widget buildRichText(String text, BuildContext context) {
     final urlRegex = RegExp(r'(https?:\/\/[^\s]+)');
     final keywordRegex = RegExp(
-      r'(المادة\s*\d+([\-–]\d+)?(\s*مكرر(\s*\d+)?)?)',
+      r'((?:(?:ب|ال)?(?:مادة|مواد|مادت[اوي]?ن|مر[ا]?س[وي]?م|مرسوم[اوي]?ن|ق[اوا]ن[وي]?ن|[أا]و?امر|[أا]مر|قرارا?ت?|من[ا]?ش[وي]?ر|مقررا?ت?)|d[eé]crets?|lois?|ordonn?ances?|arr[eêé]t[eé]s?|circulaires?|d[eé]cisions?)(?:\s*(?:(?:ال)?تنف[ي]?ذي[ةه]?|ex[eé]cuti[fve]s?))?(?:\s*(?:رقم|أرقام|ارقام|n[o°]?|n))?(?:\s*\d+[\d\-\/]*)?(?:\s*مكررا?ت?(?:\s*\d+)?)?(?:\s*(?:من|de)\s*\d+[\d\-\/]*\s*(?:إلى|à|au)\s*\d+[\d\-\/]*)?)',
+      caseSensitive: false,
     );
     List<TextSpan> spans = [];
     int currentIndex = 0;

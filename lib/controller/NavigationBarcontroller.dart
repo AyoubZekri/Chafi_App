@@ -28,22 +28,22 @@ class NavigationBarcontrollerImp extends NavigationBarcontroller {
 
   List<Widget> Screen = [
     const Home(),
-    const Records(),
     const Law(),
+    const Records(),
     const Profaile(),
   ];
 
   List IconsScreen = [
     {'icon': Icons.home},
-    {'icon': Icons.book},
     {'icon': Icons.article},
+    {'icon': Icons.book},
     {'icon': Icons.person},
   ];
 
   List<Map<String, String>> get texts => [
     {'Text': "Home".tr},
-    {'Text': "Records".tr},
     {'Text': "Articles".tr},
+    {'Text': "Records".tr},
     {'Text': "Profile".tr},
   ];
 
@@ -77,10 +77,10 @@ class NavigationBarcontrollerImp extends NavigationBarcontroller {
 
   @override
   void onInit() {
-    int numEnter = myServices.sharedPreferences?.getInt('numEnter') ??0;
-    numEnter +=1;
+    int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+    numEnter += 1;
     print("=============================$numEnter");
-    myServices.sharedPreferences?.setInt('numEnter',numEnter);
+    myServices.sharedPreferences?.setInt('numEnter', numEnter);
     var imagepath = myServices.sharedPreferences?.getString("image");
     addenter();
     if (imagepath != null && imagepath.isNotEmpty) {
@@ -92,5 +92,4 @@ class NavigationBarcontrollerImp extends NavigationBarcontroller {
 
     super.onInit();
   }
-
 }

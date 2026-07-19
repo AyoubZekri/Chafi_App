@@ -1,6 +1,8 @@
+import 'dart:typed_data';
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfSearchPage extends StatefulWidget {
@@ -20,6 +22,9 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
   bool _isSearching = false;
   int _currentPage = 1;
   int _totalPages = 0;
+  Uint8List? _pdfBytes;
+  bool _isLoading = true;
+  String _errorMessage = '';
 
   @override
   void initState() {
@@ -41,17 +46,56 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
         });
       }
     });
+    
+    _loadPdf();
+  }
+
+  Future<void> _loadPdf() async {
+    try {
+      final response = await http.get(Uri.parse(widget.url));
+      if (response.statusCode == 200) {
+        if (mounted) {
+          setState(() {
+            _pdfBytes = response.bodyBytes;
+            _isLoading = false;
+          });
+        }
+      } else {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+            _errorMessage = "فشل تحميل الملف".tr;
+          });
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = "تأكد من اتصالك بالإنترنت".tr;
+        });
+      }
+    }
   }
 
   @override
   void dispose() {
+    _searchResult.removeListener(_onSearchResultChanged);
     _pdfController.dispose(); // إزالة listener
     super.dispose();
   }
 
+  void _onSearchResultChanged() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   void _searchText() {
     if (_searchController.text.isEmpty) return;
+    _searchResult.removeListener(_onSearchResultChanged);
     _searchResult = _pdfController.searchText(_searchController.text);
+    _searchResult.addListener(_onSearchResultChanged);
     setState(() {});
   }
 
@@ -184,6 +228,7 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
                 setState(() {
                   _isSearching = false;
                   _searchController.clear();
+                  _searchResult.removeListener(_onSearchResultChanged);
                   _searchResult.clear();
                 });
               },
@@ -217,17 +262,27 @@ class _PdfSearchPageState extends State<PdfSearchPage> {
       ),
       body: Stack(
         children: [
-          SfPdfViewer.network(
-            widget.url,
-            controller: _pdfController,
-            enableTextSelection: true,
-            canShowScrollHead: false,
-            onPageChanged: (details) {
-              setState(() {
-                _currentPage = details.newPageNumber;
-              });
-            },
-          ),
+          if (_isLoading)
+            const Center(child: CircularProgressIndicator(color: AppColor.primarycolor))
+          else if (_errorMessage.isNotEmpty)
+            Center(
+              child: Text(
+                _errorMessage,
+                style: const TextStyle(fontSize: 16, color: Colors.red),
+              ),
+            )
+          else if (_pdfBytes != null)
+            SfPdfViewer.memory(
+              _pdfBytes!,
+              controller: _pdfController,
+              enableTextSelection: true,
+              canShowScrollHead: false,
+              onPageChanged: (details) {
+                setState(() {
+                  _currentPage = details.newPageNumber;
+                });
+              },
+            ),
 
           // رقم الصفحة على الجانب
           Positioned(

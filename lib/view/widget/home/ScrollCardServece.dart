@@ -13,10 +13,10 @@ class Scrollcardservece extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+        crossAxisCount: 5,
         mainAxisSpacing: 10,
-        crossAxisSpacing: 8,
-        childAspectRatio: 0.85,
+        crossAxisSpacing: 5,
+        childAspectRatio: 0.70,
       ),
       itemCount: Cardservices.length,
       itemBuilder: (context, i) {

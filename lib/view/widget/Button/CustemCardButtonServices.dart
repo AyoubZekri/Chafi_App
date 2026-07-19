@@ -37,28 +37,29 @@ class Custemcardbuttonservices extends StatelessWidget {
           border: Border.all(color: Colors.grey.shade300, width: 1),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 10),
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppColor.typography,
               ),
               child: Image.asset(
                 image,
-                height: 26,
-                width: 26,
+                height: 22,
+                width: 22,
                 color: Colors.white,
               ),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2.0),
               child: AutoSizeText(
                 title,
-                minFontSize: 9,
+                minFontSize: 7,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,

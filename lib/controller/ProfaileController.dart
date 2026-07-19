@@ -23,6 +23,7 @@ class Profailecontroller extends GetxController {
   void gotoExternallinks() {}
   void gotoTrainingCourses() {}
   void gotoConsultations() {}
+  void gotoFavorites() {}
 }
 
 class ProfailecontrollerImp extends Profailecontroller {
@@ -134,6 +135,11 @@ class ProfailecontrollerImp extends Profailecontroller {
   @override
   gotoConsultations() {
     Get.toNamed(Approutes.underconstruction, arguments: {"title": "consultations".tr});
+  }
+
+  @override
+  gotoFavorites() {
+    Get.toNamed(Approutes.favorites);
   }
 
   void showLanguageSheet(BuildContext context) {

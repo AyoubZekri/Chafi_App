@@ -40,6 +40,7 @@ class _InstitutionsinfoState extends State<Institutionsinfo> {
                   return Custemcardinfo(
                     type: controller.type,
                     typedeff: controller.typedeff,
+                    itemId: controller.data[i].id,
                     isRead: controller.data[i].isread == false,
                     onOpen: () {
                       if (controller.data[i].isread == false) {

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../controller/HomeController.dart';
 import '../../core/constant/Colorapp.dart';
+import '../../core/constant/routes.dart';
 import '../widget/home/CustemCardHome.dart';
 import '../widget/home/ScrollCardServece.dart';
 import '../widget/home/Slaider.dart';
@@ -33,11 +34,33 @@ class _HomeState extends State<Home> {
   //   super.initState();
   //   controller = Get.put(HomecontrollerImp(), permanent: true);
   // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
+
+      // floatingActionButton: FloatingActionButton.extended(
+      //   backgroundColor: AppColor.typography,
+      //   icon: const Icon(Icons.menu_book, color: Colors.white),
+      //   label: Text(
+      //     "القاموس الجبائي".tr,
+      //     style: const TextStyle(
+      //       color: Colors.white,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   onPressed: () {
+      //     Get.toNamed(
+      //       Approutes.institutionsinfo,
+      //       arguments: {
+      //         "name": "القاموس الجبائي",
+      //         "type": 10,
+      //         "type_deff": 4,
+      //         "cat_id": 0,
+      //       },
+      //     );
+      //   },
+      // ),
       body: GetBuilder<HomecontrollerImp>(
         builder: (controller) {
           return ListView(

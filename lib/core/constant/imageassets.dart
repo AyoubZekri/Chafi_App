@@ -38,6 +38,7 @@ class  Appimageassets {
 
   static const String conditions ="$rootimage/conditions.png";
   static const String questions ="$rootimage/questions.png";
+  static const String book ="$rootimage/book.png";
 
 
 

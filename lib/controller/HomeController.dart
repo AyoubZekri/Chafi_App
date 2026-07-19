@@ -172,258 +172,248 @@ class HomecontrollerImp extends Homecontroller {
 
     Get.dialog(
       barrierDismissible: false,
-      Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-        child: StatefulBuilder(
-          builder: (context, setState) {
-            return Container(
-              padding: const EdgeInsets.only(
-                top: 15,
-                left: 15,
-                right: 15,
-                bottom: 5,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Header
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.close, color: Colors.grey),
-                        onPressed: () => Get.back(),
-                      ),
-                      Text(
-                        "feedback_share_thoughts".tr,
-                        style: const TextStyle(
-                          color: AppColor.primarycolor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 48,
-                      ), // Spacer to balance the close button
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Flexible(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: questions.length,
-                      itemBuilder: (context, qIndex) {
-                        final question = questions[qIndex];
-                        bool isExpanded = expandedQuestions.contains(qIndex);
-                        bool isAnswered = selectedAnswers.containsKey(qIndex);
-
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 15),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: isAnswered
-                                  ? AppColor.primarycolor.withOpacity(0.5)
-                                  : Colors.grey.shade300,
-                              width: 1.5,
-                            ),
+      WillPopScope(
+        onWillPop: () async => false,
+        child: Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 24,
+          ),
+          child: StatefulBuilder(
+            builder: (context, setState) {
+              return Container(
+                padding: const EdgeInsets.only(
+                  top: 15,
+                  left: 15,
+                  right: 15,
+                  bottom: 5,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Header
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "feedback_share_thoughts".tr,
+                          style: const TextStyle(
+                            color: AppColor.typography,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              InkWell(
-                                borderRadius: BorderRadius.circular(12),
-                                onTap: () {
-                                  setState(() {
-                                    if (isExpanded) {
-                                      expandedQuestions.remove(qIndex);
-                                    } else {
-                                      expandedQuestions.add(qIndex);
-                                    }
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,                        
-                                    children: [
-                                    
-                                     Text(
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Flexible(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: questions.length,
+                        itemBuilder: (context, qIndex) {
+                          final question = questions[qIndex];
+                          bool isExpanded = expandedQuestions.contains(qIndex);
+                          bool isAnswered = selectedAnswers.containsKey(qIndex);
+
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: isAnswered
+                                    ? AppColor.typography.withOpacity(0.5)
+                                    : Colors.grey.shade300,
+                                width: 1.5,
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(12),
+                                  onTap: () {
+                                    setState(() {
+                                      if (isExpanded) {
+                                        expandedQuestions.remove(qIndex);
+                                      } else {
+                                        expandedQuestions.add(qIndex);
+                                      }
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
                                           "${qIndex + 1}- ${question['title']}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
                                             color: isAnswered
-                                                ? AppColor.primarycolor
+                                                ? AppColor.typography
                                                 : Colors.black87,
                                           ),
-                                        
                                         ),
-                                      
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              if (isExpanded)
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 12,
-                                    right: 12,
-                                    bottom: 12,
-                                  ),
-                                  child: Column(
-                                    children: ((question['options'] as List).map((
-                                      option,
-                                    ) {
-                                      bool isSelected =
-                                          selectedAnswers[qIndex] ==
-                                          option['id'];
-                                      return GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedAnswers[qIndex] =
-                                                option['id'];
-                                            // اختياري: إغلاق السؤال عند اختيار الإجابة والانتقال للتالي
-                                            // expandedQuestions.remove(qIndex);
-                                            // if (qIndex + 1 < questions.length) expandedQuestions.add(qIndex + 1);
-                                          });
-                                        },
-                                        child: Container(
-                                          margin: const EdgeInsets.only(top: 8),
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 15,
-                                            vertical: 10,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFFF5F5F5),
-                                            borderRadius: BorderRadius.circular(
-                                              12,
+                                if (isExpanded)
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 12,
+                                      right: 12,
+                                      bottom: 12,
+                                    ),
+                                    child: Column(
+                                      children: ((question['options'] as List).map((
+                                        option,
+                                      ) {
+                                        bool isSelected =
+                                            selectedAnswers[qIndex] ==
+                                            option['id'];
+                                        return GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedAnswers[qIndex] =
+                                                  option['id'];
+                                              // اختياري: إغلاق السؤال عند اختيار الإجابة والانتقال للتالي
+                                              // expandedQuestions.remove(qIndex);
+                                              // if (qIndex + 1 < questions.length) expandedQuestions.add(qIndex + 1);
+                                            });
+                                          },
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                              top: 8,
                                             ),
-                                            border: Border.all(
-                                              color: isSelected
-                                                  ? AppColor.primarycolor
-                                                  : Colors.transparent,
-                                              width: 1.5,
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 15,
+                                              vertical: 10,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFF5F5F5),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              border: Border.all(
+                                                color: isSelected
+                                                    ? AppColor.typography
+                                                    : Colors.transparent,
+                                                width: 1.5,
+                                              ),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    option['name'],
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: isSelected
+                                                          ? FontWeight.bold
+                                                          : FontWeight.w500,
+                                                      color: isSelected
+                                                          ? AppColor.typography
+                                                          : Colors.black87,
+                                                    ),
+                                                    textAlign: TextAlign.right,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                Container(
+                                                  width: 20,
+                                                  height: 20,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color: isSelected
+                                                          ? AppColor.typography
+                                                          : Colors.grey,
+                                                      width: 2,
+                                                    ),
+                                                    color: isSelected
+                                                        ? AppColor.typography
+                                                        : Colors.transparent,
+                                                  ),
+                                                  child: isSelected
+                                                      ? Center(
+                                                          child: Container(
+                                                            width: 10,
+                                                            height: 10,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                ),
+                                                          ),
+                                                        )
+                                                      : null,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  option['name'],
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: isSelected
-                                                        ? FontWeight.bold
-                                                        : FontWeight.w500,
-                                                    color: isSelected
-                                                        ? AppColor.primarycolor
-                                                        : Colors.black87,
-                                                  ),
-                                                  textAlign: TextAlign.right,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 10),
-                                              Container(
-                                                width: 20,
-                                                height: 20,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                    color: isSelected
-                                                        ? AppColor.primarycolor
-                                                        : Colors.grey,
-                                                    width: 2,
-                                                  ),
-                                                  color: isSelected
-                                                      ? AppColor.primarycolor
-                                                      : Colors.transparent,
-                                                ),
-                                                child: isSelected
-                                                    ? Center(
-                                                        child: Container(
-                                                          width: 10,
-                                                          height: 10,
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                              ),
-                                                        ),
-                                                      )
-                                                    : null,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    }).toList()),
+                                        );
+                                      }).toList()),
+                                    ),
                                   ),
-                                ),
-                            ],
-                          ),
-                        );
-                      },
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  // Buttons
-                  Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: selectedAnswers.isEmpty
-                              ? null
-                              : () async {
-                                  await sendFeedback(
-                                    selectedAnswers.values.toList(),
-                                  );
-                                },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.primarycolor,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                    const SizedBox(height: 15),
+                    // Buttons
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: selectedAnswers.isEmpty
+                                ? null
+                                : () async {
+                                    await sendFeedback(
+                                      selectedAnswers.values.toList(),
+                                    );
+                                  },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.typography,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              disabledBackgroundColor: AppColor.typography
+                                  .withOpacity(0.5),
                             ),
-                            disabledBackgroundColor: AppColor.primarycolor
-                                .withOpacity(0.5),
-                          ),
-                          child: Text(
-                            "feedback_send_button".tr,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                            child: Text(
+                              "feedback_send_button".tr,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      TextButton(
-                        onPressed: () => Get.back(),
-                        child: Text(
-                          "feedback_cancel".tr,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          },
+                        // Removed Cancel button to force user choice
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

@@ -10,6 +10,7 @@ import 'package:chafi/view/screen/Setting/InformationAPP.dart';
 import 'package:chafi/view/screen/Setting/UnderConstruction.dart';
 import 'package:get/get.dart';
 
+import 'view/screen/FavoritesScreen.dart';
 import 'view/screen/Calculators/different/FiscalCalculator/FiscalCalculator.dart';
 import 'view/screen/ApplicationSystems/CategoriesApp.dart';
 import 'view/screen/Articles/ditailsArticles.dart';
@@ -168,4 +169,5 @@ List<GetPage<dynamic>> routes = [
   GetPage(name: Approutes.childcategories, page: () => const Childcategories()),
   GetPage(name: Approutes.underconstruction, page: () => const UnderConstruction()),
   GetPage(name: Approutes.fiscalcalculator, page: () => const FiscalCalculator()),
+  GetPage(name: Approutes.favorites, page: () => const FavoritesScreen()),
 ];
