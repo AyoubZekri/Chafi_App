@@ -434,7 +434,7 @@ class MyTranslation extends Translations {
 
       "يرجى تحديد نتيجة السنة المالية أولا":
           "يرجى تحديد نتيجة السنة المالية أولا",
-      "إختر نوع النشاط الخاص بك أولا": "إختر نوع النشاط الخاص بك أولا",
+      "إختر نوع النشاط أولا": "إختر نوع النشاط أولا",
       "لا يمكن ان تكون كل قيم الضرائب فارغة":
           "لا يمكن ان تكون كل قيم الضرائب فارغة",
       "تاريخ الإيداع مطلوب": "تاريخ الإيداع مطلوب",
@@ -450,7 +450,7 @@ class MyTranslation extends Translations {
 
       "حاسبة G12": "حاسبة ج12",
       "حاسبة G12BES": "حاسبة ج12 مكرر",
-      "حاسبة النظام الحقيقي": "حاسبة النظام الحقيقي",
+      "التسبيقات على الدخل": "التسبيقات على الدخل",
       "حاسبة النظام المبسط": "حاسبة النظام المبسط",
 
       "عقوبات التأخير والإداع": "عقوبات التأخير والإيداع",
@@ -466,9 +466,12 @@ class MyTranslation extends Translations {
 
       "أدخل البيانات بدقة للحصول على نتيجة  صحيحة":
           "أدخل البيانات بدقة للحصول على نتيجة  صحيحة",
-      "إختر نوع النشاط الخاص بك": "إختر نوع النشاط الخاص بك",
+      "إختر نوع النشاط": "إختر نوع النشاط",
 
       "مقاول ذاتي": "المقاول الذاتي",
+      "الضريبة": "الضريبة",
+      "الضريبة دون تأخير": "الضريبة دون تأخير",
+      "الرجاء إدخال رقم الأعمال": "الرجاء إدخال رقم الأعمال",
       "إقتطاع من المصدر": "إقتطاع من المصدر",
       "نوع أخر": "نشاطات أخرى",
 
@@ -505,8 +508,8 @@ class MyTranslation extends Translations {
       "DA": "دج",
       "DZD": "DZD",
 
-      "ضريبة  G12": "ضريبة  ج12",
-      "قيمة G12 بدون ضرائب التاخير": "قيمة ج12 بدون ضرائب التاخير",
+      "أدخل رقم الأعمال التقديري": "أدخل رقم الأعمال التقديري",
+      "رقم الأعمال التقديري": "رقم الأعمال التقديري",
       "أدخل تاريخ إنشاء السجل": "أدخل تاريخ إنشاء المؤسسة",
       "أدخل الفائض": "أدخل الفائض",
       "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع المقررة بدقة.":
@@ -932,7 +935,8 @@ class MyTranslation extends Translations {
       'يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الإداع و الدفع  .':
           "يرجى إدخال رقم الأعمال المحقق حسب طبيعة النشاط",
 
-      'قيم رقم الأعمال الجبائية حسب النشاط': "رقم الأعمال حسب النشاط",
+      'رقم الأعمال المحقق حسب طبيعة النشاط':
+          "رقم الأعمال المحقق حسب طبيعة النشاط",
       'الثلث الأول من السنة': "التسبيقة الأولى",
       'الثلث الثاني من السنة': "التسبيقة الثانية",
       'الثلث الثالث من السنة': "التسبيقة الثالثة",
@@ -942,7 +946,8 @@ class MyTranslation extends Translations {
 
       'قيمة التسبيقة': 'قيمة التسبيقة',
       'حساب القيمة المحققة': "حساب النتيجة",
-      "الإقتطاع من المصدر": "الإقتطاع من المصدر",
+      "الإقتطاع من المصدر لي المقاول الذاتي":
+          "الإقتطاع من المصدر لي المقاول الذاتي",
       "العدالة الضريبية": "العدالة الضريبية",
       "ضعيفة": "ضعيفة",
       "مقبولة": "مقبولة",
@@ -1190,7 +1195,7 @@ class MyTranslation extends Translations {
       'موافق': "Agree",
       'يرجى تحديد نتيجة السنة المالية أولا': "First select the tax result",
 
-      'إختر نوع النشاط الخاص بك أولا': "Choose activity first",
+      'إختر نوع النشاط أولا': "Choose activity first",
 
       'لا يمكن ان تكون كل قيم الضرائب فارغة': "Taxes missing",
 
@@ -1216,7 +1221,8 @@ class MyTranslation extends Translations {
 
       'يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الإداع و الدفع  .':
           "Please enter the realized business figure according to the nature of the activity.",
-      'قيم رقم الأعمال الجبائية حسب النشاط': "Business figures by activity",
+      'رقم الأعمال المحقق حسب طبيعة النشاط':
+          "Realized turnover by activity type",
 
       'هامش ربح المواد المدعمة': "Subsidized products margin",
 
@@ -1290,10 +1296,13 @@ class MyTranslation extends Translations {
       'بيع وإنتاج سلع': "Sale and production of goods",
       'إقتطاع من المصدر': "Withholding tax",
       'المقاول الذاتي': "Auto-entrepreneur",
+      "الضريبة": "Tax",
+      "الضريبة دون تأخير": "Tax without delay",
+      'الرجاء إدخال رقم الأعمال': "Please enter the turnover",
 
       'التالي': "Next",
 
-      'إختر نوع النشاط الخاص بك': "Choose your activity type",
+      'إختر نوع النشاط': "Choose your activity type",
       'مقاول ذاتي': "Auto-entrepreneur",
       'نوع أخر': "Other activities",
       'في نشاط الإستراد المصغر إقتطاع من المصدر في إدارة الجمارك.':
@@ -1328,8 +1337,8 @@ class MyTranslation extends Translations {
       'DA': "DA",
       'DZD': "DZD",
       "حاسبة G12BES": "Calc. G12BES",
-      "ضريبة  G12": "G12 Tax",
-      "قيمة G12 بدون ضرائب التاخير": "G12 amount without late penalties",
+      "أدخل رقم الأعمال التقديري": "Enter estimated turnover",
+      "رقم الأعمال التقديري": "Estimated turnover",
       "قيمة الطابع الجبائي": "Tax stamp amount",
       "أدخل تاريخ إنشاء السجل":
           "Enter the date the organization was established",
@@ -1800,7 +1809,8 @@ class MyTranslation extends Translations {
       "under_construction": "Under Construction",
       "under_construction_desc":
           "This page is currently under development, it will be available soon.",
-      "الإقتطاع من المصدر": "Retenue à la source",
+      "الإقتطاع من المصدر لي المقاول الذاتي":
+          "Withholding tax at source for the self-employed contractor",
       "العدالة الضريبية": "Tax fairness",
       "ضعيفة": "Weak",
       "مقبولة": "Acceptable",
@@ -1826,6 +1836,12 @@ class MyTranslation extends Translations {
       "صحح المفاهيم الخاطئة": "Corrected misconceptions",
       "قلل كلفة الاستشارة": "Reduced consultation cost",
       "تعزيز وتحفيز على الامتثال": "Promoted and motivated compliance",
+      "التسبيقات على الدخل": "Income tax installments",
+      "ضريبة الدخل الإجمالي لسنة ن-1 أو ن-2": "Global income tax (N-1 or N-2)",
+      "الضريبة على أرباح الشركات لسنة ن-1 أو ن-2": "Corporate profit tax (N-1 or N-2)",
+      "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.": "Please enter the values of the due results based on the nature of the commercial activity, while accurately specifying the scheduled payment dates.",
+      "تنبيه": "Attention",
+      "لا يمكن ان تكون سنة التصريح اقدم من سنة الانشاء": "L'année de déclaration ne peut pas être antérieure à l'année de création",
     },
   };
 }

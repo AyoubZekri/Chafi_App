@@ -23,7 +23,7 @@ class TaxPrepaymentsPage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("حاسبة النظام الحقيقي".tr),
+          title: Text("التسبيقات على الدخل".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -61,8 +61,8 @@ class TaxPrepaymentsPage extends StatelessWidget {
                                 PrepaymentCard(
                                   title: "تسبيقة ضريبية 1".tr,
                                   subtitle: "الثلث الأول من السنة".tr,
-                                  fromDate: "20/02/${DateTime.now().year}",
-                                  toDate: "20/03/${DateTime.now().year}",
+                                  fromDate: "20/02/${controller.dataTax.text}",
+                                  toDate: "20/03/${controller.dataTax.text}",
                                   percentage: 30,
                                   primaryColor: AppColor.typography,
                                   prepaymentValue: controller.advance1!,
@@ -72,8 +72,8 @@ class TaxPrepaymentsPage extends StatelessWidget {
                                 PrepaymentCard(
                                   title: "تسبيقة ضريبية 2".tr,
                                   subtitle: "الثلث الثاني من السنة".tr,
-                                  fromDate: "20/05/${DateTime.now().year}",
-                                  toDate: "20/06/${DateTime.now().year}",
+                                  fromDate: "20/05/${controller.dataTax.text}",
+                                  toDate: "20/06/${controller.dataTax.text}",
                                   percentage: 30,
                                   primaryColor: AppColor.typography,
                                   prepaymentValue: controller.advance2!,
@@ -85,8 +85,9 @@ class TaxPrepaymentsPage extends StatelessWidget {
                                   PrepaymentCard(
                                     title: "تسبيقة ضريبية 3".tr,
                                     subtitle: "الثلث الثالث من السنة".tr,
-                                    fromDate: "20/10/${DateTime.now().year}",
-                                    toDate: "20/11/${DateTime.now().year}",
+                                    fromDate:
+                                        "20/10/${controller.dataTax.text}",
+                                    toDate: "20/11/${controller.dataTax.text}",
                                     percentage: 30,
                                     primaryColor: AppColor.typography,
                                     prepaymentValue: controller.advance3!,

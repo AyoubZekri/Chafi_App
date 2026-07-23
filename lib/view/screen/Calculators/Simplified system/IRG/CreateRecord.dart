@@ -24,7 +24,7 @@ class _CreaterecordState extends State<Createrecord> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("حاسبة النظام الحقيقي".tr),
+          title: Text("التسبيقات على الدخل".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -75,6 +75,18 @@ class _CreaterecordState extends State<Createrecord> {
                             isDate: true,
                             placeholder: 'mm/dd/yyyy',
                           ),
+                          SizedBox(height: 16),
+
+                          CustomInputField(
+                            label: 'سنة التصريح'.tr,
+                            icon: Icons.event_available,
+                            placeholder: 'yyyy',
+                            isDate: true,
+                            controller: controller.dataTax,
+                            errorText: controller.dataTaxErorr,
+                            dateFormatType: DateFormatType.year,
+                          ),
+
                           SizedBox(height: 40),
                           Custemsuberbutton(
                             content: "60".tr,

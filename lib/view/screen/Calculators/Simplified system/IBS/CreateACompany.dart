@@ -25,7 +25,7 @@ class _CreateacompanyState extends State<Createacompany> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("حاسبة النظام الحقيقي".tr),
+          title: Text("التسبيقات على الدخل".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -77,6 +77,17 @@ class _CreateacompanyState extends State<Createacompany> {
                             errorText: controller.dataCreateErorr,
                             isDate: true,
                           ),
+                          SizedBox(height: 16),
+                          CustomInputField(
+                            label: 'سنة التصريح'.tr,
+                            icon: Icons.event_available,
+                            placeholder: 'yyyy',
+                            isDate: true,
+                            controller: controller.dataTax,
+                            errorText: controller.dataTaxErorr,
+                            dateFormatType: DateFormatType.year,
+                          ),
+
                           SizedBox(height: 60),
                           Custemsuberbutton(
                             content: "60".tr,

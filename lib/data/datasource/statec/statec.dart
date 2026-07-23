@@ -131,19 +131,7 @@ List<Cardservicesmodel> Cardservices = [
       Get.toNamed(Approutes.calculators);
     },
   ),
-  Cardservicesmodel(
-    title: "روابط خارجية",
-    image: Appimageassets.questions,
-    color: const Color(0xFF10B981),
-    color2: const Color(0xFF065F46),
-    onTap: () {
-      Get.toNamed(
-        Approutes.externallinks,
-        // Approutes.institutionsinfo,
-        // arguments: {"name": 93, "type": 10, "type_deff": 1},
-      );
-    },
-  ),
+
   Cardservicesmodel(
     title: "القاموس الجبائي",
     image: Appimageassets.book,
@@ -175,6 +163,19 @@ List<Cardservicesmodel> Cardservices = [
           "type_deff": 1,
           "cat_id": 0,
         },
+      );
+    },
+  ),
+  Cardservicesmodel(
+    title: "روابط خارجية",
+    image: Appimageassets.questions,
+    color: const Color(0xFF10B981),
+    color2: const Color(0xFF065F46),
+    onTap: () {
+      Get.toNamed(
+        Approutes.externallinks,
+        // Approutes.institutionsinfo,
+        // arguments: {"name": 93, "type": 10, "type_deff": 1},
       );
     },
   ),
@@ -532,7 +533,7 @@ List<Institutiontypemodel> calculatorsofSystemSimpli = [
       ),
     ),
 
-    body: "الإقتطاع من المصدر",
+    body: "الإقتطاع من المصدر لي المقاول الذاتي",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -566,7 +567,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "حاسبة النظام الحقيقي",
+    body: "التسبيقات على الدخل",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),

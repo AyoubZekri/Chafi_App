@@ -26,7 +26,7 @@ class _TaxinputpageState extends State<Taxinputpage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("حاسبة النظام الحقيقي".tr),
+          title: Text("التسبيقات على الدخل".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -61,7 +61,7 @@ class _TaxinputpageState extends State<Taxinputpage> {
                             CustemtextbodyMedium18(
                               color: AppColor.grey,
                               content:
-                                  "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة."
+                                  "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة."
                                       .tr,
                             ),
 
@@ -106,16 +106,6 @@ class _TaxinputpageState extends State<Taxinputpage> {
                             SectionHeader(
                               title: 'تواريخ الدفع والإيداع'.tr,
                               icon: Icons.calendar_month,
-                            ),
-                            const SizedBox(height: 16),
-                            CustomInputField(
-                              label: 'سنة التصريح'.tr,
-                              icon: Icons.event_available,
-                              placeholder: 'mm/dd/yyyy',
-                              isDate: true,
-                              controller: controller.dataTax,
-                              errorText: controller.dataTaxErorr,
-                              dateFormatType: DateFormatType.year,
                             ),
                             const SizedBox(height: 16),
                             // 5. حقول التواريخ

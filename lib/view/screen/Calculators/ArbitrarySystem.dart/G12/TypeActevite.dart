@@ -64,7 +64,7 @@ class _CalTypeActiviteState extends State<CalTypeActivite> {
                           ),
                           SizedBox(height: 40),
                           CustemtextbodyMedium18(
-                            content: "إختر نوع النشاط الخاص بك".tr,
+                            content: "إختر نوع النشاط".tr,
                             color: AppColor.black,
                           ),
                           SizedBox(height: 70),

@@ -25,7 +25,7 @@ class _PenaltyDetailsScreenState extends State<PenaltyDetailsScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("حاسبة النظام الحقيقي".tr),
+          title: Text("التسبيقات على الدخل".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,

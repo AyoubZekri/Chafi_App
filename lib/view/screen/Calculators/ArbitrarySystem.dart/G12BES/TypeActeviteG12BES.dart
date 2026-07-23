@@ -64,7 +64,7 @@ class _Typeacteviteg12besState extends State<Typeacteviteg12bes> {
                           ),
                           SizedBox(height: 40),
                           CustemtextbodyMedium18(
-                            content: "إختر نوع النشاط الخاص بك".tr,
+                            content: "إختر نوع النشاط".tr,
                             color: AppColor.black,
                           ),
                           SizedBox(height: 70),

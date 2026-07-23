@@ -47,9 +47,9 @@ class Taxstampcontroller extends GetxController {
   calcul() {
     tasStampsErorr = validInput(
       tasStamps.text.replaceAll(RegExp(r'[^0-9]'), ''),
-      20,
+      1000,
       1,
-      "int",
+      "Text",
     );
     tasStamp =
         double.tryParse(tasStamps.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;

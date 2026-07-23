@@ -138,6 +138,27 @@ class _CustomInputFieldState extends State<CustomInputField> {
   // UI
   // =======================
   @override
+  void didUpdateWidget(CustomInputField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.isCurrency != widget.isCurrency || oldWidget.controller != widget.controller) {
+      if (oldWidget.isCurrency && oldWidget.controller != null) {
+        oldWidget.controller!.removeListener(_formatCurrency);
+      }
+      if (widget.isCurrency && widget.controller != null) {
+        widget.controller!.addListener(_formatCurrency);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    if (widget.isCurrency && widget.controller != null) {
+      widget.controller!.removeListener(_formatCurrency);
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),

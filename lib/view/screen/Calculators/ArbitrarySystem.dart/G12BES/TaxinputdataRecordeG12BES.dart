@@ -62,26 +62,13 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                             CustemtextbodyMedium18(
                               color: AppColor.grey,
                               content:
-                                  "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الإداع و الدفع  ."
+                                  "أدخل البيانات بدقة للحصول على نتيجة  صحيحة"
                                       .tr,
                             ),
 
                             SizedBox(height: 40),
                             SectionHeader(
-                              title: "قيمة G12 بدون ضرائب التاخير".tr,
-                              icon: Icons.analytics_outlined,
-                            ),
-                            const SizedBox(height: 16),
-                            CustomInputField(
-                              label: 'ضريبة  G12'.tr,
-                              icon: Icons.payments_outlined,
-                              isCurrency: true,
-                              controller: controller.g12,
-                              errorText: controller.g12Erorr,
-                            ),
-                            SizedBox(height: 30),
-                            SectionHeader(
-                              title: 'قيم رقم الأعمال الجبائية حسب النشاط'.tr,
+                              title: "رقم الأعمال المحقق حسب طبيعة النشاط".tr,
                               icon: Icons.category, // أيقونة مشابهة للمثلثات
                             ),
                             if (controller.activityType == 3)
@@ -93,6 +80,9 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                                 isCurrency: true,
                                 controller: controller.production,
                                 errorText: controller.productionErorr,
+                                onChanged: (val) {
+                                  controller.calculateLiveNetTax();
+                                },
                               ),
                             if (controller.activityType == 3)
                               const SizedBox(height: 16),
@@ -103,6 +93,9 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                                 isCurrency: true,
                                 controller: controller.profitmargin,
                                 errorText: controller.profitmarginErorr,
+                                onChanged: (val) {
+                                  controller.calculateLiveNetTax();
+                                },
                               ),
                             if (controller.activityType == 2)
                               const SizedBox(height: 16),
@@ -113,6 +106,9 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                                 isCurrency: true,
                                 controller: controller.extractedfromSource,
                                 errorText: controller.extractedfromSourceErorr,
+                                onChanged: (val) {
+                                  controller.calculateLiveNetTax();
+                                },
                               ),
                             if (controller.activityType == 1)
                               const SizedBox(height: 16),
@@ -123,6 +119,9 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                                 isCurrency: true,
                                 controller: controller.selfcontractor,
                                 errorText: controller.selfcontractorErorr,
+                                onChanged: (val) {
+                                  controller.calculateLiveNetTax();
+                                },
                               ),
                             if (controller.activityType == 3)
                               const SizedBox(height: 16),
@@ -133,10 +132,28 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                                 isCurrency: true,
                                 controller: controller.otherActivity,
                                 errorText: controller.otherActivityErorr,
+                                onChanged: (val) {
+                                  controller.calculateLiveNetTax();
+                                },
                               ),
 
                             const SizedBox(height: 32),
-
+                            SectionHeader(
+                              title: "رقم الأعمال التقديري".tr,
+                              icon: Icons.analytics_outlined,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: "أدخل رقم الأعمال التقديري".tr,
+                              icon: Icons.payments_outlined,
+                              isCurrency: true,
+                              controller: controller.g12,
+                              errorText: controller.g12Erorr,
+                              onChanged: (val) {
+                                controller.calculateLiveNetTax();
+                              },
+                            ),
+                            SizedBox(height: 30),
                             // 4. عنوان قسم التواريخ
                             SectionHeader(
                               title: 'تواريخ الدفع والإيداع'.tr,
@@ -163,15 +180,17 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                               errorText: controller.dateofdepositandErorr,
                             ),
 
-                            const SizedBox(height: 16),
-                            CustomInputField(
-                              label: 'تاريخ الدفع'.tr,
-                              icon: Icons.payments_outlined,
-                              placeholder: 'mm/dd/yyyy',
-                              isDate: true,
-                              controller: controller.dateofpayment,
-                              errorText: controller.dateofpaymentErorr,
-                            ),
+                            if (controller.currentNetTax > 0) ...[
+                              const SizedBox(height: 16),
+                              CustomInputField(
+                                label: 'تاريخ الدفع'.tr,
+                                icon: Icons.event_available,
+                                placeholder: 'mm/dd/yyyy',
+                                isDate: true,
+                                controller: controller.dateofpayment,
+                                errorText: controller.dateofpaymentErorr,
+                              ),
+                            ],
 
                             const SizedBox(height: 32),
 

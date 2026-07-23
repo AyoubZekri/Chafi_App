@@ -61,6 +61,26 @@ class _ShwoflatratesystemState extends State<Shwoflatratesystem> {
                           ),
                           const SizedBox(height: 25),
                           PenaltyCard(
+                            icon: Icons.trending_up,
+                            title: "هامش الربح (30%)".tr,
+                            subtitle: "",
+                            amount: controller.profitMargin
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 12),
+                          PenaltyCard(
+                            icon: Icons.account_balance_wallet,
+                            title: "الحقوق الجمركية (5%)".tr,
+                            subtitle: "",
+                            amount: controller.customsDuties
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                          const SizedBox(height: 12),
+                          PenaltyCard(
                             icon: Icons.money,
                             title: "الضريبة الجزافية الوحيدة".tr,
                             subtitle: "",

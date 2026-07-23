@@ -26,7 +26,7 @@ class _CapitalState extends State<Capital> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("حاسبة النظام الحقيقي".tr),
+          title: Text("التسبيقات على الدخل".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -88,8 +88,7 @@ class _CapitalState extends State<Capital> {
                                 const SizedBox(height: 70),
 
                                 CustomInputField(
-                                  icon: Icons
-                                      .account_balance_wallet_outlined,
+                                  icon: Icons.account_balance_wallet_outlined,
                                   controller: controller.capital,
                                   label: "رأس المال".tr,
                                   errorText: controller.capitalErorr,

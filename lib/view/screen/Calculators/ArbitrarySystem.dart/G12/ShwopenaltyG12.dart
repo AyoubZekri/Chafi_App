@@ -80,12 +80,12 @@ class _Shwopenaltyg12State extends State<Shwopenaltyg12> {
 
                           SectionHeader(
                             icon: Icons.receipt_long,
-                            title: 'الضريبة النهائية'.tr,
+                            title: 'الضريبة دون تأخير'.tr,
                           ),
                           const SizedBox(height: 12),
                           FinalTaxCard(
                             penaltys: false,
-                            title: "الضريبة النهائية".tr,
+                            title: "الضريبة".tr,
                             netTax: controller.netTax.round(),
                             penalty: controller.penalty!.toInt(),
                           ),

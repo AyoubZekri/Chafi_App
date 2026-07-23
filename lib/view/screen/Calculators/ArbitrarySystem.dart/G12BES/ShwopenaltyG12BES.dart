@@ -53,7 +53,6 @@ class _Shwopenaltyg12besState extends State<Shwopenaltyg12bes> {
                       child: Column(
                         children: [
                           SizedBox(height: 20),
-
                           SectionHeader(
                             icon: Icons.payments_outlined,
                             title: 'عقوبات التأخير والإداع'.tr,
@@ -67,23 +66,26 @@ class _Shwopenaltyg12besState extends State<Shwopenaltyg12bes> {
                           ),
                           const SizedBox(height: 12),
 
-                          PenaltyCard(
-                            title: "ضريبة تاخير الدفع".tr,
-                            subtitle: 'تأخير الدفع'.tr,
-                            amount: controller.penaltypyment.toInt().toString(),
-                          ),
+                          if (controller.netTax > 0)
+                            PenaltyCard(
+                              title: "ضريبة تاخير الدفع".tr,
+                              subtitle: 'تأخير الدفع'.tr,
+                              amount: controller.penaltypyment.toInt().toString(),
+                            ),
                           SizedBox(height: 20),
 
                           SectionHeader(
                             icon: Icons.receipt_long,
-                            title: 'الضريبة النهائية'.tr,
+                            title: controller.netTax > 0
+                                ? 'الضريبة دون تأخير'.tr
+                                : 'الفائض'.tr,
                           ),
                           const SizedBox(height: 12),
                           FinalTaxCard(
                             penaltys: false,
                             title: controller.netTax > 0
-                                ? "الضريبة النهائية".tr
-                                : "الفائض النهائية".tr,
+                                ? "الضريبة".tr
+                                : "الفائض".tr,
                             netTax: controller.netTax > 0
                                 ? controller.netTax.round()
                                 : (-controller.netTax).round(),

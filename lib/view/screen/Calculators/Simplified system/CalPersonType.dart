@@ -20,7 +20,7 @@ class _CalPersontypeState extends State<CalPersontype> {
     Get.put(Simplifiedsystemcontroller());
     return Scaffold(
       appBar: AppBar(
-        title: Text("حاسبة النظام الحقيقي".tr),
+        title: Text("التسبيقات على الدخل".tr),
         titleTextStyle: TextStyle(
           color: AppColor.white,
           fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class _CalPersontypeState extends State<CalPersontype> {
                             controller.selectedPerson(2);
                           },
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 20),
                         Custemsuberbutton(
                           content: "60".tr,
                           color: AppColor.typography,

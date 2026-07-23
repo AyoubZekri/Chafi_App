@@ -26,7 +26,7 @@ class _TxslastyearState extends State<Txslastyear> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("حاسبة النظام الحقيقي".tr),
+          title: Text("التسبيقات على الدخل".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -63,15 +63,13 @@ class _TxslastyearState extends State<Txslastyear> {
                                   "أدخل البيانات بدقة للحصول على نتيجة  صحيحة"
                                       .tr,
                             ),
-                            SizedBox(height: 40),
-                            CustemtextbodyMedium18(
-                              content:
-                                  "أدخل ضريبة السنة الماضية او التي قبلها".tr,
-                              color: AppColor.black,
-                            ),
+
                             SizedBox(height: 70),
                             CustomInputField(
-                              label: "ضريبة ن1 او ن2".tr,
+                              label: controller.personType == 2
+                                  ? "الضريبة على أرباح الشركات لسنة ن-1 أو ن-2"
+                                        .tr
+                                  : "ضريبة الدخل الإجمالي لسنة ن-1 أو ن-2".tr,
                               icon: Icons.receipt_long,
                               isCurrency: true,
                               controller: controller.TaxLastyear,

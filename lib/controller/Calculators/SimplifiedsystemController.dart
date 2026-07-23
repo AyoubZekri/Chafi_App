@@ -102,24 +102,34 @@ class Simplifiedsystemcontroller extends GetxController {
 
   void gotoAfter() {
     dataCreateErorr = validInput(dataCreate.text, 20, 3, "Text".tr);
-    if (dataCreateErorr != null) {
+    dataTaxErorr = validInput(dataTax.text, 20, 3, "Text".tr);
+    if (dataCreateErorr != null || dataTaxErorr != null) {
       update();
       return;
     }
     final yearStr = dataCreate.text.substring(0, 4);
     final year = int.tryParse(yearStr);
-    final currentYear = DateTime.now().year;
+    final taxYear = int.tryParse(dataTax.text);
 
     print("==============$year");
-    print("===============$currentYear");
+    print("===============$taxYear");
 
-    if (year == currentYear && personType == 2) {
+    if (year != null && taxYear != null && year > taxYear) {
+      showSnackbar(
+        "تنبيه",
+        "لا يمكن ان تكون سنة التصريح اقدم من سنة الانشاء",
+        Colors.orange,
+      );
+      return;
+    }
+
+    if (year == taxYear && personType == 2) {
       type = 1; // شركة في عامها الاول
       Get.to(Capital());
-    } else if (year! < currentYear) {
+    } else if (year != null && taxYear != null && year < taxYear) {
       type = 2; // شركة او مؤسسة بعد عامها الاول
       Get.to(Txslastyear());
-    } else if (year == currentYear && personType == 1) {
+    } else if (year == taxYear && personType == 1) {
       Get.to(Taxinpout());
       type = 3; // مؤسسة في عامها الاول
     }
@@ -130,30 +140,34 @@ class Simplifiedsystemcontroller extends GetxController {
     taxLastyearErorr = validInput(
       TaxLastyear.text.replaceAll(RegExp(r'[^0-9]'), ''),
       20,
-      3,
-      "int".tr,
+      1,
+      "Text",
     );
+    dataTaxErorr = validInput(dataTax.text, 20, 3, "Text".tr);
+
     surplusErorr = validInput(
       surplus.text.replaceAll(RegExp(r'[^0-9]'), ''),
       20,
-      3,
-      "int".tr,
+      1,
+      "Text",
+      empty: true,
     );
-    if (taxLastyearErorr != null || surplusErorr != null) {
+    if (taxLastyearErorr != null ||
+        surplusErorr != null ||
+        dataTaxErorr != null) {
       update();
       return;
     }
     double? tax = double.tryParse(
       TaxLastyear.text.replaceAll(RegExp(r'[^0-9]'), ''),
     );
-    double? remainingSurplus = double.tryParse(
-      surplus.text.replaceAll(RegExp(r'[^0-9]'), ''),
-    );
+    double? remainingSurplus =
+        double.tryParse(surplus.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0.0;
 
-    if (tax == null || remainingSurplus == null) {
+    if (tax == null) {
       Get.snackbar(
         "خطأ".tr,
-        "الرجاء إدخال أرقام صحيحة للضريبة والفائض".tr,
+        "الرجاء إدخال أرقام صحيحة للضريبة".tr,
         backgroundColor: Colors.redAccent,
         colorText: Colors.white,
       );
@@ -463,6 +477,8 @@ class Simplifiedsystemcontroller extends GetxController {
   void backFromCreateCompany() {
     dataCreate.clear();
     dataCreateErorr = null;
+    dataTax.clear();
+    dataTaxErorr = null;
     Get.back();
   }
 
@@ -497,7 +513,6 @@ class Simplifiedsystemcontroller extends GetxController {
     construction.clear();
     otherActivity.clear();
     finalPaymentDate.clear();
-    dataTax.clear();
     advance1Date.clear();
     advance2Date.clear();
     advance3Date.clear();
@@ -593,7 +608,6 @@ class Simplifiedsystemcontroller extends GetxController {
     }
 
     finalPaymentDateErorr = validInput(finalPaymentDate.text, 20, 3, "Text".tr);
-    dataTaxErorr = validInput(dataTax.text, 20, 3, "Text".tr);
 
     if (advance1DateErorr != null ||
         advance2DateErorr != null ||

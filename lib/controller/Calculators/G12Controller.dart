@@ -72,7 +72,7 @@ class G12controller extends GetxController {
     if (activityType == 0) {
       return showSnackbar(
         "خطأ".tr,
-        "إختر نوع النشاط الخاص بك أولا".tr,
+        "إختر نوع النشاط أولا".tr,
         Colors.red,
       );
     }
@@ -90,12 +90,13 @@ class G12controller extends GetxController {
     int monthsLate =
         (datepositand.year - dueDate.year) * 12 +
         (datepositand.month - dueDate.month);
+    print("========================monthsLate: $monthsLate");
 
     double percent;
     double fixedPenalty;
 
     if (monthsLate == 0) {
-      percent = 0.20;
+      percent = 0.10;
       fixedPenalty = 250000;
     } else if (monthsLate == 1) {
       percent = 0.20;
@@ -107,6 +108,8 @@ class G12controller extends GetxController {
 
     // إذا عنده مبلغ نحسب نسبة
     if (advance > 0) {
+      print("========================advance: $advance");
+      print("========================percent: $percent");
       return advance * percent;
     }
 
@@ -130,7 +133,7 @@ class G12controller extends GetxController {
     print("monthsLate: $monthsLate");
 
     if (monthsLate == 0) {
-      percent = 0.20;
+      percent = 0.10;
     } else if (monthsLate == 1) {
       percent = 0.13;
     } else if (monthsLate == 2) {
@@ -217,6 +220,11 @@ class G12controller extends GetxController {
       7,
       1,
     ); // final dueDatede = DateTime(DateTime.now().year, 1, 21);
+    if (activityType == 1) {
+      netTax = netTax < 1000000 ? 1000000 : netTax;
+    } else {
+      netTax = netTax < 3000000 ? 3000000 : netTax;
+    }
 
     final datepositand = parseDate(dateofdepositand.text);
     final datepayment = parseDate(dateofpayment.text);
@@ -227,11 +235,7 @@ class G12controller extends GetxController {
       dueDatedepositand,
       netTax,
     );
-    if (activityType == 1) {
-      netTax = netTax < 1000000 ? 1000000 : netTax;
-    } else {
-      netTax = netTax < 3000000 ? 3000000 : netTax;
-    }
+
     Get.to(Shwopenaltyg12());
     print("================netTax $netTax");
     print("================penalty $penalty");

@@ -51,8 +51,10 @@ class G12bescontroller extends GetxController {
   double penaltyfinaldepositand = 0;
   double netTax = 0;
   double total = 0;
+  double deff = 0;
   double penalty = 0;
   double penaltypyment = 0;
+  double currentNetTax = 0;
 
   double productions = 0;
   double profitmargins = 0;
@@ -67,11 +69,7 @@ class G12bescontroller extends GetxController {
 
   void gotodatacreate() {
     if (activityType == 0) {
-      return showSnackbar(
-        "خطأ".tr,
-        "إختر نوع النشاط الخاص بك أولا".tr,
-        Colors.red,
-      );
+      return showSnackbar("خطأ".tr, "إختر نوع النشاط أولا".tr, Colors.red);
     }
     Get.to(Taxinputdatarecordeg12bes());
   }
@@ -92,14 +90,14 @@ class G12bescontroller extends GetxController {
     double fixedPenalty;
 
     if (monthsLate == 0) {
-      percent = 0.20;
+      percent = 0.10;
       fixedPenalty = 250000;
     } else if (monthsLate == 1) {
       percent = 0.20;
       fixedPenalty = 500000;
     } else {
       percent = 0.25;
-      fixedPenalty = 2000000;
+      fixedPenalty = 1000000;
     }
 
     // إذا عنده مبلغ نحسب نسبة
@@ -126,7 +124,7 @@ class G12bescontroller extends GetxController {
     double percent;
 
     if (monthsLate == 0) {
-      percent = 0.20;
+      percent = 0.10;
     } else if (monthsLate == 1) {
       percent = 0.13;
     } else if (monthsLate == 2) {
@@ -142,9 +140,11 @@ class G12bescontroller extends GetxController {
     return advance * percent;
   }
 
-  double calculatepositand(DateTime? date, DateTime dueDate, double advance) {
+  double calculatepositand(DateTime? date, DateTime? dueDate) {
+    print("===================date $date");
+    print("===================dueDate $dueDate");
     if (date == null) return 0;
-    if (!date.isAfter(dueDate)) return 0;
+    if (!date.isAfter(dueDate!)) return 0;
 
     int monthsLate =
         (date.year - dueDate.year) * 12 + (date.month - dueDate.month);
@@ -215,23 +215,21 @@ class G12bescontroller extends GetxController {
       1,
     ); // final dueDatede = DateTime(DateTime.now().year, 1, 21);
     final dueDatede = DateTime(year, 1, 21);
-
     final datepositand = parseDate(dateofdepositand.text);
     final datepayment = parseDate(dateofpayment.text);
-
+    netTax = netTax - g12b;
+    print("================netTax $netTax");
     penalty = netTax <= 0
-        ? calculatepositand(dueDatede, dueDatedepositand, netTax)
+        ? calculatepositand(datepositand, dueDatede)
         : calculatePenaltypositand(datepositand, dueDatedepositand, netTax);
-    penaltypyment = calculatePenaltyPayment(
-      datepayment,
-      dueDatedepositand,
-      netTax,
-    );
+    penaltypyment = netTax > 0
+        ? calculatePenaltyPayment(datepayment, dueDatedepositand, netTax)
+        : 0;
 
     Get.to(Shwopenaltyg12bes());
-    print("================netTax $netTax");
     print("================penalty $penalty");
-    total = (netTax + penalty + penaltypyment) - g12b;
+    print("================penaltypyment $penaltypyment");
+    total = netTax + penalty + penaltypyment;
   }
 
   void resetAll() {
@@ -303,12 +301,16 @@ class G12bescontroller extends GetxController {
       if (dateofdepositandErorr != null) hasError = true;
     }
 
-    if (dateofpayment.text.isEmpty) {
-      dateofpaymentErorr = "تاريخ الدفع مطلوب".tr;
-      hasError = true;
+    if (currentNetTax > 0) {
+      if (dateofpayment.text.isEmpty) {
+        dateofpaymentErorr = "تاريخ الدفع مطلوب".tr;
+        hasError = true;
+      } else {
+        dateofpaymentErorr = validInput(dateofpayment.text, 20, 4, "Text");
+        if (dateofpaymentErorr != null) hasError = true;
+      }
     } else {
-      dateofpaymentErorr = validInput(dateofpayment.text, 20, 4, "Text");
-      if (dateofpaymentErorr != null) hasError = true;
+      dateofpaymentErorr = null;
     }
 
     if (dataTax.text.isEmpty) {
@@ -408,6 +410,51 @@ class G12bescontroller extends GetxController {
   void onInit() {
     fromPage = Get.arguments?['fromPage'] ?? '';
     addenter(4);
+    production.addListener(calculateLiveNetTax);
+    otherActivity.addListener(calculateLiveNetTax);
+    profitmargin.addListener(calculateLiveNetTax);
+    extractedfromSource.addListener(calculateLiveNetTax);
+    selfcontractor.addListener(calculateLiveNetTax);
+    g12.addListener(calculateLiveNetTax);
     super.onInit();
+  }
+
+  void calculateLiveNetTax() {
+    double p =
+        double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    double o =
+        double.tryParse(otherActivity.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
+        0;
+    double pm =
+        double.tryParse(profitmargin.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
+        0;
+    double e =
+        double.tryParse(
+          extractedfromSource.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        0;
+    double s =
+        double.tryParse(
+          selfcontractor.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        0;
+    double g12b =
+        double.tryParse(g12.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+
+    double liveNet =
+        (p * 0.05) + (o * 0.12) + (pm * 0.05) + (e * 0.05) + (s * 0.005);
+
+    if (activityType == 1) {
+      liveNet = liveNet < 1000000 ? 1000000 : liveNet;
+    } else {
+      liveNet = liveNet < 3000000 ? 3000000 : liveNet;
+    }
+
+    liveNet = liveNet - g12b;
+
+    if (currentNetTax != liveNet) {
+      currentNetTax = liveNet;
+      update();
+    }
   }
 }
