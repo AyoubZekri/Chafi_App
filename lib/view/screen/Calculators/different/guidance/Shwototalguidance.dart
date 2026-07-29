@@ -69,7 +69,7 @@ class _ShwototalguidanceState extends State<Shwototalguidance> {
 
                           PenaltyCard(
                             title: "total_gifts".tr,
-                            subtitle: "total_entered_value".tr,
+                            subtitle: "".tr,
                             amount: controller.netTax
                                 .toInt()
                                 .formatCustomint()
@@ -79,7 +79,7 @@ class _ShwototalguidanceState extends State<Shwototalguidance> {
 
                           PenaltyCard(
                             title: "non_deductible_part".tr,
-                            subtitle: "amount_exceeding_limit".tr,
+                            subtitle: "".tr,
                             amount: controller.addreselttax
                                 .toInt()
                                 .formatCustomint()

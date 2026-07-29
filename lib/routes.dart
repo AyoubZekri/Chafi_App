@@ -3,7 +3,8 @@ import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/FlatRate/Flat
 import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/G12/TypeActevite.dart';
 import 'package:chafi/view/screen/Calculators/Simplified%20system/CalPersonType.dart';
 import 'package:chafi/view/screen/Calculators/different/InterestTax/TaxType.dart';
-import 'package:chafi/view/screen/Calculators/different/ResearchandDevelopment/ResearchAndDevelopment.dart';
+import 'package:chafi/view/screen/Calculators/different/ResearchandDevelopment/ResearchAndDevelopmentCalc.dart';
+import 'package:chafi/view/screen/Calculators/different/ResearchandDevelopment/ResearchAndDevelopmentType.dart';
 import 'package:chafi/view/screen/Setting/ContactUs.dart';
 import 'package:chafi/view/screen/Setting/Externallinks.dart';
 import 'package:chafi/view/screen/Setting/InformationAPP.dart';
@@ -28,6 +29,7 @@ import 'view/screen/Calculators/different/CalculatorsDefferent.dart';
 import 'view/screen/Calculators/different/RealEstateIncome/RealEstateIncomeType.dart';
 import 'view/screen/Calculators/different/SurrenderOfTheProperty/SurrenderOfThePropertytype.dart';
 import 'view/screen/Calculators/different/TouristVehicles/ToueistType.dart';
+import 'view/screen/Calculators/different/TouristVehicles/ToueistInitialActivity.dart';
 import 'view/screen/Calculators/different/WaiverOfInvestment/WaiverofInvestmentValue.dart';
 import 'view/screen/Calculators/different/bonusesandcompensation/AccountType.dart';
 import 'view/screen/Calculators/different/guidance/CostsGuidance.dart';
@@ -143,8 +145,15 @@ List<GetPage<dynamic>> routes = [
   ),
   GetPage(
     name: Approutes.researchanddevelopment,
-    page: () => const Researchanddevelopment(),
+    page: () => const ResearchanddevelopmentType(),
   ),
+  GetPage(
+    name: '/ResearchanddevelopmentCalc',
+    page: () => const ResearchanddevelopmentCalc(),
+  ),
+  GetPage(
+      name: Approutes.toueistinitialactivity,
+      page: () => const ToueistInitialActivity()),
   GetPage(name: Approutes.toueisttype, page: () => const Toueisttype()),
   GetPage(
     name: Approutes.realestateincometype,

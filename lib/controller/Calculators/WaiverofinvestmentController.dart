@@ -30,6 +30,8 @@ class Waiverofinvestmentcontroller extends GetxController {
   TextEditingController purchasedate = TextEditingController();
   double total = 0;
   double discount = 0;
+  int discountPercentage = 0;
+  int totalPercentage = 0;
 
   double sellingprices = 0;
   double purchaseprices = 0;
@@ -88,8 +90,18 @@ class Waiverofinvestmentcontroller extends GetxController {
 
         if (remaininSale <= 0) {
           discount = 0;
+          discountPercentage = 0;
+          totalPercentage = 100;
         } else {
-          discount = years > 3 ? remaininSale * 0.65 : remaininSale * 0.30;
+          if (years > 3) {
+            discount = remaininSale * 0.65;
+            discountPercentage = 65;
+            totalPercentage = 35;
+          } else {
+            discount = remaininSale * 0.30;
+            discountPercentage = 30;
+            totalPercentage = 70;
+          }
         }
         total = remaininSale - discount;
       }

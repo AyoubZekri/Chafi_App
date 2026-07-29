@@ -44,6 +44,7 @@ class Approutes {
   static const String advertisingandsponsorship = "/Advertisingandsponsorship";
   static const String researchanddevelopment = "/Researchanddevelopment";
   static const String toueisttype = "/Toueisttype";
+  static const String toueistinitialactivity = "/Toueistinitialactivity";
   static const String realestateincometype = "/Realestateincometype";
   static const String surrenderofthepropertytype = "/Surrenderofthepropertytype";
   static const String waiverofinvestmentvalue = "/Waiverofinvestmentvalue";

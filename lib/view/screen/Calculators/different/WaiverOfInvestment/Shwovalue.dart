@@ -69,7 +69,7 @@ class _ShwovalueState extends State<Shwovalue> {
                           // ======= سنوات متبقية =======
                           PenaltyCard(
                             icon: Icons.account_balance_wallet_outlined,
-                            title: "القيمة الباقية للإستثمار".tr,
+                            title: "القيمة الباقية لتثبيت".tr,
                             subtitle: "",
                             amount: controller.remainingacquisition
                                 .toInt()
@@ -81,7 +81,7 @@ class _ShwovalueState extends State<Shwovalue> {
                           // ======= القيمة الخاضعة =======
                           PenaltyCard(
                             icon: Icons.account_balance_wallet_outlined,
-                            title: "فائض القيمة عن الإستثمار".tr,
+                            title: "فائض قيمة التثبيت".tr,
                             subtitle: "",
                             amount: controller.remaininSale
                                 .toInt()
@@ -92,7 +92,7 @@ class _ShwovalueState extends State<Shwovalue> {
                           const SizedBox(height: 14),
                           PenaltyCard(
                             icon: Icons.account_balance_wallet_outlined,
-                            title: "قيمة التخفيض".tr,
+                            title: "${"مبلغ التخفيض".tr} (${controller.discountPercentage}%)",
                             subtitle: "",
                             amount: controller.discount
                                 .toInt()
@@ -104,7 +104,7 @@ class _ShwovalueState extends State<Shwovalue> {
 
                           // ======= المجموع النهائي =======
                           TotalAmountCard(
-                            title: "المبلغ الخاضع لي الضريبة بعد التخفيض".tr,
+                            title: "${"المبلغ الخاضع لضريبة بعد التخفيض".tr} (${controller.totalPercentage}%)",
                             // subtitle: "المبلغ بعد احتساب التنازل".tr,
                             total: controller.total.toInt(),
                           ),

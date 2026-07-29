@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
+import '../../core/constant/Colorapp.dart';
 import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
@@ -17,6 +18,8 @@ class Touristcehiclescontroller extends GetxController {
   Statusrequest statusrequest = Statusrequest.none;
   String? fromPage;
   int type = 0;
+  int isMainRenting = 0;
+
   TextEditingController nameguidance = TextEditingController();
   TextEditingController costsguidance = TextEditingController();
   TextEditingController countguidance = TextEditingController();
@@ -30,6 +33,108 @@ class Touristcehiclescontroller extends GetxController {
   void selectedPerson(int i) {
     type = i;
     update();
+  }
+
+  void selectedMainRenting(int i) {
+    isMainRenting = i;
+    update();
+  }
+
+  void goToNextFromInitial() {
+    if (isMainRenting == 0) {
+      return showSnackbar("خطأ".tr, "يرجى الإجابة على السؤال".tr, Colors.red);
+    }
+    if (isMainRenting == 1) {
+      Get.dialog(
+        Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppColor.white,
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.12),
+                  blurRadius: 24,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppColor.primarycolor.withOpacity(0.08),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: AppColor.primarycolor.withOpacity(0.15),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.info_outline_rounded,
+                    color: AppColor.primarycolor,
+                    size: 36,
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Text(
+                  "ملاحظة".tr,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: AppColor.typography,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "مسموح خصم جميع المصاريف".tr,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    height: 1.6,
+                    color: Color(0xFF475569),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.typography,
+                    foregroundColor: AppColor.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    elevation: 0,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text(
+                    "موافق".tr,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      Get.toNamed('/Toueisttype');
+    }
   }
 
   void gotodatacreate() {

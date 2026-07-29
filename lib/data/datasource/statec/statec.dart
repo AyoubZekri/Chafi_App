@@ -609,7 +609,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
         Approutes.inputdata,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
       ),
     ),
 
@@ -624,7 +624,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
         Approutes.costsguidance,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
       ),
     ),
 
@@ -639,7 +639,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
         Approutes.advertisingandsponsorship,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
       ),
     ),
 
@@ -652,8 +652,8 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
   Institutiontypemodel(
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
-        Approutes.toueisttype,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
+        Approutes.toueistinitialactivity,
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
       ),
     ),
 
@@ -668,7 +668,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
         Approutes.researchanddevelopment,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
       ),
     ),
 
@@ -683,7 +683,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
         Approutes.waiverofinvestmentvalue,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
       ),
     ),
 
@@ -698,7 +698,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
     ontap: () => handleLoginRequired(
       () => Get.toNamed(
         Approutes.accounttype,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
+        arguments: {'fromPage': "/Calculatorsrealsystem"},
       ),
     ),
 

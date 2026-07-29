@@ -63,19 +63,19 @@ class _ShwoditailsbudgetdepositState extends State<Shwoditailsbudgetdeposit> {
                               .formatCustomint()
                               .toString(),
                         ),
+                        // const SizedBox(height: 12),
+                        // PenaltyCard(
+                        //   title: "payment_delay_tax".tr,
+                        //   subtitle: 'payment_delay'.tr,
+                        //   amount: controller.pyment
+                        //       .toInt()
+                        //       .formatCustomint()
+                        //       .toString(),
+                        // ),
                         const SizedBox(height: 12),
                         PenaltyCard(
-                          title: "payment_delay_tax".tr,
-                          subtitle: 'payment_delay'.tr,
-                          amount: controller.pyment
-                              .toInt()
-                              .formatCustomint()
-                              .toString(),
-                        ),
-                        const SizedBox(height: 12),
-                        PenaltyCard(
-                          title: "threat_tax".tr,
-                          subtitle: 'threat'.tr,
+                          title: "مراسلة من الضرائب".tr,
+                          subtitle: 'في حال المراسلة من الضرائب'.tr,
                           amount: controller.paymentPenalty
                               .toInt()
                               .formatCustomint()

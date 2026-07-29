@@ -52,13 +52,13 @@ class _TouristcehiclescostState extends State<Touristcehiclescost> {
                         costLabel:
                             Get.find<Touristcehiclescontroller>().type == 2
                             ? "تكلفة الكراء".tr
-                            : "تكلفة الصيانة".tr,
+                            : "تكلفة صيانة المركبة".tr,
                         costHint:
                             Get.find<Touristcehiclescontroller>().type == 2
                             ? "تكلفة الكراء".tr
-                            : "تكلفة الصيانة".tr,
-                        countLabel: "عدد الوحدات".tr,
-                        countHint: "عدد الوحدات".tr,
+                            : "تكلفة صيانة المركبة".tr,
+                        countLabel: "عدد المركبات".tr,
+                        countHint: "عدد المركبات".tr,
                         addText: "إضافة".tr,
                         cancelText: "إلغاء".tr,
                         nameController:

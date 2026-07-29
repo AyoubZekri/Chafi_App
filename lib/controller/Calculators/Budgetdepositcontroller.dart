@@ -36,20 +36,23 @@ class Budgetdepositcontroller extends GetxController {
     DateTime depositDate,
     double amount,
   ) {
-    DateTime delayStart = DateTime(baseDate.year, baseDate.month + 1, 21);
+    DateTime delayStart = DateTime(baseDate.year + 1, 5, 1);
 
     if (depositDate.isBefore(delayStart)) {
       return 0;
     }
 
-    // نفس الشهر بعد 21
-    if (depositDate.year == delayStart.year &&
-        depositDate.month == delayStart.month) {
-      return amount * 0.05;
-    }
+    int monthsLate =
+        (depositDate.year - delayStart.year) * 12 +
+        (depositDate.month - delayStart.month);
 
-    // من الشهر اللي بعده
-    return amount * 0.10;
+    if (monthsLate == 0) {
+      return amount * 0.10;
+    } else if (monthsLate == 1) {
+      return amount * 0.20;
+    } else {
+      return amount * 0.25;
+    }
   }
 
   double calculateThreatPenalty(
@@ -57,7 +60,7 @@ class Budgetdepositcontroller extends GetxController {
     DateTime depositDate,
     double amount,
   ) {
-    DateTime delayStart = DateTime(baseDate.year, baseDate.month + 1, 21);
+    DateTime delayStart = DateTime(baseDate.year + 1, 5, 1);
 
     if (depositDate.isBefore(delayStart)) {
       return 0;
@@ -87,7 +90,7 @@ class Budgetdepositcontroller extends GetxController {
     DateTime paymentDate,
     double amount,
   ) {
-    DateTime delayStart = DateTime(baseDate.year, baseDate.month + 1, 21);
+    DateTime delayStart = DateTime(baseDate.year + 1, 5, 1);
 
     if (paymentDate.isBefore(delayStart)) {
       return 0;
@@ -117,18 +120,20 @@ class Budgetdepositcontroller extends GetxController {
 
     final depositDate = parseDate(datedeposit.text);
 
-    final paymentDate = parseDate(datepyment.text);
+    // final paymentDate = parseDate(datepyment.text);
+    print("====${baseDate}===11=====");
+    print("====${depositDate}===22=====");
 
     deposit = calculateDepositPenalty(baseDate!, depositDate!, amount);
 
-    pyment = calculateThreatPenalty(baseDate, depositDate, amount);
+    // pyment = calculateThreatPenalty(baseDate, depositDate, amount);
 
-    paymentPenalty = calculatePaymentPenalty(baseDate, paymentDate!, amount);
-    print(deposit);
+    paymentPenalty = calculatePaymentPenalty(baseDate, depositDate, amount);
+    print("====${deposit}===33=====");
     print(pyment);
     print(paymentPenalty);
 
-    netTax = deposit + pyment + paymentPenalty;
+    netTax = deposit + paymentPenalty;
     Get.to(Shwoditailsbudgetdeposit());
     update();
   }
@@ -186,13 +191,13 @@ class Budgetdepositcontroller extends GetxController {
       if (datedepositErorr != null) hasError = true;
     }
 
-    if (datepyment.text.isEmpty) {
-      datepymentErorr = "تاريخ الدفع مطلوب";
-      hasError = true;
-    } else {
-      datepymentErorr = validInput(datepyment.text, 20, 4, "Text");
-      if (datepymentErorr != null) hasError = true;
-    }
+    // if (datepyment.text.isEmpty) {
+    //   datepymentErorr = "تاريخ الدفع مطلوب";
+    //   hasError = true;
+    // } else {
+    //   datepymentErorr = validInput(datepyment.text, 20, 4, "Text");
+    //   if (datepymentErorr != null) hasError = true;
+    // }
 
     if (datebudgetdeposit.text.isEmpty) {
       datebudgetdepositErorr = "تاريخ الميزانية مطلوب".tr;

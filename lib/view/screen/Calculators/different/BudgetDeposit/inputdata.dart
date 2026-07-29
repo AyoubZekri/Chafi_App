@@ -86,10 +86,11 @@ class _InputdataState extends State<Inputdata> {
                             CustomInputField(
                               label: "budget_date".tr,
                               icon: Icons.event_available,
-                              placeholder: 'mm/dd/yyyy',
+                              placeholder: 'yyyy',
                               isDate: true,
                               controller: controller.datebudgetdeposit,
                               errorText: controller.datebudgetdepositErorr,
+                              dateFormatType: DateFormatType.year,
                             ),
 
                             const SizedBox(height: 16),
@@ -103,15 +104,15 @@ class _InputdataState extends State<Inputdata> {
                               errorText: controller.datedepositErorr,
                             ),
 
-                            const SizedBox(height: 16),
-                            CustomInputField(
-                              label: "payment_date".tr,
-                              icon: Icons.payments_outlined,
-                              placeholder: 'mm/dd/yyyy',
-                              isDate: true,
-                              controller: controller.datepyment,
-                              errorText: controller.datepymentErorr,
-                            ),
+                            // const SizedBox(height: 16),
+                            // CustomInputField(
+                            //   label: "payment_date".tr,
+                            //   icon: Icons.event_available,
+                            //   placeholder: 'mm/dd/yyyy',
+                            //   isDate: true,
+                            //   controller: controller.datepyment,
+                            //   errorText: controller.datepymentErorr,
+                            // ),
 
                             const SizedBox(height: 32),
 

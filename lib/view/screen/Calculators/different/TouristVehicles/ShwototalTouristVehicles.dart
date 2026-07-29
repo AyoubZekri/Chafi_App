@@ -64,7 +64,9 @@ class _ShwototaltouristvehiclesState extends State<Shwototaltouristvehicles> {
 
                           PenaltyCard(
                             title: "الحد الأقصى للخصم".tr,
-                            subtitle: controller.type == 2 ? "إجمالي كل المركبات".tr : "لكل وحدة".tr,
+                            subtitle: controller.type == 2
+                                ? "إجمالي كراء المركبات".tr
+                                : "لكل وحدة".tr,
                             icon: Icons.rule_outlined,
                             amount: controller.type == 2
                                 ? "20,000,000"
@@ -73,8 +75,16 @@ class _ShwototaltouristvehiclesState extends State<Shwototaltouristvehicles> {
                           const SizedBox(height: 12),
 
                           PenaltyCard(
-                            title: "مجموع كل المركبات".tr,
-                            subtitle: "القيمة الإجمالية للمركبات".tr,
+                            title:
+                                (controller.type == 2
+                                        ? "مجموع كراء المركبات"
+                                        : "مجموع صيانة المركبات")
+                                    .tr,
+                            subtitle:
+                                (controller.type == 2
+                                        ? "القيمة الاجمالية للكراء"
+                                        : "القيمة الاجمالية للصيانة")
+                                    .tr,
                             icon: Icons.summarize_outlined,
                             amount: controller.netTax
                                 .toInt()
@@ -85,9 +95,7 @@ class _ShwototaltouristvehiclesState extends State<Shwototaltouristvehicles> {
 
                           PenaltyCard(
                             title: "الجزء غير القابل للخصم".tr,
-                            subtitle: controller.type == 2
-                                ? "المبلغ الذي يتجاوز 20,000,000 دج".tr
-                                : "المبلغ الإجمالي المتجاوز للسقف".tr,
+                            subtitle: controller.type == 2 ? "".tr : "".tr,
                             icon: Icons.remove_circle_outline,
                             amount: controller.addreselttax
                                 .toInt()

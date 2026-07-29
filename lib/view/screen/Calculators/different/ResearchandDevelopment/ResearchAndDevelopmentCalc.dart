@@ -8,14 +8,16 @@ import '../../../../widget/Calculator/PinaltyDitails.dart';
 import '../../../../widget/Calculator/Taxinpout.dart' hide SectionHeader;
 import '../../../../widget/Text/CustemtextbodyMedium18.dart';
 
-class Researchanddevelopment extends StatefulWidget {
-  const Researchanddevelopment({super.key});
+class ResearchanddevelopmentCalc extends StatefulWidget {
+  const ResearchanddevelopmentCalc({super.key});
 
   @override
-  State<Researchanddevelopment> createState() => _ResearchanddevelopmentState();
+  State<ResearchanddevelopmentCalc> createState() =>
+      _ResearchanddevelopmentCalcState();
 }
 
-class _ResearchanddevelopmentState extends State<Researchanddevelopment> {
+class _ResearchanddevelopmentCalcState
+    extends State<ResearchanddevelopmentCalc> {
   final controller = Get.put(Researchanddevelopmentcontroller());
   @override
   Widget build(BuildContext context) {
@@ -60,18 +62,19 @@ class _ResearchanddevelopmentState extends State<Researchanddevelopment> {
                           CustemtextbodyMedium18(
                             color: AppColor.grey,
                             content:
-                                "أدخل الربح المحاسبي ليتم حساب قيمة الخصم الضريبي المسموح به",
+                                "أدخل الربح المحاسبي ليتم حساب قيمة الخصم الضريبي المسموح به"
+                                    .tr,
                           ),
                           SizedBox(height: 24),
 
                           SectionHeader(
                             icon: Icons.receipt_long_outlined,
-                            title: "ربح المحاسبي",
+                            title: "ربح المحاسبي".tr,
                           ),
                           SizedBox(height: 12),
 
                           CustomInputField(
-                            label: "ربح المحاسبي",
+                            label: "ربح المحاسبي".tr,
                             icon: Icons.confirmation_num_outlined,
                             isCurrency: true,
                             controller: controller.accountingprofit,
@@ -83,14 +86,14 @@ class _ResearchanddevelopmentState extends State<Researchanddevelopment> {
                           SizedBox(height: 24),
 
                           PenaltyCard(
-                            title: "الحد الأقصى للخصم",
-                            subtitle: "للبحث والتطوير",
+                            title: "الحد الأقصى للخصم السنوي".tr,
+                            subtitle: "للبحث والتطوير والإبتكار المفتوح".tr,
                             amount: "200,000,000,00",
                           ),
                           SizedBox(height: 24),
                           TotalAmountCard(
                             total: controller.netTax.round(),
-                            title: "قيمة الخصم",
+                            title: "القيمة الإجمالية للخصم".tr,
                           ),
                           SizedBox(height: 30),
                           Custemsuberbutton(
