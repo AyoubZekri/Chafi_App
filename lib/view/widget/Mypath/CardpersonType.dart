@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:chafi/core/constant/Colorapp.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Cardpersontype extends StatelessWidget {
   final int index;
@@ -45,15 +46,19 @@ class Cardpersontype extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
+              child: Container(
                 alignment: Get.locale?.languageCode == "ar"
                     ? Alignment.centerRight
                     : Alignment.centerLeft,
-                child: Text(
+                child: AutoSizeText(
                   title,
+                  minFontSize: 16, // أصغر حجم يمكن أن يصل إليه النص
+                  maxLines: 2, // البقاء في سطر واحد
+                  overflow: TextOverflow
+                      .ellipsis, // وضع نقاط إذا تجاوز النص الحجم الأصغر
                   style: context.textTheme.headlineLarge?.copyWith(
                     color: AppColor.typography,
+                    height: 2,
                   ),
                 ),
               ),

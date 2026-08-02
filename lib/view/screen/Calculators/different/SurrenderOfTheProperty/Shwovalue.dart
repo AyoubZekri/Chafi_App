@@ -84,7 +84,7 @@ class _ShwovalueState extends State<Shwovalue> {
                             icon: Icons.percent_outlined,
                             title: "التخفيض السنوي".tr,
                             subtitle: "قيمة التخفيض حسب مدة الحيازة".tr,
-                            amount: controller.discountyear
+                            amount: controller.annualDiscountAmount
                                 .toInt()
                                 .formatCustomint()
                                 .toString(),
@@ -96,7 +96,7 @@ class _ShwovalueState extends State<Shwovalue> {
                               icon: Icons.home_work_outlined,
                               title: "تخفيض سكني وحيد".tr,
                               subtitle: "نسبة التخفيض للإستعمال السكني".tr,
-                              amount: controller.discount
+                              amount: controller.residenceDiscountAmount
                                   .toInt()
                                   .formatCustomint()
                                   .toString(),

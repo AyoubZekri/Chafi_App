@@ -10,6 +10,8 @@ import 'package:chafi/view/screen/Setting/Externallinks.dart';
 import 'package:chafi/view/screen/Setting/InformationAPP.dart';
 import 'package:chafi/view/screen/Setting/UnderConstruction.dart';
 import 'package:get/get.dart';
+import 'package:chafi/view/screen/Calculators/different/bonusesandcompensation/AccountType.dart';
+import 'package:chafi/view/screen/Calculators/different/bonusesandcompensation/Cacobatph.dart';
 
 import 'view/screen/FavoritesScreen.dart';
 import 'view/screen/Calculators/different/FiscalCalculator/FiscalCalculator.dart';
@@ -170,7 +172,7 @@ List<GetPage<dynamic>> routes = [
     page: () => const Waiverofinvestmentvalue(),
   ),
 
-  GetPage(name: Approutes.accounttype, page: () => const Accounttype()),
+  GetPage(name: Approutes.accounttype, page: () => const CacobatphScreen()),
   GetPage(name: Approutes.taxtype, page: () => const Taxtype()),
   GetPage(name: Approutes.categoriesDiff, page: () => const CategoriesDiff()),
 

@@ -71,14 +71,8 @@ class _InboutvalouState extends State<Inboutvalou> {
                               content: "enter_data_correctly".tr,
                             ),
                             SizedBox(height: 40),
-                            CustemtextbodyMedium18(
-                              content: "choose_taxable_bonuses".tr,
-                              color: AppColor.black,
-                            ),
-                            SizedBox(height: 40),
                             SectionHeader(
-                              icon: Icons
-                                  .account_balance_wallet_outlined,
+                              icon: Icons.account_balance_wallet_outlined,
                               title: "taxable_and_contributions".tr,
                             ),
                             const SizedBox(height: 16),
@@ -97,6 +91,10 @@ class _InboutvalouState extends State<Inboutvalou> {
                               icon: controller.hasspeciallogictype == 1
                                   ? Icons.percent
                                   : Icons.calendar_today,
+                              isPercentage: controller.hasspeciallogictype == 1,
+                              placeholder: controller.hasspeciallogictype == 1
+                                  ? "00"
+                                  : "0.00",
                               controller: controller.numday,
                               errorText: controller.numdayError,
                             ),
@@ -126,12 +124,20 @@ class _InboutvalouState extends State<Inboutvalou> {
                                       ? bonus.localizedName
                                       : "Enter value".tr;
 
+                                  final isPercentage = bonus?.valueType == 1;
+
                                   return Column(
                                     children: [
                                       CustomInputField(
                                         label: label,
-                                        icon: FontAwesomeIcons.moneyBillWave,
-                                        isCurrency: true,
+                                        icon: isPercentage
+                                            ? Icons.percent
+                                            : FontAwesomeIcons.moneyBillWave,
+                                        isCurrency: !isPercentage,
+                                        isPercentage: isPercentage,
+                                        placeholder: isPercentage
+                                            ? "00"
+                                            : "0.00",
                                         controller: textController,
                                         errorText: controller
                                             .bonusErrorsGroups[1]?[id],
@@ -162,12 +168,20 @@ class _InboutvalouState extends State<Inboutvalou> {
                                       ? bonus.localizedName
                                       : "Enter value".tr;
 
+                                  final isPercentage = bonus?.valueType == 1;
+
                                   return Column(
                                     children: [
                                       CustomInputField(
                                         label: label,
-                                        icon: FontAwesomeIcons.moneyBillWave,
-                                        isCurrency: true,
+                                        icon: isPercentage
+                                            ? Icons.percent
+                                            : FontAwesomeIcons.moneyBillWave,
+                                        isCurrency: !isPercentage,
+                                        isPercentage: isPercentage,
+                                        placeholder: isPercentage
+                                            ? "00"
+                                            : "0.00",
                                         controller: textController,
                                         errorText: controller
                                             .bonusErrorsGroups[2]?[id],
@@ -199,12 +213,20 @@ class _InboutvalouState extends State<Inboutvalou> {
                                       ? bonus.localizedName
                                       : "Enter value".tr;
 
+                                  final isPercentage = bonus?.valueType == 1;
+
                                   return Column(
                                     children: [
                                       CustomInputField(
                                         label: label,
-                                        icon: FontAwesomeIcons.moneyBillWave,
-                                        isCurrency: true,
+                                        icon: isPercentage
+                                            ? Icons.percent
+                                            : FontAwesomeIcons.moneyBillWave,
+                                        isCurrency: !isPercentage,
+                                        isPercentage: isPercentage,
+                                        placeholder: isPercentage
+                                            ? "00"
+                                            : "0.00",
                                         controller: textController,
                                         errorText: controller
                                             .bonusErrorsGroups[3]?[id],

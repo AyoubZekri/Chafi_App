@@ -314,11 +314,7 @@ class _InforecordState extends State<Inforecord> {
                         final appt = controller.appointments[i];
                         return AppointmentCard(
                           title: appt.declaration,
-                          date: appt.deadline.substring(5, 10),
-                          dec: appt.dependencies,
-                          status: DateTime.parse(
-                            appt.deadline,
-                          ).isBefore(DateTime.now()),
+                          date: appt.deadline.length >= 10 ? appt.deadline.substring(5, 10) : appt.deadline,
                         );
                       },
                     ),
@@ -663,40 +659,22 @@ class _InforecordState extends State<Inforecord> {
   }
 }
 
-class AppointmentCard extends StatefulWidget {
+class AppointmentCard extends StatelessWidget {
   final String title;
   final String date;
-  final String dec;
-  final bool status;
 
   const AppointmentCard({
     super.key,
     required this.title,
     required this.date,
-    required this.status,
-    required this.dec,
   });
 
   @override
-  State<AppointmentCard> createState() => _AppointmentCardState();
-}
-
-class _AppointmentCardState extends State<AppointmentCard>
-    with SingleTickerProviderStateMixin {
-  bool isExpanded = false;
-
-  @override
   Widget build(BuildContext context) {
-    final isPast = widget.status == true;
-    final primaryColor = isPast
-        ? Colors.orange.shade700
-        : AppColor.primarycolor;
-    final bgColor = isPast
-        ? Colors.orange.shade50
-        : AppColor.primarycolor.withOpacity(0.05);
+    final primaryColor = AppColor.typography;
+    final bgColor = AppColor.typography.withOpacity(0.05);
 
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+    return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
         color: AppColor.white,
@@ -709,180 +687,77 @@ class _AppointmentCardState extends State<AppointmentCard>
           ),
         ],
         border: Border.all(
-          color: isExpanded
-              ? primaryColor.withOpacity(0.4)
-              : const Color(0xFFE2E8F0),
-          width: isExpanded ? 1.5 : 1.2,
+          color: const Color(0xFFE2E8F0),
+          width: 1.2,
         ),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Column(
-          children: [
-            // Header
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    isExpanded = !isExpanded;
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: bgColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          isPast
-                              ? Icons.event_busy_rounded
-                              : Icons.schedule_rounded,
-                          size: 20,
-                          color: primaryColor,
-                        ),
-                      ),
-                      const SizedBox(width: 14),
-                      // Info
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.title,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 15.5,
-                                color: isPast
-                                    ? const Color(0xFF64748B)
-                                    : AppColor.typography,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Row(
-                              children: [
-                                Text(
-                                  "${"الموعد النهائي".tr} : ",
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xFF64748B),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 2,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: bgColor,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: Text(
-                                    widget.date,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: primaryColor,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      AnimatedRotation(
-                        turns: isExpanded ? -0.5 : 0,
-                        duration: const Duration(milliseconds: 300),
-                        child: Container(
-                          padding: const EdgeInsets.all(6),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFF1F5F9),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: AppColor.typography.withOpacity(0.6),
-                            size: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: bgColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.schedule_rounded,
+                  size: 20,
+                  color: primaryColor,
                 ),
               ),
-            ),
-
-            // Expanded Details
-            AnimatedCrossFade(
-              firstChild: const SizedBox(width: double.infinity),
-              secondChild: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(
-                  color: isPast
-                      ? const Color(0xFFFFFBEB)
-                      : const Color(0xFFFEF2F2),
-                  border: Border(
-                    top: BorderSide(
-                      color: isPast
-                          ? const Color(0xFFFEF3C7)
-                          : const Color(0xFFFEE2E2),
-                      width: 1.2,
-                    ),
-                  ),
-                ),
+              const SizedBox(width: 14),
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15.5,
+                        color: AppColor.typography,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
                     Row(
                       children: [
-                        Icon(
-                          Icons.info_outline_rounded,
-                          size: 18,
-                          color: isPast
-                              ? Colors.orange.shade800
-                              : const Color(0xFFEF4444),
-                        ),
-                        const SizedBox(width: 8),
                         Text(
-                          "التبعات المترتبة".tr,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w900,
-                            color: isPast
-                                ? Colors.orange.shade800
-                                : const Color(0xFFEF4444),
+                          "${"الموعد النهائي".tr} : ",
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFF64748B),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: bgColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            date,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: primaryColor,
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      widget.dec,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: isPast
-                            ? Colors.orange.shade900
-                            : const Color(0xFF7F1D1D),
-                        height: 1.6,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
                   ],
                 ),
               ),
-              crossFadeState: isExpanded
-                  ? CrossFadeState.showSecond
-                  : CrossFadeState.showFirst,
-              duration: const Duration(milliseconds: 300),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

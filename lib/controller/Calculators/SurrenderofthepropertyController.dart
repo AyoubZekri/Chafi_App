@@ -39,6 +39,9 @@ class Surrenderofthepropertycontroller extends GetxController {
   double purchaseprices = 0;
   double sellingexpensess = 0;
   double purchaseexpensess = 0;
+  double annualDiscountAmount=0;
+  double residenceDiscountAmount=0;
+
   int numyear = 0;
 
   double discount = 0;
@@ -61,23 +64,25 @@ class Surrenderofthepropertycontroller extends GetxController {
     sellingprices =
         double.tryParse(sellingprice.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
         0;
-        
+    print("sellingprices ================  $sellingprices");
     purchaseprices =
         double.tryParse(purchaseprice.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
         0;
+    print("purchaseprices ================  $purchaseprices");
 
-    sellingprices =
-        sellingprices == 0 ? (purchaseprices * 0.4) : sellingprices;
+    sellingprices = sellingprices == 0 ? (purchaseprices * 0.4) : sellingprices;
     sellingexpensess =
         double.tryParse(
           sellingexpenses.text.replaceAll(RegExp(r'[^0-9]'), ''),
         ) ??
         0;
+    print("sellingexpensess ================  $sellingexpensess");
     purchaseexpensess =
         double.tryParse(
           purchaseexpenses.text.replaceAll(RegExp(r'[^0-9]'), ''),
         ) ??
         0;
+    print("purchaseexpensess ================  $purchaseexpensess");
     final datasale = parseDate(saledate.text);
     final datapurchase = parseDate(purchasedate.text);
     print("==============$datasale");
@@ -85,37 +90,49 @@ class Surrenderofthepropertycontroller extends GetxController {
     if (!hasError) {
       if (datasale != null && datapurchase != null) {
         int years = datasale.year - datapurchase.year;
-        // if (datasale.month < datapurchase.month ||
-        //     (datasale.month == datapurchase.month &&
-        //         datasale.day < datapurchase.day)) {
-        //   years--;
-        // }
 
-        if (years > 3) {
-          numyear = years;
-          numyear = numyear - 3;
-        }
+        // 1. حساب فائض القيمة (سعر البيع - سعر الشراء - مصاريف الاقتناء - مصاريف البيع)
+        // مصاريف الاقتناء في حدود 30% من سعر الشراء
+        double cappedPurchaseExpenses = sellingprices > sellingexpensess * 0.3
+            ? sellingexpensess * 0.3
+            : sellingprices;
+
         netTax =
-            (purchaseprices -
+            purchaseprices -
             sellingprices -
-            sellingexpensess -
-            purchaseexpensess);
+            cappedPurchaseExpenses -
+            sellingexpensess;
+        print("netTax ================  $netTax");
         if (netTax < 0) {
           netTax = 0;
         }
-        discountyear = (numyear * 0.05) > 0.5
-            ? (0.5 * netTax)
-            : ((numyear * 0.05) * netTax);
-        discountyear = netTax - discountyear;
-        if (discountyear < 0) {
-          discountyear = 0;
+
+        // 2. التخفيض السنوي: يبدأ من السنة الثالثة بـ 5% كل سنة (الحد الأقصى 50%)
+        double annualDiscountRate = 0.0;
+        if (years >= 3) {
+          int applicableYears = years - 2; // السنة 3 = 5%، السنة 4 = 10%
+          annualDiscountRate = applicableYears * 0.05;
+          if (annualDiscountRate > 0.5) {
+            annualDiscountRate = 0.5;
+          }
         }
-        discount = singleResidence == 1 ? discountyear * 0.5 : 0;
-        discount = discountyear - discount;
+
+        // discountyear سيمثل المبلغ المتبقي بعد التخفيض السنوي
+        annualDiscountAmount = netTax * annualDiscountRate;
+        discountyear = netTax - annualDiscountAmount;
+
+        // 3. التخفيض السكني الوحيد: يطبق على المبلغ المتبقي بعد التخفيض السنوي
+        residenceDiscountAmount = singleResidence == 1
+            ? discountyear * 0.5
+            : 0;
+        discount = discountyear - residenceDiscountAmount;
+
         if (discount < 0) {
           discount = 0;
         }
-        total = discount * 0.15 < 0 ? 0 : discount * 0.15;
+
+        // 4. حساب الضريبة النهائية (15%)
+        total = discount * 0.15;
         if (total < 0) {
           total = 0;
         }

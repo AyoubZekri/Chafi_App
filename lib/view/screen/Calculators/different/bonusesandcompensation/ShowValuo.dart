@@ -133,10 +133,10 @@ class _ShowvaluoState extends State<Showvaluo> {
                                 .toString(),
                           ),
 
-                          const SizedBox(height: 24),
+                          // const SizedBox(height: 24),
 
                           /// المجموع الكلي
-                          TotalAmountCard(total: controller.discount2.toInt()),
+                          // TotalAmountCard(total: controller.discount2.toInt()),
 
                           const SizedBox(height: 30),
                           Custemsuberbutton(
@@ -241,15 +241,100 @@ class SalarySlipDialog extends StatelessWidget {
                   ),
                 );
 
-                // Bonuses
                 int index = 2;
 
-                Controller.groupedData.forEach((cat, bonuses) {
+                  if (Controller.zoon > 0 || Controller.Basicwage0_7 > 0) {
+                    String rateText = "";
+                    String numberText = "";
+                    if (Controller.hasspeciallogictype == 2) {
+                      numberText = Controller.numday.text.replaceAll(
+                        RegExp(r'[^0-9]'),
+                        '',
+                      );
+                    } else {
+                      rateText = Controller.numday.text.replaceAll(
+                        RegExp(r'[^0-9]'),
+                        '',
+                      );
+                    }
+
+                    if (Controller.zoon > 0) {
+                      rows.add(
+                        DataRow(
+                          cells: [
+                            DataCell(Text(index.toString())),
+                            DataCell(Text((Controller.hasspeciallogictype == 2) ? "zone_bonus_taxable".tr : "zone_bonus".tr)),
+                            DataCell(Text(numberText)),
+                            DataCell(Text(rateText)),
+                            DataCell(
+                              Text(Controller.zoon.toInt().formatCustomint()),
+                            ),
+                            const DataCell(Text("")),
+                          ],
+                        ),
+                      );
+                      index++;
+                    }
+                    if (Controller.Basicwage0_7 > 0 && Controller.hasspeciallogictype == 2) {
+                      rows.add(
+                        DataRow(
+                          cells: [
+                            DataCell(Text(index.toString())),
+                            DataCell(Text("zone_bonus_exempt".tr)),
+                            DataCell(Text(numberText)),
+                            DataCell(Text(rateText)),
+                            DataCell(
+                              Text(Controller.Basicwage0_7.toInt().formatCustomint()),
+                            ),
+                            const DataCell(Text("")),
+                          ],
+                        ),
+                      );
+                      index++;
+                    }
+                  }
+
+                  Controller.groupedData.forEach((cat, bonuses) {
                   for (var bonus in bonuses) {
                     if (Controller.selectedGroups[cat]?.contains(bonus.id) ??
                         false) {
                       final controller =
                           Controller.valueControllersGroups[cat]?[bonus.id];
+                      final valueStr = controller!.text.replaceAll(
+                        RegExp(r'[^0-9]'),
+                        '',
+                      );
+                      double val = double.tryParse(valueStr) ?? 0;
+
+                      String rateText = "";
+                      String gainText = "";
+                      String deductionText = "";
+
+                      if (bonus.valueType == 1) {
+                        rateText = valueStr;
+                        if (bonus.actionType == 2) {
+                          deductionText = (Controller.Basicwage * (val / 100))
+                              .toInt()
+                              .formatCustomint();
+                        } else {
+                          gainText = (Controller.Basicwage * (val / 100))
+                              .toInt()
+                              .formatCustomint();
+                        }
+                      } else {
+                        int baseDays = int.tryParse(Controller.baseWorkingDaysController.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 1;
+                        if (baseDays == 0) baseDays = 1;
+                        int absDays = int.tryParse(Controller.absentDaysController.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+                        int workedDays = baseDays - absDays;
+                        if (workedDays < 0) workedDays = 0;
+                        val = (val / baseDays) * workedDays;
+
+                        if (bonus.actionType == 2) {
+                          deductionText = val.toInt().formatCustomint();
+                        } else {
+                          gainText = val.toInt().formatCustomint();
+                        }
+                      }
 
                       rows.add(
                         DataRow(
@@ -257,9 +342,9 @@ class SalarySlipDialog extends StatelessWidget {
                             DataCell(Text(index.toString())),
                             DataCell(Text(bonus.localizedName)),
                             const DataCell(Text("")),
-                            const DataCell(Text("")),
-                            DataCell(Text(controller!.text)),
-                            const DataCell(Text("")),
+                            DataCell(Text(rateText)),
+                            DataCell(Text(gainText)),
+                            DataCell(Text(deductionText)),
                           ],
                         ),
                       );
@@ -295,11 +380,43 @@ class SalarySlipDialog extends StatelessWidget {
                   ),
                 );
 
+                if (Controller.isCacobatph) {
+                  rows.add(
+                    DataRow(
+                      cells: [
+                        DataCell(Text("${Controller.groupedData.length + 2}")),
+                        DataCell(Text("cacobatph_fund".tr)),
+                        DataCell(
+                          Text(
+                            Controller.sumgroub1
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+                        ),
+                        const DataCell(Text("0.375")),
+                        const DataCell(Text("")),
+                        DataCell(
+                          Text(
+                            Controller.cacobatphAmount
+                                .toInt()
+                                .formatCustomint(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
                 // IRG
                 rows.add(
                   DataRow(
                     cells: [
-                      DataCell(Text("${Controller.groupedData.length + 2}")),
+                      DataCell(
+                        Text(
+                          "${Controller.groupedData.length + (Controller.isCacobatph ? 3 : 2)}",
+                        ),
+                      ),
                       DataCell(Text("irg".tr)),
                       DataCell(
                         Text(
@@ -311,7 +428,14 @@ class SalarySlipDialog extends StatelessWidget {
                       ),
                       const DataCell(Text("")),
                       const DataCell(Text("")),
-                      const DataCell(Text("")),
+                      DataCell(
+                        Text(
+                          Controller.discount2
+                              .toInt()
+                              .formatCustomint()
+                              .toString(),
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -404,7 +528,10 @@ class SalarySlipDialog extends StatelessWidget {
                           Expanded(
                             child: _totalCard(
                               "total_gains".tr,
-                              Controller.total.toInt().formatCustomint(),
+                              (Controller.total +
+                                      Controller.totalBonusDeductions)
+                                  .toInt()
+                                  .formatCustomint(),
                               false,
                             ),
                           ),
@@ -412,7 +539,12 @@ class SalarySlipDialog extends StatelessWidget {
                           Expanded(
                             child: _totalCard(
                               "total_deductions".tr,
-                              Controller.person9.toInt().formatCustomint(),
+                              (Controller.person9 +
+                                      Controller.discount2 +
+                                      Controller.totalBonusDeductions +
+                                      Controller.cacobatphAmount)
+                                  .toInt()
+                                  .formatCustomint(),
                               true,
                             ),
                           ),
@@ -440,7 +572,7 @@ class SalarySlipDialog extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "${(Controller.total - Controller.person9).toInt().formatCustomint()} DZD",
+                              "${(Controller.total - Controller.person9 - Controller.discount2 - Controller.cacobatphAmount).toInt().formatCustomint()} DZD",
                               style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,

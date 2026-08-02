@@ -120,17 +120,11 @@ import 'package:get/get.dart';
 class DeadlineAlertCard extends StatelessWidget {
   final String title;
   final String dateText;
-  final String subtitleLabel;
-  final String subtitleValue;
-  final bool isOverdue;
 
   const DeadlineAlertCard({
     super.key,
     required this.title,
     required this.dateText,
-    required this.subtitleLabel,
-    required this.subtitleValue,
-    this.isOverdue = false,
   });
 
   @override
@@ -138,7 +132,7 @@ class DeadlineAlertCard extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
@@ -149,9 +143,9 @@ class DeadlineAlertCard extends StatelessWidget {
               offset: const Offset(0, 6),
             ),
           ],
-          border: Border(
+          border: const Border(
             right: BorderSide(
-              color: isOverdue ? Colors.red : const Color(0xFF137fec),
+              color: AppColor.typography,
               width: 4,
             ),
           ),
@@ -167,87 +161,30 @@ class DeadlineAlertCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: AppColor.typography,
                 ),
               ),
 
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
 
               /// Date row
               Row(
                 children: [
                   Icon(
-                    isOverdue ? Icons.history : Icons.calendar_today,
+                    Icons.calendar_today,
                     size: 18,
-                    color: isOverdue ? Colors.red : Colors.grey.shade600,
+                    color: Colors.grey.shade600,
                   ),
-                  const SizedBox(width: 6),
+                  const SizedBox(width: 8),
                   Text(
-                    isOverdue == true
-                        ? "${"إنتهاء في:".tr}  ${dateText}"
-                        : "${"الموعد النهائي:".tr}  ${dateText}",
+                    "${"الموعد النهائي:".tr} $dateText",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: isOverdue ? Colors.red : Colors.grey.shade600,
+                      fontSize: 14,
+                      color: Colors.grey.shade700,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
-              ),
-
-              const SizedBox(height: 14),
-
-              /// Info box
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: isOverdue
-                      ? Colors.red.withOpacity(0.05)
-                      : Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: isOverdue
-                        ? Colors.red.withOpacity(0.2)
-                        : Colors.grey.shade200,
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      isOverdue ? Icons.warning : Icons.info,
-                      size: 18,
-                      color: isOverdue ? Colors.red : const Color(0xFF137fec),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            subtitleLabel,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
-                              color: isOverdue
-                                  ? Colors.red
-                                  : Colors.grey.shade600,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            subtitleValue,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: isOverdue
-                                  ? Colors.red.shade700
-                                  : Colors.grey.shade800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ],
           ),

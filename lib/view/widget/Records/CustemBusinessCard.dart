@@ -89,21 +89,21 @@ class BusinessCard extends StatelessWidget {
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.amber.shade100.withOpacity(0.4),
+                              color: AppColor.brand.withOpacity(0.1),
                               border: Border.all(
-                                color: Colors.amber.shade600,
+                                color: AppColor.brand,
                                 width: 1.5,
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.amber.shade300.withOpacity(0.1),
+                                  color: AppColor.brand.withOpacity(0.2),
                                   blurRadius: 6,
                                 ),
                               ],
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.gavel_rounded,
-                              color: Colors.amber.shade700,
+                              color: AppColor.brand,
                               size: 22,
                             ),
                           ),
@@ -162,9 +162,9 @@ class BusinessCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              Colors.amber.shade400.withOpacity(0.1),
-                              Colors.amber.shade400.withOpacity(0.6),
-                              Colors.amber.shade400.withOpacity(0.1),
+                              AppColor.typography.withOpacity(0.1),
+                              AppColor.typography.withOpacity(0.4),
+                              AppColor.typography.withOpacity(0.1),
                             ],
                           ),
                         ),
@@ -177,14 +177,17 @@ class BusinessCard extends StatelessWidget {
                         width: double.infinity,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFFEBF5FF), Color(0xFFF4F9FF)],
+                          gradient: LinearGradient(
+                            colors: [
+                              AppColor.typography.withOpacity(0.04),
+                              AppColor.typography.withOpacity(0.01),
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: const Color(0xFFD0E5FF),
+                            color: AppColor.typography.withOpacity(0.1),
                             width: 1,
                           ),
                         ),
@@ -194,15 +197,15 @@ class BusinessCard extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: AppColor.primarycolor.withOpacity(0.12),
+                                color: AppColor.brand.withOpacity(0.12),
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: AppColor.primarycolor.withOpacity(0.2),
+                                  color: AppColor.brand.withOpacity(0.2),
                                 ),
                               ),
                               child: const Icon(
                                 Icons.storefront_rounded,
-                                color: AppColor.primarycolor,
+                                color: AppColor.brand,
                                 size: 24,
                               ),
                             ),
@@ -214,7 +217,7 @@ class BusinessCard extends StatelessWidget {
                                   Text(
                                     "67".tr,
                                     style: const TextStyle(
-                                      color: Color(0xFFC5A059),
+                                      color: AppColor.brand,
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -276,7 +279,7 @@ class _BusinessCardBgPainter extends CustomPainter {
 
     // Soft amber curve
     final paint2 = Paint()
-      ..color = Colors.amber.withOpacity(0.02)
+      ..color = AppColor.brand.withOpacity(0.03)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
 

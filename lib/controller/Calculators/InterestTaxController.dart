@@ -33,7 +33,11 @@ class Interesttaxcontroller extends GetxController {
     if (typeTax == 0) {
       return showSnackbar("خطأ".tr, "الرجاء إختيار نوع الضريبة".tr, Colors.red);
     }
-    Get.to(() => Interesttaxtype());
+    if (typeTax == 3) {
+      Get.to(() => Valuotax());
+    } else {
+      Get.to(() => Interesttaxtype());
+    }
   }
 
   void selectedInteresttaxtype(int i) {
@@ -77,7 +81,7 @@ class Interesttaxcontroller extends GetxController {
         if (interesttaxtype == 1 || interesttaxtype == 2) {
           netTax = value * 0.15;
         } else {
-          netTax = value * 0.15;
+          netTax = value * 0.05;
         }
       }
       if (typeTax == 2) {
@@ -91,7 +95,7 @@ class Interesttaxcontroller extends GetxController {
       }
 
       if (typeTax == 3) {
-        if (interesttaxtype == 1) {
+        if (value <= 5000000) {
           netTax = value * 0.01;
         } else {
           netTax = value * 0.1;

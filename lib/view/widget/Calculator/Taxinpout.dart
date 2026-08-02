@@ -47,6 +47,7 @@ class CustomInputField extends StatefulWidget {
   final IconData icon;
   final String placeholder;
   final bool isCurrency;
+  final bool isPercentage;
   final bool isDate;
   final String? errorText;
   final TextEditingController? controller;
@@ -62,6 +63,7 @@ class CustomInputField extends StatefulWidget {
     required this.icon,
     this.placeholder = '0.00',
     this.isCurrency = false,
+    this.isPercentage = false,
     this.isDate = false,
     this.errorText,
     this.controller,
@@ -236,7 +238,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
                     ),
                   ),
 
-                  if (widget.isCurrency)
+                  if (widget.isCurrency && !widget.isPercentage)
                     Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: Text(
@@ -244,6 +246,18 @@ class _CustomInputFieldState extends State<CustomInputField> {
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  if (widget.isPercentage)
+                    const Padding(
+                      padding: EdgeInsets.only(left: 12),
+                      child: Text(
+                        '%',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          fontSize: 16,
                         ),
                       ),
                     ),

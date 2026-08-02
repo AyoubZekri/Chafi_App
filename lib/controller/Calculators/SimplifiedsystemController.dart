@@ -281,39 +281,29 @@ class Simplifiedsystemcontroller extends GetxController {
   double calculateProgressiveTax(double value) {
     double tax = 0;
 
-    // الشريحة 1 → 24 بنسبة 0%
-    if (value <= 24000000) return 1000000;
-
-    // الشريحة 2 → 24 بنسبة 23%
-    if (value >= 24000001 && value >= 48000000) {
-      tax += 24000000 * 0.23;
-      print("==============tax $tax");
+    if (value > 24000000) {
+      double taxable = (value > 48000000 ? 48000000 : value) - 24000000;
+      tax += taxable * 0.23;
     }
 
-    // الشريحة 3 → 48 بنسبة 27%
-    if (value >= 480000001 && value >= 96000000) {
-      tax += 48000000 * 0.27;
-      print("==============tax2 $tax");
+    if (value > 48000000) {
+      double taxable = (value > 96000000 ? 96000000 : value) - 48000000;
+      tax += taxable * 0.27;
     }
 
-    // الشريحة 4 → 96 بنسبة 30%
-    if (value >= 96000001 && value >= 192000000) {
-      tax += 96000000 * 0.30;
-      print("==============tax4 $tax");
+    if (value > 96000000) {
+      double taxable = (value > 192000000 ? 192000000 : value) - 96000000;
+      tax += taxable * 0.30;
     }
 
-    // الشريحة 5 → 192 بنسبة 33%
-    if (value >= 192000001 && value >= 384000000) {
-      tax += 192000000 * 0.33;
-      print("==============tax5 $tax");
+    if (value > 192000000) {
+      double taxable = (value > 384000000 ? 384000000 : value) - 192000000;
+      tax += taxable * 0.33;
     }
 
-    // ما فوق 384 بنسبة 35%
-    if (value >= 384000001) {
-      value = value - 384000000;
-      tax += value * 0.35;
-      print("==============valu $value");
-      print("==============tax $tax");
+    if (value > 384000000) {
+      double taxable = value - 384000000;
+      tax += taxable * 0.35;
     }
 
     if (tax < 1000000) {

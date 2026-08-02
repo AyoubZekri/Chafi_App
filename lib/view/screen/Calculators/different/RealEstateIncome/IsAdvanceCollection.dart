@@ -7,19 +7,19 @@ import '../../../../widget/Button/CustemSuberButton.dart';
 import '../../../../widget/Mypath/CardpersonType.dart';
 import '../../../../widget/Text/CustemtextbodyMedium18.dart';
 
-class Typeofcollection extends StatefulWidget {
-  const Typeofcollection({super.key});
+class IsAdvanceCollection extends StatefulWidget {
+  const IsAdvanceCollection({super.key});
 
   @override
-  State<Typeofcollection> createState() => _TypeofcollectionState();
+  State<IsAdvanceCollection> createState() => _IsAdvanceCollectionState();
 }
 
-class _TypeofcollectionState extends State<Typeofcollection> {
+class _IsAdvanceCollectionState extends State<IsAdvanceCollection> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.find<Realestateincomecontroller>().BackFromTypeofcollection();
+        Get.find<Realestateincomecontroller>().BackFromIsAdvance();
         return true;
       },
       child: Scaffold(
@@ -35,7 +35,6 @@ class _TypeofcollectionState extends State<Typeofcollection> {
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-
         body: GetBuilder<Realestateincomecontroller>(
           builder: (controller) {
             return Container(
@@ -48,12 +47,10 @@ class _TypeofcollectionState extends State<Typeofcollection> {
                     topRight: Radius.circular(50),
                     topLeft: Radius.circular(50),
                   ),
-
                   child: Container(
                     color: AppColor.white,
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-
                       child: Column(
                         children: [
                           SizedBox(height: 20),
@@ -62,72 +59,40 @@ class _TypeofcollectionState extends State<Typeofcollection> {
                             content:
                                 "أدخل البيانات بدقة للحصول على نتيجة صحيحة".tr,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 40),
                           CustemtextbodyMedium18(
-                            content: "إختر نوع التحصيل".tr,
+                            content: "هل التحصيل مسبق؟".tr,
                             color: AppColor.black,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 100),
                           Cardpersontype(
-                            padding: 20,
+                            padding: 30,
                             marginb: 25,
                             index: 1,
-                            title: "شهري".tr,
-                            selectedPerson: controller.typeTypeofcollection,
+                            title: "نعم".tr,
+                            selectedPerson: controller.typeIsAdvance,
                             onTap: () {
-                              controller.selectedTypeofcollection(1);
+                              controller.selectedIsAdvance(1);
                             },
                           ),
                           Cardpersontype(
-                            padding: 20,
+                            padding: 30,
                             index: 2,
                             marginb: 25,
-                            title: "ثلاثي".tr,
-                            selectedPerson: controller.typeTypeofcollection,
+                            title: "لا".tr,
+                            selectedPerson: controller.typeIsAdvance,
                             onTap: () {
-                              controller.selectedTypeofcollection(2);
+                              controller.selectedIsAdvance(2);
                             },
                           ),
-                          Cardpersontype(
-                            padding: 20,
-                            marginb: 25,
-                            index: 3,
-                            title: "سداسي".tr,
-                            selectedPerson: controller.typeTypeofcollection,
-                            onTap: () {
-                              controller.selectedTypeofcollection(3);
-                            },
-                          ),
-                          Cardpersontype(
-                            padding: 20,
-                            index: 4,
-                            marginb: 25,
-                            title: "سنوي".tr,
-                            selectedPerson: controller.typeTypeofcollection,
-                            onTap: () {
-                              controller.selectedTypeofcollection(4);
-                            },
-                          ),
-
-                          Cardpersontype(
-                            padding: 20,
-                            index: 5,
-                            marginb: 25,
-                            title: "لم يذكر".tr,
-                            selectedPerson: controller.typeTypeofcollection,
-                            onTap: () {
-                              controller.selectedTypeofcollection(5);
-                            },
-                          ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 40),
                           Custemsuberbutton(
                             content: "60".tr,
                             color: AppColor.typography,
                             onPressed: () {
-                              controller.gotoIsAdvance();
+                              controller.gotodataIncomevalue();
                             },
                           ),
-
                           SizedBox(height: 20),
                         ],
                       ),

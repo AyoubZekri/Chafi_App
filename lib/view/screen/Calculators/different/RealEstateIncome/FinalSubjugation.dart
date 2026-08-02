@@ -120,7 +120,10 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                           const SizedBox(height: 24),
 
                           /// المجموع الكلي
-                          TotalAmountCard(total: controller.total.toInt()),
+                          TotalAmountCard(
+                            total: controller.total.toInt(),
+                            title: "الضريبة الواجب دفعها".tr,
+                          ),
 
                           SizedBox(height: 30),
 

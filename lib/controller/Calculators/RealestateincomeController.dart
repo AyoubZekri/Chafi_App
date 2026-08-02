@@ -12,6 +12,7 @@ import '../../view/screen/Calculators/different/RealEstateIncome/FinalSubjugatio
 import '../../view/screen/Calculators/different/RealEstateIncome/IncomeValue.dart';
 import '../../view/screen/Calculators/different/RealEstateIncome/PropertyType.dart';
 import '../../view/screen/Calculators/different/RealEstateIncome/TypeOfCollection.dart';
+import '../../view/screen/Calculators/different/RealEstateIncome/IsAdvanceCollection.dart';
 
 class Realestateincomecontroller extends GetxController {
   Postdata postdata = Postdata(Get.find());
@@ -21,6 +22,7 @@ class Realestateincomecontroller extends GetxController {
   int typeOvercome = 0; //YES 1 NO 2
   int typePropertytype = 0; //YES 1 NO 2
   int typeTypeofcollection = 0; // 1monthly 2tripartite 3six 4annual 5no
+  int typeIsAdvance = 0; //YES 1 NO 2
 
   String? incmevalueErorr;
   String? dataTheContractErorr;
@@ -72,10 +74,30 @@ class Realestateincomecontroller extends GetxController {
   }
 
   void gotodataIncomevalue() {
-    if (typeOvercome == 0) {
-      return showSnackbar("خطأ".tr, "يرجى اختيار نوع التحصيل.".tr, Colors.red);
+    if (typeIsAdvance == 0) {
+      return showSnackbar(
+        "خطأ".tr,
+        "يرجى اختيار هل التحصيل مسبق أم لا.".tr,
+        Colors.red,
+      );
     }
     Get.to(Incomevalue());
+  }
+
+  void gotoIsAdvance() {
+    if (typeTypeofcollection == 0) {
+      return showSnackbar("خطأ".tr, "يرجى اختيار نوع التحصيل.".tr, Colors.red);
+    }
+    Get.to(IsAdvanceCollection());
+  }
+
+  void selectedIsAdvance(int i) {
+    typeIsAdvance = i;
+    update();
+  }
+
+  void BackFromIsAdvance() {
+    Get.back();
   }
 
   void calcul() {
@@ -87,6 +109,38 @@ class Realestateincomecontroller extends GetxController {
     final datapayments = parseDate(datapayment.text);
 
     if (!hasError) {
+      double multiplier = 1;
+      if (typeTypeofcollection == 1) {
+        multiplier = 12; // شهري
+      } else if (typeTypeofcollection == 2) {
+        multiplier = 4; // ثلاثي
+      } else if (typeTypeofcollection == 3) {
+        multiplier = 2; // سداسي
+      } else if (typeTypeofcollection == 4) {
+        multiplier = 1; // سنوي
+      }
+
+      double annualizedIncome = incmevalues * multiplier;
+
+      if (typeOvercome == 2 && annualizedIncome > 180000000) {
+        showSnackbar(
+          "خطأ".tr,
+          "قيمة التحصيل السنوي تتجاوز 1,800,000.00 دج. يرجى العودة وتغيير الاختيار الأول."
+              .tr,
+          Colors.red,
+        );
+        return;
+      }
+
+      if (typeOvercome == 1 && annualizedIncome <= 180000000) {
+        showSnackbar(
+          "خطأ".tr,
+          "قيمة التحصيل السنوي لا تتجاوز 1,800,000.00 دج. يرجى العودة وتغيير الاختيار الأول."
+              .tr,
+          Colors.red,
+        );
+        return;
+      }
       if (typeOvercome == 2) {
         if (typePropertytype == 1) {
           netTax = incmevalues * 0.07;
@@ -95,14 +149,22 @@ class Realestateincomecontroller extends GetxController {
         } else if (typePropertytype == 1) {
           netTax = incmevalues * 0.1;
         }
-        Penalty = calculatePenaltyPayment(datapayments, dateContract, netTax);
+        Penalty = calculatePenaltyPayment(
+          datapayments,
+          dateContract,
+          incmevalues,
+        );
         total = netTax + Penalty;
       } else {
         tax = incmevalues * 0.07;
         netTax = calculateProgressiveTax(incmevalues);
-        discout = typePropertytype == 1 ? netTax - netTax * 0.25 : netTax;
-        Penalty = calculatePenaltyPayment(datapayments, dateContract, discout);
-        total = (discout - tax) + Penalty;
+        discout = typePropertytype == 1 ? (incmevalues * 0.25) : 0;
+        Penalty = calculatePenaltyPayment(
+          datapayments,
+          dateContract,
+          incmevalues,
+        );
+        total = (netTax - discout - tax) + Penalty;
       }
 
       Get.to(Finalsubjugation());
@@ -136,39 +198,33 @@ class Realestateincomecontroller extends GetxController {
   double calculateProgressiveTax(double value) {
     double tax = 0;
 
-    // الشريحة 1 → 24 بنسبة 0%
-    if (value <= 24000000) return 1000000;
-
-    // الشريحة 2 → 24 بنسبة 23%
-    if (value >= 24000001 && value >= 48000000) {
-      tax += 24000000 * 0.23;
-      print("==============tax $tax");
+    if (value <= 24000000) {
+      return 1000000;
     }
 
-    // الشريحة 3 → 48 بنسبة 27%
-    if (value >= 480000001 && value >= 96000000) {
-      tax += 48000000 * 0.27;
-      print("==============tax2 $tax");
+    if (value > 24000000) {
+      double taxable = (value > 48000000 ? 48000000 : value) - 24000000;
+      tax += taxable * 0.23;
     }
 
-    // الشريحة 4 → 96 بنسبة 30%
-    if (value >= 96000001 && value >= 192000000) {
-      tax += 96000000 * 0.30;
-      print("==============tax4 $tax");
+    if (value > 48000000) {
+      double taxable = (value > 96000000 ? 96000000 : value) - 48000000;
+      tax += taxable * 0.27;
     }
 
-    // الشريحة 5 → 192 بنسبة 33%
-    if (value >= 192000001 && value >= 384000000) {
-      tax += 192000000 * 0.33;
-      print("==============tax5 $tax");
+    if (value > 96000000) {
+      double taxable = (value > 192000000 ? 192000000 : value) - 96000000;
+      tax += taxable * 0.30;
     }
 
-    // ما فوق 384 بنسبة 35%
-    if (value >= 384000001) {
-      value = value - 384000000;
-      tax += value * 0.35;
-      print("==============valu $value");
-      print("==============tax $tax");
+    if (value > 192000000) {
+      double taxable = (value > 384000000 ? 384000000 : value) - 192000000;
+      tax += taxable * 0.33;
+    }
+
+    if (value > 384000000) {
+      double taxable = value - 384000000;
+      tax += taxable * 0.35;
     }
 
     if (tax < 1000000) {
@@ -184,52 +240,49 @@ class Realestateincomecontroller extends GetxController {
   ) {
     if (datePayment == null || dataContract == null) return 0;
 
-    int monthsToAdd;
+    DateTime graceEnd;
 
-    switch (typeTypeofcollection) {
-      case 1: // شهري
-      case 5:
-        monthsToAdd = 1;
-        break;
-      case 2: // ثلاثي
-        monthsToAdd = 3;
-        break;
-      case 3: // سداسي
-        monthsToAdd = 6;
-        break;
-      case 4: // سنوي
-        monthsToAdd = 12;
-        break;
-      default:
-        monthsToAdd = 1;
+    if (typeIsAdvance == 1) {
+      // حالة التحصيل المسبق: المهلة تنتهي في 20 من الشهر الثاني
+      graceEnd = DateTime(dataContract.year, dataContract.month + 1, 20);
+    } else {
+      // حالة التحصيل غير المسبق: الاعتماد على نوع التحصيل
+      int monthsToAdd;
+      switch (typeTypeofcollection) {
+        case 1: // شهري
+        case 5:
+          monthsToAdd = 1;
+          break;
+        case 2: // ثلاثي
+          monthsToAdd = 3;
+          break;
+        case 3: // سداسي
+          monthsToAdd = 6;
+          break;
+        case 4: // سنوي
+          monthsToAdd = 12;
+          break;
+        default:
+          monthsToAdd = 1;
+      }
+      // المهلة تنتهي في 20 من الشهر الموالي لفترة التحصيل
+      graceEnd = DateTime(
+        dataContract.year,
+        dataContract.month + monthsToAdd,
+        20,
+      );
     }
 
-    // تاريخ الاستحقاق
-    DateTime dueDate = DateTime(
-      dataContract.year,
-      dataContract.month + monthsToAdd,
-      dataContract.day,
-    );
-
-    // 🔹 حالة الدفع قبل الاستحقاق
-    if (datePayment.month < dataContract.month + 20) {
-      return 0;
-    }
-
-    // نهاية مهلة 20 يوم
-    DateTime graceEnd = dueDate.add(const Duration(days: 20));
-
-    // 🔹 داخل المهلة
+    // إذا تم الدفع داخل المهلة القانونية (قبل أو في نفس يوم 20)
     if (!datePayment.isAfter(graceEnd)) {
       return 0;
     }
 
-    // 🔹 حساب الأشهر بعد انتهاء المهلة (نهمل السنة)
-    int monthsLate = datePayment.month - graceEnd.month;
-
-    if (monthsLate < 0) {
-      monthsLate += 12;
-    }
+    // حساب عدد أشهر التأخير
+    // يتم حساب الفرق الإجمالي بالأشهر بين تاريخ الدفع ونهاية المهلة
+    int monthsLate =
+        (datePayment.year - graceEnd.year) * 12 +
+        (datePayment.month - graceEnd.month);
 
     double percent;
 

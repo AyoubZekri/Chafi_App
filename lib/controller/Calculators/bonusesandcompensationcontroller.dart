@@ -10,11 +10,13 @@ import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/PostData.dart';
 import '../../data/datasource/Remote/bonusesandcompensations.dart';
 import '../../data/model/BonusModel.dart';
+import '../../view/screen/Calculators/different/bonusesandcompensation/AccountType.dart';
 import '../../view/screen/Calculators/different/bonusesandcompensation/BonusesTaxable.dart';
 import '../../view/screen/Calculators/different/bonusesandcompensation/ShowValuo.dart';
 import '../../view/screen/Calculators/different/bonusesandcompensation/bonuses_and_compensations.dart';
 import '../../view/screen/Calculators/different/bonusesandcompensation/inboutvalou.dart';
 import '../../view/screen/Calculators/different/bonusesandcompensation/non_taxable_non_contributory.dart';
+import '../../view/screen/Calculators/different/bonusesandcompensation/Absentdays.dart';
 import '../../view/screen/Calculators/different/bonusesandcompensation/personscondition.dart';
 import '../../view/screen/Calculators/different/bonusesandcompensation/speciallogictype.dart';
 
@@ -22,12 +24,14 @@ class bonusesandcompensationcontroller extends GetxController {
   Postdata postdata = Postdata(Get.find());
   Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
-  int typeAccount = 0;
+  int typeAccount = 1;
   int personscondition = 0;
   int hasspeciallogictype = 0;
   String? fixedValueControllerError;
   String? hasspeciallogicError;
   String? numdayError;
+  String? baseWorkingDaysError;
+  String? absentDaysError;
   String? frompage;
 
   Bonusesandcompensation bonusesandcompensation = Bonusesandcompensation(
@@ -36,6 +40,8 @@ class bonusesandcompensationcontroller extends GetxController {
   TextEditingController fixedValueController = TextEditingController();
   TextEditingController hasspeciallogic = TextEditingController();
   TextEditingController numday = TextEditingController();
+  TextEditingController baseWorkingDaysController = TextEditingController();
+  TextEditingController absentDaysController = TextEditingController();
   Map<int, RxSet<int>> selectedGroups = {
     1: <int>{}.obs,
     2: <int>{}.obs,
@@ -53,6 +59,7 @@ class bonusesandcompensationcontroller extends GetxController {
   List<BonusModel> data = [];
   Map<int, List<BonusModel>> groupedData = {};
   double Basicwage = 0;
+  double Basicwage0_7 = 0;
   double sumgroub1 = 0;
   double sumgroub2 = 0;
   double sumgroub3 = 0;
@@ -64,17 +71,63 @@ class bonusesandcompensationcontroller extends GetxController {
   double discount1 = 0;
   double discount2 = 0;
   double total = 0;
+  double totalBonusDeductions = 0;
+  bool isCacobatph = false;
+  double cacobatphAmount = 0;
+
+  void selectedCacobatph(bool value) {
+    isCacobatph = value;
+    update();
+  }
+
+  void gotoAccountType() {
+    print("isCacobatph =============== $isCacobatph");
+    Get.to(() => Accounttype(), preventDuplicates: false);
+  }
 
   void selectedtypeAccount(int i) {
     typeAccount = i;
     update();
   }
 
-  void gotoPersonscondition() {
-    print("===============$typeAccount");
-    if (typeAccount == 0) {
-      return showSnackbar("خطأ".tr, "الرجاء إختيار نوع الحساب".tr, Colors.red);
+  void gotoAbsentDays() {
+    baseWorkingDaysError = validInput(
+      baseWorkingDaysController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+      2,
+      1,
+      "int",
+    );
+    if (baseWorkingDaysError != null) {
+      update();
+      return;
     }
+    Get.to(() => Absentdays());
+  }
+
+  void gotoPersonscondition() {
+    absentDaysError = validInput(
+      absentDaysController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+      2,
+      0,
+      "int",
+    );
+    if (absentDaysError != null) {
+      update();
+      return;
+    }
+
+    int baseDays =
+        int.tryParse(
+          baseWorkingDaysController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        0;
+    int absDays =
+        int.tryParse(
+          absentDaysController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        0;
+    int workedDays = baseDays - absDays;
+    if (workedDays < 0) workedDays = 0;
     Get.to(() => Personscondition());
   }
 
@@ -150,43 +203,70 @@ class bonusesandcompensationcontroller extends GetxController {
     if (validateAllCategories()) {
       calculateGroupsSum();
       person9 = sumgroub1 * 0.09;
-      grossincome = (sumgroub1 + sumgroub2) - person9 - zoon;
+      if (isCacobatph) {
+        cacobatphAmount = sumgroub1 * 0.00375;
+      } else {
+        cacobatphAmount = 0;
+      }
+      // The exempt amount is now in sumgroub3, so it is naturally excluded from grossincome.
+      grossincome = (sumgroub1 + sumgroub2) - person9 - cacobatphAmount;
       total = sumgroub1 + sumgroub2 + sumgroub3;
+      print("total $total");
+      print("person9 $person9");
+      print("grossincome $grossincome");
+      print("zoon $zoon");
+      print("typeAccount $typeAccount");
+      print("personscondition $personscondition");
       if (grossincome >= 3000000) {
         if (typeAccount == 1) {
           iRG = iRGMOUTH(grossincome);
           discount40 = iRG * 0.4;
-          print("=============irg$iRG");
-          print(discount40);
-          if (100000 <= discount40 && discount40 <= 150000) {
-            discount1 = iRG - discount40;
-            print("=============discount1$discount1");
+          print("==============iRG $iRG");
+          print("==============discount40 $discount40");
+          double reduction = discount40;
+
+          if (reduction <= 150000 && reduction >= 100000) {
+            discount1 = iRG - reduction;
           }
+          if (discount1 < 0) discount1 = 0;
+          discount1 = discount1 / 100;
           if (3000000 <= grossincome &&
               grossincome <= 3500000 &&
               personscondition == 6) {
-            discount2 = discount1 * (51 / 137) - (8 / 27925);
-          }
-          if (3000000 <= grossincome &&
+            discount2 = (discount1 * (137 / 51)) - (27925 / 8);
+            discount2 = discount2 * 100;
+            print("==============discount1 $discount1");
+            print("==============discount---2 $discount2");
+          } else if (3000000 <= grossincome &&
               grossincome <= 4250000 &&
               personscondition != 6) {
             discount2 = discount1 * (61 / 93) - (41 / 81.213);
+            discount2 = discount2 * 100;
+          } else {
+            discount2 = discount1;
+            discount2 = discount2 * 100;
           }
         } else {
           iRG = iRGYARE(grossincome);
           discount40 = iRG * 0.4;
-          if ((100000 * 12) <= discount40 && discount40 <= (150000 * 12)) {
-            discount1 = iRG - discount40;
-          }
+
+          double reduction = discount40;
+          if (reduction < (100000 * 12)) reduction = (100000 * 12);
+          if (reduction > (150000 * 12)) reduction = (150000 * 12);
+
+          discount1 = iRG - reduction;
+          if (discount1 < 0) discount1 = 0;
+
           if ((3000000 * 12) <= grossincome &&
               grossincome <= (3500000 * 12) &&
               personscondition == 6) {
             discount2 = discount1 * (51 / 137) - (8 / 27925);
-          }
-          if ((3000000 * 12) <= grossincome &&
+          } else if ((3000000 * 12) <= grossincome &&
               grossincome <= (4250000 * 12) &&
               personscondition != 6) {
             discount2 = discount1 * (61 / 93) - (41 / 81.213);
+          } else {
+            discount2 = discount1;
           }
         }
       }
@@ -230,39 +310,29 @@ class bonusesandcompensationcontroller extends GetxController {
   double iRGYARE(double value) {
     double tax = 0;
 
-    // الشريحة 1 → 24 بنسبة 0%
-    if (value <= 24000000) return 1000000;
-
-    // الشريحة 2 → 24 بنسبة 23%
-    if (value >= 24000001 && value >= 48000000) {
-      tax += 24000000 * 0.23;
-      print("==============tax $tax");
+    if (value > 24000000) {
+      double taxable = (value > 48000000 ? 48000000 : value) - 24000000;
+      tax += taxable * 0.23;
     }
 
-    // الشريحة 3 → 48 بنسبة 27%
-    if (value >= 480000001 && value >= 96000000) {
-      tax += 48000000 * 0.27;
-      print("==============tax2 $tax");
+    if (value > 48000000) {
+      double taxable = (value > 96000000 ? 96000000 : value) - 48000000;
+      tax += taxable * 0.27;
     }
 
-    // الشريحة 4 → 96 بنسبة 30%
-    if (value >= 96000001 && value >= 192000000) {
-      tax += 96000000 * 0.30;
-      print("==============tax4 $tax");
+    if (value > 96000000) {
+      double taxable = (value > 192000000 ? 192000000 : value) - 96000000;
+      tax += taxable * 0.30;
     }
 
-    // الشريحة 5 → 192 بنسبة 33%
-    if (value >= 192000001 && value >= 384000000) {
-      tax += 192000000 * 0.33;
-      print("==============tax5 $tax");
+    if (value > 192000000) {
+      double taxable = (value > 384000000 ? 384000000 : value) - 192000000;
+      tax += taxable * 0.33;
     }
 
-    // ما فوق 384 بنسبة 35%
-    if (value >= 384000001) {
-      value = value - 384000000;
-      tax += value * 0.35;
-      print("==============valu $value");
-      print("==============tax $tax");
+    if (value > 384000000) {
+      double taxable = value - 384000000;
+      tax += taxable * 0.35;
     }
 
     if (tax < 1000000) {
@@ -273,40 +343,30 @@ class bonusesandcompensationcontroller extends GetxController {
 
   double iRGMOUTH(double value) {
     double tax = 0;
-
-    // الشريحة 1 → 24 بنسبة 0%
-    if (value <= 2000000) return 100000;
-
-    // الشريحة 2 → 24 بنسبة 23%
-    if (value >= 2000001 && value >= 4000000) {
-      tax += 2000000 * 0.23;
-      print("==============tax $tax");
+    print("==============value $value");
+    if (value > 2000000) {
+      double taxable = (value > 4000000 ? 4000000 : value) - 2000000;
+      tax += taxable * 0.23;
     }
 
-    // الشريحة 3 → 48 بنسبة 27%
-    if (value >= 4000001 && value >= 8000000) {
-      tax += 4000000 * 0.27;
-      print("==============tax2 $tax");
+    if (value > 4000000) {
+      double taxable = (value > 8000000 ? 8000000 : value) - 4000000;
+      tax += taxable * 0.27;
     }
 
-    // الشريحة 4 → 96 بنسبة 30%
-    if (value >= 8000001 && value >= 16000000) {
-      tax += 8000000 * 0.30;
-      print("==============tax4 $tax");
+    if (value > 8000000) {
+      double taxable = (value > 16000000 ? 16000000 : value) - 8000000;
+      tax += taxable * 0.30;
     }
 
-    // الشريحة 5 → 192 بنسبة 33%
-    if (value >= 16000001 && value >= 32000000) {
-      tax += 16000000 * 0.33;
-      print("==============tax5 $tax");
+    if (value > 16000000) {
+      double taxable = (value > 32000000 ? 32000000 : value) - 16000000;
+      tax += taxable * 0.33;
     }
 
-    // ما فوق 384 بنسبة 35%
-    if (value >= 32000001) {
-      value = value - 32000000;
-      tax += value * 0.35;
-      print("==============valu $value");
-      print("==============tax $tax");
+    if (value > 32000000) {
+      double taxable = value - 32000000;
+      tax += taxable * 0.35;
     }
 
     if (tax < 100000) {
@@ -319,6 +379,22 @@ class bonusesandcompensationcontroller extends GetxController {
     sumgroub1 = 0;
     sumgroub2 = 0;
     sumgroub3 = 0;
+    totalBonusDeductions = 0;
+
+    int baseDays =
+        int.tryParse(
+          baseWorkingDaysController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        1;
+    if (baseDays == 0) baseDays = 1;
+
+    int absDays =
+        int.tryParse(
+          absentDaysController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        0;
+    int actualWorkedDays = baseDays - absDays;
+    if (actualWorkedDays < 0) actualWorkedDays = 0;
 
     Basicwage =
         double.tryParse(
@@ -328,37 +404,60 @@ class bonusesandcompensationcontroller extends GetxController {
     int nmpdyes =
         int.tryParse(numday.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
 
+    Basicwage = (Basicwage / baseDays) * actualWorkedDays;
+
     double hasspecial =
         double.tryParse(
           hasspeciallogic.text.replaceAll(RegExp(r'[^0-9]'), ''),
         ) ??
         0;
     if (hasspeciallogictype == 2) {
-      Basicwage = Basicwage * 0.7;
-      zoon = nmpdyes * hasspecial;
-      if (Basicwage > zoon) {
+      double maxExempt = Basicwage * 0.7;
+      double totalZoneBonus = nmpdyes * hasspecial;
+      if (maxExempt > totalZoneBonus) {
+        Basicwage0_7 = totalZoneBonus;
         zoon = 0;
       } else {
-        zoon = zoon - Basicwage;
+        Basicwage0_7 = maxExempt;
+        zoon = totalZoneBonus - maxExempt;
       }
     } else {
       zoon = Basicwage * (nmpdyes / 100);
+      Basicwage0_7 = 0;
     }
     valueControllersGroups.forEach((cat, controllers) {
       double sum = 0;
 
       controllers.forEach((id, controller) {
         final value = controller.text.replaceAll(RegExp(r'[^0-9]'), '');
+        final bonus = data.firstWhereOrNull((e) => e.id == id);
+        final isPercentage = bonus?.valueType == 1;
 
         if (value.isNotEmpty) {
-          sum += double.parse(value);
+          double val = double.parse(value);
+          if (isPercentage) {
+            val = Basicwage * (val / 100);
+          } else {
+            val = (val / baseDays) * actualWorkedDays;
+          }
+          if (bonus?.actionType == 2) {
+            sum -= val;
+            totalBonusDeductions += val;
+          } else {
+            sum += val;
+          }
         }
       });
 
-      if (cat == 1) sumgroub1 = sum + Basicwage;
+      if (cat == 1) sumgroub1 = sum;
       if (cat == 2) sumgroub2 = sum;
       if (cat == 3) sumgroub3 = sum;
     });
+
+    double exemptAmount = (hasspeciallogictype == 2) ? Basicwage0_7 : zoon;
+    sumgroub1 += Basicwage;
+    sumgroub2 += (hasspeciallogictype == 2 ? zoon : 0);
+    sumgroub3 += exemptAmount;
 
     update();
   }
@@ -410,11 +509,14 @@ class bonusesandcompensationcontroller extends GetxController {
 
     // تحقق من الثلاث فئات
     valueControllersGroups.forEach((cat, controllers) {
-      controllers.forEach((id, controller) {
+      controllers.forEach((id, textController) {
+        final bonus = data.firstWhereOrNull((e) => e.id == id);
+        final isPercentage = bonus?.valueType == 1;
+
         bonusErrorsGroups[cat]?[id] = validInput(
-          controller.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          textController.text.replaceAll(RegExp(r'[^0-9]'), ''),
           20,
-          3,
+          isPercentage ? 1 : 3,
           "int",
         );
         if (bonusErrorsGroups[cat]?[id] != null) {
@@ -428,6 +530,8 @@ class bonusesandcompensationcontroller extends GetxController {
   }
 
   void BackFromAccounttype() {}
+
+  void BackFromAbsentDays() {}
 
   void BackFromPersonscondition() {
     personscondition = 0;

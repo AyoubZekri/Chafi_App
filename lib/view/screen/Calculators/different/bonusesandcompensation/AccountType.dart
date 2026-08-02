@@ -1,7 +1,6 @@
 import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../../controller/Calculators/bonusesandcompensationcontroller.dart';
 import '../../../../widget/Button/CustemSuberButton.dart';
 import '../../../../widget/Mypath/CardpersonType.dart';
@@ -49,61 +48,78 @@ class _AccounttypeState extends State<Accounttype> {
                     topRight: Radius.circular(50),
                     topLeft: Radius.circular(50),
                   ),
-
                   child: Container(
                     color: AppColor.white,
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-
                       child: Column(
                         children: [
                           const SizedBox(height: 20),
-
                           CustemtextbodyMedium18(
                             color: AppColor.grey,
                             content: "enter_data_correctly".tr,
                           ),
-
                           const SizedBox(height: 40),
-
                           CustemtextbodyMedium18(
-                            content: "choose_account_type".tr,
+                            content: "base_working_days".tr,
                             color: AppColor.black,
                           ),
-
-                          const SizedBox(height: 100),
-
+                          const SizedBox(height: 50),
                           Cardpersontype(
-                            padding: 30,
-                            marginb: 25,
-                            index: 1,
-                            title: "monthly".tr,
-                            selectedPerson: controller.typeAccount,
+                            padding: 20,
+                            marginb: 20,
+                            index: 22,
+                            title: "22_days".tr,
+                            selectedPerson: int.tryParse(controller.baseWorkingDaysController.text) ?? 0,
                             onTap: () {
-                              controller.selectedtypeAccount(1);
+                              controller.baseWorkingDaysController.text = "22";
+                              controller.baseWorkingDaysError = null;
+                              controller.update();
                             },
                           ),
-
                           Cardpersontype(
-                            padding: 30,
-                            index: 2,
-                            marginb: 25,
-                            title: "yearly".tr,
-                            selectedPerson: controller.typeAccount,
+                            padding: 20,
+                            marginb: 20,
+                            index: 26,
+                            title: "26_days".tr,
+                            selectedPerson: int.tryParse(controller.baseWorkingDaysController.text) ?? 0,
                             onTap: () {
-                              controller.selectedtypeAccount(2);
+                              controller.baseWorkingDaysController.text = "26";
+                              controller.baseWorkingDaysError = null;
+                              controller.update();
                             },
                           ),
-
-                          SizedBox(height: 50),
+                          Cardpersontype(
+                            padding: 20,
+                            marginb: 20,
+                            index: 30,
+                            title: "30_days".tr,
+                            selectedPerson: int.tryParse(controller.baseWorkingDaysController.text) ?? 0,
+                            onTap: () {
+                              controller.baseWorkingDaysController.text = "30";
+                              controller.baseWorkingDaysError = null;
+                              controller.update();
+                            },
+                          ),
+                          if (controller.baseWorkingDaysError != null) ...[
+                            const SizedBox(height: 15),
+                            Text(
+                              controller.baseWorkingDaysError!,
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 30),
                           Custemsuberbutton(
                             content: "next".tr,
                             color: AppColor.typography,
                             onPressed: () {
-                              controller.gotoPersonscondition();
+                              controller.gotoAbsentDays();
                             },
                           ),
-
                           const SizedBox(height: 20),
                         ],
                       ),

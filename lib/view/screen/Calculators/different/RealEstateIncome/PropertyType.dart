@@ -88,7 +88,7 @@ class _PropertytypeState extends State<Propertytype> {
                               padding: 30,
                               index: 2,
                               marginb: 25,
-                              title: "غير مزود بي أثاث".tr,
+                              title: "غير مزود بأثاث".tr,
                               selectedPerson: controller.typePropertytype,
                               onTap: () {
                                 controller.selectedPropertytype(2);

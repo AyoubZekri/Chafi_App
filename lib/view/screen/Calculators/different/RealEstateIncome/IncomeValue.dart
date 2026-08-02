@@ -105,7 +105,7 @@ class _IncomevalueState extends State<Incomevalue> {
                           // const SizedBox(height: 16),
                           CustomInputField(
                             label: "payment_date".tr,
-                            icon: Icons.receipt_long_outlined,
+                            icon: Icons.event_available,
                             placeholder: 'mm/dd/yyyy',
                             isDate: true,
                             controller: controller.datapayment,

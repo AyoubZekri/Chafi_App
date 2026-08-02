@@ -8,6 +8,8 @@ class BonusModel {
   final bool isRequired;
   final String? type;
   final bool? hasSpecialLogic;
+  final int? valueType;
+  final int? actionType;
 
   BonusModel({
     required this.id,
@@ -17,6 +19,8 @@ class BonusModel {
     required this.isRequired,
     this.type,
     this.hasSpecialLogic,
+    this.valueType,
+    this.actionType,
   });
 
   factory BonusModel.fromJson(Map<String, dynamic> json) {
@@ -30,6 +34,8 @@ class BonusModel {
       hasSpecialLogic: json['has_special_logic'] != null
           ? json['has_special_logic'] == 1
           : null,
+      valueType: json['value_type'],
+      actionType: json['action_type'],
     );
   }
 
