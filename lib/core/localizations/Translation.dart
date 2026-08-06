@@ -1706,6 +1706,11 @@ class MyTranslation extends Translations {
           "Tax on corporate profits for year N-1 or N-2",
       "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.":
           "Please enter payable outcome values ​​based on the nature of the business, with exact scheduled payment dates.",
-    },
+   
+      "budget_deposit_طويلة": "Budget deposit",
+      "gifts_طويلة": "Gifts",
+      "advertising_sponsorship_طويلة": "Advertising and sponsorship",
+      "bonuses_compensation_طويلة": "Wage statement",
+ },
   };
 }
