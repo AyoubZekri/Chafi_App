@@ -101,6 +101,7 @@ class HomecontrollerImp extends Homecontroller {
   void checkAndShowFeedback() {
     bool? hasFeedback = myServices.sharedPreferences?.getBool("hasFeedback");
     int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+    print("=======numEnter======$numEnter");
 
     if (hasFeedback != true &&
         isLoggedIn &&

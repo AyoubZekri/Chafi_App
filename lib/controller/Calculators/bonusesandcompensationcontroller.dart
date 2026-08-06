@@ -67,6 +67,13 @@ class bonusesandcompensationcontroller extends GetxController {
   double zoon = 0;
   double grossincome = 0;
   double iRG = 0;
+  
+  double get finalIrg {
+    if (discount1 == 0 && discount2 == 0) {
+      return iRG;
+    }
+    return discount2;
+  }
   double discount40 = 0;
   double discount1 = 0;
   double discount2 = 0;
@@ -202,6 +209,8 @@ class bonusesandcompensationcontroller extends GetxController {
   void calcul() {
     if (validateAllCategories()) {
       calculateGroupsSum();
+      total = sumgroub1 + sumgroub2 + sumgroub3 + totalBonusDeductions;
+
       person9 = sumgroub1 * 0.09;
       if (isCacobatph) {
         cacobatphAmount = sumgroub1 * 0.00375;
@@ -209,7 +218,13 @@ class bonusesandcompensationcontroller extends GetxController {
         cacobatphAmount = 0;
       }
       // The exempt amount is now in sumgroub3, so it is naturally excluded from grossincome.
-      grossincome = (sumgroub1 + sumgroub2) - person9 - cacobatphAmount;
+      if (hasspeciallogictype == 1) {
+        grossincome =
+            (sumgroub1 + sumgroub2) - zoon - person9 - cacobatphAmount;
+      } else {
+        grossincome = (sumgroub1 + sumgroub2) - person9 - cacobatphAmount;
+      }
+      if (grossincome < 0) grossincome = 0;
       total = sumgroub1 + sumgroub2 + sumgroub3;
       print("total $total");
       print("person9 $person9");
@@ -235,6 +250,7 @@ class bonusesandcompensationcontroller extends GetxController {
               personscondition == 6) {
             discount2 = (discount1 * (137 / 51)) - (27925 / 8);
             discount2 = discount2 * 100;
+            discount1 = discount1 * 100;
             print("==============discount1 $discount1");
             print("==============discount---2 $discount2");
           } else if (3000000 <= grossincome &&
@@ -242,9 +258,14 @@ class bonusesandcompensationcontroller extends GetxController {
               personscondition != 6) {
             discount2 = discount1 * (61 / 93) - (41 / 81.213);
             discount2 = discount2 * 100;
+            discount1 = discount1 * 100;
+
+            print("==============discount1 $discount1");
+            print("==============discount---2 $discount2");
           } else {
             discount2 = discount1;
             discount2 = discount2 * 100;
+            discount1 = discount1 * 100;
           }
         } else {
           iRG = iRGYARE(grossincome);
@@ -423,6 +444,9 @@ class bonusesandcompensationcontroller extends GetxController {
       }
     } else {
       zoon = Basicwage * (nmpdyes / 100);
+      print("==============zoon $zoon");
+      print("==============Basicwage $Basicwage");
+      print("==============nmpdyes $nmpdyes");
       Basicwage0_7 = 0;
     }
     valueControllersGroups.forEach((cat, controllers) {
@@ -454,11 +478,16 @@ class bonusesandcompensationcontroller extends GetxController {
       if (cat == 3) sumgroub3 = sum;
     });
 
-    double exemptAmount = (hasspeciallogictype == 2) ? Basicwage0_7 : zoon;
+    double exemptAmount = (hasspeciallogictype == 2) ? Basicwage0_7 : 0;
     sumgroub1 += Basicwage;
+    if (hasspeciallogictype == 1) {
+      sumgroub1 += zoon;
+    }
     sumgroub2 += (hasspeciallogictype == 2 ? zoon : 0);
     sumgroub3 += exemptAmount;
-
+    print("==============sumgroub1 $sumgroub1");
+    print("==============sumgroub2 $sumgroub2");
+    print("==============sumgroub3 $sumgroub3");
     update();
   }
 

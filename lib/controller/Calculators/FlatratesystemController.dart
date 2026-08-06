@@ -28,7 +28,7 @@ class FlatratesystemController extends GetxController {
       customsDuties = value * 0.05;
 
       // الضريبة الجزافية الوحيدة
-      singleTax = (value + profitMargin + customsDuties) * 0.5; // 0.05 is 5%
+      singleTax = (value + profitMargin + customsDuties) * 0.005; // 0.05 is 5%
 
       // المبلغ المدفوع لمصلحة الجمارك
       amountPaidToCustoms = customsDuties + singleTax;

@@ -14,7 +14,7 @@ class FiscalCalculator extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("حاسبة جبائية".tr), centerTitle: true),
+      appBar: AppBar(title: Text("الحاسبة".tr), centerTitle: true),
       body: Column(
         children: [
           // Display Section

@@ -191,7 +191,7 @@ class _HomeState extends State<Home> {
                     // السهم "المزيد"
                     Positioned(
                       left: Get.locale?.languageCode == "ar" ? 10 : null,
-                      right: Get.locale?.languageCode == "fr" ? 0 : null,
+                      right: Get.locale?.languageCode == "en" ? 0 : null,
                       top: 100,
                       child: AnimatedOpacity(
                         duration: const Duration(milliseconds: 300),

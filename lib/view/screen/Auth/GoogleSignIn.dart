@@ -28,68 +28,81 @@ class _GooglesigninState extends State<Googlesignin> {
   }
 
   Widget build(BuildContext context) {
+    // Determine a safe offset for the side container
+    final double sideOffset = Get.width * 0.85; // instead of hardcoded 350
+
     return Scaffold(
       backgroundColor: AppColor.white,
       body: GetBuilder<GooglesignincontrollerImp>(
         builder: (controller) {
-          return Container(
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 50,
-                  left: Get.locale == Locale("ar") ? 350 : null,
-                  right: Get.locale == Locale("ar") ? null : 350,
+          return Stack(
+            children: [
+              Positioned(
+                top: 50,
+                bottom: 50, // use bottom instead of fixed height
+                left: Get.locale == Locale("ar") ? sideOffset : null,
+                right: Get.locale == Locale("ar") ? null : sideOffset,
+                child: Container(
+                  width: Get.width - 40,
+                  decoration: BoxDecoration(
+                    color: AppColor.typography,
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                ),
+              ),
+              SafeArea(
+                child: SingleChildScrollView(
                   child: Container(
-                    width: Get.width - 40,
-                    height: Get.height - 100,
-                    decoration: BoxDecoration(
-                      color: AppColor.typography,
-                      borderRadius: BorderRadius.circular(28),
+                    padding: EdgeInsets.only(
+                      left: Get.locale == Locale("ar") ? 20 : 60,
+                      right: Get.locale == Locale("ar") ? 60 : 20,
+                      top: 40,
+                      bottom: 40,
+                    ),
+                    // Constrain the minimum height so the content is centered if possible
+                    constraints: BoxConstraints(
+                      minHeight: Get.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+                    ),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Image.asset(Appimageassets.logo, height: Get.height * 0.2), // Responsive image height
+                          ),
+                          SizedBox(height: 40),
+                          Custemtextbodylarge(content: "10".tr),
+                          SizedBox(height: 30),
+                          Custemtextbodysmall(content: "11".tr),
+                          SizedBox(height: 30),
+                          controller.statusrequest == Statusrequest.loadeng
+                              ? Custembuttonsignin(
+                                  contentText: "12".tr,
+                                  contentImage: Appimageassets.google,
+                                  laoding: true,
+                                )
+                              : Custembuttonsignin(
+                                  onTap: () {
+                                    controller.signInWithGoogle();
+                                  },
+                                  contentText: "12".tr,
+                                  contentImage: Appimageassets.google,
+                                  laoding: false,
+                                ),
+                          SizedBox(height: 30),
+                          Custembuttonprimary(
+                            content: "13".tr,
+                            onPressed: () {
+                              controller.gotonavBar();
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(
-                    left: Get.locale == Locale("ar") ? 20 : 60,
-                    right: Get.locale == Locale("ar") ? 60 : 20,
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 130),
-                      Center(
-                        child: Image.asset(Appimageassets.logo, height: 180),
-                      ),
-                      SizedBox(height: 40),
-                      Custemtextbodylarge(content: "10".tr),
-                      SizedBox(height: 30),
-                      Custemtextbodysmall(content: "11".tr),
-                      SizedBox(height: 30),
-                      controller.statusrequest == Statusrequest.loadeng
-                          ? Custembuttonsignin(
-                              contentText: "12".tr,
-                              contentImage: Appimageassets.google,
-                              laoding: true,
-                            )
-                          : Custembuttonsignin(
-                              onTap: () {
-                                controller.signInWithGoogle();
-                              },
-                              contentText: "12".tr,
-                              contentImage: Appimageassets.google,
-                              laoding: false,
-                            ),
-                      SizedBox(height: 30),
-                      Custembuttonprimary(
-                        content: "13".tr,
-                        onPressed: () {
-                          controller.gotonavBar();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),

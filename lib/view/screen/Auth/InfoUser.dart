@@ -55,72 +55,68 @@ class _InfouserState extends State<Infouser> {
                   ),
           ),
 
-          body: Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                SizedBox(height: 70),
-                Text(
-                  "14".tr,
-                  style: context.textTheme.headlineSmall?.copyWith(
-                    height: 1.5,
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                  ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    Text(
+                      "14".tr,
+                      style: context.textTheme.headlineSmall?.copyWith(
+                        height: 1.5,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 50),
+                    CustemtextfromfildInfoUser(
+                      myController: controller.username,
+                      hintText: "15".tr,
+                      enabled: true,
+                      iconData: Icons.person,
+                    ),
+                    Dropdownfild(
+                      hintText: "16".tr,
+                      items: controller.state
+                          .map(
+                            (f) => DropdownMenuItem<int>(
+                              value: f['number'] as int,
+                              child: Text(
+                                "${f['number'].toString()} - ${f['state'].toString().tr}",
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      value: controller.selectedstate,
+                      onChanged: (val) {
+                        setState(() {
+                          controller.selectedstate = val;
+                        });
+                      },
+                    ),
+                    CustemtextfromfildInfoUser(
+                      myController: controller.numperPhone,
+                      hintText: "17".tr,
+                      enabled: true,
+                      iconData: Icons.phone,
+                    ),
+                    Custemcardconferm(
+                      onTapTerms: () {
+                        showTaxAppTermsDialog(context);
+                      },
+                      value: controller.isSwitched,
+                      onChanged: (value) {
+                        setState(() {
+                          controller.isSwitched = value;
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                SizedBox(height: 50),
-                CustemtextfromfildInfoUser(
-                  myController: controller.username,
-                  hintText: "15".tr,
-                  enabled: true,
-                  iconData: Icons.person,
-                ),
-
-                // CustemtextfromfildInfoUser(
-                //   myController: controller.wilaya,
-                //   hintText: "16".tr,
-                //   enabled: true,
-                //   iconData: Icons.location_on,
-                // ),
-                Dropdownfild(
-                  hintText: "16".tr,
-                  items: controller.state
-                      .map(
-                        (f) => DropdownMenuItem<int>(
-                          value: f['number'] as int,
-                          child: Text(
-                            "${f['number'].toString()} - ${f['state'].toString().tr}",
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  value: controller.selectedstate,
-                  onChanged: (val) {
-                    setState(() {
-                      controller.selectedstate = val;
-                    });
-                  },
-                ),
-
-                CustemtextfromfildInfoUser(
-                  myController: controller.numperPhone,
-                  hintText: "17".tr,
-                  enabled: true,
-                  iconData: Icons.phone,
-                ),
-                Custemcardconferm(
-                  onTapTerms: () {
-                    showTaxAppTermsDialog(context);
-                  },
-                  value: controller.isSwitched,
-                  onChanged: (value) {
-                    setState(() {
-                      controller.isSwitched = value;
-                    });
-                  },
-                ),
-              ],
+              ),
             ),
           ),
         );

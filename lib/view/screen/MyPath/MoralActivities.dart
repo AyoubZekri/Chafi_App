@@ -73,7 +73,7 @@ class _MoralactivitiesState extends State<Moralactivities> {
                           padding: 20,
                           marginb: 50,
                           index: 1,
-                          title: "شركة مدنية".tr,
+                          title: "شركة مدنية_طويلة".tr,
                           selectedPerson: controller.moralactivities,
                           onTap: () {
                             controller.selectMoralactivities(1);
@@ -93,7 +93,7 @@ class _MoralactivitiesState extends State<Moralactivities> {
                           padding: 20,
                           marginb: 50,
                           index: 2,
-                          title: "شركات أخرى".tr,
+                          title: "شركات أخرى_طويلة".tr,
                           selectedPerson: controller.moralactivities,
                           onTap: () {
                             controller.selectMoralactivities(2);

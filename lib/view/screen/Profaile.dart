@@ -85,9 +85,12 @@ class _ProfaileState extends State<Profaile> {
                           color: Color(0xFF1F1F39),
                         ),
                       ),
-                      Text(
-                        controller.email ?? "Invité@gmail.com".tr,
-                        style: TextStyle(color: Colors.grey),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          controller.email ?? "Invité@gmail.com".tr,
+                          style: TextStyle(color: Colors.grey),
+                        ),
                       ),
 
                       SizedBox(height: 30),
@@ -114,13 +117,13 @@ class _ProfaileState extends State<Profaile> {
                             controller.gotoNotification();
                           },
                         ),
-                        Builddeadlinetile(
-                          icon: Icons.help_outline,
-                          title: "93".tr,
-                          ontap: () {
-                            controller.gotoExternallinks();
-                          },
-                        ),
+                        // Builddeadlinetile(
+                        //   icon: Icons.help_outline,
+                        //   title: "93".tr,
+                        //   ontap: () {
+                        //     controller.gotoExternallinks();
+                        //   },
+                        // ),
                         Builddeadlinetile(
                           icon: Icons.language_outlined,
                           title: "84".tr,

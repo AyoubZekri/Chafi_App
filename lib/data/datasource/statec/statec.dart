@@ -533,11 +533,11 @@ List<Institutiontypemodel> calculatorsofSystemSimpli = [
       ),
     ),
 
-    body: "الإقتطاع من المصدر لي المقاول الذاتي",
+    body: "الإقتطاع من المصدر",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
-    sizeText: 22,
+    sizeText: 23,
   ),
 ];
 
@@ -567,7 +567,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "التسبيقات على الدخل",
+    body: "التسبيقات على الدخل_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -582,7 +582,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "كشف التلخيص السنوي",
+    body: "كشف التلخيص السنوي_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -598,7 +598,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
         ),
       );
     },
-    body: "الطابع الجبائي",
+    body: "الطابع الجبائي_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -613,7 +613,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "budget_deposit",
+    body: "budget_deposit_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -628,7 +628,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "gifts",
+    body: "gifts_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -643,7 +643,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "advertising_sponsorship",
+    body: "advertising_sponsorship_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -657,7 +657,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "المركبات السياحية",
+    body: "المركبات السياحية_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -672,7 +672,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "البحث والتطوير",
+    body: "البحث والتطوير_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -687,7 +687,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "التنازل عن الإستثمار",
+    body: "التنازل عن الإستثمار_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -702,7 +702,7 @@ List<Institutiontypemodel> calculatorsofSystemarreal = [
       ),
     ),
 
-    body: "bonuses_compensation",
+    body: "bonuses_compensation_طويلة",
     imgae: Appimageassets.calculators,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
@@ -753,18 +753,18 @@ List<Institutiontypemodel> calculatorsofDiffernt = [
     color1: Color(0xff270C46),
     sizeText: 25,
   ),
-  Institutiontypemodel(
-    ontap: () => handleLoginRequired(
-      () => Get.toNamed(
-        Approutes.fiscalcalculator,
-        arguments: {'fromPage': "/Calculatorsdefferent"},
-      ),
-    ),
+  // Institutiontypemodel(
+  //   ontap: () => handleLoginRequired(
+  //     () => Get.toNamed(
+  //       Approutes.fiscalcalculator,
+  //       arguments: {'fromPage': "/Calculatorsdefferent"},
+  //     ),
+  //   ),
 
-    body: "حاسبة جبائية",
-    imgae: Appimageassets.calculators,
-    color2: Color(0xFF7333BD),
-    color1: Color(0xff270C46),
-    sizeText: 25,
-  ),
+  //   body: "الحاسبة",
+  //   imgae: Appimageassets.calculators,
+  //   color2: Color(0xFF7333BD),
+  //   color1: Color(0xff270C46),
+  //   sizeText: 25,
+  // ),
 ];

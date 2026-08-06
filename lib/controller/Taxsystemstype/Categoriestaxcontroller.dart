@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+import 'package:flutter/material.dart';
+import '../../core/constant/Colorapp.dart';
+import '../HomeController.dart';
 import '../../core/class/Statusrequest.dart';
 import '../../core/constant/routes.dart';
 import '../../core/functions/handlingdatacontroller.dart';
@@ -10,6 +13,8 @@ import '../../data/model/CategoryModel.dart';
 class Categoriestaxcontroller extends GetxController {
   int? nameappar;
   int? taxid;
+  bool get isLoggedIn =>
+      myServices.sharedPreferences?.getString("token") != null;
 
   Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
@@ -47,6 +52,35 @@ class Categoriestaxcontroller extends GetxController {
   }
 
   gotoInfo(int id) {
+    if (!isLoggedIn) {
+      Get.defaultDialog(
+        title: "تنبيه".tr,
+        middleText: "يجب عليك تسجيل الدخول أولاً".tr,
+        titleStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 18,
+          color: AppColor.typography,
+        ),
+        middleTextStyle: const TextStyle(
+          fontSize: 14,
+          color: Color(0xFF566573),
+        ),
+        radius: 15,
+        textCancel: "إلغاء".tr,
+        cancelTextColor: AppColor.typography,
+        textConfirm: "تسجيل الدخول".tr,
+        confirmTextColor: AppColor.white,
+        buttonColor: AppColor.typography,
+        onConfirm: () {
+          Get.back();
+          try {
+            Get.find<HomecontrollerImp>().onClose();
+          } catch (e) {}
+          Get.toNamed(Approutes.googleSignIn, arguments: {"type": 1});
+        },
+      );
+      return;
+    }
     Get.toNamed(
       Approutes.institutionsinfo,
       arguments: {"name": nameappar, "type": 8, "cat_id": id},

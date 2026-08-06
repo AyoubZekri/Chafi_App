@@ -41,18 +41,18 @@ class _RecordsState extends State<Records> {
             itemCount: controller.data.isEmpty ? 2 : controller.data.length + 1,
             itemBuilder: (context, index) {
               // ── 0: Subtitle ──
-              if (index == 0) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-                  child: Text(
-                    "90".tr,
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      fontSize: 18,
-                      color: AppColor.grey,
-                    ),
-                  ),
-                );
-              }
+              // if (index == 0) {
+              //   return Padding(
+              //     padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+              //     child: Text(
+              //       "90".tr,
+              //       style: context.textTheme.bodyMedium?.copyWith(
+              //         fontSize: 18,
+              //         color: AppColor.grey,
+              //       ),
+              //     ),
+              //   );
+              // }
 
               // ── Empty state ──
               if (controller.data.isEmpty) {
@@ -66,7 +66,7 @@ class _RecordsState extends State<Records> {
               }
 
               // ── Records ──
-              final item = controller.data[index - 1];
+              final item = controller.data[index];
 
               return BusinessCard(
                 active: item.activityName == null

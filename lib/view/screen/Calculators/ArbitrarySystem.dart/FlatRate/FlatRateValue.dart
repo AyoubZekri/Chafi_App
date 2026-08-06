@@ -25,7 +25,7 @@ class _FlatrateValueState extends State<FlatrateValue> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("الإقتطاع من المصدر لي المقاول الذاتي".tr),
+          title: Text("الإقتطاع من المصدر"),
           titleTextStyle: const TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -75,7 +75,8 @@ class _FlatrateValueState extends State<FlatrateValue> {
                                 ),
                                 const SizedBox(height: 40),
                                 CustemtextbodyMedium18(
-                                  content: "أدخل قيمة السلعة".tr,
+                                  content:
+                                      "الإقتطاع من المصدر للمقاول الذاتي".tr,
                                   color: AppColor.black,
                                 ),
                                 const SizedBox(height: 50),

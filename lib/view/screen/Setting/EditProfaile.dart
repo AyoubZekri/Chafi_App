@@ -32,52 +32,59 @@ class _EditprofaileState extends State<Editprofaile> {
                 SizedBox(height: 50),
 
                 Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 105),
                   height: 150,
                   width: 150,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(width: 2, color: AppColor.primarycolor),
-                    image: controller.image != null
-                        ? DecorationImage(
-                            image: FileImage(controller.image!),
-                            fit: BoxFit.cover,
-                          )
-                        : null,
+                    border: Border.all(width: 2, color: AppColor.typography),
                   ),
-                  child: controller.image == null
-                      ? MaterialButton(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      ClipOval(
+                        child: controller.image != null
+                            ? Image.file(
+                                controller.image!,
+                                fit: BoxFit.cover,
+                                width: 150,
+                                height: 150,
+                              )
+                            : Container(color: Colors.transparent),
+                      ),
+                      if (controller.image == null)
+                        MaterialButton(
                           onPressed: () {
                             controller.uploadimagefile();
                           },
                           child: Text("اضافة صورة".tr),
-                        )
-                      : Stack(
-                          children: [
-                            Positioned(
-                              bottom: 5,
-                              right: 5,
-                              child: Container(
-                                width: 35,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(83, 0, 0, 0),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                  onPressed: () {
-                                    controller.uploadimagefile();
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
+                      if (controller.image != null)
+                        Positioned(
+                          bottom: 0,
+                          right: 15,
+                          child: Container(
+                            width: 35,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: AppColor.typography,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
+                            ),
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                              onPressed: () {
+                                controller.uploadimagefile();
+                              },
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 50),
 

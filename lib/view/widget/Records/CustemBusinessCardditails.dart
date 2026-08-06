@@ -95,56 +95,68 @@ class Custembusinesscardditails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // Right side: Official Title & Badge
-                        Row(
-                          children: [
-                            // Gold Emblem / Digital Seal
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColor.brand.withOpacity(0.1),
-                                border: Border.all(
+                        Expanded(
+                          child: Row(
+                            children: [
+                              // Gold Emblem / Digital Seal
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColor.brand.withOpacity(0.1),
+                                  border: Border.all(
+                                    color: AppColor.brand,
+                                    width: 1.5,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColor.brand.withOpacity(0.2),
+                                      blurRadius: 6,
+                                    ),
+                                  ],
+                                ),
+                                child: const Icon(
+                                  Icons.gavel_rounded,
                                   color: AppColor.brand,
-                                  width: 1.5,
+                                  size: 22,
                                 ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColor.brand.withOpacity(0.2),
-                                    blurRadius: 6,
-                                  ),
-                                ],
                               ),
-                              child: const Icon(
-                                Icons.gavel_rounded,
-                                color: AppColor.brand,
-                                size: 22,
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "البيان الجبائي".tr,
+                                        style: const TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w900,
+                                          color: AppColor.typography,
+                                          letterSpacing: 0.5,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        "بطاقة الهوية الجبائية".tr,
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColor.typography.withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "البيان الجبائي".tr,
-                                  style: const TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w900,
-                                    color: AppColor.typography,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  "بطاقة الهوية الجبائية".tr,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.typography.withOpacity(0.5),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
 
                         // Left side: Sleek action icons inside card

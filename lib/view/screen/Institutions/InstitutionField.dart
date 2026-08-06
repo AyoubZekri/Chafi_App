@@ -23,11 +23,11 @@ class _InstitutionfieldState extends State<Institutionfield> {
         padding: EdgeInsets.all(15),
         child: ListView(
           children: [
-            Text(
-              "42".tr,
-              style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
-            ),
-            SizedBox(height: 50),
+            // Text(
+            //   "42".tr,
+            //   style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
+            // ),
+            SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               itemCount: institutionfild.length,

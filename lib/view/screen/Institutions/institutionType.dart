@@ -22,11 +22,11 @@ class _InstitutiontypeState extends State<Institutiontype> {
         padding: EdgeInsets.all(15),
         child: ListView(
           children: [
-            Text(
-              "45".tr,
-              style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
-            ),
-            SizedBox(height: 40),
+            // Text(
+            //   "45".tr,
+            //   style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
+            // ),
+            SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               itemCount: institutionType.length,

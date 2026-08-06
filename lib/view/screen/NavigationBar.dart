@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../controller/NavigationBarcontroller.dart';
 import '../../core/constant/Colorapp.dart';
+import '../../core/constant/routes.dart';
 import '../widget/NavigationBar/CustemapparbuttonList.dart';
 
 class NavigationBar extends StatelessWidget {
@@ -16,6 +17,15 @@ class NavigationBar extends StatelessWidget {
 
     return Obx(
       () => Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed(Approutes.fiscalcalculator);
+          },
+          backgroundColor: AppColor.typography,
+          shape: const CircleBorder(),
+          elevation: 4,
+          child: const Icon(Icons.calculate, color: Colors.white, size: 28),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CustemapparbuttonList(),
         body: WillPopScope(

@@ -17,11 +17,11 @@ class Appsystemstype extends StatelessWidget {
         padding: EdgeInsets.all(15),
         child: ListView(
           children: [
-            Text(
-              "53".tr,
-              style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
-            ),
-            SizedBox(height: 40),
+            // Text(
+            //   "53".tr,
+            //   style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
+            // ),
+            SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               itemCount: taxsystemstypeapp.length,

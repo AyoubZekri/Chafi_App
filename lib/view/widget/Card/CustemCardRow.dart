@@ -287,22 +287,22 @@ class CustomCalculatorCard extends StatelessWidget {
                       ),
                     ),
                     // Arrow icon
-                    SizedBox(width: 10),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white.withOpacity(0.1),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.1),
-                        ),
-                      ),
-                      child: const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                    ),
+                    // SizedBox(width: 10),
+                    // Container(
+                    //   padding: const EdgeInsets.all(10),
+                    //   decoration: BoxDecoration(
+                    //     shape: BoxShape.circle,
+                    //     color: Colors.white.withOpacity(0.1),
+                    //     border: Border.all(
+                    //       color: Colors.white.withOpacity(0.1),
+                    //     ),
+                    //   ),
+                    //   child: const Icon(
+                    //     Icons.arrow_forward_ios,
+                    //     size: 16,
+                    //     color: Colors.white,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

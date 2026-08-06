@@ -132,7 +132,7 @@ class _TouristcehiclescostState extends State<Touristcehiclescost> {
                             CustemtextbodyMedium18(
                               color: AppColor.grey,
                               content:
-                                  "أضف المركبة مع التكلفة لي يتم حساب مجموع الخصومات "
+                                  "أضف المركبة مع التكلفة ليتم حساب مجموع الخصومات "
                                       .tr,
                             ),
                             const SizedBox(height: 20),
@@ -162,8 +162,8 @@ class _TouristcehiclescostState extends State<Touristcehiclescost> {
                                     int unitNonDeductible = gift.cost > 2000000 ? gift.cost - 2000000 : 0;
                                     td = unitDeductible * gift.quantity;
                                     tnd = unitNonDeductible * gift.quantity;
-                                    taxTextLabel = "المبلغ القابل لي الخصم".tr;
-                                    totalTextLabel = "يضاف لي نتيجة جبائية".tr;
+                                    taxTextLabel = "المبلغ القابل للخصم".tr;
+                                    totalTextLabel = "يضاف للنتيجة الجبائية".tr;
                                   }
 
                                   return GiftCard(

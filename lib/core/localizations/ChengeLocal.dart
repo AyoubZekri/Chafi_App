@@ -20,8 +20,8 @@ class LocalController extends GetxController {
     String? sharedPreflang = myservices.sharedPreferences!.getString("lang");
     if (sharedPreflang == "ar") {
       language = const Locale("ar");
-    } else if (sharedPreflang == "fr") {
-      language = const Locale("fr");
+    } else if (sharedPreflang == "en") {
+      language = const Locale("en");
     } else {
       language = const Locale("ar");
     }

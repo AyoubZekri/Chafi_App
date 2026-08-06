@@ -26,19 +26,22 @@ class CustemapparbuttonList extends StatelessWidget {
         notchMargin: 10,
         color: AppColor.white,
         child: Obx(() {
-          return Row(
-            children: List.generate(controller.Screen.length, (i) {
-              return Expanded(
-                child: Custemapparbutton(
-                  onPressed: () => controller.ChangePage(i),
-                  icondata: controller.IconsScreen[i]["icon"],
-                  textButton:
-                      controller.texts[i]["Text"]!, 
-                  active: controller.currentpage.value == i,
-                ),
-              );
-            }),
-          );
+          List<Widget> children = List.generate(controller.Screen.length, (i) {
+            return Expanded(
+              child: Custemapparbutton(
+                onPressed: () => controller.ChangePage(i),
+                icondata: controller.IconsScreen[i]["icon"],
+                textButton: controller.texts[i]["Text"]!,
+                active: controller.currentpage.value == i,
+              ),
+            );
+          });
+
+          if (children.length >= 2) {
+            children.insert(children.length ~/ 2, const SizedBox(width: 60));
+          }
+
+          return Row(children: children);
         }),
       ),
     );

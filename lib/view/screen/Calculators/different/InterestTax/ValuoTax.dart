@@ -25,7 +25,7 @@ class _ValuotaxState extends State<Valuotax> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("الطابع الجبائي".tr),
+          title: Text("ضريبة الفوائد".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class _ValuotaxState extends State<Valuotax> {
 
                           TotalAmountCard(
                             total: controller.netTax.round(),
-                            title: "قيمة الضريبة".tr,
+                            title: controller.taxTitle,
                           ),
 
                           SizedBox(height: 50),

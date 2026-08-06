@@ -10,16 +10,16 @@ class Obligations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("المواعيد والإلتزمات".tr)),
+      appBar: AppBar(title: Text("92".tr)),
       body: Container(
         padding: EdgeInsets.all(15),
         child: ListView(
           children: [
-            Text(
-              "إختر النظام الذي يهمك لتحديد المواعيد الخاصة بك".tr,
-              style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
-            ),
-            SizedBox(height: 40),
+            // Text(
+            //   "إختر النظام الذي يهمك لتحديد المواعيد الخاصة بك".tr,
+            //   style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
+            // ),
+            SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               itemCount: obligationstype.length,

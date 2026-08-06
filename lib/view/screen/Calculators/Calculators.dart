@@ -17,11 +17,11 @@ class Calculators extends StatelessWidget {
         padding: EdgeInsets.all(15),
         child: ListView(
           children: [
-            Text(
-              "إختر النظام الذي يهمك لتحديد الحاسبات الخاصة بك".tr,
-              style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
-            ),
-            SizedBox(height: 40),
+            // Text(
+            //   "إختر النظام الذي يهمك لتحديد الحاسبات الخاصة بك".tr,
+            //   style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
+            // ),
+            SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               itemCount: calculators.length,

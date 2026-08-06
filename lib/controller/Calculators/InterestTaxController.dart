@@ -23,6 +23,17 @@ class Interesttaxcontroller extends GetxController {
 
   TextEditingController fixedValueController = TextEditingController();
 
+  String get taxTitle {
+    if (typeTax == 3) {
+      if (value <= 5000000) {
+        return "final_tax_1".tr;
+      } else {
+        return "temporary_tax_advance_10".tr;
+      }
+    }
+    return "قيمة الضريبة".tr;
+  }
+
   void selectedtypeTax(int i) {
     typeTax = i;
     update();

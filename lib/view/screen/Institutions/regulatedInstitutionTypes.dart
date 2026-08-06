@@ -18,11 +18,11 @@ class Regulatedinstitutiontypes extends StatelessWidget {
         padding: EdgeInsets.all(15),
         child: ListView(
           children: [
-            Text(
-              "47".tr,
-              style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
-            ),
-            SizedBox(height: 40),
+            // Text(
+            //   "47".tr,
+            //   style: context.textTheme.headlineSmall?.copyWith(fontSize: 18),
+            // ),
+            SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               itemCount: regulatedInstitutionTypes.length,

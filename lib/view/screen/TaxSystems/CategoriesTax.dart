@@ -34,12 +34,12 @@ class _CategoriestaxState extends State<Categoriestax> {
                 padding: EdgeInsets.all(15),
                 child: ListView(
                   children: [
-                    Text(
-                      "select_category_hint".tr,
-                      style: Get.textTheme.headlineSmall?.copyWith(
-                        fontSize: 18,
-                      ),
-                    ),
+                    // Text(
+                    //   "select_category_hint".tr,
+                    //   style: Get.textTheme.headlineSmall?.copyWith(
+                    //     fontSize: 18,
+                    //   ),
+                    // ),
                     SizedBox(height: 20),
                     ...List.generate(controller.data.length, (i) {
                       return Custemcardcat(

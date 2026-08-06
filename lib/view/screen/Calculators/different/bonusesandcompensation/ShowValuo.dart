@@ -137,7 +137,6 @@ class _ShowvaluoState extends State<Showvaluo> {
 
                           /// المجموع الكلي
                           // TotalAmountCard(total: controller.discount2.toInt()),
-
                           const SizedBox(height: 30),
                           Custemsuberbutton(
                             content: "show_salary_slip".tr,
@@ -243,58 +242,67 @@ class SalarySlipDialog extends StatelessWidget {
 
                 int index = 2;
 
-                  if (Controller.zoon > 0 || Controller.Basicwage0_7 > 0) {
-                    String rateText = "";
-                    String numberText = "";
-                    if (Controller.hasspeciallogictype == 2) {
-                      numberText = Controller.numday.text.replaceAll(
-                        RegExp(r'[^0-9]'),
-                        '',
-                      );
-                    } else {
-                      rateText = Controller.numday.text.replaceAll(
-                        RegExp(r'[^0-9]'),
-                        '',
-                      );
-                    }
-
-                    if (Controller.zoon > 0) {
-                      rows.add(
-                        DataRow(
-                          cells: [
-                            DataCell(Text(index.toString())),
-                            DataCell(Text((Controller.hasspeciallogictype == 2) ? "zone_bonus_taxable".tr : "zone_bonus".tr)),
-                            DataCell(Text(numberText)),
-                            DataCell(Text(rateText)),
-                            DataCell(
-                              Text(Controller.zoon.toInt().formatCustomint()),
-                            ),
-                            const DataCell(Text("")),
-                          ],
-                        ),
-                      );
-                      index++;
-                    }
-                    if (Controller.Basicwage0_7 > 0 && Controller.hasspeciallogictype == 2) {
-                      rows.add(
-                        DataRow(
-                          cells: [
-                            DataCell(Text(index.toString())),
-                            DataCell(Text("zone_bonus_exempt".tr)),
-                            DataCell(Text(numberText)),
-                            DataCell(Text(rateText)),
-                            DataCell(
-                              Text(Controller.Basicwage0_7.toInt().formatCustomint()),
-                            ),
-                            const DataCell(Text("")),
-                          ],
-                        ),
-                      );
-                      index++;
-                    }
+                if (Controller.zoon > 0 || Controller.Basicwage0_7 > 0) {
+                  String rateText = "";
+                  String numberText = "";
+                  if (Controller.hasspeciallogictype == 2) {
+                    numberText = Controller.numday.text.replaceAll(
+                      RegExp(r'[^0-9]'),
+                      '',
+                    );
+                  } else {
+                    rateText = Controller.numday.text.replaceAll(
+                      RegExp(r'[^0-9]'),
+                      '',
+                    );
                   }
 
-                  Controller.groupedData.forEach((cat, bonuses) {
+                  if (Controller.zoon > 0) {
+                    rows.add(
+                      DataRow(
+                        cells: [
+                          DataCell(Text(index.toString())),
+                          DataCell(
+                            Text(
+                              (Controller.hasspeciallogictype == 2)
+                                  ? "zone_bonus_taxable".tr
+                                  : "zone_bonus".tr,
+                            ),
+                          ),
+                          DataCell(Text(numberText)),
+                          DataCell(Text(rateText)),
+                          DataCell(
+                            Text(Controller.zoon.toInt().formatCustomint()),
+                          ),
+                          const DataCell(Text("")),
+                        ],
+                      ),
+                    );
+                    index++;
+                  }
+                  if (Controller.Basicwage0_7 > 0 &&
+                      Controller.hasspeciallogictype == 2) {
+                    rows.add(
+                      DataRow(
+                        cells: [
+                          DataCell(Text(index.toString())),
+                          DataCell(Text("zone_bonus_exempt".tr)),
+                          DataCell(Text(numberText)),
+                          DataCell(Text(rateText)),
+                          DataCell(
+                            Text(
+                              Controller.Basicwage0_7.toInt().formatCustomint(),
+                            ),
+                          ),
+                          const DataCell(Text("")),
+                        ],
+                      ),
+                    );
+                    index++;
+                  }
+                }
+
+                Controller.groupedData.forEach((cat, bonuses) {
                   for (var bonus in bonuses) {
                     if (Controller.selectedGroups[cat]?.contains(bonus.id) ??
                         false) {
@@ -322,9 +330,21 @@ class SalarySlipDialog extends StatelessWidget {
                               .formatCustomint();
                         }
                       } else {
-                        int baseDays = int.tryParse(Controller.baseWorkingDaysController.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 1;
+                        int baseDays =
+                            int.tryParse(
+                              Controller.baseWorkingDaysController.text
+                                  .replaceAll(RegExp(r'[^0-9]'), ''),
+                            ) ??
+                            1;
                         if (baseDays == 0) baseDays = 1;
-                        int absDays = int.tryParse(Controller.absentDaysController.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+                        int absDays =
+                            int.tryParse(
+                              Controller.absentDaysController.text.replaceAll(
+                                RegExp(r'[^0-9]'),
+                                '',
+                              ),
+                            ) ??
+                            0;
                         int workedDays = baseDays - absDays;
                         if (workedDays < 0) workedDays = 0;
                         val = (val / baseDays) * workedDays;
@@ -356,7 +376,7 @@ class SalarySlipDialog extends StatelessWidget {
                 rows.add(
                   DataRow(
                     cells: [
-                      DataCell(Text("${Controller.groupedData.length + 1}")),
+                      DataCell(Text("${Controller.groupedData.length + 5}")),
                       DataCell(Text("social_security".tr)),
                       DataCell(
                         Text(
@@ -384,7 +404,7 @@ class SalarySlipDialog extends StatelessWidget {
                   rows.add(
                     DataRow(
                       cells: [
-                        DataCell(Text("${Controller.groupedData.length + 2}")),
+                        DataCell(Text("${Controller.groupedData.length + 6}")),
                         DataCell(Text("cacobatph_fund".tr)),
                         DataCell(
                           Text(
@@ -414,7 +434,7 @@ class SalarySlipDialog extends StatelessWidget {
                     cells: [
                       DataCell(
                         Text(
-                          "${Controller.groupedData.length + (Controller.isCacobatph ? 3 : 2)}",
+                          "${Controller.groupedData.length + (Controller.isCacobatph ? 7 : 6)}",
                         ),
                       ),
                       DataCell(Text("irg".tr)),
@@ -430,7 +450,7 @@ class SalarySlipDialog extends StatelessWidget {
                       const DataCell(Text("")),
                       DataCell(
                         Text(
-                          Controller.discount2
+                          Controller.finalIrg
                               .toInt()
                               .formatCustomint()
                               .toString(),
@@ -445,77 +465,80 @@ class SalarySlipDialog extends StatelessWidget {
                     children: [
                       Expanded(
                         child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: DataTable(
-                            columnSpacing: 20,
-                            headingRowColor: MaterialStatePropertyAll(
-                              AppColor.typography,
-                            ),
-                            dataTextStyle: TextStyle(color: AppColor.brand),
+                          scrollDirection: Axis.vertical,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              columnSpacing: 20,
+                              headingRowColor: MaterialStatePropertyAll(
+                                AppColor.typography,
+                              ),
+                              dataTextStyle: TextStyle(color: AppColor.brand),
 
-                            border: TableBorder(
-                              horizontalInside: BorderSide(
-                                color: AppColor.typography.withOpacity(0.2),
-                                width: 1,
+                              border: TableBorder(
+                                horizontalInside: BorderSide(
+                                  color: AppColor.typography.withOpacity(0.2),
+                                  width: 1,
+                                ),
                               ),
+                              columns: [
+                                DataColumn(
+                                  label: Text(
+                                    "code".tr,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    "label".tr,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    "number".tr,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    "rate".tr,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    "gain".tr,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    "deduction".tr,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                              rows: rows,
                             ),
-                            columns: [
-                              DataColumn(
-                                label: Text(
-                                  "code".tr,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  "label".tr,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  "number".tr,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  "rate".tr,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  "gain".tr,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  "deduction".tr,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                            rows: rows,
                           ),
                         ),
                       ),
@@ -540,7 +563,7 @@ class SalarySlipDialog extends StatelessWidget {
                             child: _totalCard(
                               "total_deductions".tr,
                               (Controller.person9 +
-                                      Controller.discount2 +
+                                      Controller.finalIrg +
                                       Controller.totalBonusDeductions +
                                       Controller.cacobatphAmount)
                                   .toInt()
@@ -572,7 +595,7 @@ class SalarySlipDialog extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "${(Controller.total - Controller.person9 - Controller.discount2 - Controller.cacobatphAmount).toInt().formatCustomint()} DZD",
+                              "${(Controller.total - Controller.person9 - Controller.finalIrg - Controller.cacobatphAmount).toInt().formatCustomint()} DZD",
                               style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,

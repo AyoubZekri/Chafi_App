@@ -35,12 +35,12 @@ class _CategoriesappState extends State<Categoriesapp> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "select_category_hint".tr,
-                      style: Get.textTheme.headlineSmall?.copyWith(
-                        fontSize: 18,
-                      ),
-                    ),
+                    // Text(
+                    //   "select_category_hint".tr,
+                    //   style: Get.textTheme.headlineSmall?.copyWith(
+                    //     fontSize: 18,
+                    //   ),
+                    // ),
                     const SizedBox(height: 20),
 
                     ...List.generate(controller.data.length, (i) {
