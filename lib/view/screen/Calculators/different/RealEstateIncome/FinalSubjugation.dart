@@ -67,7 +67,7 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                           if (controller.typeOvercome == 1)
                             PenaltyCard(
                               icon: Icons.schedule_outlined,
-                              title: "الضريبة المؤقتة".tr,
+                              title: "ضريبة مؤقت".tr,
                               subtitle:
                                   "المبلغ المستحق قبل التسوية النهائية".tr,
                               amount: controller.tax
@@ -79,11 +79,30 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                           if (controller.typeOvercome == 1)
                             const SizedBox(height: 12),
 
-                          /// الضريبة النهائية
+                          /// الضريبة حسب السلم (إذا موجودة)
+                          if (controller.typeOvercome == 1)
+                            PenaltyCard(
+                              icon: Icons.bar_chart_outlined,
+                              title: "الضريبة حسب السلم".tr,
+                              subtitle: "الضريبة الإجمالية المحسوبة".tr,
+                              amount: controller.progressiveTotal
+                                  .toInt()
+                                  .formatCustomint()
+                                  .toString(),
+                            ),
+
+                          if (controller.typeOvercome == 1)
+                            const SizedBox(height: 12),
+
+                          /// الضريبة النهائية / الضريبة المعدة من المصالح الجبائية
                           PenaltyCard(
                             icon: Icons.receipt_long_outlined,
-                            title: "الضريبة النهائية".tr,
-                            subtitle: "المبلغ النهائي".tr,
+                            title: controller.typeOvercome == 1
+                                ? "الضريبة المعدة من المصالح الجبائية".tr
+                                : "الضريبة النهائية".tr,
+                            subtitle: controller.typeOvercome == 1
+                                ? "".tr
+                                : "المبلغ النهائي".tr,
                             amount: controller.netTax
                                 .toInt()
                                 .formatCustomint()
@@ -122,7 +141,7 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                           /// المجموع الكلي
                           TotalAmountCard(
                             total: controller.total.toInt(),
-                            title: "الضريبة الواجب دفعها".tr,
+                            title: "الضريبة الإجمالية لدفع".tr,
                           ),
 
                           SizedBox(height: 30),

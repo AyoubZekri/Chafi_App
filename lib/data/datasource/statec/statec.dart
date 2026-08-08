@@ -80,7 +80,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "26",
+    title: "الأنظمة",
     image: Appimageassets.tax,
     color: const Color(0xFF7C3AED), // Violet
     color2: const Color(0xFF4C1D95),
@@ -90,7 +90,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "30",
+    title: "أخرى",
     image: Appimageassets.shuffle,
     color: const Color(0xFF0EA5E9), // Sky
     color2: const Color(0xFF0369A1),
@@ -123,7 +123,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "28",
+    title: "الحاسبة",
     image: Appimageassets.calcel,
     color: Color(0xff34C759),
     color2: Color(0xff19612B),
@@ -133,7 +133,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "القاموس الجبائي",
+    title: "القاموس",
     image: Appimageassets.book,
     color: const Color(0xFFFACC15),
     color2: const Color(0xFFA16207),
@@ -150,7 +150,7 @@ List<Cardservicesmodel> Cardservices = [
     },
   ),
   Cardservicesmodel(
-    title: "الأسئلة الشائعة",
+    title: "الأسئلة",
     image: Appimageassets.articles,
     color: const Color(0xFFF43F5E),
     color2: const Color(0xFFBE123C),
@@ -167,7 +167,7 @@ List<Cardservicesmodel> Cardservices = [
     },
   ),
   Cardservicesmodel(
-    title: "روابط خارجية",
+    title: "روابط",
     image: Appimageassets.questions,
     color: const Color(0xFF10B981),
     color2: const Color(0xFF065F46),

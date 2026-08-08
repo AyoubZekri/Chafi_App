@@ -43,7 +43,7 @@ class FiscalCalculator extends StatelessWidget {
                         child: Text(
                           controller.userInput.value,
                           style: TextStyle(
-                            fontSize: controller.isResultFinal.value ? 32 : 48,
+                            fontSize: controller.isResultFinal.value ? 48 : 68,
                             color: controller.isResultFinal.value
                                 ? Colors.grey
                                 : AppColor.typography,
@@ -66,7 +66,7 @@ class FiscalCalculator extends StatelessWidget {
                         child: Text(
                           controller.result.value,
                           style: TextStyle(
-                            fontSize: controller.isResultFinal.value ? 48 : 32,
+                            fontSize: controller.isResultFinal.value ? 68 : 48,
                             color: controller.isResultFinal.value
                                 ? AppColor.typography
                                 : Colors.grey,
@@ -197,7 +197,7 @@ class MyButton extends StatelessWidget {
             buttonText,
             style: TextStyle(
               color: textColor,
-              fontSize: 24,
+              fontSize: 35,
               fontWeight: FontWeight.bold,
             ),
           ),

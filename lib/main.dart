@@ -67,7 +67,9 @@ class MyApp extends StatelessWidget {
             child: MaxWidthBox(
               maxWidth: 1200,
               child: MediaQuery(
-                data: mediaQueryData.copyWith(textScaleFactor: 1.0, devicePixelRatio: 1.0),
+                data: mediaQueryData.copyWith(
+                  textScaler: const TextScaler.linear(1.0),
+                ),
                 child: scaledChild,
               ),
             ),

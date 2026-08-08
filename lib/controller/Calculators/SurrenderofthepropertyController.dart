@@ -101,7 +101,7 @@ class Surrenderofthepropertycontroller extends GetxController {
             purchaseprices -
             sellingprices -
             cappedPurchaseExpenses -
-            sellingexpensess;
+            purchaseexpensess;
         print("netTax ================  $netTax");
         if (netTax < 0) {
           netTax = 0;

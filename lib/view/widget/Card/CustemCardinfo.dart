@@ -425,10 +425,19 @@ class _CustemcardinfoState extends State<Custemcardinfo>
       }
       // ✅ إذا كلمة مميزة
       else if (keywordRegex.hasMatch(matchedText)) {
+        bool isDictionary = widget.type == 10 && widget.typedeff == 4;
         spans.add(
           TextSpan(
             text: matchedText,
-            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            style: isDictionary
+                ? context.textTheme.bodyLarge?.copyWith(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                  )
+                : const TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
           ),
         );
       }

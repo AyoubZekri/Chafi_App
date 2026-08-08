@@ -58,25 +58,35 @@ class _IncomevalueState extends State<Incomevalue> {
 
                           CustemtextbodyMedium18(
                             color: AppColor.grey,
-                            content: "أدخل قيمة الدخل العقاري".tr,
+                            content: controller.getIncomeLabel(),
                           ),
 
                           SizedBox(height: 30),
 
                           SectionHeader(
                             icon: Icons.receipt_long_outlined,
-                            title: "قيمة الدخل العقاري".tr,
+                            title: controller.getIncomeTitle(),
                           ),
 
                           const SizedBox(height: 16),
 
                           CustomInputField(
-                            label: "أدخل قيمة الدخل العقاري".tr,
+                            label: controller.getIncomeLabel(),
                             icon: Icons.receipt_long_outlined,
                             isCurrency: true,
                             controller: controller.incmevalue,
                             errorText: controller.incmevalueErorr,
                           ),
+                          if (controller.typeOvercome == 1) ...[
+                            const SizedBox(height: 16),
+                            CustomInputField(
+                              label: "مداخيل أخرى".tr,
+                              icon: Icons.monetization_on_outlined,
+                              isCurrency: true,
+                              controller: controller.otherIncomes,
+                              errorText: controller.otherIncomesErorr,
+                            ),
+                          ],
                           const SizedBox(height: 24),
                           SectionHeader(
                             icon: Icons.receipt_long_outlined,
