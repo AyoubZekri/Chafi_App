@@ -34,9 +34,9 @@ class NotificationModel {
       content: json['content'] ?? '',
       titleFr: json['title_fr'] ?? '',
       contentFr: json['content_fr'] ?? '',
-      typeNotification: json['type_notification'],
+      typeNotification: json['type_notification']?? 0,
       taxId: json['tax_id'],
-      timer: json['timer'],
+      timer: json['timer']?? '',
       isread: json['is_read'] ?? 0,
 
       createdAt: json['created_at'] != null

@@ -35,9 +35,7 @@ class _SpecialappointmentsState extends State<Specialappointments> {
                   itemBuilder: (context, i) {
                     return DeadlineAlertCard(
                       title: controller.data[i].declaration,
-                      dateText: controller.data[i].deadline.length >= 10
-                          ? controller.data[i].deadline.substring(5, 10)
-                          : controller.data[i].deadline,
+                      appointmentDates: controller.data[i].appointmentDates,
                     );
                   },
                 ),

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:chafi/data/model/AppointmentDatesModel.dart';
 
 class Appointmentsmodel {
   final int id;
@@ -16,6 +17,7 @@ class Appointmentsmodel {
 
   final DateTime createdAt;
   final DateTime updatedAt;
+  final List<AppointmentDatesModel>? appointmentDates;
 
   Appointmentsmodel({
     required this.id,
@@ -29,6 +31,7 @@ class Appointmentsmodel {
     required this.createdAt,
     required this.updatedAt,
     required this.noticeDate,
+    this.appointmentDates,
   });
 
   String get declaration {
@@ -53,6 +56,9 @@ class Appointmentsmodel {
       dependenciesFr: json['dependencies_fr'] ?? '',
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
+      appointmentDates: json['appointment_dates'] != null 
+          ? (json['appointment_dates'] as List).map((i) => AppointmentDatesModel.fromJson(i)).toList() 
+          : null,
     );
   }
 }

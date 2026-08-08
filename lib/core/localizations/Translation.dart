@@ -869,7 +869,10 @@ class MyTranslation extends Translations {
       "قيمة الإيجار": "قيمة الإيجار",
       "الضريبة الإجمالية لدفع": "الضريبة الإجمالية لدفع",
       "يرجى اختيار نوع العقار.": "يرجى اختيار نوع العقار.",
- },
+
+      "المواعيد": "المواعيد",
+      "الموعد:": "الموعد:",
+    },
     "en": {
       "القاموس الجبائي": "Tax dictionary",
       "الحاسبة": "Calculator",
@@ -1759,6 +1762,9 @@ class MyTranslation extends Translations {
       "الضريبة الإجمالية لدفع": "Total tax to pay",
 
       "يرجى اختيار نوع العقار.": "Please select the property type.",
- },
+
+      "المواعيد": "Appointments",
+      "الموعد:": "Appointment:",
+    },
   };
 }
