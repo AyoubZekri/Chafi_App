@@ -39,8 +39,8 @@ class Surrenderofthepropertycontroller extends GetxController {
   double purchaseprices = 0;
   double sellingexpensess = 0;
   double purchaseexpensess = 0;
-  double annualDiscountAmount=0;
-  double residenceDiscountAmount=0;
+  double annualDiscountAmount = 0;
+  double residenceDiscountAmount = 0;
 
   int numyear = 0;
 
@@ -70,7 +70,6 @@ class Surrenderofthepropertycontroller extends GetxController {
         0;
     print("purchaseprices ================  $purchaseprices");
 
-    sellingprices = sellingprices == 0 ? (purchaseprices * 0.4) : sellingprices;
     sellingexpensess =
         double.tryParse(
           sellingexpenses.text.replaceAll(RegExp(r'[^0-9]'), ''),
@@ -83,6 +82,18 @@ class Surrenderofthepropertycontroller extends GetxController {
         ) ??
         0;
     print("purchaseexpensess ================  $purchaseexpensess");
+
+    if (sellingprices == 0 && sellingexpensess > 0) {
+      showSnackbar(
+        "خطأ".tr,
+        "سعر الإقتناء غير معروف وبتالي ترفض مصاريفه".tr,
+        Colors.red,
+      );
+      return;
+    }
+
+    sellingprices = sellingprices == 0 ? (purchaseprices * 0.4) : sellingprices;
+
     final datasale = parseDate(saledate.text);
     final datapurchase = parseDate(purchasedate.text);
     print("==============$datasale");
@@ -122,9 +133,7 @@ class Surrenderofthepropertycontroller extends GetxController {
         discountyear = netTax - annualDiscountAmount;
 
         // 3. التخفيض السكني الوحيد: يطبق على المبلغ المتبقي بعد التخفيض السنوي
-        residenceDiscountAmount = singleResidence == 1
-            ? discountyear * 0.5
-            : 0;
+        residenceDiscountAmount = singleResidence == 1 ? discountyear * 0.5 : 0;
         discount = discountyear - residenceDiscountAmount;
 
         if (discount < 0) {
@@ -179,18 +188,21 @@ class Surrenderofthepropertycontroller extends GetxController {
       20,
       1,
       "int",
+      empty: true,
     );
     sellingexpensesErorr = validInput(
       sellingexpenses.text.replaceAll(RegExp(r'[^0-9]'), ''),
       20,
       1,
       "int",
+      empty: true,
     );
     purchaseexpensesErorr = validInput(
       purchaseexpenses.text.replaceAll(RegExp(r'[^0-9]'), ''),
       20,
       1,
       "int",
+      empty: true,
     );
     if (sellingpriceErorr != null) hasError = true;
     if (purchasepriceErorr != null) hasError = true;

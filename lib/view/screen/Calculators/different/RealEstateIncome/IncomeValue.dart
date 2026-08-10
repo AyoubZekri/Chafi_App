@@ -94,6 +94,7 @@ class _IncomevalueState extends State<Incomevalue> {
                           ),
 
                           const SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           CustomInputField(
                             label: "تاريخ عقد الإيجار".tr,
                             icon: Icons.event_available,
@@ -104,15 +105,27 @@ class _IncomevalueState extends State<Incomevalue> {
                           ),
 
                           const SizedBox(height: 16),
-                          // CustomInputField(
-                          //   label: "تاريخ التحصيل".tr,
-                          //   icon: Icons.receipt_long_outlined,
-                          //   placeholder: 'mm/dd/yyyy',
-                          //   isDate: true,
-                          //   controller: controller.datacollection,
-                          //   errorText: controller.datacollectionErorr,
-                          // ),
-                          // const SizedBox(height: 16),
+
+                          CustomInputField(
+                            label: "سنة التحصيل".tr,
+                            icon: Icons.event_available,
+                            placeholder: 'yyyy',
+                            isDate: true,
+                            dateFormatType: DateFormatType.year,
+                            controller: controller.collectionYear,
+                            errorText: controller.collectionYearErorr,
+                          ),
+
+                          const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "تاريخ التحصيل (إختياري)".tr,
+                            icon: Icons.receipt_long_outlined,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.datacollection,
+                            errorText: controller.datacollectionErorr,
+                          ),
+                          const SizedBox(height: 16),
                           CustomInputField(
                             label: "payment_date".tr,
                             icon: Icons.event_available,
