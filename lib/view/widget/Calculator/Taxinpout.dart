@@ -217,7 +217,9 @@ class _CustomInputFieldState extends State<CustomInputField> {
                         textAlignVertical: TextAlignVertical.center,
                         keyboardType: widget.isDate
                             ? TextInputType.none
-                            : TextInputType.number,
+                            : widget.isPercentage
+                                ? const TextInputType.numberWithOptions(decimal: true)
+                                : TextInputType.number,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.black,

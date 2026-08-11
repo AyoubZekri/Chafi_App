@@ -82,7 +82,7 @@ class _CacobatphScreenState extends State<CacobatphScreen> {
                           onTap: () {
                             controller.selectedCacobatph(false);
                           },
-                          title: "لا",
+                          title: "لا".tr,
                         ),
                         const SizedBox(height: 50),
                         Custemsuberbutton(

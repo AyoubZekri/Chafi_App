@@ -1,4 +1,3 @@
-import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/view/screen/Calculators/Simplified%20system/Capital.dart';
 import 'package:chafi/view/screen/Calculators/Simplified%20system/IRG/TaxInpout.dart';
 import 'package:flutter/material.dart';

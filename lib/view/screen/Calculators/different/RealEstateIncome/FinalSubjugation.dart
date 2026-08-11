@@ -94,6 +94,21 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                           if (controller.typeOvercome == 1)
                             const SizedBox(height: 12),
 
+                          /// التخفيض السكني
+                          if (controller.typeOvercome == 1)
+                            PenaltyCard(
+                              icon: Icons.home_outlined,
+                              title: "التخفيض السكني".tr,
+                              subtitle: "نسبة التخفيض للإستعمال السكني ".tr,
+                              amount: controller.discout
+                                  .toInt()
+                                  .formatCustomint()
+                                  .toString(),
+                            ),
+
+                          if (controller.typeOvercome == 1)
+                            const SizedBox(height: 12),
+
                           /// الضريبة النهائية / الضريبة المعدة من المصالح الجبائية
                           PenaltyCard(
                             icon: Icons.receipt_long_outlined,
@@ -109,29 +124,27 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                                 .toString(),
                           ),
 
-                          if (controller.typeOvercome == 1)
-                            const SizedBox(height: 12),
+                          const SizedBox(height: 12),
 
-                          /// التخفيض السكني
-                          if (controller.typeOvercome == 1)
-                            PenaltyCard(
-                              icon: Icons.home_outlined,
-                              title: "التخفيض السكني".tr,
-                              subtitle: "نسبة التخفيض للإستعمال السكني ".tr,
-                              amount: controller.discout
-                                  .toInt()
-                                  .formatCustomint()
-                                  .toString(),
-                            ),
+                          /// غرامة تأخير الدفع
+                          PenaltyCard(
+                            icon: Icons.warning_amber_rounded,
+                            title: "غرامة تأخير الدفع".tr,
+                            subtitle: "المبلغ الإضافي الناتج عن تأخر الدفع".tr,
+                            amount: controller.Penalty.toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
 
                           const SizedBox(height: 12),
 
-                          /// غرامة التأخير
+                          /// غرامة تأخير الايداع
                           PenaltyCard(
                             icon: Icons.warning_amber_rounded,
-                            title: "غرامة التأخير".tr,
-                            subtitle: "المبلغ الإضافي الناتج عن تأخر السداد".tr,
-                            amount: controller.Penalty.toInt()
+                            title: "غرامة تأخير الإيداع".tr,
+                            subtitle:
+                                "المبلغ الإضافي الناتج عن تأخر الإيداع".tr,
+                            amount: controller.PenaltyDeposit.toInt()
                                 .formatCustomint()
                                 .toString(),
                           ),

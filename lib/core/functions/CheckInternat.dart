@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dns_client/dns_client.dart';
 
 Future<bool> checkInternet() async {

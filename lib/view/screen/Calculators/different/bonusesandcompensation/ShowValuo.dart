@@ -246,15 +246,13 @@ class SalarySlipDialog extends StatelessWidget {
                   String rateText = "";
                   String numberText = "";
                   if (Controller.hasspeciallogictype == 2) {
-                    numberText = Controller.numday.text.replaceAll(
-                      RegExp(r'[^0-9]'),
-                      '',
-                    );
+                    numberText = Controller.numday.text
+                        .replaceAll(',', '.')
+                        .replaceAll(RegExp(r'[^0-9.]'), '');
                   } else {
-                    rateText = Controller.numday.text.replaceAll(
-                      RegExp(r'[^0-9]'),
-                      '',
-                    );
+                    rateText = Controller.numday.text
+                        .replaceAll(',', '.')
+                        .replaceAll(RegExp(r'[^0-9.]'), '');
                   }
 
                   if (Controller.zoon > 0) {
@@ -306,12 +304,15 @@ class SalarySlipDialog extends StatelessWidget {
                   for (var bonus in bonuses) {
                     if (Controller.selectedGroups[cat]?.contains(bonus.id) ??
                         false) {
-                      final controller =
+                      final isPercentage = bonus.valueType == 1;
+                      final bonusController =
                           Controller.valueControllersGroups[cat]?[bonus.id];
-                      final valueStr = controller!.text.replaceAll(
-                        RegExp(r'[^0-9]'),
-                        '',
-                      );
+                      final textValue = bonusController?.text ?? '0';
+                      final valueStr = isPercentage
+                          ? textValue
+                                .replaceAll(',', '.')
+                                .replaceAll(RegExp(r'[^0-9.]'), '')
+                          : textValue.replaceAll(RegExp(r'[^0-9]'), '');
                       double val = double.tryParse(valueStr) ?? 0;
 
                       String rateText = "";
@@ -330,23 +331,23 @@ class SalarySlipDialog extends StatelessWidget {
                               .formatCustomint();
                         }
                       } else {
-                        int baseDays =
-                            int.tryParse(
+                        double baseDays =
+                            double.tryParse(
                               Controller.baseWorkingDaysController.text
-                                  .replaceAll(RegExp(r'[^0-9]'), ''),
+                                  .replaceAll(',', '.')
+                                  .replaceAll(RegExp(r'[^0-9.]'), ''),
                             ) ??
-                            1;
-                        if (baseDays == 0) baseDays = 1;
-                        int absDays =
-                            int.tryParse(
-                              Controller.absentDaysController.text.replaceAll(
-                                RegExp(r'[^0-9]'),
-                                '',
-                              ),
+                            1.0;
+                        if (baseDays == 0) baseDays = 1.0;
+                        double absDays =
+                            double.tryParse(
+                              Controller.absentDaysController.text
+                                  .replaceAll(',', '.')
+                                  .replaceAll(RegExp(r'[^0-9.]'), ''),
                             ) ??
-                            0;
-                        int workedDays = baseDays - absDays;
-                        if (workedDays < 0) workedDays = 0;
+                            0.0;
+                        double workedDays = baseDays - absDays;
+                        if (workedDays < 0) workedDays = 0.0;
                         val = (val / baseDays) * workedDays;
 
                         if (bonus.actionType == 2) {

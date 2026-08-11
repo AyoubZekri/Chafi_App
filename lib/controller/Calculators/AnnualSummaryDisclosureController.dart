@@ -2,7 +2,6 @@ import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/constant/routes.dart';
 import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';

@@ -12,220 +12,250 @@ class FiscalCalculator extends StatelessWidget {
       FiscalCalculatorController(),
     );
 
-    return Scaffold(
-      backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("الحاسبة".tr), centerTitle: true),
-      body: Column(
-        children: [
-          // Display Section
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              alignment: Alignment.bottomRight,
-              decoration: BoxDecoration(
-                color: AppColor.card1,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    height: 60,
-                    alignment: Alignment.bottomRight,
-                    child: Obx(
-                      () => FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          controller.userInput.value,
-                          style: TextStyle(
-                            fontSize: controller.isResultFinal.value ? 48 : 68,
-                            color: controller.isResultFinal.value
-                                ? Colors.grey
-                                : AppColor.typography,
-                            fontWeight: controller.isResultFinal.value
-                                ? FontWeight.normal
-                                : FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                        ),
+    Widget _buildButton(String text, {Color? bgColor, Color? textColor}) {
+      bgColor ??= Colors.white;
+      textColor ??= AppColor.typography;
+
+      return Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Material(
+              color: bgColor,
+              shape: const CircleBorder(),
+              elevation: 0,
+              child: InkWell(
+                onTap: () {
+                  String mappedText = text;
+                  if (text == '÷') mappedText = '/';
+                  if (text == '×') mappedText = 'x';
+
+                  // For parenthesis and +/- we can try to pass them or ignore if not supported by controller
+                  // We'll just pass them to controller, it will ignore or you can update controller later
+                  controller.onButtonPressed(mappedText);
+                },
+                customBorder: const CircleBorder(),
+                splashColor: AppColor.brand.withOpacity(0.5),
+                highlightColor: AppColor.brand.withOpacity(0.2),
+                child: Center(
+                  child: Transform.translate(
+                    offset: Offset(
+                      0,
+                      (text == '÷' ||
+                              text == '×' ||
+                              text == '-' ||
+                              text == '+' ||
+                              text == '=')
+                          ? -6.0
+                          : 0.0,
+                    ),
+                    child: Text(
+                      text,
+                      textAlign: TextAlign.center,
+                      textHeightBehavior: const TextHeightBehavior(
+                        applyHeightToFirstAscent: false,
+                        applyHeightToLastDescent: false,
+                      ),
+                      style: TextStyle(
+                        fontSize:
+                            (text == '÷' ||
+                                text == '×' ||
+                                text == '-' ||
+                                text == '+' ||
+                                text == '=')
+                            ? 65
+                            : 36,
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  Container(
-                    height: 60,
-                    alignment: Alignment.bottomRight,
-                    child: Obx(
-                      () => FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          controller.result.value,
-                          style: TextStyle(
-                            fontSize: controller.isResultFinal.value ? 68 : 48,
-                            color: controller.isResultFinal.value
-                                ? AppColor.typography
-                                : Colors.grey,
-                            fontWeight: controller.isResultFinal.value
-                                ? FontWeight.bold
-                                : FontWeight.normal,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Scaffold(
+      backgroundColor: AppColor.white,
+      appBar: AppBar(title: Text("الحاسبة".tr), centerTitle: true),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Display Section
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 24,
+                ),
+                alignment: Alignment.bottomRight,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 60,
+                      alignment: Alignment.bottomRight,
+                      child: Obx(
+                        () => FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            controller.userInput.value,
+                            style: TextStyle(
+                              fontSize: controller.isResultFinal.value
+                                  ? 40
+                                  : 54,
+                              color: controller.isResultFinal.value
+                                  ? Colors.grey
+                                  : AppColor.typography,
+                              fontWeight: controller.isResultFinal.value
+                                  ? FontWeight.normal
+                                  : FontWeight.bold,
+                            ),
+                            maxLines: 1,
                           ),
-                          maxLines: 1,
                         ),
                       ),
                     ),
+                    const SizedBox(height: 5),
+                    Container(
+                      height: 60,
+                      alignment: Alignment.bottomRight,
+                      child: Obx(
+                        () => FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            controller.result.value,
+                            style: TextStyle(
+                              fontSize: controller.isResultFinal.value
+                                  ? 54
+                                  : 40,
+                              color: controller.isResultFinal.value
+                                  ? AppColor.typography
+                                  : Colors.grey,
+                              fontWeight: controller.isResultFinal.value
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
+                            maxLines: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Actions Row (Backspace only, green color)
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 5.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () => controller.onButtonPressed('DEL'),
+                    icon: const Icon(
+                      Icons.backspace_outlined,
+                      color: AppColor.brand, // Green color
+                      size: 28,
+                    ),
+                    splashColor: AppColor.brand.withOpacity(0.2),
+                    highlightColor: AppColor.brand.withOpacity(0.1),
                   ),
                 ],
               ),
             ),
-          ),
 
-          // Keypad Section
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: GridView.builder(
-                itemCount: buttons.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  // Clear button
-                  if (index == 0) {
-                    return MyButton(
-                      buttonText: buttons[index],
-                      color: Colors.red,
-                      textColor: Colors.white,
-                      buttonTapped: () {
-                        controller.onButtonPressed(buttons[index]);
-                      },
-                    );
-                  }
-                  // Delete button
-                  else if (index == 1) {
-                    return MyButton(
-                      buttonText: buttons[index],
-                      color: Colors.orange,
-                      textColor: Colors.white,
-                      buttonTapped: () {
-                        controller.onButtonPressed(buttons[index]);
-                      },
-                    );
-                  }
-                  // Equals button
-                  else if (index == buttons.length - 1) {
-                    return MyButton(
-                      buttonText: buttons[index],
-                      color: AppColor.typography,
-                      textColor: Colors.white,
-                      buttonTapped: () {
-                        controller.onButtonPressed(buttons[index]);
-                      },
-                    );
-                  }
-                  // Other buttons
-                  else {
-                    return MyButton(
-                      buttonText: buttons[index],
-                      color: isOperator(buttons[index])
-                          ? AppColor.typography
-                          : Colors.grey[200],
-                      textColor: isOperator(buttons[index])
-                          ? Colors.white
-                          : AppColor.typography,
-                      buttonTapped: () {
-                        controller.onButtonPressed(buttons[index]);
-                      },
-                    );
-                  }
-                },
-              ),
+            // Divider
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Divider(height: 1, color: Colors.black12),
             ),
-          ),
-        ],
-      ),
-    );
-  }
 
-  bool isOperator(String x) {
-    if (x == '/' || x == 'x' || x == '-' || x == '+' || x == '=') {
-      return true;
-    }
-    return false;
-  }
-}
-
-class MyButton extends StatelessWidget {
-  final color;
-  final textColor;
-  final String buttonText;
-  final buttonTapped;
-
-  const MyButton({
-    this.color,
-    this.textColor,
-    required this.buttonText,
-    this.buttonTapped,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: buttonTapped,
-      child: Container(
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
+            // Keypad Section
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+                top: 16.0,
+                bottom: 24.0,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      _buildButton("(", bgColor: Colors.grey[200]),
+                      _buildButton(")", bgColor: Colors.grey[200]),
+                      _buildButton("%", bgColor: Colors.grey[200]),
+                      _buildButton(
+                        "÷",
+                        bgColor: Colors.grey[600],
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      _buildButton("7"),
+                      _buildButton("8"),
+                      _buildButton("9"),
+                      _buildButton(
+                        "×",
+                        bgColor: Colors.grey[600],
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      _buildButton("4"),
+                      _buildButton("5"),
+                      _buildButton("6"),
+                      _buildButton(
+                        "-",
+                        bgColor: Colors.grey[600],
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      _buildButton("1"),
+                      _buildButton("2"),
+                      _buildButton("3"),
+                      _buildButton(
+                        "+",
+                        bgColor: Colors.grey[600],
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      _buildButton("C"),
+                      _buildButton("0"),
+                      _buildButton("."),
+                      _buildButton(
+                        "=",
+                        bgColor: AppColor.brand,
+                        textColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
-        child: Center(
-          child: Text(
-            buttonText,
-            style: TextStyle(
-              color: textColor,
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
       ),
     );
   }
 }
-
-const List<String> buttons = [
-  'C',
-  'DEL',
-  '%',
-  '/',
-  '7',
-  '8',
-  '9',
-  'x',
-  '4',
-  '5',
-  '6',
-  '-',
-  '1',
-  '2',
-  '3',
-  '+',
-  '0',
-  '00',
-  '.',
-  '=',
-];

@@ -67,13 +67,14 @@ class bonusesandcompensationcontroller extends GetxController {
   double zoon = 0;
   double grossincome = 0;
   double iRG = 0;
-  
+
   double get finalIrg {
     if (discount1 == 0 && discount2 == 0) {
       return iRG;
     }
     return discount2;
   }
+
   double discount40 = 0;
   double discount1 = 0;
   double discount2 = 0;
@@ -207,6 +208,11 @@ class bonusesandcompensationcontroller extends GetxController {
   }
 
   void calcul() {
+    discount1 = 0;
+    discount2 = 0;
+    discount40 = 0;
+    iRG = 0;
+
     if (validateAllCategories()) {
       calculateGroupsSum();
       total = sumgroub1 + sumgroub2 + sumgroub3 + totalBonusDeductions;
@@ -239,10 +245,10 @@ class bonusesandcompensationcontroller extends GetxController {
           print("==============iRG $iRG");
           print("==============discount40 $discount40");
           double reduction = discount40;
+          if (reduction < 100000) reduction = 100000;
+          if (reduction > 150000) reduction = 150000;
 
-          if (reduction <= 150000 && reduction >= 100000) {
-            discount1 = iRG - reduction;
-          }
+          discount1 = iRG - reduction;
           if (discount1 < 0) discount1 = 0;
           discount1 = discount1 / 100;
           if (3000000 <= grossincome &&
@@ -256,7 +262,7 @@ class bonusesandcompensationcontroller extends GetxController {
           } else if (3000000 <= grossincome &&
               grossincome <= 4250000 &&
               personscondition != 6) {
-            discount2 = discount1 * (61 / 93) - (41 / 81.213);
+            discount2 = (discount1 * (93 / 61)) - (81213 / 41);
             discount2 = discount2 * 100;
             discount1 = discount1 * 100;
 
@@ -277,18 +283,22 @@ class bonusesandcompensationcontroller extends GetxController {
 
           discount1 = iRG - reduction;
           if (discount1 < 0) discount1 = 0;
+          discount1 = discount1 / 100;
 
           if ((3000000 * 12) <= grossincome &&
               grossincome <= (3500000 * 12) &&
               personscondition == 6) {
-            discount2 = discount1 * (51 / 137) - (8 / 27925);
+            discount2 = (discount1 * (137 / 51)) - ((27925 / 8) * 12);
           } else if ((3000000 * 12) <= grossincome &&
               grossincome <= (4250000 * 12) &&
               personscondition != 6) {
-            discount2 = discount1 * (61 / 93) - (41 / 81.213);
+            discount2 = (discount1 * (93 / 61)) - ((81213 / 41) * 12);
           } else {
             discount2 = discount1;
           }
+
+          discount2 = discount2 * 100;
+          discount1 = discount1 * 100;
         }
       }
       Get.to(() => Showvaluo());
@@ -402,28 +412,35 @@ class bonusesandcompensationcontroller extends GetxController {
     sumgroub3 = 0;
     totalBonusDeductions = 0;
 
-    int baseDays =
-        int.tryParse(
-          baseWorkingDaysController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+    double baseDays =
+        double.tryParse(
+          baseWorkingDaysController.text
+              .replaceAll(',', '.')
+              .replaceAll(RegExp(r'[^0-9.]'), ''),
         ) ??
-        1;
-    if (baseDays == 0) baseDays = 1;
+        1.0;
+    if (baseDays == 0) baseDays = 1.0;
 
-    int absDays =
-        int.tryParse(
-          absentDaysController.text.replaceAll(RegExp(r'[^0-9]'), ''),
+    double absDays =
+        double.tryParse(
+          absentDaysController.text
+              .replaceAll(',', '.')
+              .replaceAll(RegExp(r'[^0-9.]'), ''),
         ) ??
-        0;
-    int actualWorkedDays = baseDays - absDays;
-    if (actualWorkedDays < 0) actualWorkedDays = 0;
+        0.0;
+    double actualWorkedDays = baseDays - absDays;
+    if (actualWorkedDays < 0) actualWorkedDays = 0.0;
 
     Basicwage =
         double.tryParse(
           fixedValueController.text.replaceAll(RegExp(r'[^0-9]'), ''),
         ) ??
         0;
-    int nmpdyes =
-        int.tryParse(numday.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    double nmpdyes =
+        double.tryParse(
+          numday.text.replaceAll(',', '.').replaceAll(RegExp(r'[^0-9.]'), ''),
+        ) ??
+        0.0;
 
     Basicwage = (Basicwage / baseDays) * actualWorkedDays;
 
@@ -453,9 +470,13 @@ class bonusesandcompensationcontroller extends GetxController {
       double sum = 0;
 
       controllers.forEach((id, controller) {
-        final value = controller.text.replaceAll(RegExp(r'[^0-9]'), '');
         final bonus = data.firstWhereOrNull((e) => e.id == id);
         final isPercentage = bonus?.valueType == 1;
+        final value = isPercentage
+            ? controller.text
+                  .replaceAll(',', '.')
+                  .replaceAll(RegExp(r'[^0-9.]'), '')
+            : controller.text.replaceAll(RegExp(r'[^0-9]'), '');
 
         if (value.isNotEmpty) {
           double val = double.parse(value);

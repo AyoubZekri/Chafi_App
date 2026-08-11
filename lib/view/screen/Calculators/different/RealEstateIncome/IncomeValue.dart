@@ -94,17 +94,6 @@ class _IncomevalueState extends State<Incomevalue> {
                           ),
 
                           const SizedBox(height: 16),
-                          const SizedBox(height: 16),
-                          CustomInputField(
-                            label: "تاريخ عقد الإيجار".tr,
-                            icon: Icons.event_available,
-                            placeholder: 'mm/dd/yyyy',
-                            isDate: true,
-                            controller: controller.dataTheContract,
-                            errorText: controller.dataTheContractErorr,
-                          ),
-
-                          const SizedBox(height: 16),
 
                           CustomInputField(
                             label: "سنة التحصيل".tr,
@@ -124,6 +113,15 @@ class _IncomevalueState extends State<Incomevalue> {
                             isDate: true,
                             controller: controller.datacollection,
                             errorText: controller.datacollectionErorr,
+                          ),
+                          const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "تاريخ الإيداع".tr,
+                            icon: Icons.event_available,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.datadeposit,
+                            errorText: controller.datadepositErorr,
                           ),
                           const SizedBox(height: 16),
                           CustomInputField(

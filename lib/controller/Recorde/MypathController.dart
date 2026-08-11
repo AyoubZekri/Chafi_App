@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Statusrequest.dart';
-import '../../core/functions/Dealog.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';

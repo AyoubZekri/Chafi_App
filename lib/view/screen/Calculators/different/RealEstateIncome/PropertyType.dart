@@ -65,7 +65,7 @@ class _PropertytypeState extends State<Propertytype> {
                           SizedBox(height: 40),
                           CustemtextbodyMedium18(
                             content: controller.typeOvercome == 2
-                                ? "إختر نوع العقار".tr
+                                ? "إختر نوع الإيجار".tr
                                 : "هل العقار للإستعمال السكني فقط".tr,
                             color: AppColor.black,
                           ),
@@ -77,7 +77,7 @@ class _PropertytypeState extends State<Propertytype> {
                               padding: 30,
                               marginb: 25,
                               index: 1,
-                              title: "فردي أو جماعي".tr,
+                              title: "سكني فردي أو جماعي".tr,
                               selectedPerson: controller.typePropertytype,
                               onTap: () {
                                 controller.selectedPropertytype(1);
@@ -88,7 +88,7 @@ class _PropertytypeState extends State<Propertytype> {
                               padding: 30,
                               index: 2,
                               marginb: 25,
-                              title: "غير مزود بأثاث".tr,
+                              title: "تجاري أو مهني غير مزود بي أثاث".tr,
                               selectedPerson: controller.typePropertytype,
                               onTap: () {
                                 controller.selectedPropertytype(2);
@@ -99,7 +99,7 @@ class _PropertytypeState extends State<Propertytype> {
                               padding: 30,
                               marginb: 25,
                               index: 3,
-                              title: "أرض فارغة".tr,
+                              title: "الأملاك غير المبنية".tr,
                               selectedPerson: controller.typePropertytype,
                               onTap: () {
                                 controller.selectedPropertytype(3);
@@ -110,7 +110,7 @@ class _PropertytypeState extends State<Propertytype> {
                               padding: 30,
                               index: 4,
                               marginb: 25,
-                              title: "للإستعمال الفلاحي فقط".tr,
+                              title: "للإستعمال الفلاحي".tr,
                               selectedPerson: controller.typePropertytype,
                               onTap: () {
                                 controller.selectedPropertytype(4);

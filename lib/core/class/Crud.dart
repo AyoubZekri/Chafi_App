@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:chafi/core/functions/Snacpar.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;

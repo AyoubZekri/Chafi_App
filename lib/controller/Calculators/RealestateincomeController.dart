@@ -27,20 +27,21 @@ class Realestateincomecontroller extends GetxController {
   int typeSelectedPeriod = 0;
 
   String? incmevalueErorr;
-  String? dataTheContractErorr;
   String? datacollectionErorr;
   String? datapaymentErorr;
+  String? datadepositErorr;
   String? otherIncomesErorr;
   String? collectionYearErorr;
   TextEditingController incmevalue = TextEditingController();
   TextEditingController otherIncomes = TextEditingController();
-  TextEditingController dataTheContract = TextEditingController();
   TextEditingController datacollection = TextEditingController();
   TextEditingController datapayment = TextEditingController();
+  TextEditingController datadeposit = TextEditingController();
   TextEditingController collectionYear = TextEditingController();
 
   double netTax = 0;
   double Penalty = 0;
+  double PenaltyDeposit = 0;
   double tax = 0;
   double incmevalues = 0;
   double total = 0;
@@ -180,27 +181,26 @@ class Realestateincomecontroller extends GetxController {
         double.tryParse(otherIncomes.text.replaceAll(RegExp(r'[^0-9]'), '')) ??
         0;
 
-    final dateContract = parseDate(dataTheContract.text);
-    // final datacollections = parseDate(datacollection.text);
     final datapayments = parseDate(datapayment.text);
+    final datadeposits = parseDate(datadeposit.text);
 
     if (!hasError) {
       double multiplier = 1;
-      if (typeTypeofcollection == 1 && typeOvercome == 1) {
+      if (typeTypeofcollection == 1) {
         multiplier = 12; // شهري
-      } else if (typeTypeofcollection == 2 && typeOvercome == 1) {
+      } else if (typeTypeofcollection == 2) {
         multiplier = 4; // ثلاثي
-      } else if (typeTypeofcollection == 3 && typeOvercome == 1) {
+      } else if (typeTypeofcollection == 3) {
         multiplier = 2; // سداسي
-      } else if (typeTypeofcollection == 4 && typeOvercome == 1) {
+      } else if (typeTypeofcollection == 4) {
         multiplier = 1; // سنوي
-      } else if (typeTypeofcollection == 5 && typeOvercome == 1) {
+      } else if (typeTypeofcollection == 5) {
         multiplier = 12; // سنوي
       }
 
       double annualizedIncome = incmevalues * multiplier;
-
-      if (typeOvercome == 2 && annualizedIncome >= 180000000) {
+      print("typePropertytype : $typePropertytype");
+      if (typeOvercome == 2 && annualizedIncome > 180000000) {
         showSnackbar(
           "خطأ".tr,
           "قيمة التحصيل السنوي تتجاوز 1,800,000.00 دج. يرجى العودة وتغيير الاختيار الأول."
@@ -210,7 +210,7 @@ class Realestateincomecontroller extends GetxController {
         return;
       }
 
-      if (typeOvercome == 1 && annualizedIncome < 180000000) {
+      if (typeOvercome == 1 && annualizedIncome <= 180000000) {
         showSnackbar(
           "خطأ".tr,
           "قيمة التحصيل السنوي لا تتجاوز 1,800,000.00 دج. يرجى العودة وتغيير الاختيار الأول."
@@ -227,22 +227,21 @@ class Realestateincomecontroller extends GetxController {
         } else if (typePropertytype == 4) {
           netTax = incmevalues * 0.1;
         }
-        Penalty = calculatePenaltyPayment(datapayments, dateContract, netTax);
-        total = netTax + Penalty;
+        Penalty = calculatePenaltyPayment(datapayments, netTax);
+        PenaltyDeposit = calculatePenaltyDeposit(datadeposits, netTax);
+        total = netTax + Penalty + PenaltyDeposit;
       } else {
         tax = incmevalues * 0.07;
         double totalIncome = incmevalues + otherIncomesValue;
         progressiveTotal = calculateProgressiveTax(totalIncome, multiplier);
         netTax = progressiveTotal - tax;
         discout = typePropertytype == 1 ? (netTax * 0.25) : 0;
-        double baseAmount = netTax - discout;
-        print("baseAmount ================  $baseAmount");
-        Penalty = calculatePenaltyPayment(
-          datapayments,
-          dateContract,
-          baseAmount,
-        );
-        total = (netTax - discout) + Penalty;
+        print("======================${discout}");
+        netTax = netTax - discout;
+        print("baseAmount ================  $netTax");
+        Penalty = calculatePenaltyPayment(datapayments, netTax);
+        PenaltyDeposit = calculatePenaltyDeposit(datadeposits, netTax);
+        total = netTax + Penalty + PenaltyDeposit;
       }
 
       Get.to(Finalsubjugation());
@@ -265,12 +264,12 @@ class Realestateincomecontroller extends GetxController {
   void BackFromIncomevalue() {
     incmevalue.clear();
     otherIncomes.clear();
-    dataTheContract.clear();
     datapayment.clear();
+    datadeposit.clear();
     incmevalueErorr = null;
     otherIncomesErorr = null;
     datapaymentErorr = null;
-    dataTheContractErorr = null;
+    datadepositErorr = null;
     collectionYear.clear();
     datacollection.clear();
     collectionYearErorr = null;
@@ -323,9 +322,11 @@ class Realestateincomecontroller extends GetxController {
     return tax;
   }
 
-  int getFirstMonthOfPeriod(DateTime contractDate) {
+  int getFirstMonthOfPeriod() {
+    if (typeOvercome == 1) return 1;
     switch (typeTypeofcollection) {
       case 1:
+      case 5:
         return typeSelectedPeriod > 0 ? typeSelectedPeriod : 1;
       case 2:
         return typeSelectedPeriod > 0 ? ((typeSelectedPeriod - 1) * 3) + 1 : 1;
@@ -334,13 +335,15 @@ class Realestateincomecontroller extends GetxController {
       case 4:
         return 1;
       default:
-        return contractDate.month;
+        return 1;
     }
   }
 
-  int getLastMonthOfPeriod(DateTime contractDate) {
+  int getLastMonthOfPeriod() {
+    if (typeOvercome == 1) return 12;
     switch (typeTypeofcollection) {
       case 1:
+      case 5:
         return typeSelectedPeriod > 0 ? typeSelectedPeriod : 1;
       case 2:
         return typeSelectedPeriod > 0 ? typeSelectedPeriod * 3 : 3;
@@ -349,35 +352,40 @@ class Realestateincomecontroller extends GetxController {
       case 4:
         return 12;
       default:
-        return contractDate.month;
+        return 12;
     }
   }
 
-  double calculatePenaltyPayment(
-    DateTime? datePayment,
-    DateTime? dataContract,
-    double advance,
-  ) {
-    if (datePayment == null || dataContract == null) return 0;
+  double calculatePenaltyPayment(DateTime? datePayment, double advance) {
+    if (datePayment == null) return 0;
 
     DateTime graceEnd;
 
-    int collectionYr = int.tryParse(collectionYear.text) ?? dataContract.year;
+    int collectionYr = int.tryParse(collectionYear.text) ?? DateTime.now().year;
     DateTime? collDate = parseDate(datacollection.text);
 
-    if (typeIsAdvance == 1) {
+    if (typeTypeofcollection == 5) {
       if (collDate != null) {
         graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
       } else {
-        int firstMonth = getFirstMonthOfPeriod(dataContract);
-        graceEnd = DateTime(collectionYr, firstMonth + 1, 20);
+        int selectedMonth = typeSelectedPeriod > 0 ? typeSelectedPeriod : 1;
+        graceEnd = DateTime(collectionYr, selectedMonth, 20);
       }
     } else {
-      if (collDate != null) {
-        graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
+      if (typeIsAdvance == 1) {
+        if (collDate != null) {
+          graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
+        } else {
+          int firstMonth = getFirstMonthOfPeriod();
+          graceEnd = DateTime(collectionYr, firstMonth + 1, 20);
+        }
       } else {
-        int lastMonth = getLastMonthOfPeriod(dataContract);
-        graceEnd = DateTime(collectionYr, lastMonth + 1, 20);
+        if (collDate != null) {
+          graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
+        } else {
+          int lastMonth = getLastMonthOfPeriod();
+          graceEnd = DateTime(collectionYr, lastMonth + 1, 20);
+        }
       }
     }
 
@@ -395,17 +403,80 @@ class Realestateincomecontroller extends GetxController {
     double percent;
 
     if (monthsLate == 0) {
-      percent = 0.15; // من 21 لنهاية نفس الشهر
+      percent = 0.05; // من 21 لنهاية نفس الشهر
+      print("====================5%");
     } else if (monthsLate == 1) {
-      percent = 0.23;
+      percent = 0.13;
+      print("====================23%");
     } else if (monthsLate == 2) {
-      percent = 0.26;
+      percent = 0.16;
+      print("====================26%");
     } else if (monthsLate == 3) {
-      percent = 0.29;
+      percent = 0.19;
+      print("====================29%");
     } else if (monthsLate == 4) {
-      percent = 0.32;
+      percent = 0.22;
+      print("====================32%");
     } else {
-      percent = 0.35;
+      percent = 0.25;
+      print("====================35%");
+    }
+
+    return advance * percent;
+  }
+
+  double calculatePenaltyDeposit(DateTime? dateDeposit, double advance) {
+    if (dateDeposit == null) return 0;
+
+    DateTime graceEnd;
+
+    int collectionYr = int.tryParse(collectionYear.text) ?? DateTime.now().year;
+    DateTime? collDate = parseDate(datacollection.text);
+
+    if (typeTypeofcollection == 5) {
+      if (collDate != null) {
+        graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
+      } else {
+        int selectedMonth = typeSelectedPeriod > 0 ? typeSelectedPeriod : 1;
+        graceEnd = DateTime(collectionYr, selectedMonth, 20);
+      }
+    } else {
+      if (typeIsAdvance == 1) {
+        if (collDate != null) {
+          graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
+        } else {
+          int firstMonth = getFirstMonthOfPeriod();
+          graceEnd = DateTime(collectionYr, firstMonth + 1, 20);
+        }
+      } else {
+        if (collDate != null) {
+          graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
+        } else {
+          int lastMonth = getLastMonthOfPeriod();
+          graceEnd = DateTime(collectionYr, lastMonth + 1, 20);
+        }
+      }
+    }
+
+    // إذا تم الدفع داخل المهلة القانونية (قبل أو في نفس يوم 20)
+    if (!dateDeposit.isAfter(graceEnd)) {
+      return 0;
+    }
+
+    // حساب عدد أشهر التأخير
+    // يتم حساب الفرق الإجمالي بالأشهر بين تاريخ الدفع ونهاية المهلة
+    int monthsLate =
+        (dateDeposit.year - graceEnd.year) * 12 +
+        (dateDeposit.month - graceEnd.month);
+
+    double percent;
+
+    if (monthsLate == 0) {
+      percent = 0.10; // من 21 لنهاية نفس الشهر
+      print("====================10%");
+    } else {
+      percent = 0.10;
+      print("====================10%");
     }
 
     return advance * percent;
@@ -421,32 +492,31 @@ class Realestateincomecontroller extends GetxController {
     bool hasError = false;
 
     // ======= التواريخ =======
-    if (dataTheContract.text.isEmpty) {
-      dataTheContractErorr = "تاريخ عقد الإيجار مطلوب".tr;
-      hasError = true;
-    } else {
-      dataTheContractErorr = validInput(dataTheContract.text, 20, 3, "Text");
-      if (dataTheContractErorr != null) hasError = true;
-    }
-
     if (datacollection.text.isNotEmpty) {
       datacollectionErorr = validInput(datacollection.text, 20, 4, "Text");
       if (datacollectionErorr != null) {
         hasError = true;
-      } else if (typeIsAdvance == 1) {
+      } else {
         DateTime? collDate = parseDate(datacollection.text);
-        DateTime? contractDate = parseDate(dataTheContract.text);
-        int collYear =
-            int.tryParse(collectionYear.text) ??
-            (contractDate?.year ?? DateTime.now().year);
+        int collYear = int.tryParse(collectionYear.text) ?? DateTime.now().year;
 
-        if (collDate != null && contractDate != null) {
-          int firstMonth = getFirstMonthOfPeriod(contractDate);
-          if (collDate.year > collYear ||
-              (collDate.year == collYear && collDate.month > firstMonth)) {
-            datacollectionErorr =
-                "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة".tr;
-            hasError = true;
+        if (collDate != null) {
+          if (typeIsAdvance == 1) {
+            int firstMonth = getFirstMonthOfPeriod();
+            if (collDate.year > collYear ||
+                (collDate.year == collYear && collDate.month > firstMonth)) {
+              datacollectionErorr =
+                  "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة".tr;
+              hasError = true;
+            }
+          } else {
+            int lastMonth = getLastMonthOfPeriod();
+            if (collDate.year > collYear ||
+                (collDate.year == collYear && collDate.month > lastMonth)) {
+              datacollectionErorr =
+                  "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأخير من الفترة".tr;
+              hasError = true;
+            }
           }
         }
       }
