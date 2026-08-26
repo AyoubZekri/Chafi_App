@@ -115,7 +115,30 @@ class _DitailsarticlesState extends State<Ditailsarticles> {
                           color: AppColor.black,
                         ),
                       ),
-                      const SizedBox(height: 12),
+
+                      if (item.readTime.isNotEmpty) ...[
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.timer_outlined,
+                              size: 20,
+                              color: AppColor.typography,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              '${'مدة القراءة'.tr}: ${item.readTime} ${'دقائق'.tr}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: AppColor.typography,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+
+                      const SizedBox(height: 16),
                       // ARTICLE BODY
                       Text(
                         item.localizedBody,
@@ -126,6 +149,93 @@ class _DitailsarticlesState extends State<Ditailsarticles> {
                         ),
                         textAlign: TextAlign.justify,
                       ),
+
+                      if (item.localizedChafiAdvice.isNotEmpty) ...[
+                        const SizedBox(height: 30),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColor.typography.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: AppColor.typography.withOpacity(0.3),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.lightbulb_outline,
+                                    color: AppColor.typography,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'نصيحة شافي'.tr,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColor.typography,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                item.localizedChafiAdvice,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  height: 1.6,
+                                  color: AppColor.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+
+                      if (item.localizedLegalSource.isNotEmpty) ...[
+                        const SizedBox(height: 20),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: Colors.grey.withOpacity(0.3),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.gavel, color: Colors.grey),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'المصدر القانوني'.tr,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                item.localizedLegalSource,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  height: 1.6,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
 
                       const SizedBox(height: 40),
                     ],

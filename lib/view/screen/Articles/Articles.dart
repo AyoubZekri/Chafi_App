@@ -22,7 +22,7 @@ class _ArticlesState extends State<Articles> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("40".tr)),
+      appBar: AppBar(title: Text("articles_title".tr)),
       body: GetBuilder<ArticlescontrollerImp>(
         builder: (controller) {
           return Handlingview(

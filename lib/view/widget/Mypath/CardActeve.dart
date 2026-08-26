@@ -66,7 +66,7 @@ class _CardacteveState extends State<Cardacteve> with TickerProviderStateMixin {
                 Expanded(
                   child: Text(
                     widget.description,
-                    maxLines: isExpanded ? null : 1,
+                    maxLines: isExpanded ? null : 2,
                     overflow: isExpanded
                         ? TextOverflow.visible
                         : TextOverflow.ellipsis,

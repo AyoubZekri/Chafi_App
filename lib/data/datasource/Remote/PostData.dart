@@ -62,6 +62,11 @@ class Postdata {
         'title_fr': post['title_fr'],
         'title2_fr': post['title2_fr'],
         'body_fr': post['body_fr'],
+        'read_time': post['read_time']?.toString() ?? "",
+        'chafi_advice': post['chafi_advice']?.toString() ?? "",
+        'chafi_advice_fr': post['chafi_advice_fr']?.toString() ?? "",
+        'legal_source': post['legal_source']?.toString() ?? "",
+        'legal_source_fr': post['legal_source_fr']?.toString() ?? "",
         'created_at': post['created_at'],
         'updated_at': post['updated_at'],
       });

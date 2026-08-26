@@ -30,7 +30,7 @@ class Slaider extends GetView<HomecontrollerImp> {
                     itemBuilder: (context, i) {
                       return Image.file(
                         File(controller.dataimg[i].image!),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                         width: double.infinity,
                       );
                     },

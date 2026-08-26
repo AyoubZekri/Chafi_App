@@ -37,38 +37,46 @@ class _GooglesigninState extends State<Googlesignin> {
         builder: (controller) {
           return Stack(
             children: [
-              Positioned(
-                top: 50,
-                bottom: 50, // use bottom instead of fixed height
-                left: Get.locale == Locale("ar") ? sideOffset : null,
-                right: Get.locale == Locale("ar") ? null : sideOffset,
-                child: Container(
-                  width: Get.width - 40,
-                  decoration: BoxDecoration(
-                    color: AppColor.typography,
-                    borderRadius: BorderRadius.circular(28),
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   top: 50,
+              //   bottom: 50, // use bottom instead of fixed height
+              //   left: Get.locale == Locale("ar") ? sideOffset : null,
+              //   right: Get.locale == Locale("ar") ? null : sideOffset,
+              //   child: Container(
+              //     width: Get.width - 40,
+              //     decoration: BoxDecoration(
+              //       color: AppColor.typography,
+              //       borderRadius: BorderRadius.circular(28),
+              //     ),
+              //   ),
+              // ),
               SafeArea(
                 child: SingleChildScrollView(
                   child: Container(
                     padding: EdgeInsets.only(
-                      left: Get.locale == Locale("ar") ? 20 : 60,
-                      right: Get.locale == Locale("ar") ? 60 : 20,
+                      // left: Get.locale == Locale("ar") ? 20 : 60,
+                      // right: Get.locale == Locale("ar") ? 60 : 20,
+                      left: 40,
+                      right: 40,
                       top: 40,
                       bottom: 40,
                     ),
                     // Constrain the minimum height so the content is centered if possible
                     constraints: BoxConstraints(
-                      minHeight: Get.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+                      minHeight:
+                          Get.height -
+                          MediaQuery.of(context).padding.top -
+                          MediaQuery.of(context).padding.bottom,
                     ),
                     child: IntrinsicHeight(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Center(
-                            child: Image.asset(Appimageassets.logo, height: Get.height * 0.2), // Responsive image height
+                            child: Image.asset(
+                              Appimageassets.logo,
+                              height: Get.height * 0.2,
+                            ), // Responsive image height
                           ),
                           SizedBox(height: 40),
                           Custemtextbodylarge(content: "10".tr),

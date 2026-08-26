@@ -377,7 +377,7 @@ class _CustemcardinfoState extends State<Custemcardinfo>
   Widget buildRichText(String text, BuildContext context) {
     final urlRegex = RegExp(r'(https?:\/\/[^\s]+)');
     final keywordRegex = RegExp(
-      r'((?:(?:ب|ال)?(?:مادة|مواد|مادت[اوي]?ن|مر[ا]?س[وي]?م|مرسوم[اوي]?ن|ق[اوا]ن[وي]?ن|[أا]و?امر|[أا]مر|قرارا?ت?|من[ا]?ش[وي]?ر|مقررا?ت?)|d[eé]crets?|lois?|ordonn?ances?|arr[eêé]t[eé]s?|circulaires?|d[eé]cisions?)(?:\s*(?:(?:ال)?تنف[ي]?ذي[ةه]?|ex[eé]cuti[fve]s?))?(?:\s*(?:رقم|أرقام|ارقام|n[o°]?|n))?(?:\s*\d+[\d\-\/]*)?(?:\s*مكررا?ت?(?:\s*\d+)?)?(?:\s*(?:من|de)\s*\d+[\d\-\/]*\s*(?:إلى|à|au)\s*\d+[\d\-\/]*)?)',
+      r'((?:ب)?(?:ال)?(?:مادة|مواد)(?:\s*(?:رقم|أرقام|ارقام))?\s*\d+(?:\s*مكرر[ااً]?)?(?:[\s\-\/،و]*\d+(?:\s*مكرر[ااً]?)?)*)',
       caseSensitive: false,
     );
     List<TextSpan> spans = [];

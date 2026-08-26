@@ -26,40 +26,52 @@ class _OnBardingState extends State<OnBarding> {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
-              children: const [
-                CUstemSliderOnbarding(),
-                
-                CustemDotControllerOnbarding(),
-              ],
-            ),
-
-            Positioned(
-              bottom: 230,
-              left: Get.locale == Locale("ar") ? 20 : null,
-              right: Get.locale == Locale("ar") ? null : 20,
-              child: McustemButtonOnbarding(),
-            ),
-            Positioned(
-              bottom: 150,
-              left: Get.locale == Locale("ar") ? 20 : null,
-              right: Get.locale == Locale("ar") ? null : 20,
-
-              child: McustemButtonOnbardingBack(),
-            ),
-
             Positioned(
               bottom: -150,
-              left: Get.locale == Locale("ar") ? 300 : null,
-              right: Get.locale == Locale("ar") ? null : 300,
-
+              left: Get.locale?.languageCode == "ar" ? 300 : null,
+              right: Get.locale?.languageCode == "ar" ? null : 300,
               child: Container(
                 width: 484,
                 height: 484,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: AppColor.typography,
                   shape: BoxShape.circle,
                 ),
+              ),
+            ),
+            Positioned.fill(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight > 800 ? constraints.maxHeight : 800,
+                      ),
+                      child: Stack(
+                        children: [
+                          Column(
+                            children: const [
+                              CUstemSliderOnbarding(),
+                              CustemDotControllerOnbarding(),
+                            ],
+                          ),
+                          Positioned(
+                            bottom: 230,
+                            left: Get.locale?.languageCode == "ar" ? 20 : null,
+                            right: Get.locale?.languageCode == "ar" ? null : 20,
+                            child: const McustemButtonOnbarding(),
+                          ),
+                          Positioned(
+                            bottom: 150,
+                            left: Get.locale?.languageCode == "ar" ? 20 : null,
+                            right: Get.locale?.languageCode == "ar" ? null : 20,
+                            child: const McustemButtonOnbardingBack(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],

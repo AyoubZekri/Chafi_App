@@ -20,7 +20,7 @@ class SQLDB {
     Database mydb = await openDatabase(
       path,
       onCreate: _onCreate,
-      version: 2,
+      version: 3,
       onUpgrade: _onUpgrade,
     );
     return mydb;
@@ -35,6 +35,33 @@ class SQLDB {
           item_type TEXT
         )
       ''');
+    }
+    if (oldversion < 3) {
+      try {
+        await db.execute('ALTER TABLE Post ADD COLUMN read_time TEXT');
+      } catch (e) {
+        print("Column read_time already exists: \$e");
+      }
+      try {
+        await db.execute('ALTER TABLE Post ADD COLUMN chafi_advice TEXT');
+      } catch (e) {
+        print("Column chafi_advice already exists: \$e");
+      }
+      try {
+        await db.execute('ALTER TABLE Post ADD COLUMN chafi_advice_fr TEXT');
+      } catch (e) {
+        print("Column chafi_advice_fr already exists: \$e");
+      }
+      try {
+        await db.execute('ALTER TABLE Post ADD COLUMN legal_source TEXT');
+      } catch (e) {
+        print("Column legal_source already exists: \$e");
+      }
+      try {
+        await db.execute('ALTER TABLE Post ADD COLUMN legal_source_fr TEXT');
+      } catch (e) {
+        print("Column legal_source_fr already exists: \$e");
+      }
     }
   }
 
@@ -53,6 +80,11 @@ class SQLDB {
       title_fr TEXT,
       title2_fr TEXT,
       body_fr TEXT,
+      read_time TEXT,
+      chafi_advice TEXT,
+      chafi_advice_fr TEXT,
+      legal_source TEXT,
+      legal_source_fr TEXT,
       created_at TEXT,
       updated_at TEXT
     )

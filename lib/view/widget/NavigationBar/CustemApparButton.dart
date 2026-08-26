@@ -19,6 +19,8 @@ class Custemapparbutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      padding: EdgeInsets.zero,
+      minWidth: 0,
       onPressed: onPressed,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -29,11 +31,12 @@ class Custemapparbutton extends StatelessWidget {
             size: 30,
           ),
           AutoSizeText(
-            maxLines: 1,
-            minFontSize: 10,
-            overflow: TextOverflow.ellipsis,
             textButton,
+            maxLines: 1,
+            minFontSize: 8,
+            overflow: TextOverflow.visible,
             style: TextStyle(
+              fontSize: 12,
               color: active == true ? AppColor.typography : AppColor.grey,
             ),
           ),

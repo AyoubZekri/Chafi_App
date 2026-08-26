@@ -13,18 +13,19 @@ class MyTranslation extends Translations {
       "Langugs": "اللغات",
       "English": "الانجليزية",
       "Arabic": "العربية",
-      "4": "مرحبا بك في منصتك الموثوقة للمؤسسات",
-      "5": "كل القوانين والإجراءات في مكان واحد… وبطريقة سهلة وواضحة",
-      "6": "القانون واضح… معانا أوضح",
-      "7": "اكتشف القوانين والجباية بطريقة مبسطة، دقيقة، ومن مصادر رسمية",
-      "8": "نساعدك تبني وتسيّر مؤسستك بثقة",
-      "9": "أدوات، معلومات، وخدمات تجمع كل ما تحتاجه في مكان واحد",
+      "articles_title": "مقالات",
+      "4": "مرحبًا بك في منصتك الموثوقة",
+      "5": "القوانين والإجراءات الجبائية في مكان واحد",
+      "6": "القانون واضح... معنا أبسط",
+      "7": "اكتشف القوانين والجباية ببساطة، بدقة ومن مصادر رسمية.",
+      "8": "نساعدك على تسيير مؤسستك بثقة",
+      "9": "أدوات ومعلومات وخدمات، كل ما تحتاجه في مكان واحد.",
       "10": "أهلا بك في شافي الجباية ببساطة",
       "11": "سجل الدخول",
       "12": "سجل بواسطة GOOGLE",
       "13": "دخول كضيف",
       "14":
-          "سجّل دخولك للوصول إلى خدماتك، متابعة سجلاتك، والبقاء على اطلاع بكل جديد في القوانين والجباية. أدخل بياناتك للمتابعة",
+          "سجّل دخولك للوصول إلى خدماتك، ومتابعة سجلاتك، والاطلاع على كل جديد في القوانين والجباية. أدخل بياناتك للمتابعة.",
       "15": "الاسم الكامل",
       "16": "الولاية",
       "17": "رقم الهاتف",
@@ -227,14 +228,15 @@ class MyTranslation extends Translations {
       'slogan': "شافي… الجباية ببساطة",
       'Invité': 'ضيف',
       'موافق': 'موافق',
-      
+
       "الثلاثي الأول": "الثلاثي الأول",
       "الثلاثي الثاني": "الثلاثي الثاني",
       "الثلاثي الثالث": "الثلاثي الثالث",
       "الثلاثي الرابع": "الثلاثي الرابع",
       "السداسي الأول": "السداسي الأول",
       "السداسي الثاني": "السداسي الثاني",
-      "يرجى اختيار الفترة المحددة للتحصيل": "يرجى اختيار الفترة المحددة للتحصيل",
+      "يرجى اختيار الفترة المحددة للتحصيل":
+          "يرجى اختيار الفترة المحددة للتحصيل",
       "يرجى اختيار الفترة.": "يرجى اختيار الفترة.",
       "سنة التحصيل": "سنة التحصيل",
       "جانفي": "جانفي",
@@ -355,19 +357,19 @@ class MyTranslation extends Translations {
       "تاريخ دفع التسبيقة الثالثة": "تاريخ دفع التسبيقة الثالثة",
       "يرجى إدخال النتيجة الجبائية لتحديد قيمة كشف التلخيص السنوي":
           "يرجى إدخال النتيجة الجبائية لتحديد قيمة كشف التلخيص السنوي",
-      "terms_title": "شروط استخدام تطبيق الجباية",
-      "term_1_title": "١- استخدام التطبيق",
+      "terms_title": "شروط استخدام تطبيق شافي",
+      "term_1_title": "1- استخدام التطبيق",
       "term_1_desc":
-          "يجب استخدام التطبيق فقط للأغراض القانونية المرتبطة بالمعلومات والجباية، ويمنع أي استخدام مخالف للقوانين المعمول بها.",
-      "term_2_title": "٢- البيانات والمسؤولية",
+          "يجب استخدام التطبيق فقط للأغراض القانونية المتعلقة بالمعلومات والجباية، ويُمنع استخدامه بأي شكل يخالف القوانين المعمول بها.",
+      "term_2_title": "2- البيانات والمسؤولية",
       "term_2_desc":
-          "جميع البيانات المدخلة هي مسؤولية المستخدم. يجب التأكد من صحة المعلومات قبل حفظها أو مشاركتها.",
-      "term_3_title": "٣- الخصوصية",
+          "تتحمل مسؤولية صحة جميع البيانات التي تُدخلها، ويجب التأكد من صحة المعلومات قبل حفظها أو مشاركتها.",
+      "term_3_title": "3- الخصوصية",
       "term_3_desc":
-          "تلتزم الإدارة بحماية البيانات الشخصية. لن يتم مشاركة البيانات إلا للغايات القانونية والإدارية.",
-      "term_4_title": "٤- تعديل الشروط",
+          "تلتزم إدارة التطبيق بحماية بياناتك الشخصية، ولن تتم مشاركة بياناتك إلا في الحالات التي يسمح بها القانون أو يقتضيها.",
+      "term_4_title": "4- تعديل الشروط",
       "term_4_desc":
-          "يحق للإدارة تعديل هذه الشروط في أي وقت. يعتبر استمرارك في استخدام التطبيق بعد أي تعديل موافقة ضمنية على الشروط الجديدة.",
+          "يحق لإدارة التطبيق تعديل هذه الشروط من وقت لآخر، ويُعد استمرارك في استخدام التطبيق بعد نشر التعديلات موافقةً منك على الشروط الجديدة.",
       "advertising_sponsorship": "الإشهار والرعاية",
       "advertising_sponsorship_طويلة": "الإشهـــار والرعايــــة",
 
@@ -550,7 +552,7 @@ class MyTranslation extends Translations {
       "إختر نوع الإيجار": "إختر نوع الإيجار",
       "هل العقار للإستعمال السكني فقط": "هل العقار للإستعمال السكني فقط",
       "سكني فردي أو جماعي": "سكني فردي أو جماعي",
-      "تجاري أو مهني غير مزود بي أثاث": "تجاري أو مهني غير مزود بي أثاث",
+      "تجاري أو مهني غير مزود بي أثاث": "تجاري أو مهني غير مزود بأثاث",
       "الأملاك غير المبنية": "الأملاك غير المبنية",
       "للإستعمال الفلاحي": "للإستعمال الفلاحي",
       "نعم": "نعم",
@@ -641,7 +643,7 @@ class MyTranslation extends Translations {
       "المبلغ بعد احتساب التنازل": "المبلغ بعد احتساب التنازل",
       "المبلغ الخاضع لضريبة بعد التخفيض": "المبلغ الخاضع للضريبة بعد التخفيض",
       "أدخل معلومات تنازل الإستثمار":
-          "أدخل معلومات تنازل عن الإستثمار الإستثمار",
+          "أدخل معلومات تنازل عن الإستثمار",
       "القيمة الباقية لتثبيت": "القيمة الباقية للتثبيت",
       "فائض قيمة التثبيت": "فائض قيمة التثبيت",
       "مبلغ التخفيض": "مبلغ التخفيض",
@@ -677,8 +679,7 @@ class MyTranslation extends Translations {
       "informationBody2":
           "من خلال شافي، يمكن للمستخدمين متابعة التزاماتهم الضريبية، الحصول على شروحات وتوضيحات مبسطة، والاستفادة من تجربة رقمية سلسة تدعم التعليم العملي والامتثال القانوني في نفس الوقت.",
       "info_title1": "لمحة عن منصة شافي CHAFI",
-      "info_content1":
-          "منصة رقمية مبتكرة تهدف إلى تبسيط المفاهيم الجبائية وتسهيل العلاقة بين الإدارة الضريبية والمكلفين بالضريبة، خاصة أصحاب المؤسسات الناشئة والمصغرة. كما تسعى المنصة إلى مساعدة الطلبة الجامعيين، الباحثين، المحاسبين، والمهتمين بالمجال الجبائي، من خلال تقديم محتوى مبسط، واضح، وسهل الاستخدام .",
+      "info_content1":"منصة رقمية مبتكرة تهدف إلى تبسيط المفاهيم الجبائية وتسهيل العلاقة بين الإدارة الضريبية والمكلفين بالضريبة، خاصة أصحاب المؤسسات الناشئة والمصغرة والمكلفين الجدد، كما تسعى المنصة إلى مساعدة الطلبة الجامعيين والباحثين والمحاسبين في القطاعين العام والخاص والمهتمين بالمجال الجبائي، من خلال تقديم محتوى مبسط وواضح وسهل الاستخدام.",
       "info_title2": "عن التطبيق",
       "info_content2":
           "يقصد بتسمية “شافي” الدلالة على التبسيط والتوضيح، إذ يسعى التطبيق إلى مساعدة المستخدم على فهم الإشكالات الجبائية بطريقة سهلة ومنظمة. ويعتمد التطبيق على بيئة رقمية مبسطة تجمع بين القوانين، الشروحات، النماذج، والأدوات التفاعلية، بما يساهم في تعزيز الوعي الجبائي لدى المكلفين والمهتمين بالمجال.",
@@ -687,7 +688,7 @@ class MyTranslation extends Translations {
           "تحمل كلمة “شافي” في اللغة العربية معنى العلاج والإصلاح، وهي هنا تستعمل مجازًا للدلالة على معالجة الغموض والتعقيد في المجال الجبائي، عبر حلول رقمية مبسطة وواضحة.\nأما الاختصار الإنجليزي CHAFI فهو مشتق من:\n• CHA: من اسم المؤسس Chaib\n• FI: من Fiscal Intelligence، أي الذكاء الجبائي.",
       "info_title4": "مفهوم الشعار: \"شافي… الجباية ببساطة\"",
       "info_content4":
-          "لقد تم اختيار شعار \"شافي… الجباية ببساطة\" ليُعبّر عن روح تطبيق \"شافي\" (CHAFI) وعن طبيعة العلاقة التي يسعى إلى بنائها مع المستخدم، خاصةً المؤسسات الناشئة والمصغرة ليبسط لهم فهم الامتثال الضريبي.",
+          "لقد تم اختيار شعار \"شافي… الجباية ببساطة\" ليُعبّر عن روح تطبيق \"شافي\" (CHAFI) وعن طبيعة العلاقة التي يسعى إلى بنائها مع المستخدم، خاصةً المؤسسات الناشئة والمصغرة والمكلفين الجدد ليبسط لهم فهم الامتثال الضريبي.",
       "app_logo_title": "CHAFI | شافي",
       "app_slogan": "شافي… الجباية ببساطة",
       "other_services": "خدمات أخرى",
@@ -890,8 +891,10 @@ class MyTranslation extends Translations {
 
       "سعر الإقتناء غير معروف وبتالي ترفض مصاريفه":
           "سعر الإقتناء غير معروف وبتالي ترفض مصاريفه",
-      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة": "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة",
-      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأخير من الفترة": "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأخير من الفترة",
+      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة":
+          "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة",
+      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأخير من الفترة":
+          "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأخير من الفترة",
       "مداخيل أخرى": "مداخيل أخرى",
       "تاريخ التحصيل (إختياري)": "تاريخ التحصيل (إختياري)",
       "تاريخ الإيداع": "تاريخ الإيداع",
@@ -910,20 +913,19 @@ class MyTranslation extends Translations {
       "Langugs": "Languages",
       "English": "English",
       "Arabic": "Arabic",
-      "4": "Welcome to your trusted platform for enterprises",
-      "5": "All laws and procedures in one place...in an easy and clear way",
-      "6": "The law is clear...it is clearer with us",
-      "7":
-          "Discover the laws and taxes in a simple, accurate way, and from official sources",
-      "8": "We help you build and manage your organization with confidence",
-      "9":
-          "Tools, information, and services that bring everything you need into one place",
+      "4": "Welcome to your trusted platform",
+      "articles_title": "Articles",
+      "5": "Tax laws and procedures in one place",
+      "6": "The law is clear... with us it's simpler",
+      "7": "Discover laws and taxation simply, accurately, and from official sources.",
+      "8": "We help you manage your enterprise with confidence",
+      "9": "Tools, information, and services, everything you need in one place.",
       "10": "Welcome to Shafi Simply Collection",
       "11": "Log in",
       "12": "REGISTER WITH GOOGLE",
       "13": "Login as guest",
       "14":
-          "Log in to access your services, follow your records, and stay up to date with everything new in laws and collections. Enter your details to continue",
+          "Log in to access your services, follow up your records, and stay up to date with everything new in laws and collections. Enter your data to continue.",
       "15": "full name",
       "16": "State",
       "17": "phone number",
@@ -1246,19 +1248,19 @@ class MyTranslation extends Translations {
       "تاريخ دفع التسبيقة الثالثة": "Date of payment of the third installment",
       "يرجى إدخال النتيجة الجبائية لتحديد قيمة كشف التلخيص السنوي":
           "Please enter the tax result to determine the value of the annual summary statement",
-      "terms_title": "Terms of use of the collection application",
-      "term_1_title": "1- Use the application",
+      "terms_title": "Terms of use of the Shafi application",
+      "term_1_title": "1- Using the application",
       "term_1_desc":
-          "The application must be used only for legal purposes related to information and collection, and any use in violation of applicable laws is prohibited.",
+          "The application must be used only for legal purposes related to information and taxation, and any use that violates applicable laws is prohibited.",
       "term_2_title": "2- Data and responsibility",
       "term_2_desc":
-          "All data entered is the responsibility of the user. You must ensure that the information is correct before saving or sharing it.",
+          "You bear the responsibility for the accuracy of all data you enter, and you must verify the correctness of the information before saving or sharing it.",
       "term_3_title": "3- Privacy",
       "term_3_desc":
-          "The administration is committed to protecting personal data. Data will only be shared for legal and administrative purposes.",
+          "The application administration is committed to protecting your personal data, and your data will not be shared except in cases permitted or required by law.",
       "term_4_title": "4- Modifying the terms",
       "term_4_desc":
-          "The administration has the right to amend these terms at any time. Your continued use of the application after any modification constitutes implicit acceptance of the new terms.",
+          "The application administration reserves the right to modify these terms from time to time, and your continued use of the application after publishing the amendments constitutes your acceptance of the new terms.",
       "advertising_sponsorship": "Advertising and sponsorship",
       "الإشهـــــار والرعايــــــة": "Publicity and care",
 
@@ -1443,7 +1445,8 @@ class MyTranslation extends Translations {
       "هل العقار للإستعمال السكني فقط":
           "Is the property for residential use only?",
       "سكني فردي أو جماعي": "Individual or collective residential",
-      "تجاري أو مهني غير مزود بي أثاث": "Unfurnished commercial or professional",
+      "تجاري أو مهني غير مزود بي أثاث":
+          "Unfurnished commercial or professional",
       "الأملاك غير المبنية": "Undeveloped properties",
       "للإستعمال الفلاحي": "For agricultural use",
       "نعم": "Yes",
@@ -1576,7 +1579,7 @@ class MyTranslation extends Translations {
           "Through Shafi, users can track their tax obligations, obtain simplified explanations and clarifications, and benefit from a seamless digital experience that supports practical education and legal compliance at the same time.",
       "info_title1": "An overview of the CHAFI platform",
       "info_content1":
-          "An innovative digital platform that aims to simplify tax concepts and facilitate the relationship between the tax administration and taxpayers, especially owners of emerging and small enterprises. The platform also seeks to help university students, researchers, accountants, and those interested in the tax field, by providing simple, clear, and easy-to-use content.",
+          "An innovative digital platform that aims to simplify tax concepts and facilitate the relationship between the tax administration and taxpayers, especially owners of startups, micro-enterprises, and new taxpayers. The platform also seeks to help university students, researchers, accountants in both the public and private sectors, and those interested in the tax field, by providing simple, clear, and easy-to-use content.",
       "info_title2": "About the application",
       "info_content2":
           "The name “Shafi” is intended to indicate simplification and clarification, as the application seeks to help the user understand tax problems in an easy and organized manner. The application relies on a simplified digital environment that combines laws, explanations, models, and interactive tools, which contributes to enhancing tax awareness among taxpayers and those interested in the field.",
@@ -1585,7 +1588,7 @@ class MyTranslation extends Translations {
           "The word “Shafi” in the Arabic language carries the meaning of treatment and reform, and here it is used metaphorically to indicate addressing ambiguity and complexity in the tax field, through simplified and clear digital solutions.\nThe English abbreviation CHAFI is derived from:\n• CHA: from the name of the founder, Chaib\n• FI: from Fiscal Intelligence, meaning tax intelligence.",
       "info_title4": "Slogan Concept: \"CHAFI... Taxation Simply\"",
       "info_content4":
-          "The slogan \"CHAFI... Taxation Simply\" was chosen to express the spirit of the CHAFI application and the nature of the relationship it seeks to build with the user, especially startups and micro-enterprises, to simplify their understanding of tax compliance.",
+          "The slogan \"CHAFI... Taxation Simply\" was chosen to express the spirit of the CHAFI application and the nature of the relationship it seeks to build with the user, especially startups, micro-enterprises, and new taxpayers, to simplify their understanding of tax compliance.",
       "app_logo_title": "CHAFI | Healing",
       "app_slogan": "Shafi... simply collecting",
       "other_services": "Other services",
@@ -1796,8 +1799,10 @@ class MyTranslation extends Translations {
 
       "سعر الإقتناء غير معروف وبتالي ترفض مصاريفه":
           "Acquisition price is unknown and therefore its expenses are rejected",
-      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة": "The collection date cannot be after the first month of the period",
-      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأخير من الفترة": "The collection date cannot be after the last month of the period",
+      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة":
+          "The collection date cannot be after the first month of the period",
+      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأخير من الفترة":
+          "The collection date cannot be after the last month of the period",
       "مداخيل أخرى": "Other incomes",
       "تاريخ التحصيل (إختياري)": "Collection date (Optional)",
       "تاريخ الإيداع": "Deposit date",
@@ -1821,7 +1826,8 @@ class MyTranslation extends Translations {
       "الثلاثي الرابع": "Fourth Quarter",
       "السداسي الأول": "First Half",
       "السداسي الثاني": "Second Half",
-      "يرجى اختيار الفترة المحددة للتحصيل": "Please select the specified collection period",
+      "يرجى اختيار الفترة المحددة للتحصيل":
+          "Please select the specified collection period",
       "سنة التحصيل": "Collection year",
     },
   };

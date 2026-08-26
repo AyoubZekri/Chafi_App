@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,12 @@ class Custemcardhome extends StatelessWidget {
   final String content;
   final Function()? onTap;
 
-  const Custemcardhome({super.key, required this.image, required this.content, this.onTap});
+  const Custemcardhome({
+    super.key,
+    required this.image,
+    required this.content,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,10 @@ class Custemcardhome extends StatelessWidget {
               width: 230,
               child: Text(
                 content,
-                style: context.textTheme.bodyMedium?.copyWith(fontSize: 16),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  fontSize: 18,
+                  color: AppColor.black,
+                ),
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
