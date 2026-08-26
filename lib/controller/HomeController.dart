@@ -105,8 +105,7 @@ class HomecontrollerImp extends Homecontroller {
 
     if (hasFeedback != true &&
         isLoggedIn &&
-        numEnter > 0 &&
-        numEnter % 5 == 0) {
+        (numEnter == 1 || (numEnter > 0 && numEnter % 5 == 0))) {
       Future.delayed(const Duration(seconds: 2), () {
         if (Get.isDialogOpen != true) {
           showFeedbackDialog();
