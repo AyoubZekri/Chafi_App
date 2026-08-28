@@ -148,7 +148,8 @@ class Custembusinesscardditails extends StatelessWidget {
                                         style: TextStyle(
                                           fontSize: 11,
                                           fontWeight: FontWeight.bold,
-                                          color: AppColor.typography.withOpacity(0.5),
+                                          color: AppColor.typography
+                                              .withOpacity(0.5),
                                         ),
                                       ),
                                     ),
@@ -242,7 +243,10 @@ class Custembusinesscardditails extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [AppColor.typography.withOpacity(0.04), AppColor.typography.withOpacity(0.01)],
+                          colors: [
+                            AppColor.typography.withOpacity(0.04),
+                            AppColor.typography.withOpacity(0.01),
+                          ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -276,7 +280,8 @@ class Custembusinesscardditails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "67".tr, // "النشاط"
+                                  "النشـــــــــــــــــــــــــاط"
+                                      .tr, // "النشاط"
                                   style: const TextStyle(
                                     color: AppColor.brand,
                                     fontSize: 12,
@@ -318,14 +323,14 @@ class Custembusinesscardditails extends StatelessWidget {
     return Column(
       children: [
         _buildDetailTile(
-          label: "71".tr, // "الشكل القانوني"
+          label: "الشكـــــل القانونـــــي".tr, // "الشكل القانوني"
           value: persontype,
           icon: Icons.business_rounded,
         ),
         if (codeActeve != "null".tr) ...[
           const SizedBox(height: 14),
           _buildDetailTile(
-            label: "75".tr, // "رمز النشاط"
+            label: "رمـــــــــز النشـــــــــــاط".tr, // "رمز النشاط"
             value: codeActeve,
             icon: Icons.tag_rounded,
           ),
@@ -333,13 +338,13 @@ class Custembusinesscardditails extends StatelessWidget {
 
         const SizedBox(height: 14),
         _buildDetailTile(
-          label: "الممثل القانوني".tr,
+          label: "الممثـــــل القانونـــــي".tr,
           value: name,
           icon: Icons.person_pin_rounded,
         ),
         const SizedBox(height: 14),
         _buildDetailTile(
-          label: "74".tr, // "النظام الجبائي"
+          label: "النظـــــــــام الجبائـــــي".tr, // "النظام الجبائي"
           value: numperTax == 0 || numperTax == 3
               ? "49".tr
               : numperTax == 1
@@ -350,7 +355,7 @@ class Custembusinesscardditails extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         _buildDetailTile(
-          label: "73".tr, // "العنوان"
+          label: "العنــــــــــــــــــــــــــــوان".tr, // "العنوان"
           value: address,
           icon: Icons.location_on_rounded,
         ),

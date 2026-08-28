@@ -116,30 +116,7 @@ class _DitailsarticlesState extends State<Ditailsarticles> {
                         ),
                       ),
 
-                      if (item.readTime.isNotEmpty) ...[
-                        const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.timer_outlined,
-                              size: 20,
-                              color: AppColor.typography,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              '${'مدة القراءة'.tr}: ${item.readTime} ${'دقائق'.tr}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: AppColor.typography,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-
-                      const SizedBox(height: 16),
-                      // ARTICLE BODY
+                      const SizedBox(height: 20),
                       Text(
                         item.localizedBody,
                         style: context.textTheme.bodyMedium?.copyWith(
@@ -214,7 +191,7 @@ class _DitailsarticlesState extends State<Ditailsarticles> {
                                   const Icon(Icons.gavel, color: Colors.grey),
                                   const SizedBox(width: 8),
                                   Text(
-                                    'المصدر القانوني'.tr,
+                                    'المصدر'.tr,
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

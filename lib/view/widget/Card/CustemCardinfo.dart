@@ -184,7 +184,7 @@ class _CustemcardinfoState extends State<Custemcardinfo>
                                       onPressed: widget.onCalculator,
                                       icon: const Icon(Icons.calculate),
                                       label: Text(
-                                        "حاسبة",
+                                        "أحسب".tr,
                                         style: context.textTheme.bodyMedium
                                             ?.copyWith(
                                               color: AppColor.typography,

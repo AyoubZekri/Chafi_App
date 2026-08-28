@@ -188,8 +188,10 @@ class FiscalCalculator extends StatelessWidget {
                 top: 16.0,
                 bottom: 24.0,
               ),
-              child: Column(
-                children: [
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: Column(
+                  children: [
                   Row(
                     children: [
                       _buildButton("(", bgColor: Colors.grey[200]),
@@ -251,6 +253,7 @@ class FiscalCalculator extends StatelessWidget {
                     ],
                   ),
                 ],
+              ),
               ),
             ),
           ],

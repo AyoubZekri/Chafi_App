@@ -95,7 +95,7 @@ class InstitutioninfocontrollerImp extends GetxController {
   Future<void> isReadeinstitution(int id) async {
     var response = await institutionData.isRead(id);
     print("===================$response");
-    if (response["status"] == 1) {
+    if (response is Map && response["status"] == 1) {
       markAsReadLocal(id);
     }
 
@@ -105,7 +105,7 @@ class InstitutioninfocontrollerImp extends GetxController {
   Future<void> isReadeTax(int id) async {
     var response = await taxandappdata.isRead(id);
     print("===================$response");
-    if (response["status"] == 1) {
+    if (response is Map && response["status"] == 1) {
       markAsReadLocal(id);
     }
 

@@ -37,14 +37,14 @@ class MyTranslation extends Translations {
       "23": "مقالات حصرية",
       "24": "عرض المزيد",
 
-      "25": "المؤسسات",
+      "25": "الشخص الطبيعي والمعنوي",
       "26": "الأنظمة الجبائية",
-      "27": "مساري",
+      "27": "المسار الجبائي",
       "28": "الحاسبة الجبائية",
-      "29": "الجزاءات ",
-      "30": "ضرائب أخرى",
+      "29": "العقوبات والجزاءات الجبائية",
+      "30": "ضرائب ورسوم اخرى",
 
-      "31": "المؤسسات",
+      "31": "الشخص الطبيعي والمعنوي",
       "32": "مقننة",
 
       "33": "مؤسسة مصغرة",
@@ -58,7 +58,7 @@ class MyTranslation extends Translations {
 
       "40": "القوانين",
 
-      "41": "المؤسسات",
+      "41": "الشخص الطبيعي والمعنوي",
       "42":
           "تصفّح مجموعة متنوعة من المقالات المتخصصة في عالم المؤسسات والقوانين الخاصة",
       "43":
@@ -78,7 +78,7 @@ class MyTranslation extends Translations {
           "تصفّح مجموعة متنوعة من الجزاءات  التنضيمية المتخصصة في عالم الأنضمة الجبائية والقوانين الخاصة",
       "54":
           "بعد اختيار النظام، سنعرض لك مجموعة من الجوانب التطبيقية والتنظيمية لتسهيل الفهم والاستخدام",
-      "55": "مساري",
+      "55": "المسار الجبائي",
       "56": "املأ المعلومات المطلوبة بدقة لتحديد مسارك الجديد الخاص بمؤسستك",
       "57": "هل أنت شخص طبيعي أم شخص معنوي؟",
       "58": "شخص طبيعي",
@@ -89,7 +89,7 @@ class MyTranslation extends Translations {
       "63": "إختر الشكل القانوني لمؤسستك",
       "64": "إختر طبيعة نشاط مؤسستك",
       "65":
-          "من المستحسن أن يكون نظامك الجبائي حقيقيً بما يتماشى مع طبيعة نشاط مؤسستك لضمان تسيير جبائي سليم.",
+          "نظامك الجبائي حقيقيً بما يتماشى مع طبيعة نشاط مؤسستك لضمان تسيير جبائي سليم.",
       "66": "اختر النظام الجبائي الخاص بمؤسستك",
       "67": "النشاط",
       "68": "ساري المفعول",
@@ -101,6 +101,7 @@ class MyTranslation extends Translations {
       "74": "النظام الجبائي",
       "75": "رمز النشاط",
       "76": "الحاسبة الجبائية",
+      "الحاسبة": "الحاسبة الجبائية",
       "77": "اضغط لعرض جميع المعلومات",
       "78": "القانون",
       "79": "الملف الشخصـــــــــــي",
@@ -117,7 +118,7 @@ class MyTranslation extends Translations {
       "89": "سجلاتي",
       "90": "يمكنك الاطلاع على سجلاتك والتحكم فيها من خلال هذه الصفحة",
       "91": "مسار جديد",
-      "92": "الإلتزامات",
+      "92": "الإلتزامات والمواعيد الجبائية",
       "93": "الأسئلة الشائعة",
       "94": "سياسة الخصوصية",
       "95":
@@ -155,6 +156,23 @@ class MyTranslation extends Translations {
       "Articles": "القوانين",
       "Profile": "الحساب",
       "سجلاتي": "سجلاتي",
+      "المؤسسات": "المؤسسات",
+      "مساري": "مساري",
+      "الإلتزامات": "الإلتزامات",
+      "الجزاءات ": "الجزاءات ",
+      "الأنظمة": "الأنظمة",
+      "أخرى": "أخرى",
+      "أحسب": "أحسب",
+      "القاموس": "القاموس",
+      "الأسئلة": "الأسئلة",
+      "روابط": "روابط",
+
+      "الشخص الطبيعي والمعنوي": "الشخص الطبيعي والمعنوي",
+      "المسار الجبائي": "المسار الجبائي",
+      "ضرائب ورسوم اخرى": "ضرائب ورسوم اخرى",
+      "الإلتزامات والمواعيد الجبائية": "الإلتزامات والمواعيد الجبائية",
+      "العقوبات والجزاءات الجبائية": "العقوبات والجزاءات الجبائية",
+      "الحاسبة الجبائية": "الحاسبة الجبائية",
 
       "يرجى اختيار طبيعة الشخص": "يرجى اختيار طبيعة الشخص",
       "يرجى اختيار طبيعة النشاط": "يرجى اختيار طبيعة النشاط",
@@ -179,7 +197,7 @@ class MyTranslation extends Translations {
       "شركات أخرى": "شركات أخرى",
       "شركات أخرى_طويلة": "شركـــــــــــــــــــــــــــــــات أخرى",
 
-      "المواعيد والإلتزمات": "المواعيد والالتزامات",
+      "المواعيد والإلتزمات": "الإلتزامات والمواعيد الجبائية",
       "إختر النظام الذي يهمك لتحديد المواعيد الخاصة بك":
           "اختر النظام الذي يهمك لتحديد مواعيدك",
 
@@ -414,13 +432,13 @@ class MyTranslation extends Translations {
       "taxable_only": "الخاضعة للضريبة",
       "choose_non_taxable": "إختر العلاوات والتعويظات الغير خاضعة",
       "are_you_in_these_people": "هل تنتمي إلى هؤلاء الأشخاص؟",
-      "physically_disabled": "ذوي الإعاقة الحركية",
-      "mentally_disabled": "ذوي الإعاقة العقلية",
-      "blind": "مكفوفين",
-      "deaf_mute": "صم البكم",
-      "retired_workers": "العمال المتقاعدين",
-      "none_of_them": "فئة أخرى",
-      "bonus_details": "تفاصيل العلاوات والتعويظات",
+      "physically_disabled":   "ذوي الإعاقة الحركية",
+      "mentally_disabled":     "ذوي الإعاقة العقلية",
+      "blind":                 "مكفـــــــــــــوفيــــــــــن",
+      "deaf_mute":             "صــــــــــــم البكـــــــــــم",
+      "retired_workers":       "العمـال المتــاعدين",
+      "none_of_them":          "فئـــــــــــــة أخـــــــــــرى",
+      "bonus_details":         "تفاصيل العلاوات والتعويظات",
       "basic_wage": "الأجر القاعدي",
       "base_salary": "الأجر الأساسي",
       "zone_bonus": "نسبة تعويض المنطقة",
@@ -642,8 +660,7 @@ class MyTranslation extends Translations {
       "المجموع النهائي": "المجموع النهائي",
       "المبلغ بعد احتساب التنازل": "المبلغ بعد احتساب التنازل",
       "المبلغ الخاضع لضريبة بعد التخفيض": "المبلغ الخاضع للضريبة بعد التخفيض",
-      "أدخل معلومات تنازل الإستثمار":
-          "أدخل معلومات تنازل عن الإستثمار",
+      "أدخل معلومات تنازل الإستثمار": "أدخل معلومات تنازل عن الإستثمار",
       "القيمة الباقية لتثبيت": "القيمة الباقية للتثبيت",
       "فائض قيمة التثبيت": "فائض قيمة التثبيت",
       "مبلغ التخفيض": "مبلغ التخفيض",
@@ -679,7 +696,8 @@ class MyTranslation extends Translations {
       "informationBody2":
           "من خلال شافي، يمكن للمستخدمين متابعة التزاماتهم الضريبية، الحصول على شروحات وتوضيحات مبسطة، والاستفادة من تجربة رقمية سلسة تدعم التعليم العملي والامتثال القانوني في نفس الوقت.",
       "info_title1": "لمحة عن منصة شافي CHAFI",
-      "info_content1":"منصة رقمية مبتكرة تهدف إلى تبسيط المفاهيم الجبائية وتسهيل العلاقة بين الإدارة الضريبية والمكلفين بالضريبة، خاصة أصحاب المؤسسات الناشئة والمصغرة والمكلفين الجدد، كما تسعى المنصة إلى مساعدة الطلبة الجامعيين والباحثين والمحاسبين في القطاعين العام والخاص والمهتمين بالمجال الجبائي، من خلال تقديم محتوى مبسط وواضح وسهل الاستخدام.",
+      "info_content1":
+          "منصة رقمية مبتكرة تهدف إلى تبسيط المفاهيم الجبائية وتسهيل العلاقة بين الإدارة الضريبية والمكلفين بالضريبة، خاصة أصحاب المؤسسات الناشئة والمصغرة والمكلفين الجدد، كما تسعى المنصة إلى مساعدة الطلبة الجامعيين والباحثين والمحاسبين في القطاعين العام والخاص والمهتمين بالمجال الجبائي، من خلال تقديم محتوى مبسط وواضح وسهل الاستخدام.",
       "info_title2": "عن التطبيق",
       "info_content2":
           "يقصد بتسمية “شافي” الدلالة على التبسيط والتوضيح، إذ يسعى التطبيق إلى مساعدة المستخدم على فهم الإشكالات الجبائية بطريقة سهلة ومنظمة. ويعتمد التطبيق على بيئة رقمية مبسطة تجمع بين القوانين، الشروحات، النماذج، والأدوات التفاعلية، بما يساهم في تعزيز الوعي الجبائي لدى المكلفين والمهتمين بالمجال.",
@@ -688,7 +706,7 @@ class MyTranslation extends Translations {
           "تحمل كلمة “شافي” في اللغة العربية معنى العلاج والإصلاح، وهي هنا تستعمل مجازًا للدلالة على معالجة الغموض والتعقيد في المجال الجبائي، عبر حلول رقمية مبسطة وواضحة.\nأما الاختصار الإنجليزي CHAFI فهو مشتق من:\n• CHA: من اسم المؤسس Chaib\n• FI: من Fiscal Intelligence، أي الذكاء الجبائي.",
       "info_title4": "مفهوم الشعار: \"شافي… الجباية ببساطة\"",
       "info_content4":
-          "لقد تم اختيار شعار \"شافي… الجباية ببساطة\" ليُعبّر عن روح تطبيق \"شافي\" (CHAFI) وعن طبيعة العلاقة التي يسعى إلى بنائها مع المستخدم، خاصةً المؤسسات الناشئة والمصغرة والمكلفين الجدد ليبسط لهم فهم الامتثال الضريبي.",
+          "لقد تم اختيار شعار «شافي... الجباية ببساطة» ليعبّر عن روح تطبيق «شافي» (CHAFI) وعن طبيعة العلاقة التي يسعى إلى بنائها مع المستخدم، خاصة أصحاب المؤسسات الناشئة والمصغرة والمكلفين الجدد، بما يساعدهم على فهم التزاماتهم الجبائية وتحقيق الامتثال الضريبي.",
       "app_logo_title": "CHAFI | شافي",
       "app_slogan": "شافي… الجباية ببساطة",
       "other_services": "خدمات أخرى",
@@ -789,10 +807,10 @@ class MyTranslation extends Translations {
       "تعاونيات فنية والتقليدية": "تعاونية فنية و تقليدية",
       "الممثل القانوني": "الممثل القانوني",
       "البيان الجبائي": "البيان الجبائي",
-      "من المستحسن أن يكون نظامك الجبائي جزافي\nلكنه يمكن أن يكون حقيقي بطلب منذ التأسيس\nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج.":
-          "من المستحسن أن يكون نظامك الجبائي جزافي\nلكنه يمكن أن يكون حقيقي بطلب منذ التأسيس\nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج.",
-      "من المستحسن أن يكون نظامك الجبائي مبسط\nيجب أن يكون في البداية جزافي،\nويتم التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.":
-          "من المستحسن أن يكون نظامك الجبائي مبسط\nيجب أن يكون في البداية جزافي،\nويتم التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.",
+      "نظامك الجبائي جزافي\nلكنه يمكن أن يكون حقيقي بطلب منذ التأسيس\nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج.":
+          "نظامك الجبائي جزافي\nلكنه يمكن أن يكون حقيقي بطلب منذ التأسيس\nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج.",
+      "نظامك الجبائي مبسط\nيجب أن يكون في البداية جزافي،\nويتم التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.":
+          "نظامك الجبائي مبسط\nيجب أن يكون في البداية جزافي،\nويتم التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.",
       "نظامك الجبائي حقيقي": "نظامك الجبائي حقيقي",
       "Contractor's Partner":
           "في المقاول الذاتي إذا تجاوز رقم الأعمال العتبة 5.000.000,00 د.ج. 3 سنوات متتالية يتم شطب و سحب البطاقة وتنبيه المكلف باستخراج سجل تجاري\nوفي حالة عدم التصريح برقم أعمال أو التصريح برقم أعمال منعدم ( لاشيء ) يتم شطب و سحب بطاقة المقاول الذاتي من المكلف.\n",
@@ -871,7 +889,8 @@ class MyTranslation extends Translations {
 
       "الأنظمة": "الأنظمة",
       "أخرى": "أخرى",
-      "الحاسبة": "الحاسبة",
+      "الحاسبة": "الحاسبة الجبائية",
+      "أحسب": "أحسب",
       "روابط": "روابط",
       "الأسئلة": "الأسئلة",
       "القاموس": "القاموس",
@@ -900,10 +919,22 @@ class MyTranslation extends Translations {
       "تاريخ الإيداع": "تاريخ الإيداع",
       "غرامة تأخير الدفع": "غرامة تأخير الدفع",
       "غرامة تأخير الإيداع": "غرامة تأخير الإيداع",
+      "الشكـــــل القانونـــــي": "الشكـــــل القانونـــــي",
+      "رمـــــــــز النشـــــــــــاط": "رمـــــــــز النشـــــــــــاط",
+      "الممثـــــل القانونـــــي": "الممثـــــل القانونـــــي",
+      "النظـــــــــام الجبائـــــي": "النظـــــــــام الجبائـــــي",
+      "العنــــــــــــــــــــــــــــوان":
+          "العنــــــــــــــــــــــــــــوان",
+      "ضرائـــب أخـــرى": "ضرائـــب أخـــرى",
+      "المصدر": "المصدر",
+      "النشـــــــــــــــــــــــــاط": "النشـــــــــــــــــــــــــاط",
     },
     "en": {
       "القاموس الجبائي": "Tax dictionary",
       "الحاسبة": "Calculator",
+      "أحسب": "Calculate",
+      "المصدر": "Source",
+      "النشـــــــــــــــــــــــــاط": "Activity",
       "important_alert": "Important warning",
       "important_alert_content":
           "The information contained in the Shafi application is of a guiding and simplistic nature, and does not replace the need to refer to official legal texts.",
@@ -917,9 +948,11 @@ class MyTranslation extends Translations {
       "articles_title": "Articles",
       "5": "Tax laws and procedures in one place",
       "6": "The law is clear... with us it's simpler",
-      "7": "Discover laws and taxation simply, accurately, and from official sources.",
+      "7":
+          "Discover laws and taxation simply, accurately, and from official sources.",
       "8": "We help you manage your enterprise with confidence",
-      "9": "Tools, information, and services, everything you need in one place.",
+      "9":
+          "Tools, information, and services, everything you need in one place.",
       "10": "Welcome to Shafi Simply Collection",
       "11": "Log in",
       "12": "REGISTER WITH GOOGLE",
@@ -937,14 +970,14 @@ class MyTranslation extends Translations {
       "23": "Exclusive articles",
       "24": "Show more",
 
-      "25": "Institutions",
+      "25": "Natural and legal person",
       "26": "Tax regulations",
-      "27": "My path",
+      "27": "Tax path",
       "28": "Tax calculator",
-      "29": "Penalties",
-      "30": "Other taxes",
+      "29": "Tax penalties and sanctions",
+      "30": "Other taxes and fees",
 
-      "31": "Institutions",
+      "31": "Natural and legal person",
       "32": "Codified",
 
       "33": "Mini enterprise",
@@ -958,7 +991,7 @@ class MyTranslation extends Translations {
 
       "40": "Laws",
 
-      "41": "Institutions",
+      "41": "Natural and legal person",
       "42":
           "Browse a variety of articles specialized in the world of private institutions and laws",
       "43":
@@ -978,7 +1011,7 @@ class MyTranslation extends Translations {
           "Browse a variety of regulatory penalties specialized in the world of tax regulations and special laws",
       "54":
           "After choosing the system, we will show you a set of practical and organizational aspects to facilitate understanding and use",
-      "55": "My path",
+      "55": "Tax path",
       "56":
           "Fill out the required information accurately to determine your new path for your organization",
       "57": "Are you a natural person or a legal person?",
@@ -990,7 +1023,7 @@ class MyTranslation extends Translations {
       "63": "Choose the legal form of your organization",
       "64": "Choose the nature of your organization's activity",
       "65":
-          "It is recommended that your tax system be realistic and in line with the nature of your organization's activity to ensure proper tax management.",
+          " your tax system be realistic and in line with the nature of your organization's activity to ensure proper tax management.",
       "66": "Choose your institution's tax system",
       "67": "Activity",
       "68": "valid",
@@ -1058,6 +1091,22 @@ class MyTranslation extends Translations {
       "Articles": "Laws",
       "Profile": "account",
       "سجلاتي": "My records",
+      "المؤسسات": "Institutions",
+      "مساري": "My path",
+      "الأنظمة": "Tax systems",
+      "أخرى": "Others",
+      "الإلتزامات": "Commitments",
+      "الجزاءات ": "Penalties",
+      "القاموس": "Tax dictionary",
+      "الأسئلة": "Questions",
+      "روابط": "Links",
+      
+      "الشخص الطبيعي والمعنوي": "Natural and legal person",
+      "المسار الجبائي": "Tax path",
+      "ضرائب ورسوم اخرى": "Other taxes and fees",
+      "الإلتزامات والمواعيد الجبائية": "Obligations and tax deadlines",
+      "العقوبات والجزاءات الجبائية": "Tax penalties and sanctions",
+      "الحاسبة الجبائية": "Tax calculator",
 
       "يرجى اختيار طبيعة الشخص": "Please choose the nature of the person",
       "يرجى اختيار طبيعة النشاط": "Please choose the nature of the activity",
@@ -1082,7 +1131,7 @@ class MyTranslation extends Translations {
       "شركات أخرى": "Other companies",
       "شركات أخرى_طويلة": "Other companies",
 
-      "المواعيد والإلتزمات": "Appointments and commitments",
+      "المواعيد والإلتزمات": "Obligations and tax deadlines",
       "إختر النظام الذي يهمك لتحديد المواعيد الخاصة بك":
           "Choose the system that interests you to schedule your appointments",
 
@@ -1588,7 +1637,7 @@ class MyTranslation extends Translations {
           "The word “Shafi” in the Arabic language carries the meaning of treatment and reform, and here it is used metaphorically to indicate addressing ambiguity and complexity in the tax field, through simplified and clear digital solutions.\nThe English abbreviation CHAFI is derived from:\n• CHA: from the name of the founder, Chaib\n• FI: from Fiscal Intelligence, meaning tax intelligence.",
       "info_title4": "Slogan Concept: \"CHAFI... Taxation Simply\"",
       "info_content4":
-          "The slogan \"CHAFI... Taxation Simply\" was chosen to express the spirit of the CHAFI application and the nature of the relationship it seeks to build with the user, especially startups, micro-enterprises, and new taxpayers, to simplify their understanding of tax compliance.",
+          "The slogan \"CHAFI... Taxation Simply\" was chosen to express the spirit of the \"CHAFI\" application and the nature of the relationship it seeks to build with the user, especially owners of startups, micro-enterprises, and new taxpayers, helping them understand their tax obligations and achieve tax compliance.",
       "app_logo_title": "CHAFI | Healing",
       "app_slogan": "Shafi... simply collecting",
       "other_services": "Other services",
@@ -1689,10 +1738,10 @@ class MyTranslation extends Translations {
       "تعاونيات فنية والتقليدية": "An artistic and traditional cooperative",
       "الممثل القانوني": "Legal representative",
       "البيان الجبائي": "Tax statement",
-      "من المستحسن أن يكون نظامك الجبائي جزافي\nلكنه يمكن أن يكون حقيقي بطلب منذ التأسيس\nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج.":
-          "It is recommended that your tax system be arbitrary, but it can be real by request since establishment, or before February 1 of the year, or when exceeding two consecutive years, the threshold of 8,000,000.00 DZD.",
-      "من المستحسن أن يكون نظامك الجبائي مبسط\nيجب أن يكون في البداية جزافي،\nويتم التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.":
-          "It is recommended that your tax system be simplified. It must initially be arbitrary, and the conversion to simplified takes place upon exceeding two consecutive years the threshold of 8,000,000.00 DZD, or by request before February 1 or since its establishment.",
+      "نظامك الجبائي جزافي\nلكنه يمكن أن يكون حقيقي بطلب منذ التأسيس\nأو قبل 01 فيفري من السنة\nأو عند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج.":
+          "Your tax system be arbitrary, but it can be real by request since establishment, or before February 1 of the year, or when exceeding two consecutive years, the threshold of 8,000,000.00 DZD.",
+      "نظامك الجبائي مبسط\nيجب أن يكون في البداية جزافي،\nويتم التحويل الى المبسط\nعند تجاوز سنتين متتاليتين\nعتبة 8.000.000.00 د.ج \nأو بطلب قبل 01 فيفري أو منذ التأسيس.":
+          "Your tax system be simplified. It must initially be arbitrary, and the conversion to simplified takes place upon exceeding two consecutive years the threshold of 8,000,000.00 DZD, or by request before February 1 or since its establishment.",
       "نظامك الجبائي حقيقي": "Your tax system is real",
       "Contractor's Partner":
           "In the case of a self-contractor, if the turnover exceeds the threshold of 5,000,000.00 DZD. For 3 consecutive years, the card will be canceled and withdrawn, and the taxpayer will be notified to obtain a commercial register. In the event that a business number is not declared or a business number is declared non-existent (none), the self-contractor card will be canceled and withdrawn from the taxpayer.",
@@ -1829,6 +1878,12 @@ class MyTranslation extends Translations {
       "يرجى اختيار الفترة المحددة للتحصيل":
           "Please select the specified collection period",
       "سنة التحصيل": "Collection year",
+      "الشكـــــل القانونـــــي": "Legal form",
+      "رمـــــــــز النشـــــــــــاط": "Activity code",
+      "الممثـــــل القانونـــــي": "Legal representative",
+      "النظـــــــــام الجبائـــــي": "Tax system",
+      "العنــــــــــــــــــــــــــــوان": "Address",
+      "ضرائـــب أخـــرى": "Other taxes",
     },
   };
 }

@@ -41,13 +41,13 @@ class Mypathcontroller extends GetxController {
 
 class MypathcontrollerImp extends Mypathcontroller {
   String taxs0 =
-      "من المستحسن أن يكون نظامك الجبائي جزافي\n"
+      "نظامك الجبائي جزافي\n"
       "لكنه يمكن أن يكون حقيقي بطلب منذ التأسيس\n"
       "أو قبل 01 فيفري من السنة\n"
       "أو عند تجاوز سنتين متتاليتين\n"
       "عتبة 8.000.000.00 د.ج.";
   String taxs1 =
-      "من المستحسن أن يكون نظامك الجبائي مبسط\n"
+      "نظامك الجبائي مبسط\n"
       "يجب أن يكون في البداية جزافي،\n"
       "ويتم التحويل الى المبسط\n"
       "عند تجاوز سنتين متتاليتين\n"
@@ -55,8 +55,8 @@ class MypathcontrollerImp extends Mypathcontroller {
       "أو بطلب قبل 01 فيفري أو منذ التأسيس.";
   String taxs2 = "نظامك الجبائي حقيقي";
 
-  String taxs3 ="Contractor's Partner";
-      
+  String taxs3 = "Contractor's Partner";
+
   Mypathdata mypathdata = Mypathdata(Get.find());
   Activitydata activitydata = Activitydata(Get.find());
   Natureoftheactivitydata natureoftheactivitydata = Natureoftheactivitydata(

@@ -60,7 +60,7 @@ List<AppOnbardingmodel> onBardinglist = [
 
 List<Cardservicesmodel> Cardservices = [
   Cardservicesmodel(
-    title: "25",
+    title: "المؤسسات",
     image: Appimageassets.records,
     color: const Color(0xFF2563EB), // Blue
     color2: const Color(0xFF1E40AF),
@@ -70,7 +70,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "27",
+    title: "مساري",
     image: Appimageassets.rejester,
     color: const Color(0xFF4F46E5), // Indigo
     color2: const Color(0xFF3730A3),
@@ -103,7 +103,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "92",
+    title: "الإلتزامات",
     image: Appimageassets.conditions,
     color: const Color(0xFFF59E0B),
     color2: const Color(0xFFB45309),
@@ -113,7 +113,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "29",
+    title: "الجزاءات ",
     image: Appimageassets.app,
     color: const Color(0xFF14B8A6),
     color2: const Color(0xFF0F766E),
@@ -123,7 +123,7 @@ List<Cardservicesmodel> Cardservices = [
   ),
 
   Cardservicesmodel(
-    title: "الحاسبة",
+    title: "أحسب",
     image: Appimageassets.calcel,
     color: Color(0xff34C759),
     color2: Color(0xff19612B),
@@ -488,7 +488,7 @@ List<Institutiontypemodel> calculators = [
         arguments: {"name": 30, "tax_id": 2},
       );
     },
-    body: "30",
+    body: "ضرائـــب أخـــرى",
     imgae: Appimageassets.tenCard,
     color2: Color(0xFF7333BD),
     color1: Color(0xff270C46),
