@@ -158,8 +158,12 @@ class _TouristcehiclescostState extends State<Touristcehiclescost> {
                                     totalTextLabel = "التكلفة الإجمالية".tr;
                                   } else {
                                     // Maintenance
-                                    int unitDeductible = gift.cost > 2000000 ? 2000000 : gift.cost;
-                                    int unitNonDeductible = gift.cost > 2000000 ? gift.cost - 2000000 : 0;
+                                    int unitDeductible = gift.cost > 2000000
+                                        ? 2000000
+                                        : gift.cost;
+                                    int unitNonDeductible = gift.cost > 2000000
+                                        ? gift.cost - 2000000
+                                        : 0;
                                     td = unitDeductible * gift.quantity;
                                     tnd = unitNonDeductible * gift.quantity;
                                     taxTextLabel = "المبلغ القابل للخصم".tr;

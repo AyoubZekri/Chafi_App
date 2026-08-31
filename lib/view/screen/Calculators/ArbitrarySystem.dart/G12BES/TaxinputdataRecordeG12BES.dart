@@ -127,7 +127,7 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                               const SizedBox(height: 16),
                             if (controller.activityType == 3)
                               CustomInputField(
-                                label: 'نشاطات أخرى'.tr,
+                                label: "خدمات".tr,
                                 icon: Icons.business_center_outlined,
                                 isCurrency: true,
                                 controller: controller.otherActivity,
@@ -143,16 +143,54 @@ class _Taxinputdatarecordeg12besState extends State<Taxinputdatarecordeg12bes> {
                               icon: Icons.analytics_outlined,
                             ),
                             const SizedBox(height: 16),
-                            CustomInputField(
-                              label: "أدخل رقم الأعمال التقديري".tr,
-                              icon: Icons.payments_outlined,
-                              isCurrency: true,
-                              controller: controller.g12,
-                              errorText: controller.g12Erorr,
-                              onChanged: (val) {
-                                controller.calculateLiveNetTax();
-                              },
-                            ),
+                            if (controller.activityType != 3)
+                              CustomInputField(
+                                label: "أدخل رقم الأعمال التقديري".tr,
+                                icon: Icons.payments_outlined,
+                                isCurrency: true,
+                                controller: controller.g12,
+                                errorText: controller.g12Erorr,
+                                onChanged: (val) {
+                                  controller.calculateLiveNetTax();
+                                },
+                              )
+                            else
+                              Column(
+                                children: [
+                                  CustomInputField(
+                                    label: "التقديري (بيع وإنتاج سلع)".tr,
+                                    icon: Icons.payments_outlined,
+                                    isCurrency: true,
+                                    controller: controller.g12Production,
+                                    errorText: controller.g12ProductionErorr,
+                                    onChanged: (val) {
+                                      controller.calculateLiveNetTax();
+                                    },
+                                  ),
+                                  const SizedBox(height: 16),
+                                  CustomInputField(
+                                    label: "التقديري (هامش ربح المواد المدعمة)".tr,
+                                    icon: Icons.payments_outlined,
+                                    isCurrency: true,
+                                    controller: controller.g12ProfitMargin,
+                                    errorText: controller.g12ProfitMarginErorr,
+                                    onChanged: (val) {
+                                      controller.calculateLiveNetTax();
+                                    },
+                                  ),
+                                  const SizedBox(height: 16),
+                                  CustomInputField(
+                                    label: "التقديري (خدمات)".tr,
+                                    icon: Icons.payments_outlined,
+                                    isCurrency: true,
+                                    controller: controller.g12OtherActivity,
+                                    errorText: controller.g12OtherActivityErorr,
+                                    onChanged: (val) {
+                                      controller.calculateLiveNetTax();
+                                    },
+                                  ),
+                                ],
+                              ),
                             SizedBox(height: 30),
                             // 4. عنوان قسم التواريخ
                             SectionHeader(

@@ -293,5 +293,4 @@ class _ActivitytypeState extends State<Activitytype> {
       ),
     );
   }
-
 }

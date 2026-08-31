@@ -58,30 +58,33 @@ class TaxPrepaymentsPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 SizedBox(height: 20),
-                                PrepaymentCard(
-                                  title: "تسبيقة ضريبية 1".tr,
-                                  subtitle: "الثلث الأول من السنة".tr,
-                                  fromDate: "20/02/${controller.dataTax.text}",
-                                  toDate: "20/03/${controller.dataTax.text}",
-                                  percentage: 30,
-                                  primaryColor: AppColor.typography,
-                                  prepaymentValue: controller.advance1!,
-                                ),
-                                const SizedBox(height: 12),
+                                if (controller.exemptAdvancesCount < 1) ...[
+                                  PrepaymentCard(
+                                    title: "تسبيقة ضريبية 1".tr,
+                                    subtitle: "الثلث الأول من السنة".tr,
+                                    fromDate: "20/02/${controller.dataTax.text}",
+                                    toDate: "20/03/${controller.dataTax.text}",
+                                    percentage: 30,
+                                    primaryColor: AppColor.typography,
+                                    prepaymentValue: controller.advance1!,
+                                  ),
+                                  const SizedBox(height: 12),
+                                ],
                                 // Prepayment Card 2
-                                PrepaymentCard(
-                                  title: "تسبيقة ضريبية 2".tr,
-                                  subtitle: "الثلث الثاني من السنة".tr,
-                                  fromDate: "20/05/${controller.dataTax.text}",
-                                  toDate: "20/06/${controller.dataTax.text}",
-                                  percentage: 30,
-                                  primaryColor: AppColor.typography,
-                                  prepaymentValue: controller.advance2!,
-                                ),
-
-                                const SizedBox(height: 12),
+                                if (controller.exemptAdvancesCount < 2) ...[
+                                  PrepaymentCard(
+                                    title: "تسبيقة ضريبية 2".tr,
+                                    subtitle: "الثلث الثاني من السنة".tr,
+                                    fromDate: "20/05/${controller.dataTax.text}",
+                                    toDate: "20/06/${controller.dataTax.text}",
+                                    percentage: 30,
+                                    primaryColor: AppColor.typography,
+                                    prepaymentValue: controller.advance2!,
+                                  ),
+                                  const SizedBox(height: 12),
+                                ],
                                 // Prepayment Card 3
-                                if (controller.personType == 2)
+                                if (controller.personType == 2 && controller.exemptAdvancesCount < 3)
                                   PrepaymentCard(
                                     title: "تسبيقة ضريبية 3".tr,
                                     subtitle: "الثلث الثالث من السنة".tr,
@@ -123,9 +126,9 @@ class TaxPrepaymentsPage extends StatelessWidget {
                                         ),
                                         SizedBox(height: 4),
                                         Text(
-                                          controller.surplusLeft
-                                              .toString()
-                                              .formatCustom(),
+                                          controller.surplusLeft!
+                                              .toInt()
+                                              .formatCustomint(),
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,

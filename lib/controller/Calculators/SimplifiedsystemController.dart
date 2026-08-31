@@ -18,6 +18,7 @@ import 'package:chafi/core/functions/CheckInternat.dart';
 import 'package:chafi/core/functions/handlingdatacontroller.dart';
 import 'package:chafi/core/services/Services.dart';
 import 'package:chafi/data/datasource/Remote/PostData.dart';
+import 'package:chafi/core/constant/Colorapp.dart';
 
 class Simplifiedsystemcontroller extends GetxController {
   Postdata postdata = Postdata(Get.find());
@@ -40,6 +41,7 @@ class Simplifiedsystemcontroller extends GetxController {
   String? dataTaxErorr;
 
   int personType = 0;
+  int exemptAdvancesCount = 0;
 
   //
   TextEditingController TaxLastyear = TextEditingController();
@@ -129,8 +131,14 @@ class Simplifiedsystemcontroller extends GetxController {
       type = 2; // شركة او مؤسسة بعد عامها الاول
       Get.to(Txslastyear());
     } else if (year == taxYear && personType == 1) {
-      Get.to(Taxinpout());
       type = 3; // مؤسسة في عامها الاول
+      _showModernInfoDialog(
+        title: "تنبيه هام".tr,
+        message: "معفى من التسبيق الأول والثاني حسب النظام الجبائي".tr,
+        onConfirm: () {
+          Get.to(Taxinpout());
+        },
+      );
     }
     update();
   }
@@ -173,7 +181,9 @@ class Simplifiedsystemcontroller extends GetxController {
       return;
     }
 
-    List<double> advances = [0.3, 0.3, 0.3].map((p) => tax * p).toList();
+    List<double> advances = personType == 1
+        ? [0.3, 0.3].map((p) => tax * p).toList()
+        : [0.3, 0.3, 0.3].map((p) => tax * p).toList();
     surplusLeft = remainingSurplus;
 
     for (int i = 0; i < advances.length; i++) {
@@ -186,9 +196,9 @@ class Simplifiedsystemcontroller extends GetxController {
       }
     }
 
-    advance1 = advances[0];
-    advance2 = advances[1];
-    advance3 = advances[2];
+    advance1 = advances.isNotEmpty ? advances[0] : 0;
+    advance2 = advances.length > 1 ? advances[1] : 0;
+    advance3 = advances.length > 2 ? advances[2] : 0;
 
     print("التسبيق 1: $advance1");
     print("التسبيق 2: $advance2");
@@ -225,7 +235,7 @@ class Simplifiedsystemcontroller extends GetxController {
       );
       return;
     }
-
+    taxValue = taxValue * 0.05;
     advance1 = taxValue * 0.3;
     advance2 = taxValue * 0.3;
     advance3 = taxValue * 0.3;
@@ -234,8 +244,52 @@ class Simplifiedsystemcontroller extends GetxController {
     print("التسبيق 2: $advance2");
     print("التسبيق 3: $advance3");
 
-    // الانتقال للصفحة التالية
-    Get.to(TaxPrepaymentsPage());
+    exemptAdvancesCount = 0;
+    int year = int.tryParse(dataCreate.text.substring(0, 4)) ?? 0;
+    int taxYear = int.tryParse(dataTax.text) ?? 0;
+
+    if (year == taxYear) {
+      DateTime? creationDate = parseDate(dataCreate.text);
+      if (creationDate != null) {
+        DateTime march20 = DateTime(year, 3, 20);
+        DateTime june20 = DateTime(year, 6, 20);
+        DateTime nov20 = DateTime(year, 11, 20);
+
+        if (creationDate.isAfter(nov20)) {
+          exemptAdvancesCount = 3;
+        } else if (creationDate.isAfter(june20)) {
+          exemptAdvancesCount = 2;
+        } else if (creationDate.isAfter(march20)) {
+          exemptAdvancesCount = 1;
+        }
+      }
+    }
+
+    if (exemptAdvancesCount == 3) {
+      _showModernInfoDialog(
+        title: "تنبيه هام".tr,
+        message:
+            "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب تاريخ الإنشاء"
+                .tr,
+        onConfirm: () {
+          gotoDetective();
+        },
+      );
+    } else if (exemptAdvancesCount > 0) {
+      String msg = exemptAdvancesCount == 2
+          ? "أنت معفى من التسبيق الأول والثاني حسب تاريخ الإنشاء".tr
+          : "أنت معفى من التسبيق الأول حسب تاريخ الإنشاء".tr;
+
+      _showModernInfoDialog(
+        title: "تنبيه هام".tr,
+        message: msg,
+        onConfirm: () {
+          Get.to(TaxPrepaymentsPage());
+        },
+      );
+    } else {
+      Get.to(TaxPrepaymentsPage());
+    }
   }
 
   gotoDetective() {
@@ -425,7 +479,9 @@ class Simplifiedsystemcontroller extends GetxController {
         double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
     final dueDate1 = DateTime(DateTime.now().year, 3, 20);
     final dueDate2 = DateTime(DateTime.now().year, 6, 20);
-    final dueDatefinal = DateTime(DateTime.now().year, 5, 1);
+    final dueDatefinal = type == 3
+        ? DateTime(int.parse(dataTax.text) + 1, 5, 1)
+        : DateTime(DateTime.now().year, 5, 1);
 
     DateTime? parseDate(String text) {
       if (text.isEmpty) return null;
@@ -668,5 +724,125 @@ class Simplifiedsystemcontroller extends GetxController {
     fromPage = Get.arguments?['fromPage'] ?? '';
     addenter(4);
     super.onInit();
+  }
+
+  // 🔹 Custom Dialog for First Year Exemption
+  void _showModernInfoDialog({
+    required String title,
+    required String message,
+    required VoidCallback onConfirm,
+  }) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColor.primarycolor.withOpacity(0.08),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColor.primarycolor.withOpacity(0.15),
+                    width: 1.5,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.info_outline_rounded,
+                  color: AppColor.primarycolor,
+                  size: 36,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: AppColor.typography,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  height: 1.6,
+                  color: Color(0xFF475569),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFFF1F5F9),
+                        foregroundColor: AppColor.typography,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: () => Get.back(),
+                      child: Text(
+                        "إلغاء".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.typography,
+                        foregroundColor: AppColor.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                        onConfirm();
+                      },
+                      child: Text(
+                        "تأكيد".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

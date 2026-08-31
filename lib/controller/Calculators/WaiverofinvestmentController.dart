@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/functions/Snacpar.dart';
+import '../../core/constant/Colorapp.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/functions/trundatefromStringtodate.dart';
 import '../../core/functions/valiedinput.dart';
@@ -63,6 +64,66 @@ class Waiverofinvestmentcontroller extends GetxController {
 
     if (!hasError) {
       if (datasale != null && datapurchase != null) {
+        if (sellingprices < purchaseprices) {
+          Get.dialog(
+            Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      color: AppColor.typography,
+                      size: 50,
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      "تنبيه".tr,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة".tr,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.typography,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        onPressed: () => Get.back(),
+                        child: Text(
+                          "حسنا".tr,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+          return;
+        }
+
         int totalMonths =
             (datasale.year - datapurchase.year) * 12 +
             (datasale.month - datapurchase.month) +

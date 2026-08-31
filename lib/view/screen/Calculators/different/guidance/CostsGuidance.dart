@@ -140,6 +140,12 @@ class _CostsguidanceState extends State<Costsguidance> {
                                   
                                   int td = unitDeductible * gift.quantity;
                                   int tnd = unitNonDeductible * gift.quantity;
+                                  
+                                  if (td > 50000000) {
+                                    int excess = td - 50000000;
+                                    td = 50000000;
+                                    tnd += excess;
+                                  }
 
                                   return GiftCard(
                                     name: "${gift.name} (${gift.quantity})",

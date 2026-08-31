@@ -77,10 +77,22 @@ class _PropertytypeState extends State<Propertytype> {
                               padding: 30,
                               marginb: 25,
                               index: 1,
-                              title: "سكني فردي أو جماعي".tr,
+                              title: "سكنــــــي فــــــردي أو جمــــــاعي".tr,
                               selectedPerson: controller.typePropertytype,
                               onTap: () {
                                 controller.selectedPropertytype(1);
+                              },
+                            ),
+                          if (controller.typeOvercome != 1)
+                            Cardpersontype(
+                              padding: 30,
+                              index: 4,
+                              marginb: 25,
+                              title:
+                                  "للإستعمــــــــــــال الفلاحـــــــــــي".tr,
+                              selectedPerson: controller.typePropertytype,
+                              onTap: () {
+                                controller.selectedPropertytype(4);
                               },
                             ),
                           if (controller.typeOvercome != 1)
@@ -99,21 +111,12 @@ class _PropertytypeState extends State<Propertytype> {
                               padding: 30,
                               marginb: 25,
                               index: 3,
-                              title: "الأملاك غير المبنية".tr,
+                              title:
+                                  "الأمــــــــلاك غـــــــير المبــــــــنية"
+                                      .tr,
                               selectedPerson: controller.typePropertytype,
                               onTap: () {
                                 controller.selectedPropertytype(3);
-                              },
-                            ),
-                          if (controller.typeOvercome != 1)
-                            Cardpersontype(
-                              padding: 30,
-                              index: 4,
-                              marginb: 25,
-                              title: "للإستعمال الفلاحي".tr,
-                              selectedPerson: controller.typePropertytype,
-                              onTap: () {
-                                controller.selectedPropertytype(4);
                               },
                             ),
 

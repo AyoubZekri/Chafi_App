@@ -53,7 +53,7 @@ class Cardpersontype extends StatelessWidget {
                 child: AutoSizeText(
                   title,
                   minFontSize: 10, // أصغر حجم يمكن أن يصل إليه النص
-                  maxLines: 1, // البقاء في سطر واحد
+                  maxLines: 2, // البقاء في سطر واحد
                   overflow: TextOverflow
                       .ellipsis, // وضع نقاط إذا تجاوز النص الحجم الأصغر
                   style: context.textTheme.headlineLarge?.copyWith(

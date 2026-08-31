@@ -38,7 +38,7 @@ class _RecordsState extends State<Records> {
           },
           child: ListView.builder(
             padding: const EdgeInsets.only(bottom: 80),
-            itemCount: controller.data.isEmpty ? 2 : controller.data.length + 1,
+            itemCount: controller.data.isEmpty ? 1 : controller.data.length,
             itemBuilder: (context, index) {
               // ── 0: Subtitle ──
               // if (index == 0) {

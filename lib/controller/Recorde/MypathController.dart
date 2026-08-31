@@ -337,7 +337,11 @@ class MypathcontrollerImp extends Mypathcontroller {
     if (statusrequest == Statusrequest.success && response["status"] == 1) {
       Get.toNamed(
         Approutes.inforecord,
-        arguments: {"id": response["data"]["id"], "taxid": taxid, "type": 1},
+        arguments: {
+          "id": response["data"]["id"],
+          "taxid": taxid == 3 ? 0 : taxid,
+          "type": 1,
+        },
       );
     } else {
       showSnackbar("خطأ".tr, "حدث خطأ".tr, Colors.red);

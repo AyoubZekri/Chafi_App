@@ -73,15 +73,15 @@ class _InteresttaxtypeState extends State<Interesttaxtype> {
                           ),
                           SizedBox(height: 60),
                           if (controller.typeTax == 1) ...[
-                            Cardpersontype(
-                              padding: 30,
-                              marginb: 25,
-                              index: 1,
-                              title: "Biens immobiliers bâtis et non bâtis".tr,
-                              selectedPerson: controller.interesttaxtype,
-                              onTap: () =>
-                                  controller.selectedInteresttaxtype(1),
-                            ),
+                            //   Cardpersontype(
+                            //     padding: 30,
+                            //     marginb: 25,
+                            //     index: 1,
+                            //     title: "Biens immobiliers bâtis et non bâtis".tr,
+                            //     selectedPerson: controller.interesttaxtype,
+                            //     onTap: () =>
+                            //         controller.selectedInteresttaxtype(1),
+                            //   ),
                             Cardpersontype(
                               padding: 30,
                               index: 2,

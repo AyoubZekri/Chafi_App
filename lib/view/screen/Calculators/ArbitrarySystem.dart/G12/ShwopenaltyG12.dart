@@ -58,7 +58,7 @@ class _Shwopenaltyg12State extends State<Shwopenaltyg12> {
 
                           SectionHeader(
                             icon: Icons.payments_outlined,
-                            title: 'عقوبات التأخير والإداع'.tr,
+                            title: 'عقوبات الإيداع والدفع'.tr,
                           ),
                           const SizedBox(height: 12),
 

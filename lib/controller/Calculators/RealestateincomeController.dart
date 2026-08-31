@@ -234,10 +234,10 @@ class Realestateincomecontroller extends GetxController {
         tax = incmevalues * 0.07;
         double totalIncome = incmevalues + otherIncomesValue;
         progressiveTotal = calculateProgressiveTax(totalIncome, multiplier);
-        netTax = progressiveTotal - tax;
-        discout = typePropertytype == 1 ? (netTax * 0.25) : 0;
-        print("======================${discout}");
+        discout = typePropertytype == 1 ? (progressiveTotal * 0.25) : 0;
         netTax = netTax - discout;
+        netTax = netTax - tax;
+        print("======================${discout}");
         print("baseAmount ================  $netTax");
         Penalty = calculatePenaltyPayment(datapayments, netTax);
         PenaltyDeposit = calculatePenaltyDeposit(datadeposits, netTax);

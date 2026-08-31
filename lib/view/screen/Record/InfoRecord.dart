@@ -24,7 +24,7 @@ class _InforecordState extends State<Inforecord> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.find<InforecordcontrollerImp>().back();
+        controller.back();
         return true;
       },
       child: Scaffold(
@@ -59,7 +59,7 @@ class _InforecordState extends State<Inforecord> {
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 14),
               color: AppColor.typography,
               onPressed: () {
-                Get.find<InforecordcontrollerImp>().back();
+                controller.back();
               },
             ),
           ),

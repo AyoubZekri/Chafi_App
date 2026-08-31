@@ -68,7 +68,7 @@ class _TaxtypeState extends State<Taxtype> {
                           padding: 30,
                           marginb: 25,
                           index: 1,
-                          title: "الضريبة على فائض القيمة".tr,
+                          title: "الضريبة علـــى فائـــض القيمـــة".tr,
                           selectedPerson: controller.typeTax,
                           onTap: () {
                             controller.selectedtypeTax(1);
@@ -89,7 +89,7 @@ class _TaxtypeState extends State<Taxtype> {
                           padding: 30,
                           marginb: 25,
                           index: 3,
-                          title: "إيرادات الودائع والفوائد".tr,
+                          title: "إيرادات الودائـــــــــــــع والفوائــــد".tr,
                           selectedPerson: controller.typeTax,
                           onTap: () {
                             controller.selectedtypeTax(3);

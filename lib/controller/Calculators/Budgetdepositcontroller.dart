@@ -37,7 +37,7 @@ class Budgetdepositcontroller extends GetxController {
     double amount,
   ) {
     DateTime delayStart = DateTime(baseDate.year + 1, 5, 1);
-
+    print("=======${delayStart}=======");
     if (depositDate.isBefore(delayStart)) {
       return 0;
     }
@@ -116,7 +116,10 @@ class Budgetdepositcontroller extends GetxController {
 
     double amount = double.parse(cleanBudget);
 
-    final baseDate = parseDate(datebudgetdeposit.text);
+    final yearVal = int.tryParse(datebudgetdeposit.text);
+    final baseDate = yearVal != null
+        ? DateTime(yearVal)
+        : parseDate(datebudgetdeposit.text);
 
     final depositDate = parseDate(datedeposit.text);
 
@@ -124,7 +127,17 @@ class Budgetdepositcontroller extends GetxController {
     print("====${baseDate}===11=====");
     print("====${depositDate}===22=====");
 
-    deposit = calculateDepositPenalty(baseDate!, depositDate!, amount);
+    if (baseDate == null || depositDate == null) {
+      Get.snackbar(
+        "خطأ".tr,
+        "الرجاء التأكد من إدخال تواريخ صحيحة".tr,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    deposit = calculateDepositPenalty(baseDate, depositDate, amount);
 
     // pyment = calculateThreatPenalty(baseDate, depositDate, amount);
 

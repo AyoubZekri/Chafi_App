@@ -26,9 +26,19 @@ class G12bescontroller extends GetxController {
   String? otherActivityErorr;
   String? dataTaxErorr;
 
+  // أخطاء حقول التقديري للنشاطات 3
+  String? g12ProductionErorr;
+  String? g12ProfitMarginErorr;
+  String? g12OtherActivityErorr;
+
   int activityType = 0;
   TextEditingController production = TextEditingController();
   TextEditingController g12 = TextEditingController();
+
+  // حقول التقديري للنشاطات 3
+  TextEditingController g12Production = TextEditingController();
+  TextEditingController g12ProfitMargin = TextEditingController();
+  TextEditingController g12OtherActivity = TextEditingController();
 
   // هامش ربح المواد المدعمة
   TextEditingController profitmargin = TextEditingController();
@@ -74,6 +84,15 @@ class G12bescontroller extends GetxController {
     Get.to(Taxinputdatarecordeg12bes());
   }
 
+  int _getCustomMonthsLate(DateTime date, DateTime dueDate) {
+    if (date.isBefore(DateTime(dueDate.year, 2, 20))) return 0;
+    if (date.isBefore(DateTime(dueDate.year, 3, 21))) return 1;
+    if (date.isBefore(DateTime(dueDate.year, 4, 21))) return 2;
+    if (date.isBefore(DateTime(dueDate.year, 5, 22))) return 3;
+    if (date.isBefore(DateTime(dueDate.year, 6, 22))) return 4;
+    return 5;
+  }
+
   double calculatePenaltypositand(
     DateTime? datepositand,
     DateTime dueDate,
@@ -82,9 +101,7 @@ class G12bescontroller extends GetxController {
     if (datepositand == null) return 0;
     if (!datepositand.isAfter(dueDate)) return 0;
 
-    int monthsLate =
-        (datepositand.year - dueDate.year) * 12 +
-        (datepositand.month - dueDate.month);
+    int monthsLate = _getCustomMonthsLate(datepositand, dueDate);
 
     double percent;
     double fixedPenalty;
@@ -117,9 +134,7 @@ class G12bescontroller extends GetxController {
     if (datePayment == null) return 0;
     if (!datePayment.isAfter(dueDate)) return 0;
 
-    int monthsLate =
-        (datePayment.year - dueDate.year) * 12 +
-        (datePayment.month - dueDate.month);
+    int monthsLate = _getCustomMonthsLate(datePayment, dueDate);
 
     double percent;
 
@@ -146,8 +161,7 @@ class G12bescontroller extends GetxController {
     if (date == null) return 0;
     if (!date.isAfter(dueDate!)) return 0;
 
-    int monthsLate =
-        (date.year - dueDate.year) * 12 + (date.month - dueDate.month);
+    int monthsLate = _getCustomMonthsLate(date, dueDate);
 
     double percent;
 
@@ -197,27 +211,60 @@ class G12bescontroller extends GetxController {
     double g12b =
         double.tryParse(g12.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
 
-    double taxProduction = productions * 0.05;
-    double taxother = other * 0.12;
-    double taxprofitmargins = profitmargins * 0.05;
-    double taxextractedfromSources = extractedfromSources * 0.05;
-    double taxselfcontractors = selfcontractors * 0.005;
-    netTax =
-        taxProduction +
-        taxother +
-        taxprofitmargins +
-        taxextractedfromSources +
-        taxselfcontractors;
+    netTax = 0;
+
+    if (activityType == 3) {
+      double g12p =
+          double.tryParse(
+            g12Production.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          0;
+      double g12pm =
+          double.tryParse(
+            g12ProfitMargin.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          0;
+      double g12o =
+          double.tryParse(
+            g12OtherActivity.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          0;
+
+      double diffProduction = (productions - g12p) > 0
+          ? (productions - g12p)
+          : 0;
+      double diffProfitMargin = (profitmargins - g12pm) > 0
+          ? (profitmargins - g12pm)
+          : 0;
+      double diffOtherActivity = (other - g12o) > 0 ? (other - g12o) : 0;
+
+      netTax =
+          (diffProduction * 0.05) +
+          (diffProfitMargin * 0.05) +
+          (diffOtherActivity * 0.12);
+    } else if (activityType == 1) {
+      double diffSelfContractor = (selfcontractors - g12b) > 0
+          ? (selfcontractors - g12b)
+          : 0;
+      netTax = (diffSelfContractor * 0.005);
+    } else if (activityType == 2) {
+      double diffExtracted = (extractedfromSources - g12b) > 0
+          ? (extractedfromSources - g12b)
+          : 0;
+      netTax = (diffExtracted * 0.05);
+    }
+
+    if (activityType == 1) {
+      netTax = netTax < 1000000 ? 1000000 : netTax;
+    } else {
+      netTax = netTax < 3000000 ? 3000000 : netTax;
+    }
+
     final year = int.parse(dataTax.text);
-    final dueDatedepositand = DateTime(
-      year,
-      7,
-      1,
-    ); // final dueDatede = DateTime(DateTime.now().year, 1, 21);
-    final dueDatede = DateTime(year, 1, 21);
+    final dueDatedepositand = DateTime(year, 1, 20);
+    final dueDatede = DateTime(year, 1, 20);
     final datepositand = parseDate(dateofdepositand.text);
     final datepayment = parseDate(dateofpayment.text);
-    netTax = netTax - g12b;
     print("================netTax $netTax");
     penalty = netTax <= 0
         ? calculatepositand(datepositand, dueDatede)
@@ -321,8 +368,22 @@ class G12bescontroller extends GetxController {
       if (dataTaxErorr != null) hasError = true;
     }
 
-    g12Erorr = validInput(g12.text, 20, 4, "Text");
-    if (g12Erorr != null) hasError = true;
+    if (activityType != 3) {
+      g12Erorr = validInput(g12.text, 20, 4, "Text");
+      if (g12Erorr != null) hasError = true;
+    } else {
+      g12ProductionErorr = validInput(g12Production.text, 20, 4, "Text");
+      if (g12ProductionErorr != null && g12Production.text.isNotEmpty)
+        hasError = true;
+
+      g12ProfitMarginErorr = validInput(g12ProfitMargin.text, 20, 4, "Text");
+      if (g12ProfitMarginErorr != null && g12ProfitMargin.text.isNotEmpty)
+        hasError = true;
+
+      g12OtherActivityErorr = validInput(g12OtherActivity.text, 20, 4, "Text");
+      if (g12OtherActivityErorr != null && g12OtherActivity.text.isNotEmpty)
+        hasError = true;
+    }
 
     // ======= الحقول الخاصة بالنشاط =======
     if (activityType == 2) {
@@ -416,6 +477,9 @@ class G12bescontroller extends GetxController {
     extractedfromSource.addListener(calculateLiveNetTax);
     selfcontractor.addListener(calculateLiveNetTax);
     g12.addListener(calculateLiveNetTax);
+    g12Production.addListener(calculateLiveNetTax);
+    g12ProfitMargin.addListener(calculateLiveNetTax);
+    g12OtherActivity.addListener(calculateLiveNetTax);
     super.onInit();
   }
 
@@ -441,16 +505,56 @@ class G12bescontroller extends GetxController {
     double g12b =
         double.tryParse(g12.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
 
-    double liveNet =
-        (p * 0.05) + (o * 0.12) + (pm * 0.05) + (e * 0.05) + (s * 0.005);
+    double liveNet = 0;
+
+    if (activityType == 3) {
+      double g12p =
+          double.tryParse(
+            g12Production.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          0;
+      double g12pm =
+          double.tryParse(
+            g12ProfitMargin.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          0;
+      double g12o =
+          double.tryParse(
+            g12OtherActivity.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          0;
+
+      double diffProduction = (p - g12p) > 0 ? (p - g12p) : 0;
+      print(
+        "======================================= diffProduction==$diffProduction",
+      );
+      double diffProfitMargin = (pm - g12pm) > 0 ? (pm - g12pm) : 0;
+      print(
+        "===  ====================================diffProfitMargin==$diffProfitMargin",
+      );
+      double diffOtherActivity = (o - g12o) > 0 ? (o - g12o) : 0;
+      print(
+        "======================================= diffOtherActivity==$diffOtherActivity",
+      );
+
+      liveNet =
+          (diffProduction * 0.05) +
+          (diffProfitMargin * 0.05) +
+          (diffOtherActivity * 0.12);
+      print("======================================liveNet==$liveNet");
+    } else if (activityType == 1) {
+      double diffSelfContractor = (s - g12b) > 0 ? (s - g12b) : 0;
+      liveNet = (diffSelfContractor * 0.005);
+    } else if (activityType == 2) {
+      double diffExtracted = (e - g12b) > 0 ? (e - g12b) : 0;
+      liveNet = (diffExtracted * 0.05);
+    }
 
     if (activityType == 1) {
       liveNet = liveNet < 1000000 ? 1000000 : liveNet;
     } else {
       liveNet = liveNet < 3000000 ? 3000000 : liveNet;
     }
-
-    liveNet = liveNet - g12b;
 
     if (currentNetTax != liveNet) {
       currentNetTax = liveNet;

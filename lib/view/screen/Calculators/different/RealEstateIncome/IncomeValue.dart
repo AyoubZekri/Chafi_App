@@ -81,7 +81,7 @@ class _IncomevalueState extends State<Incomevalue> {
                             const SizedBox(height: 16),
                             CustomInputField(
                               label: "مداخيل أخرى".tr,
-                              icon: Icons.monetization_on_outlined,
+                              icon: Icons.account_balance_wallet_outlined,
                               isCurrency: true,
                               controller: controller.otherIncomes,
                               errorText: controller.otherIncomesErorr,
@@ -108,7 +108,7 @@ class _IncomevalueState extends State<Incomevalue> {
                           const SizedBox(height: 16),
                           CustomInputField(
                             label: "تاريخ التحصيل (إختياري)".tr,
-                            icon: Icons.receipt_long_outlined,
+                            icon: Icons.event_available,
                             placeholder: 'mm/dd/yyyy',
                             isDate: true,
                             controller: controller.datacollection,

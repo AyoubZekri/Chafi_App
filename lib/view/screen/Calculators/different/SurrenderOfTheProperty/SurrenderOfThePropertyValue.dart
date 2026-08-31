@@ -61,7 +61,7 @@ class _SurrenderofthepropertyvalueState
 
                           CustemtextbodyMedium18(
                             color: AppColor.grey,
-                            content: "أدخل معلومات التنازل العقاري".tr,
+                            content: "معلومات التنازل".tr,
                           ),
 
                           const SizedBox(height: 30),

@@ -31,83 +31,105 @@ class _CardacteveState extends State<Cardacteve> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final bool isSelected = widget.selectedPerson == widget.index;
+    final textStyle = context.textTheme.bodyLarge?.copyWith(
+      color: AppColor.typography,
+      fontWeight: FontWeight.bold,
+      fontSize: 17,
+      height: 1.5,
+    );
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isExpanded = !isExpanded;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        curve: Curves.easeInOut,
-        padding: EdgeInsets.symmetric(vertical: widget.padding, horizontal: 30),
-        width: double.infinity,
-        margin: EdgeInsets.only(bottom: widget.marginb),
-        decoration: BoxDecoration(
-          color: const Color(0xffE8F1FF),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.25),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ===== Content Header =====
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.description,
-                    maxLines: isExpanded ? null : 2,
-                    overflow: isExpanded
-                        ? TextOverflow.visible
-                        : TextOverflow.ellipsis,
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      color: AppColor.typography,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                      height: 1.5,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                InkWell(
-                  onTap: widget.onTap,
-                  child: Container(
-                    width: 26,
-                    height: 26,
-                    margin: const EdgeInsets.only(top: 4),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: AppColor.typography, width: 2),
-                    ),
-                    child: isSelected
-                        ? Center(
-                            child: Container(
-                              width: 12,
-                              height: 12,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColor.typography,
-                              ),
-                            ),
-                          )
-                        : null,
-                  ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double textMaxWidth = constraints.maxWidth - 60 - 10 - 26;
+        
+        bool isLongText = false;
+        if (textMaxWidth > 0) {
+          final tp = TextPainter(
+            text: TextSpan(text: widget.description, style: textStyle),
+            maxLines: 2,
+            textDirection: Directionality.of(context),
+          );
+          tp.layout(maxWidth: textMaxWidth);
+          isLongText = tp.didExceedMaxLines;
+        }
+
+        return GestureDetector(
+          onTap: () {
+            if (isLongText) {
+              setState(() {
+                isExpanded = !isExpanded;
+              });
+            } else {
+              widget.onTap();
+            }
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeInOut,
+            padding: EdgeInsets.symmetric(vertical: widget.padding, horizontal: 30),
+            width: double.infinity,
+            margin: EdgeInsets.only(bottom: widget.marginb),
+            decoration: BoxDecoration(
+              color: const Color(0xffE8F1FF),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ===== Content Header =====
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.description,
+                        maxLines: isExpanded ? null : 2,
+                        overflow: isExpanded
+                            ? TextOverflow.visible
+                            : TextOverflow.ellipsis,
+                        style: textStyle,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: widget.onTap,
+                      child: Container(
+                        width: 26,
+                        height: 26,
+                        margin: const EdgeInsets.only(top: 4),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: AppColor.typography, width: 2),
+                        ),
+                        child: isSelected
+                            ? Center(
+                                child: Container(
+                                  width: 12,
+                                  height: 12,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColor.typography,
+                                  ),
+                                ),
+                              )
+                            : null,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

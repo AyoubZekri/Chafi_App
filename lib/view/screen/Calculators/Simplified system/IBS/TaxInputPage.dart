@@ -61,7 +61,7 @@ class _TaxinputpageState extends State<Taxinputpage> {
                             CustemtextbodyMedium18(
                               color: AppColor.grey,
                               content:
-                                  "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة."
+                                  "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة."
                                       .tr,
                             ),
 
@@ -69,7 +69,7 @@ class _TaxinputpageState extends State<Taxinputpage> {
 
                             // 2. عنوان قسم الضرائب
                             SectionHeader(
-                              title: 'قيم النتيجة الجبائية حسب النشاط'.tr,
+                              title: "النتائج الجبائية حسب النشاط".tr,
                               icon: Icons.category, // أيقونة مشابهة للمثلثات
                             ),
                             const SizedBox(height: 16),

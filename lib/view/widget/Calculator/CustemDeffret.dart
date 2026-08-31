@@ -343,6 +343,7 @@ class _AddGiftDialogState extends State<AddGiftDialog> {
                           1,
                           "int",
                         ),
+                        isCurrency: false,
                       ),
                     ],
                   ],
@@ -413,8 +414,9 @@ class _AddGiftDialogState extends State<AddGiftDialog> {
     IconData icon,
     bool isNumber,
     TextEditingController controller,
-    String? Function(String?)? validator,
-  ) {
+    String? Function(String?)? validator, {
+    bool isCurrency = true,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -434,7 +436,7 @@ class _AddGiftDialogState extends State<AddGiftDialog> {
           validator: validator,
           style: const TextStyle(fontSize: 14),
 
-          onChanged: isNumber
+          onChanged: (isNumber && isCurrency)
               ? (value) {
                   final formatted = value.formatCustom();
 

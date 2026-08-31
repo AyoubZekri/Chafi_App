@@ -97,11 +97,11 @@ class Surrenderofthepropertycontroller extends GetxController {
     final datasale = parseDate(saledate.text);
     final datapurchase = parseDate(purchasedate.text);
     print("==============$datasale");
-
+    print("==============datapurchase $datapurchase");
     if (!hasError) {
       if (datasale != null && datapurchase != null) {
         int years = datasale.year - datapurchase.year;
-
+        print("===================$years");
         // 1. حساب فائض القيمة (سعر البيع - سعر الشراء - مصاريف الاقتناء - مصاريف البيع)
         // مصاريف الاقتناء في حدود 30% من سعر الشراء
         double cappedPurchaseExpenses = sellingprices > sellingexpensess * 0.3

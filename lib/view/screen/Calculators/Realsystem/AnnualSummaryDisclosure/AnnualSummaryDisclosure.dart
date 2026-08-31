@@ -61,7 +61,7 @@ class _AnnualsummarydisclosureState extends State<Annualsummarydisclosure> {
                             CustemtextbodyMedium18(
                               color: AppColor.grey,
                               content:
-                                  "يرجى إدخال النتيجة الجبائية لتحديد قيمة كشف التلخيص السنوي"
+                                  "يرجى إدخال النتيجة الجبائية لتحديد ضريبة التأخير للكشف التلخيص السنوي"
                                       .tr,
                             ),
 
