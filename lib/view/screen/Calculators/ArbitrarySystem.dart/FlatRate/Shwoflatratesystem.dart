@@ -24,7 +24,7 @@ class _ShwoflatratesystemState extends State<Shwoflatratesystem> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("النتائج".tr),
+          title: Text("المقاول الذاتي".tr),
           titleTextStyle: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

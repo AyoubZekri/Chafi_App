@@ -4,9 +4,10 @@ import 'package:chafi/core/constant/Colorapp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import '../../../LinkApi.dart';
 
 class Custemcardhome extends StatelessWidget {
-  final File image;
+  final String image;
   final String content;
   final Function()? onTap;
 
@@ -35,12 +36,23 @@ class Custemcardhome extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(20),
-              child: Image.file(
-                image,
-                width: 238,
-                height: 159,
-                fit: BoxFit.fill,
-              ),
+              child: image.startsWith('Post/')
+                  ? Image.network(
+                      '${Applink.image}$image',
+                      width: 238,
+                      height: 159,
+                      fit: BoxFit.fill,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.image_not_supported, size: 40),
+                    )
+                  : Image.file(
+                      File(image),
+                      width: 238,
+                      height: 159,
+                      fit: BoxFit.fill,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.image_not_supported, size: 40),
+                    ),
             ),
             SizedBox(height: 20),
             SizedBox(

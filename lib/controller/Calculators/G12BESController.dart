@@ -3,6 +3,7 @@ import 'package:chafi/view/screen/Calculators/ArbitrarySystem.dart/G12BES/Taxinp
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/class/Statusrequest.dart';
+import '../../core/constant/Colorapp.dart';
 import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
@@ -10,6 +11,7 @@ import '../../core/functions/trundatefromStringtodate.dart';
 import '../../core/functions/valiedinput.dart';
 import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/PostData.dart';
+import '../../view/screen/Calculators/ArbitrarySystem.dart/G12BES/EstablishmentDateG12BES.dart';
 
 class G12bescontroller extends GetxController {
   Postdata postdata = Postdata(Get.find());
@@ -25,6 +27,7 @@ class G12bescontroller extends GetxController {
   String? selfcontractorErorr;
   String? otherActivityErorr;
   String? dataTaxErorr;
+  String? establishmentYearErorr;
 
   // أخطاء حقول التقديري للنشاطات 3
   String? g12ProductionErorr;
@@ -33,12 +36,12 @@ class G12bescontroller extends GetxController {
 
   int activityType = 0;
   TextEditingController production = TextEditingController();
-  TextEditingController g12 = TextEditingController();
+  TextEditingController g12 = TextEditingController(text: "0");
 
   // حقول التقديري للنشاطات 3
-  TextEditingController g12Production = TextEditingController();
-  TextEditingController g12ProfitMargin = TextEditingController();
-  TextEditingController g12OtherActivity = TextEditingController();
+  TextEditingController g12Production = TextEditingController(text: "0");
+  TextEditingController g12ProfitMargin = TextEditingController(text: "0");
+  TextEditingController g12OtherActivity = TextEditingController(text: "0");
 
   // هامش ربح المواد المدعمة
   TextEditingController profitmargin = TextEditingController();
@@ -56,6 +59,7 @@ class G12bescontroller extends GetxController {
   TextEditingController dateofdepositand = TextEditingController();
   TextEditingController dateofpayment = TextEditingController();
   TextEditingController dataTax = TextEditingController();
+  TextEditingController establishmentYear = TextEditingController();
 
   double penaltyfinalpayment = 0;
   double penaltyfinaldepositand = 0;
@@ -72,6 +76,11 @@ class G12bescontroller extends GetxController {
   double selfcontractors = 0;
   double other = 0;
 
+  bool get isFirstYear =>
+      establishmentYear.text.isNotEmpty &&
+      dataTax.text.isNotEmpty &&
+      establishmentYear.text == dataTax.text;
+
   selectedPerson(int i) {
     activityType = i;
     update();
@@ -81,7 +90,30 @@ class G12bescontroller extends GetxController {
     if (activityType == 0) {
       return showSnackbar("خطأ".tr, "إختر نوع النشاط أولا".tr, Colors.red);
     }
-    Get.to(Taxinputdatarecordeg12bes());
+    Get.to(() => const EstablishmentDateG12BES());
+  }
+
+  void validateAndProceedFromEstablishmentDate() {
+    establishmentYearErorr = validInput(establishmentYear.text, 4, 4, "int");
+    dataTaxErorr = validInput(dataTax.text, 4, 4, "int");
+
+    if (establishmentYearErorr != null || dataTaxErorr != null) {
+      update();
+      return;
+    }
+
+    int estYear = int.tryParse(establishmentYear.text) ?? 0;
+    int decYear = int.tryParse(dataTax.text) ?? 0;
+
+    if (decYear < estYear) {
+      return showSnackbar(
+        "تنبيه".tr,
+        "declaration_before_establishment".tr,
+        Colors.red,
+      );
+    }
+
+    Get.to(() => const Taxinputdatarecordeg12bes());
   }
 
   int _getCustomMonthsLate(DateTime date, DateTime dueDate) {
@@ -213,6 +245,10 @@ class G12bescontroller extends GetxController {
 
     netTax = 0;
 
+    if (isFirstYear) {
+      g12b = 0;
+    }
+
     if (activityType == 3) {
       double g12p =
           double.tryParse(
@@ -230,39 +266,44 @@ class G12bescontroller extends GetxController {
           ) ??
           0;
 
-      double diffProduction = (productions - g12p) > 0
-          ? (productions - g12p)
-          : 0;
-      double diffProfitMargin = (profitmargins - g12pm) > 0
-          ? (profitmargins - g12pm)
-          : 0;
-      double diffOtherActivity = (other - g12o) > 0 ? (other - g12o) : 0;
+      if (isFirstYear) {
+        g12p = 0;
+        g12pm = 0;
+        g12o = 0;
+      }
+
+      double diffProduction = productions - g12p;
+      double diffProfitMargin = profitmargins - g12pm;
+      double diffOtherActivity = other - g12o;
 
       netTax =
           (diffProduction * 0.05) +
           (diffProfitMargin * 0.05) +
           (diffOtherActivity * 0.12);
     } else if (activityType == 1) {
-      double diffSelfContractor = (selfcontractors - g12b) > 0
-          ? (selfcontractors - g12b)
-          : 0;
+      double diffSelfContractor = selfcontractors - g12b;
       netTax = (diffSelfContractor * 0.005);
     } else if (activityType == 2) {
-      double diffExtracted = (extractedfromSources - g12b) > 0
-          ? (extractedfromSources - g12b)
-          : 0;
+      double diffExtracted = extractedfromSources - g12b;
       netTax = (diffExtracted * 0.05);
     }
 
-    if (activityType == 1) {
-      netTax = netTax < 1000000 ? 1000000 : netTax;
-    } else {
-      netTax = netTax < 3000000 ? 3000000 : netTax;
+    // انت غير معني بي G12 ومعني فقط بي G12مكرر
+
+    if (netTax < 0) {
+      _showModernInfoDialog(
+        title: "تنبيه".tr,
+        message: "tax_settlement".tr,
+        onConfirm: () {
+          Get.back();
+        },
+      );
+      return;
     }
 
     final year = int.parse(dataTax.text);
-    final dueDatedepositand = DateTime(year, 1, 20);
-    final dueDatede = DateTime(year, 1, 20);
+    final dueDatedepositand = DateTime(year + 1, 1, 20);
+    final dueDatede = DateTime(year + 1, 1, 20);
     final datepositand = parseDate(dateofdepositand.text);
     final datepayment = parseDate(dateofpayment.text);
     print("================netTax $netTax");
@@ -317,7 +358,15 @@ class G12bescontroller extends GetxController {
     otherActivity.clear();
     dateofdepositand.clear();
     dateofpayment.clear();
+    Get.back();
+  }
+
+  void backFromEstablishmentDate() {
+    establishmentYear.clear();
     dataTax.clear();
+    establishmentYearErorr = null;
+    dataTaxErorr = null;
+    update();
     Get.back();
   }
 
@@ -368,22 +417,10 @@ class G12bescontroller extends GetxController {
       if (dataTaxErorr != null) hasError = true;
     }
 
-    if (activityType != 3) {
-      g12Erorr = validInput(g12.text, 20, 4, "Text");
-      if (g12Erorr != null) hasError = true;
-    } else {
-      g12ProductionErorr = validInput(g12Production.text, 20, 4, "Text");
-      if (g12ProductionErorr != null && g12Production.text.isNotEmpty)
-        hasError = true;
-
-      g12ProfitMarginErorr = validInput(g12ProfitMargin.text, 20, 4, "Text");
-      if (g12ProfitMarginErorr != null && g12ProfitMargin.text.isNotEmpty)
-        hasError = true;
-
-      g12OtherActivityErorr = validInput(g12OtherActivity.text, 20, 4, "Text");
-      if (g12OtherActivityErorr != null && g12OtherActivity.text.isNotEmpty)
-        hasError = true;
-    }
+    g12Erorr = null;
+    g12ProductionErorr = null;
+    g12ProfitMarginErorr = null;
+    g12OtherActivityErorr = null;
 
     // ======= الحقول الخاصة بالنشاط =======
     if (activityType == 2) {
@@ -507,6 +544,10 @@ class G12bescontroller extends GetxController {
 
     double liveNet = 0;
 
+    if (isFirstYear) {
+      g12b = 0;
+    }
+
     if (activityType == 3) {
       double g12p =
           double.tryParse(
@@ -524,15 +565,21 @@ class G12bescontroller extends GetxController {
           ) ??
           0;
 
-      double diffProduction = (p - g12p) > 0 ? (p - g12p) : 0;
+      if (isFirstYear) {
+        g12p = 0;
+        g12pm = 0;
+        g12o = 0;
+      }
+
+      double diffProduction = p - g12p;
       print(
         "======================================= diffProduction==$diffProduction",
       );
-      double diffProfitMargin = (pm - g12pm) > 0 ? (pm - g12pm) : 0;
+      double diffProfitMargin = pm - g12pm;
       print(
         "===  ====================================diffProfitMargin==$diffProfitMargin",
       );
-      double diffOtherActivity = (o - g12o) > 0 ? (o - g12o) : 0;
+      double diffOtherActivity = o - g12o;
       print(
         "======================================= diffOtherActivity==$diffOtherActivity",
       );
@@ -543,10 +590,10 @@ class G12bescontroller extends GetxController {
           (diffOtherActivity * 0.12);
       print("======================================liveNet==$liveNet");
     } else if (activityType == 1) {
-      double diffSelfContractor = (s - g12b) > 0 ? (s - g12b) : 0;
+      double diffSelfContractor = s - g12b;
       liveNet = (diffSelfContractor * 0.005);
     } else if (activityType == 2) {
-      double diffExtracted = (e - g12b) > 0 ? (e - g12b) : 0;
+      double diffExtracted = e - g12b;
       liveNet = (diffExtracted * 0.05);
     }
 
@@ -560,5 +607,100 @@ class G12bescontroller extends GetxController {
       currentNetTax = liveNet;
       update();
     }
+  }
+
+  void _showModernInfoDialog({
+    required String title,
+    required String message,
+    required VoidCallback onConfirm,
+  }) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColor.primarycolor.withOpacity(0.08),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColor.primarycolor.withOpacity(0.15),
+                    width: 1.5,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.info_outline_rounded,
+                  color: AppColor.primarycolor,
+                  size: 36,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: AppColor.typography,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  height: 1.6,
+                  color: Color(0xFF475569),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.typography,
+                        foregroundColor: AppColor.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: onConfirm,
+                      child: Text(
+                        "موافق".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -72,13 +72,14 @@ class _CalTypeActiviteState extends State<CalTypeActivite> {
                             padding: 30,
                             marginb: 25,
                             index: 1,
-                            title: "مقاول ذاتي".tr,
+                            title: "مقـــــــاول ذاتــــــــــي".tr,
                             selectedPerson: controller.activityType,
                             onTap: () {
                               _showModernInfoDialog(
                                 title: "تنبيه هام".tr,
                                 message:
-                                    "في نشاط الإستراد المصغر إقتطاع من المصدر في إدارة الجمارك.".tr,
+                                    "في نشاط الإستراد المصغر إقتطاع من المصدر في إدارة الجمارك."
+                                        .tr,
                                 onConfirm: () {
                                   controller.selectedPerson(1);
                                 },
@@ -101,7 +102,7 @@ class _CalTypeActiviteState extends State<CalTypeActivite> {
                             padding: 30,
                             index: 3,
                             marginb: 25,
-                            title: "نوع أخر".tr,
+                            title: "نشاطــــــات أخــــرى".tr,
                             selectedPerson: controller.activityType,
                             onTap: () {
                               controller.selectedPerson(3);

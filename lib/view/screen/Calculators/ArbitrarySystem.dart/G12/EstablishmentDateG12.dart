@@ -1,31 +1,25 @@
-import 'package:chafi/core/constant/Colorapp.dart';
-import 'package:chafi/core/functions/valiedinput.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../../controller/Calculators/SimplifiedsystemController.dart';
+import '../../../../../controller/Calculators/G12Controller.dart';
+import '../../../../../core/constant/Colorapp.dart';
 import '../../../../widget/Button/CustemSuberButton.dart';
-import '../../../../widget/Calculator/Taxinpout.dart';
 import '../../../../widget/Text/CustemtextbodyMedium18.dart';
+import '../../../../widget/Calculator/Taxinpout.dart';
 
-class Createacompany extends StatefulWidget {
-  const Createacompany({super.key});
+class EstablishmentDateG12 extends StatelessWidget {
+  const EstablishmentDateG12({super.key});
 
-  @override
-  State<Createacompany> createState() => _CreateacompanyState();
-}
-
-class _CreateacompanyState extends State<Createacompany> {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<G12controller>();
     return WillPopScope(
       onWillPop: () async {
-        Get.find<Simplifiedsystemcontroller>().backFromCreateCompany();
+        controller.backFromEstablishmentDate();
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("التسبيقات على الدخل".tr),
+          title: Text("G12".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
@@ -36,9 +30,8 @@ class _CreateacompanyState extends State<Createacompany> {
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
-
-        body: GetBuilder<Simplifiedsystemcontroller>(
-          builder: (controller) {
+        body: GetBuilder<G12controller>(
+          builder: (_) {
             return Container(
               color: AppColor.typography,
               child: Container(
@@ -49,64 +42,46 @@ class _CreateacompanyState extends State<Createacompany> {
                     topRight: Radius.circular(50),
                     topLeft: Radius.circular(50),
                   ),
-
                   child: Container(
                     color: AppColor.white,
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-
                       child: Column(
                         children: [
-                          SizedBox(height: 20),
-                          CustemtextbodyMedium18(
-                            color: AppColor.grey,
-                            content:
-                                "أدخل البيانات بدقة للحصول على نتيجة  صحيحة".tr,
-                          ),
                           SizedBox(height: 40),
                           CustemtextbodyMedium18(
-                            content: "أدخل تاريخ إنشاء الشركة".tr,
-                            color: AppColor.black,
+                            content: "enter_data_accurately".tr,
+                            color: AppColor.grey,
                           ),
-                          SizedBox(height: 70),
+                          SizedBox(height: 50),
                           CustomInputField(
-                            icon: Icons.event_available_outlined,
-                            controller: controller.dataCreate,
-                            label: "أدخل التاريخ".tr,
-                            placeholder: 'mm/dd/yyyy',
-                            errorText: controller.dataCreateErorr,
+                            label: 'establishment_year'.tr,
+                            icon: Icons.date_range,
+                            placeholder: 'yyyy',
                             isDate: true,
+                            dateFormatType: DateFormatType.year,
+                            controller: controller.establishmentYear,
+                            errorText: controller.establishmentYearErorr,
                           ),
-                          SizedBox(height: 16),
+                          SizedBox(height: 20),
                           CustomInputField(
                             label: 'سنة التصريح'.tr,
                             icon: Icons.event_available,
                             placeholder: 'yyyy',
                             isDate: true,
+                            dateFormatType: DateFormatType.year,
                             controller: controller.dataTax,
                             errorText: controller.dataTaxErorr,
-                            dateFormatType: DateFormatType.year,
                           ),
-
-                          SizedBox(height: 16),
-                          CustomInputField(
-                            label: 'تاريخ توقف الشركة (اختياري)'.tr,
-                            icon: Icons.event_busy_outlined,
-                            placeholder: 'mm/dd/yyyy',
-                            isDate: true,
-                            controller: controller.dataStop,
-                            errorText: controller.dataStopErorr,
-                          ),
-                          SizedBox(height: 60),
+                          SizedBox(height: 50),
                           Custemsuberbutton(
-                            content: "60".tr,
+                            content: "التالي".tr,
                             color: AppColor.typography,
                             onPressed: () {
-                              controller.gotoAfter();
+                              controller
+                                  .validateAndProceedFromEstablishmentDate();
                             },
                           ),
-
-                          SizedBox(height: 20),
                         ],
                       ),
                     ),

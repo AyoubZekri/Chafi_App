@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../Onbarding/DOT.dart';
+import '../../../LinkApi.dart';
 
 class Slaider extends GetView<HomecontrollerImp> {
   const Slaider({super.key});
@@ -24,14 +25,17 @@ class Slaider extends GetView<HomecontrollerImp> {
                   return emptySlider();
                 } else {
                   return PageView.builder(
+                    physics: controller.isZoomed 
+                        ? const NeverScrollableScrollPhysics() 
+                        : const BouncingScrollPhysics(),
                     controller: controller.pageController,
                     onPageChanged: controller.Onbardinslider,
                     itemCount: controller.dataimg.length,
                     itemBuilder: (context, i) {
-                      return Image.file(
-                        File(controller.dataimg[i].image!),
-                        fit: BoxFit.fill,
-                        width: double.infinity,
+                      return _ZoomableImage(
+                        imagePath: controller.dataimg[i].image!,
+                        onZoomStart: () => controller.stopTimer(),
+                        onZoomEnd: () => controller.startTimer(),
                       );
                     },
                   );
@@ -40,10 +44,9 @@ class Slaider extends GetView<HomecontrollerImp> {
             ),
           ),
         ),
-        // Dot يظهر فقط إذا هناك صور
         GetBuilder<HomecontrollerImp>(
           builder: (_) {
-            if (controller.dataimg.isEmpty) return SizedBox.shrink();
+            if (controller.dataimg.isEmpty || controller.isZoomed) return const SizedBox.shrink();
             return Positioned(
               bottom: 10,
               left: (Get.width / 2) - ((controller.dataimg.length * 8) + 20),
@@ -181,6 +184,113 @@ class _PinterestCardState extends State<_PinterestCard>
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _ZoomableImage extends StatefulWidget {
+  final String imagePath;
+  final VoidCallback onZoomStart;
+  final VoidCallback onZoomEnd;
+
+  const _ZoomableImage({
+    required this.imagePath,
+    required this.onZoomStart,
+    required this.onZoomEnd,
+  });
+
+  @override
+  State<_ZoomableImage> createState() => _ZoomableImageState();
+}
+
+class _ZoomableImageState extends State<_ZoomableImage>
+    with SingleTickerProviderStateMixin {
+  late TransformationController _transformationController;
+  TapDownDetails? _doubleTapDetails;
+  late AnimationController _animationController;
+  Animation<Matrix4>? _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _transformationController = TransformationController();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    )..addListener(() {
+        _transformationController.value = _animation!.value;
+      });
+  }
+
+  @override
+  void dispose() {
+    _transformationController.dispose();
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _handleDoubleTapDown(TapDownDetails details) {
+    _doubleTapDetails = details;
+  }
+
+  void _handleDoubleTap() {
+    if (_transformationController.value != Matrix4.identity()) {
+      // Zoom out
+      _animateZoom(Matrix4.identity());
+      widget.onZoomEnd();
+    } else {
+      // Zoom in
+      final position = _doubleTapDetails!.localPosition;
+      final x = -position.dx * 2;
+      final y = -position.dy * 2;
+      final zoomedMatrix = Matrix4.identity()
+        ..translate(x, y)
+        ..scale(3.0);
+      _animateZoom(zoomedMatrix);
+      widget.onZoomStart();
+    }
+  }
+
+  void _animateZoom(Matrix4 targetMatrix) {
+    _animation = Matrix4Tween(
+      begin: _transformationController.value,
+      end: targetMatrix,
+    ).animate(CurveTween(curve: Curves.easeInOut).animate(_animationController));
+    _animationController.forward(from: 0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onDoubleTapDown: _handleDoubleTapDown,
+      onDoubleTap: _handleDoubleTap,
+      child: InteractiveViewer(
+        transformationController: _transformationController,
+        panEnabled: true,
+        minScale: 1.0,
+        maxScale: 4.0,
+        onInteractionStart: (_) => widget.onZoomStart(),
+        onInteractionEnd: (details) {
+          if (_transformationController.value == Matrix4.identity()) {
+            widget.onZoomEnd();
+          }
+        },
+        child: widget.imagePath.startsWith('Post/')
+            ? Image.network(
+                '${Applink.image}${widget.imagePath}',
+                fit: BoxFit.fill,
+                width: double.infinity,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.image_not_supported, size: 40),
+              )
+            : Image.file(
+                File(widget.imagePath),
+                fit: BoxFit.fill,
+                width: double.infinity,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.image_not_supported, size: 40),
+              ),
       ),
     );
   }

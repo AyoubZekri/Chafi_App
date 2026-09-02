@@ -10,12 +10,15 @@ import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/PostData.dart';
 import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/ShwopenaltyG12.dart';
 import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/TaxinputdataRecorde.dart';
+import '../../view/screen/Calculators/ArbitrarySystem.dart/G12/EstablishmentDateG12.dart';
+import '../../core/constant/Colorapp.dart';
 
 class G12controller extends GetxController {
   Postdata postdata = Postdata(Get.find());
   Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
   String? fromPage;
+  String? establishmentYearErorr;
 
   String? dateofpaymentErorr;
   String? dateofdepositandErorr;
@@ -48,6 +51,7 @@ class G12controller extends GetxController {
   // تاريخ الايداع والدفع
   TextEditingController dateofdepositand = TextEditingController();
   TextEditingController dateofpayment = TextEditingController();
+  TextEditingController establishmentYear = TextEditingController();
   TextEditingController dataTax = TextEditingController();
 
   double penaltyfinalpayment = 0;
@@ -70,13 +74,43 @@ class G12controller extends GetxController {
 
   void gotodatacreate() {
     if (activityType == 0) {
+      return showSnackbar("خطأ".tr, "إختر نوع النشاط أولا".tr, Colors.red);
+    }
+    Get.to(() => const EstablishmentDateG12());
+  }
+
+  void validateAndProceedFromEstablishmentDate() {
+    establishmentYearErorr = validInput(establishmentYear.text, 4, 4, "int");
+    dataTaxErorr = validInput(dataTax.text, 4, 4, "int");
+
+    if (establishmentYearErorr != null || dataTaxErorr != null) {
+      update();
+      return;
+    }
+
+    int estYear = int.tryParse(establishmentYear.text) ?? 0;
+    int decYear = int.tryParse(dataTax.text) ?? 0;
+
+    if (decYear < estYear) {
       return showSnackbar(
-        "خطأ".tr,
-        "إختر نوع النشاط أولا".tr,
+        "تنبيه".tr,
+        "declaration_before_establishment".tr,
         Colors.red,
       );
     }
-    Get.to(Taxinputdatarecorde());
+
+    if (estYear == decYear) {
+      _showModernInfoDialog(
+        title: "تنبيه".tr,
+        message: "not_concerned_with_g12".tr,
+        onConfirm: () {
+          Get.back();
+        },
+      );
+      return;
+    }
+
+    Get.to(() => const Taxinputdatarecorde());
   }
 
   double calculatePenaltypositand(
@@ -214,6 +248,7 @@ class G12controller extends GetxController {
         taxprofitmargins +
         taxextractedfromSources +
         taxselfcontractors;
+    print("===============netTax $netTax");
     final year = int.parse(dataTax.text);
     final dueDatedepositand = DateTime(
       year,
@@ -279,8 +314,16 @@ class G12controller extends GetxController {
     otherActivity.clear();
     dateofdepositand.clear();
     dateofpayment.clear();
-    dataTax.clear();
 
+    Get.back();
+  }
+
+  void backFromEstablishmentDate() {
+    establishmentYear.clear();
+    dataTax.clear();
+    establishmentYearErorr = null;
+    dataTaxErorr = null;
+    update();
     Get.back();
   }
 
@@ -414,5 +457,100 @@ class G12controller extends GetxController {
     fromPage = Get.arguments?['fromPage'] ?? '';
     addenter(4);
     super.onInit();
+  }
+
+  void _showModernInfoDialog({
+    required String title,
+    required String message,
+    required VoidCallback onConfirm,
+  }) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.12),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColor.primarycolor.withOpacity(0.08),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColor.primarycolor.withOpacity(0.15),
+                    width: 1.5,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.info_outline_rounded,
+                  color: AppColor.primarycolor,
+                  size: 36,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: AppColor.typography,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  height: 1.6,
+                  color: Color(0xFF475569),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.typography,
+                        foregroundColor: AppColor.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: onConfirm,
+                      child: Text(
+                        "موافق".tr,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

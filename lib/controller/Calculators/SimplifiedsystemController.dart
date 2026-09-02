@@ -29,6 +29,7 @@ class Simplifiedsystemcontroller extends GetxController {
   String? taxLastyearErorr;
   String? surplusErorr;
   String? dataCreateErorr;
+  String? dataStopErorr;
   String? capitalErorr;
 
   String? productionErorr;
@@ -42,10 +43,15 @@ class Simplifiedsystemcontroller extends GetxController {
 
   int personType = 0;
   int exemptAdvancesCount = 0;
+  bool isExempt1 = false;
+  bool isExempt2 = false;
+  bool isExempt3 = false;
+  String exemptionReason = "";
 
   //
   TextEditingController TaxLastyear = TextEditingController();
   TextEditingController dataCreate = TextEditingController();
+  TextEditingController dataStop = TextEditingController();
   TextEditingController surplus = TextEditingController();
   TextEditingController capital = TextEditingController();
   // كنترولر نشاط إنتاج السلع
@@ -108,8 +114,9 @@ class Simplifiedsystemcontroller extends GetxController {
       update();
       return;
     }
-    final yearStr = dataCreate.text.substring(0, 4);
-    final year = int.tryParse(yearStr);
+
+    DateTime? creationDate = parseDate(dataCreate.text);
+    final year = creationDate?.year;
     final taxYear = int.tryParse(dataTax.text);
 
     print("==============$year");
@@ -118,29 +125,133 @@ class Simplifiedsystemcontroller extends GetxController {
     if (year != null && taxYear != null && year > taxYear) {
       showSnackbar(
         "تنبيه",
-        "لا يمكن ان تكون سنة التصريح اقدم من سنة الانشاء",
+        "لا يمكن ان تكون سنة التصريح قبل سنة الانشاء",
         Colors.orange,
       );
       return;
     }
 
-    if (year == taxYear && personType == 2) {
-      type = 1; // شركة في عامها الاول
-      Get.to(Capital());
-    } else if (year != null && taxYear != null && year < taxYear) {
-      type = 2; // شركة او مؤسسة بعد عامها الاول
-      Get.to(Txslastyear());
-    } else if (year == taxYear && personType == 1) {
-      type = 3; // مؤسسة في عامها الاول
+    DateTime? stopDate = dataStop.text.isNotEmpty
+        ? parseDate(dataStop.text)
+        : null;
+
+    if (stopDate != null &&
+        creationDate != null &&
+        stopDate.isBefore(creationDate)) {
+      showSnackbar(
+        "تنبيه".tr,
+        "لا يمكن أن يكون تاريخ التوقف قبل تاريخ الإنشاء".tr,
+        Colors.orange,
+      );
+      return;
+    }
+
+    if (stopDate != null && taxYear != null && stopDate.year < taxYear) {
+      showSnackbar(
+        "تنبيه".tr,
+        "لا يمكن أن يكون تاريخ التوقف قبل سنة التصريح".tr,
+        Colors.orange,
+      );
+      return;
+    }
+
+    isExempt1 = false;
+    isExempt2 = false;
+    isExempt3 = false;
+    exemptionReason = "";
+
+    if (year != null &&
+        taxYear != null &&
+        year == taxYear &&
+        creationDate != null) {
+      DateTime march20 = DateTime(year, 3, 20);
+      DateTime june20 = DateTime(year, 6, 20);
+      DateTime nov20 = DateTime(year, 11, 20);
+      if (creationDate.isAfter(nov20)) {
+        isExempt1 = true;
+        isExempt2 = true;
+        isExempt3 = true;
+      } else if (creationDate.isAfter(june20)) {
+        isExempt1 = true;
+        isExempt2 = true;
+      } else if (creationDate.isAfter(march20)) {
+        isExempt1 = true;
+      }
+    }
+
+    if (stopDate != null && taxYear != null && stopDate.year == taxYear) {
+      DateTime feb20 = DateTime(taxYear, 2, 20);
+      DateTime may20 = DateTime(taxYear, 5, 20);
+      DateTime oct20 = DateTime(taxYear, 10, 20);
+      if (stopDate.isBefore(feb20)) {
+        isExempt1 = true;
+        isExempt2 = true;
+        isExempt3 = true;
+      } else if (stopDate.isBefore(may20)) {
+        isExempt2 = true;
+        isExempt3 = true;
+      } else if (stopDate.isBefore(oct20)) {
+        isExempt3 = true;
+      }
+    }
+
+    exemptionReason = "حسب النظام الجبائي";
+
+    if (personType == 1) {
+      isExempt3 = false;
+    }
+
+    int exemptCount =
+        (isExempt1 ? 1 : 0) + (isExempt2 ? 1 : 0) + (isExempt3 ? 1 : 0);
+    exemptAdvancesCount = exemptCount;
+
+    void navigate() {
+      if (year == taxYear && personType == 2) {
+        type = 1; // شركة في عامها الاول
+        Get.to(Capital());
+      } else if (year != null && taxYear != null && year < taxYear) {
+        type = 2; // شركة او مؤسسة بعد عامها الاول
+        Get.to(Txslastyear());
+      } else if (year == taxYear && personType == 1) {
+        type = 3; // مؤسسة في عامها الاول
+        Get.to(Taxinpout());
+      }
+      update();
+    }
+
+    if (exemptCount == 3) {
       _showModernInfoDialog(
         title: "تنبيه هام".tr,
-        message: "معفى من التسبيق الأول والثاني حسب النظام الجبائي".tr,
+        message:
+            "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) $exemptionReason"
+                .tr,
         onConfirm: () {
-          Get.to(Taxinpout());
+          if (year == taxYear && personType == 2) {
+            type = 1;
+          } else if (year != null && taxYear != null && year < taxYear) {
+            type = 2;
+          } else if (year == taxYear && personType == 1) {
+            type = 3;
+          }
+          update();
+          gotoDetective();
         },
       );
+    } else if (exemptCount > 0) {
+      List<String> exemptNames = [];
+      if (isExempt1) exemptNames.add("الأول");
+      if (isExempt2) exemptNames.add("الثاني");
+      if (isExempt3) exemptNames.add("الثالث");
+      String msg =
+          "أنت معفى من التسبيق ${exemptNames.join(' و')} $exemptionReason".tr;
+      _showModernInfoDialog(
+        title: "تنبيه هام".tr,
+        message: msg,
+        onConfirm: navigate,
+      );
+    } else {
+      navigate();
     }
-    update();
   }
 
   void divideTaxToAdvance() {
@@ -200,6 +311,10 @@ class Simplifiedsystemcontroller extends GetxController {
     advance2 = advances.length > 1 ? advances[1] : 0;
     advance3 = advances.length > 2 ? advances[2] : 0;
 
+    if (isExempt1) advance1 = 0;
+    if (isExempt2) advance2 = 0;
+    if (isExempt3) advance3 = 0;
+
     print("التسبيق 1: $advance1");
     print("التسبيق 2: $advance2");
     print("التسبيق 3: $advance3");
@@ -240,56 +355,15 @@ class Simplifiedsystemcontroller extends GetxController {
     advance2 = taxValue * 0.3;
     advance3 = taxValue * 0.3;
 
+    if (isExempt1) advance1 = 0;
+    if (isExempt2) advance2 = 0;
+    if (isExempt3) advance3 = 0;
+
     print("التسبيق 1: $advance1");
     print("التسبيق 2: $advance2");
     print("التسبيق 3: $advance3");
 
-    exemptAdvancesCount = 0;
-    int year = int.tryParse(dataCreate.text.substring(0, 4)) ?? 0;
-    int taxYear = int.tryParse(dataTax.text) ?? 0;
-
-    if (year == taxYear) {
-      DateTime? creationDate = parseDate(dataCreate.text);
-      if (creationDate != null) {
-        DateTime march20 = DateTime(year, 3, 20);
-        DateTime june20 = DateTime(year, 6, 20);
-        DateTime nov20 = DateTime(year, 11, 20);
-
-        if (creationDate.isAfter(nov20)) {
-          exemptAdvancesCount = 3;
-        } else if (creationDate.isAfter(june20)) {
-          exemptAdvancesCount = 2;
-        } else if (creationDate.isAfter(march20)) {
-          exemptAdvancesCount = 1;
-        }
-      }
-    }
-
-    if (exemptAdvancesCount == 3) {
-      _showModernInfoDialog(
-        title: "تنبيه هام".tr,
-        message:
-            "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب تاريخ الإنشاء"
-                .tr,
-        onConfirm: () {
-          gotoDetective();
-        },
-      );
-    } else if (exemptAdvancesCount > 0) {
-      String msg = exemptAdvancesCount == 2
-          ? "أنت معفى من التسبيق الأول والثاني حسب تاريخ الإنشاء".tr
-          : "أنت معفى من التسبيق الأول حسب تاريخ الإنشاء".tr;
-
-      _showModernInfoDialog(
-        title: "تنبيه هام".tr,
-        message: msg,
-        onConfirm: () {
-          Get.to(TaxPrepaymentsPage());
-        },
-      );
-    } else {
-      Get.to(TaxPrepaymentsPage());
-    }
+    Get.to(TaxPrepaymentsPage());
   }
 
   gotoDetective() {
@@ -432,14 +506,20 @@ class Simplifiedsystemcontroller extends GetxController {
     double taxProduction = productions * 0.19;
     double taxConstruction = constructions * 0.23;
     double taxOther = other * 0.26;
+    print("================taxProduction $taxProduction");
+    print("================taxConstruction $taxConstruction");
+    print("================taxOther $taxOther");
 
     double totalTax = taxProduction + taxConstruction + taxOther;
-    double totalAdvance = (advance1 ?? 0) + (advance2 ?? 0) + (advance3 ?? 0);
+    print("================totalTax $totalTax");
+    double totalAdvance =
+        (advance1 ?? 0) + (advance2 ?? 0) + (advance3 ?? 0) + surplusLeft!;
+    print("================totalAdvance $totalAdvance");
     final year = int.parse(dataTax.text);
     final dueDate1 = DateTime(year, 3, 20);
     final dueDate2 = DateTime(year, 6, 20);
     final dueDate3 = DateTime(year, 11, 20);
-    final dueDatefinal = DateTime(year, 5, 1);
+    final dueDatefinal = DateTime(year + 1, 5, 1);
 
     final paymentDate1 = parseDate(advance1Date.text);
     final paymentDate2 = parseDate(advance2Date.text);
@@ -465,7 +545,8 @@ class Simplifiedsystemcontroller extends GetxController {
     print("================penalty2 $penalty2");
     print("================penalty3 $penalty3");
     print("================penaltyfinal $penaltyfinal");
-    total = total = netTax + penalty1 + penalty2 + penalty3 + penaltyfinal;
+    total = netTax + penalty1 + penalty2 + penalty3 + penaltyfinal;
+    print("================total $total");
     update();
   }
 
@@ -479,9 +560,9 @@ class Simplifiedsystemcontroller extends GetxController {
         double.tryParse(production.text.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
     final dueDate1 = DateTime(DateTime.now().year, 3, 20);
     final dueDate2 = DateTime(DateTime.now().year, 6, 20);
-    final dueDatefinal = type == 3
-        ? DateTime(int.parse(dataTax.text) + 1, 5, 1)
-        : DateTime(DateTime.now().year, 5, 1);
+    // final dueDatefinal = type == 3
+    final dueDatefinal = DateTime(int.parse(dataTax.text) + 1, 5, 1);
+    // : DateTime(DateTime.now().year, 5, 1);
 
     DateTime? parseDate(String text) {
       if (text.isEmpty) return null;
@@ -499,7 +580,11 @@ class Simplifiedsystemcontroller extends GetxController {
     final paymentDate1 = parseDate(advance1Date.text);
     final paymentDate2 = parseDate(advance2Date.text);
     final paymentDatefinal = parseDate(finalPaymentDate.text);
-    netTax = calculateProgressiveTax(productions);
+    double progressiveTax = calculateProgressiveTax(productions);
+    double totalAdvance = (advance1 ?? 0) + (advance2 ?? 0) + surplusLeft!;
+    print("================totalAdvance $totalAdvance");
+    netTax = progressiveTax - totalAdvance;
+
     penalty1 = calculatePenalty(paymentDate1, dueDate1, advance1 ?? 0);
     penalty2 = calculatePenalty(paymentDate2, dueDate2, advance2 ?? 0);
 
@@ -634,32 +719,10 @@ class Simplifiedsystemcontroller extends GetxController {
 
     // ======= تواريخ =======
 
-    if (isFullValidation || type != 3) {
-      advance1DateErorr = validInput(advance1Date.text, 20, 3, "Text".tr);
-    } else {
-      advance1DateErorr = null;
-    }
-
-    if (isFullValidation || type != 3) {
-      advance2DateErorr = validInput(advance2Date.text, 20, 3, "Text".tr);
-    } else {
-      advance2DateErorr = null;
-    }
-
-    if (isFullValidation) {
-      advance3DateErorr = validInput(advance3Date.text, 20, 3, "Text".tr);
-    } else {
-      advance3DateErorr = null;
-    }
-
-    finalPaymentDateErorr = validInput(finalPaymentDate.text, 20, 3, "Text".tr);
-
-    if (advance1DateErorr != null ||
-        advance2DateErorr != null ||
-        advance3DateErorr != null ||
-        finalPaymentDateErorr != null) {
-      hasError = true;
-    }
+    advance1DateErorr = null;
+    advance2DateErorr = null;
+    advance3DateErorr = null;
+    finalPaymentDateErorr = null;
 
     // ======= الحقول المالية =======
 

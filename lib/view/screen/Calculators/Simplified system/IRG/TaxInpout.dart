@@ -62,7 +62,7 @@ class _TaxinpoutState extends State<Taxinpout> {
                             CustemtextbodyMedium18(
                               color: AppColor.grey,
                               content:
-                                  "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع المقررة بدقة."
+                                  "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع بدقة."
                                       .tr,
                             ),
 
@@ -90,7 +90,7 @@ class _TaxinpoutState extends State<Taxinpout> {
                             ),
                             const SizedBox(height: 16),
                             // 5. حقول التواريخ
-                            if (controller.type != 3)
+                            if (controller.type != 3 && (controller.advance1 ?? 0) > 0)
                               CustomInputField(
                                 label: 'تاريخ دفع التسبيقة الأولى'.tr,
                                 icon: Icons.date_range,
@@ -101,7 +101,7 @@ class _TaxinpoutState extends State<Taxinpout> {
                               ),
                             if (controller.type != 3)
                               const SizedBox(height: 16),
-                            if (controller.type != 3)
+                            if (controller.type != 3 && (controller.advance2 ?? 0) > 0)
                               CustomInputField(
                                 label: 'تاريخ دفع التسبيقة الثانية'.tr,
                                 icon: Icons.date_range,

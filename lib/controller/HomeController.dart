@@ -444,6 +444,23 @@ class HomecontrollerImp extends Homecontroller {
     super.onClose();
   }
 
+  bool isZoomed = false;
+
+  void stopTimer() {
+    isZoomed = true;
+    update();
+    _timer?.cancel();
+    _timer = null;
+  }
+
+  void startTimer() {
+    isZoomed = false;
+    update();
+    if (_timer == null) {
+      next();
+    }
+  }
+
   next() {
     if (dataimg.length <= 1) return;
 

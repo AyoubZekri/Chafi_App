@@ -136,16 +136,6 @@ class _TaxinputdatarecordeState extends State<Taxinputdatarecorde> {
                               icon: Icons.event_note_outlined,
                             ),
                             const SizedBox(height: 16),
-                            CustomInputField(
-                              label: 'سنة التصريح'.tr,
-                              icon: Icons.event_available,
-                              placeholder: 'سنة التصريح'.tr,
-                              isDate: true,
-                              controller: controller.dataTax,
-                              errorText: controller.dataTaxErorr,
-                              dateFormatType: DateFormatType.year,
-                            ),
-                            const SizedBox(height: 16),
 
                             CustomInputField(
                               label: 'تاريخ الايداع'.tr,

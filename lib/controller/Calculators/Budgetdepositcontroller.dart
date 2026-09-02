@@ -9,6 +9,7 @@ import '../../core/functions/valiedinput.dart';
 import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/PostData.dart';
 import '../../view/screen/Calculators/different/BudgetDeposit/ShwoditailsBudgetDeposit.dart';
+import '../../view/screen/Calculators/different/BudgetDeposit/inputdata2.dart';
 
 class Budgetdepositcontroller extends GetxController {
   Postdata postdata = Postdata(Get.find());
@@ -24,6 +25,26 @@ class Budgetdepositcontroller extends GetxController {
   TextEditingController budgetdeposit = TextEditingController();
   TextEditingController datedeposit = TextEditingController();
   TextEditingController datepyment = TextEditingController();
+
+  int? budgetType; // 1 for profit, 2 for loss
+
+  void setBudgetType(int type) {
+    budgetType = type;
+    update();
+  }
+
+  void goToNextPage() {
+    if (budgetType == null) {
+      Get.snackbar(
+        "تنبيه",
+        "يرجى تحديد الميزانية (ربح أو خسارة)",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+    Get.to(() => const Inputdata2());
+  }
 
   double netTax = 0;
   double budgetdeposits = 0;
@@ -46,12 +67,24 @@ class Budgetdepositcontroller extends GetxController {
         (depositDate.year - delayStart.year) * 12 +
         (depositDate.month - delayStart.month);
 
-    if (monthsLate == 0) {
-      return amount * 0.10;
-    } else if (monthsLate == 1) {
-      return amount * 0.20;
+    if (budgetType == 2 || amount == 0) {
+      if (monthsLate == 0) {
+        return 250000;
+      } else if (monthsLate == 1) {
+        return 500000;
+      } else if (monthsLate == 2) {
+        return 1000000;
+      } else {
+        return 1000000;
+      }
     } else {
-      return amount * 0.25;
+      if (monthsLate == 0) {
+        return amount * 0.10;
+      } else if (monthsLate == 1) {
+        return amount * 0.20;
+      } else {
+        return amount * 0.25;
+      }
     }
   }
 
@@ -89,11 +122,16 @@ class Budgetdepositcontroller extends GetxController {
     DateTime baseDate,
     DateTime paymentDate,
     double amount,
+    double depositPenaltyValue,
   ) {
     DateTime delayStart = DateTime(baseDate.year + 1, 5, 1);
 
     if (paymentDate.isBefore(delayStart)) {
       return 0;
+    }
+
+    if (budgetType == 2 || amount == 0) {
+      return depositPenaltyValue * 0.10;
     }
 
     return amount * 0.10; // 10% ثابتة
@@ -141,7 +179,12 @@ class Budgetdepositcontroller extends GetxController {
 
     // pyment = calculateThreatPenalty(baseDate, depositDate, amount);
 
-    paymentPenalty = calculatePaymentPenalty(baseDate, depositDate, amount);
+    paymentPenalty = calculatePaymentPenalty(
+      baseDate,
+      depositDate,
+      amount,
+      deposit,
+    );
     print("====${deposit}===33=====");
     print(pyment);
     print(paymentPenalty);
@@ -191,7 +234,7 @@ class Budgetdepositcontroller extends GetxController {
     budgetdepositErorr = validInput(
       budgetdeposit.text.replaceAll(RegExp(r'[^0-9]'), ''),
       20,
-      4,
+      1,
       "int",
     );
     if (budgetdepositErorr != null) hasError = true;

@@ -61,7 +61,7 @@ class _TaxinputpageState extends State<Taxinputpage> {
                             CustemtextbodyMedium18(
                               color: AppColor.grey,
                               content:
-                                  "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة."
+                                  "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة."
                                       .tr,
                             ),
 
@@ -109,34 +109,37 @@ class _TaxinputpageState extends State<Taxinputpage> {
                             ),
                             const SizedBox(height: 16),
                             // 5. حقول التواريخ
-                            CustomInputField(
-                              label: 'تاريخ دفع التسبيقة الأولى'.tr,
-                              icon: Icons.date_range,
-                              placeholder: 'mm/dd/yyyy',
-                              isDate: true,
-                              controller: controller.advance1Date,
-                              errorText: controller.advance1DateErorr,
-                            ),
+                            if ((controller.advance1 ?? 0) > 0)
+                              CustomInputField(
+                                label: 'تاريخ دفع التسبيقة الأولى'.tr,
+                                icon: Icons.date_range,
+                                placeholder: 'mm/dd/yyyy',
+                                isDate: true,
+                                controller: controller.advance1Date,
+                                errorText: controller.advance1DateErorr,
+                              ),
 
                             const SizedBox(height: 16),
-                            CustomInputField(
-                              label: 'تاريخ دفع التسبيقة الثانية'.tr,
-                              icon: Icons.date_range,
-                              placeholder: 'mm/dd/yyyy',
-                              isDate: true,
-                              controller: controller.advance2Date,
-                              errorText: controller.advance2DateErorr,
-                            ),
+                            if ((controller.advance2 ?? 0) > 0)
+                              CustomInputField(
+                                label: 'تاريخ دفع التسبيقة الثانية'.tr,
+                                icon: Icons.date_range,
+                                placeholder: 'mm/dd/yyyy',
+                                isDate: true,
+                                controller: controller.advance2Date,
+                                errorText: controller.advance2DateErorr,
+                              ),
 
                             const SizedBox(height: 16),
-                            CustomInputField(
-                              label: 'تاريخ دفع التسبيقة الثالثة'.tr,
-                              icon: Icons.date_range,
-                              placeholder: 'mm/dd/yyyy',
-                              isDate: true,
-                              controller: controller.advance3Date,
-                              errorText: controller.advance3DateErorr,
-                            ),
+                            if ((controller.advance3 ?? 0) > 0)
+                              CustomInputField(
+                                label: 'تاريخ دفع التسبيقة الثالثة'.tr,
+                                icon: Icons.date_range,
+                                placeholder: 'mm/dd/yyyy',
+                                isDate: true,
+                                controller: controller.advance3Date,
+                                errorText: controller.advance3DateErorr,
+                              ),
 
                             const SizedBox(height: 16),
                             CustomInputField(

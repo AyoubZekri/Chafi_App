@@ -72,7 +72,7 @@ class _Typeacteviteg12besState extends State<Typeacteviteg12bes> {
                             padding: 30,
                             marginb: 25,
                             index: 1,
-                            title: "مقاول ذاتي".tr,
+                            title: "مقـــــــاول ذاتــــــــــي".tr,
                             selectedPerson: controller.activityType,
                             onTap: () {
                               controller.selectedPerson(1);
@@ -94,7 +94,7 @@ class _Typeacteviteg12besState extends State<Typeacteviteg12bes> {
                             padding: 30,
                             index: 3,
                             marginb: 25,
-                            title: "نوع أخر".tr,
+                            title: "نشاطــــــات أخــــرى".tr,
                             selectedPerson: controller.activityType,
                             onTap: () {
                               controller.selectedPerson(3);

@@ -11,17 +11,19 @@ class ResearchanddevelopmentType extends StatefulWidget {
   const ResearchanddevelopmentType({super.key});
 
   @override
-  State<ResearchanddevelopmentType> createState() => _ResearchanddevelopmentTypeState();
+  State<ResearchanddevelopmentType> createState() =>
+      _ResearchanddevelopmentTypeState();
 }
 
-class _ResearchanddevelopmentTypeState extends State<ResearchanddevelopmentType> {
+class _ResearchanddevelopmentTypeState
+    extends State<ResearchanddevelopmentType> {
   final controller = Get.put(Researchanddevelopmentcontroller());
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("البحث والتطوير".tr),
+        title: Text("البحث والتطوير والابتكار م.".tr),
         titleTextStyle: TextStyle(
           color: AppColor.white,
           fontWeight: FontWeight.bold,
@@ -56,7 +58,7 @@ class _ResearchanddevelopmentTypeState extends State<ResearchanddevelopmentType>
                           color: AppColor.black,
                         ),
                         SizedBox(height: 40),
-                        
+
                         Cardpersontype(
                           padding: 30,
                           marginb: 20,
@@ -71,7 +73,7 @@ class _ResearchanddevelopmentTypeState extends State<ResearchanddevelopmentType>
                           padding: 30,
                           marginb: 20,
                           index: 2,
-                          title: "حاضنة اعمال".tr,
+                          title: "حاضنــــة اعمــــال".tr,
                           selectedPerson: controller.type,
                           onTap: () {
                             controller.selectedType(2);
@@ -87,7 +89,7 @@ class _ResearchanddevelopmentTypeState extends State<ResearchanddevelopmentType>
                             controller.selectedType(3);
                           },
                         ),
-                        
+
                         Custemsuberbutton(
                           content: "التالي".tr,
                           color: AppColor.typography,

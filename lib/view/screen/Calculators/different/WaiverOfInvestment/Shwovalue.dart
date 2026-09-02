@@ -81,7 +81,9 @@ class _ShwovalueState extends State<Shwovalue> {
                           // ======= القيمة الخاضعة =======
                           PenaltyCard(
                             icon: Icons.account_balance_wallet_outlined,
-                            title: "فائض قيمة التثبيت".tr,
+                            title: controller.remaininSale < 0
+                                ? "ناقص قيمة التثبيت".tr
+                                : "فائض قيمة التثبيت".tr,
                             subtitle: "",
                             amount: controller.remaininSale
                                 .toInt()
@@ -92,7 +94,8 @@ class _ShwovalueState extends State<Shwovalue> {
                           const SizedBox(height: 14),
                           PenaltyCard(
                             icon: Icons.account_balance_wallet_outlined,
-                            title: "${"مبلغ التخفيض".tr} (${controller.discountPercentage}%)",
+                            title:
+                                "${"مبلغ التخفيض".tr} (${controller.discountPercentage}%)",
                             subtitle: "",
                             amount: controller.discount
                                 .toInt()
@@ -104,7 +107,8 @@ class _ShwovalueState extends State<Shwovalue> {
 
                           // ======= المجموع النهائي =======
                           TotalAmountCard(
-                            title: "${"المبلغ الخاضع لضريبة بعد التخفيض".tr} (${controller.totalPercentage}%)",
+                            title:
+                                "${"المبلغ الخاضع لضريبة بعد التخفيض".tr} (${controller.totalPercentage}%)",
                             // subtitle: "المبلغ بعد احتساب التنازل".tr,
                             total: controller.total.toInt(),
                           ),

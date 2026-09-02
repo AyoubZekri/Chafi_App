@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constant/Colorapp.dart';
+import '../../../LinkApi.dart';
 
 class Custemcardarticles extends StatefulWidget {
   final String body;
-  final File imgae;
+  final String imgae;
 
   final bool isStatus;
 
@@ -68,12 +69,23 @@ class _CustemcardarticlesState extends State<Custemcardarticles> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(10),
-                      child: Image.file(
-                        widget.imgae,
-                        height: 70,
-                        width: 70,
-                        fit: BoxFit.fill,
-                      ),
+                      child: widget.imgae.startsWith('Post/')
+                          ? Image.network(
+                              '${Applink.image}${widget.imgae}',
+                              height: 70,
+                              width: 70,
+                              fit: BoxFit.fill,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.image_not_supported, size: 40),
+                            )
+                          : Image.file(
+                              File(widget.imgae),
+                              height: 70,
+                              width: 70,
+                              fit: BoxFit.fill,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.image_not_supported, size: 40),
+                            ),
                     ),
                   ),
                   const SizedBox(width: 10),

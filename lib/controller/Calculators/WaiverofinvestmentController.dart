@@ -64,65 +64,65 @@ class Waiverofinvestmentcontroller extends GetxController {
 
     if (!hasError) {
       if (datasale != null && datapurchase != null) {
-        if (sellingprices < purchaseprices) {
-          Get.dialog(
-            Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      Icons.info_outline,
-                      color: AppColor.typography,
-                      size: 50,
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      "تنبيه".tr,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة".tr,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.typography,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                        ),
-                        onPressed: () => Get.back(),
-                        child: Text(
-                          "حسنا".tr,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-          return;
-        }
+        // if (sellingprices < purchaseprices) {
+        //   Get.dialog(
+        //     Dialog(
+        //       shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.circular(20),
+        //       ),
+        //       child: Padding(
+        //         padding: const EdgeInsets.all(20.0),
+        //         child: Column(
+        //           mainAxisSize: MainAxisSize.min,
+        //           children: [
+        //             const Icon(
+        //               Icons.info_outline,
+        //               color: AppColor.typography,
+        //               size: 50,
+        //             ),
+        //             const SizedBox(height: 15),
+        //             Text(
+        //               "تنبيه".tr,
+        //               style: const TextStyle(
+        //                 fontSize: 22,
+        //                 fontWeight: FontWeight.bold,
+        //               ),
+        //             ),
+        //             const SizedBox(height: 15),
+        //             Text(
+        //               "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة".tr,
+        //               textAlign: TextAlign.center,
+        //               style: const TextStyle(fontSize: 16),
+        //             ),
+        //             const SizedBox(height: 20),
+        //             SizedBox(
+        //               width: double.infinity,
+        //               child: ElevatedButton(
+        //                 style: ElevatedButton.styleFrom(
+        //                   backgroundColor: AppColor.typography,
+        //                   shape: RoundedRectangleBorder(
+        //                     borderRadius: BorderRadius.circular(10),
+        //                   ),
+        //                   padding: const EdgeInsets.symmetric(vertical: 12),
+        //                 ),
+        //                 onPressed: () => Get.back(),
+        //                 child: Text(
+        //                   "حسنا".tr,
+        //                   style: const TextStyle(
+        //                     fontSize: 16,
+        //                     color: Colors.white,
+        //                     fontWeight: FontWeight.bold,
+        //                   ),
+        //                 ),
+        //               ),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   );
+        //   return;
+        // }
 
         int totalMonths =
             (datasale.year - datapurchase.year) * 12 +
@@ -147,12 +147,13 @@ class Waiverofinvestmentcontroller extends GetxController {
 
         remainingacquisition = purchaseprices - remaining;
         remaininSale = sellingprices - remainingacquisition;
-        print("==============$years");
+        print("==============remaininSale $remaininSale");
 
         if (remaininSale <= 0) {
           discount = 0;
           discountPercentage = 0;
           totalPercentage = 100;
+          total = 0;
         } else {
           if (years > 3) {
             discount = remaininSale * 0.65;
@@ -163,8 +164,9 @@ class Waiverofinvestmentcontroller extends GetxController {
             discountPercentage = 30;
             totalPercentage = 70;
           }
+          total = remaininSale - discount;
         }
-        total = remaininSale - discount;
+        print("==============total $total");
       }
       Get.to(() => Shwovalue());
     }

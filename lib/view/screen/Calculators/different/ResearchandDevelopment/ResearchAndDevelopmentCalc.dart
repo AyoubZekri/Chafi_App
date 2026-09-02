@@ -28,7 +28,7 @@ class _ResearchanddevelopmentCalcState
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("البحث والتطوير".tr),
+          title: Text("البحث والتطوير والابتكار م.".tr),
           titleTextStyle: TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,

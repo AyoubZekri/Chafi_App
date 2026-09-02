@@ -162,7 +162,7 @@ class _HomeState extends State<Home> {
                             if (index < 3) {
                               final item = controller.datapost[index];
                               return Custemcardhome(
-                                image: File(item.image!),
+                                image: item.image!,
                                 content: item.localizedTitle,
                                 onTap: () {
                                   controller.gotoditailsarticles(item.id);
@@ -175,7 +175,7 @@ class _HomeState extends State<Home> {
                             if (index < controller.datapost.length) {
                               final item = controller.datapost[index];
                               return Custemcardhome(
-                                image: File(item.image!),
+                                image: item.image!,
                                 content: item.localizedTitle,
                                 onTap: () {
                                   controller.gotoditailsarticles(item.id);

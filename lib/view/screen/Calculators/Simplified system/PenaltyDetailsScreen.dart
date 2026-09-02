@@ -57,27 +57,32 @@ class _PenaltyDetailsScreenState extends State<PenaltyDetailsScreen> {
                         children: [
                           SizedBox(height: 20),
                           if (controller.type != 3)
+                          if ((controller.type != 3 && (controller.advance1 ?? 0) > 0) ||
+                              (controller.type != 3 && (controller.advance2 ?? 0) > 0) ||
+                              (controller.personType != 1 && (controller.advance3 ?? 0) > 0))
                             SectionHeader(
                               icon: Icons.payments_outlined,
                               title: 'عقوبات التسبيقات الضريبية'.tr,
                             ),
-                          if (controller.type != 3) const SizedBox(height: 12),
-                          if (controller.type != 3)
+                          if (controller.type != 3 && (controller.advance1 ?? 0) > 0)
+                            const SizedBox(height: 12),
+                          if (controller.type != 3 && (controller.advance1 ?? 0) > 0)
                             PenaltyCard(
                               title: 'عقوبة تأخير التسبيقة 1'.tr,
                               subtitle: 'تأخير سداد الدفعة الأولى'.tr,
                               amount: controller.penalty1.toInt().toString(),
                             ),
-                          if (controller.type != 3) const SizedBox(height: 12),
-                          if (controller.type != 3)
+                          if (controller.type != 3 && (controller.advance2 ?? 0) > 0)
+                            const SizedBox(height: 12),
+                          if (controller.type != 3 && (controller.advance2 ?? 0) > 0)
                             PenaltyCard(
                               title: 'عقوبة تأخير التسبيقة 2'.tr,
                               subtitle: 'تأخير سداد الدفعة الثانية'.tr,
                               amount: controller.penalty2.toInt().toString(),
                             ),
-                          if (controller.personType != 1)
+                          if (controller.personType != 1 && (controller.advance3 ?? 0) > 0)
                             const SizedBox(height: 12),
-                          if (controller.personType != 1)
+                          if (controller.personType != 1 && (controller.advance3 ?? 0) > 0)
                             PenaltyCard(
                               title: 'عقوبة تأخير التسبيقة 3'.tr,
                               subtitle: 'تأخير سداد الدفعة الثالثة'.tr,

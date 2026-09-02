@@ -74,8 +74,12 @@ class _ShowvaluoState extends State<Showvaluo> {
                           const SizedBox(height: 12),
                           PenaltyCard(
                             icon: Icons.location_on_outlined,
-                            title: "zone_bonus".tr,
-                            subtitle: "zone_bonus_desc".tr,
+                            title: controller.hasspeciallogictype == 2
+                                ? "isolated_zone_compensation".tr
+                                : "zone_bonus".tr,
+                            subtitle: controller.hasspeciallogictype == 2
+                                ? "taxable_part".tr
+                                : "zone_bonus_desc".tr,
                             amount: controller.zoon
                                 .toInt()
                                 .formatCustomint()

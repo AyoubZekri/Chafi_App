@@ -25,7 +25,7 @@ class _FlatrateValueState extends State<FlatrateValue> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("الإقتطاع من المصدر"),
+          title: Text("المقاول الذاتي".tr),
           titleTextStyle: const TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,

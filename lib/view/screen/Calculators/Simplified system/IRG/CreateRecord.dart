@@ -87,6 +87,15 @@ class _CreaterecordState extends State<Createrecord> {
                             dateFormatType: DateFormatType.year,
                           ),
 
+                          SizedBox(height: 16),
+                          CustomInputField(
+                            label: 'تاريخ توقف المؤسسة (اختياري)'.tr,
+                            icon: Icons.event_busy_outlined,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.dataStop,
+                            errorText: controller.dataStopErorr,
+                          ),
                           SizedBox(height: 40),
                           Custemsuberbutton(
                             content: "60".tr,

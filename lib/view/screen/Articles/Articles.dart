@@ -33,7 +33,7 @@ class _ArticlesState extends State<Articles> {
                 itemBuilder: (context, index) {
                   final item = controller.datapost[index];
                   return Custemcardarticles(
-                    imgae: File(item.image!),
+                    imgae: item.image!,
                     body: item.localizedTitle,
                     isStatus: item.isExclusive(),
                     onTap: () {

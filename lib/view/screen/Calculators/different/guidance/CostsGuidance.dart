@@ -135,12 +135,16 @@ class _CostsguidanceState extends State<Costsguidance> {
                                 itemBuilder: (context, index) {
                                   final gift = controller.gifts[index];
 
-                                  int unitDeductible = gift.cost > 100000 ? 100000 : gift.cost;
-                                  int unitNonDeductible = gift.cost > 100000 ? gift.cost - 100000 : 0;
-                                  
+                                  int unitDeductible = gift.cost > 100000
+                                      ? 100000
+                                      : gift.cost;
+                                  int unitNonDeductible = gift.cost > 100000
+                                      ? gift.cost - 100000
+                                      : 0;
+
                                   int td = unitDeductible * gift.quantity;
                                   int tnd = unitNonDeductible * gift.quantity;
-                                  
+
                                   if (td > 50000000) {
                                     int excess = td - 50000000;
                                     td = 50000000;

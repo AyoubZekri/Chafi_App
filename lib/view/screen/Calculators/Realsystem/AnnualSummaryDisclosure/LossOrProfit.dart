@@ -72,7 +72,7 @@ class _LossorprofitState extends State<Lossorprofit> {
                             padding: 30,
                             marginb: 25,
                             index: 1,
-                            title: "ربح".tr,
+                            title: "ربــــــــح".tr,
                             selectedPerson: controller.lossORprofit,
                             onTap: () {
                               controller.selectedPerson(1);

@@ -13,6 +13,8 @@ class MyTranslation extends Translations {
       "Langugs": "اللغات",
       "English": "الانجليزية",
       "Arabic": "العربية",
+      "ناقص قيمة التثبيت": "ناقص قيمة التثبيت",
+      "البحث والتطوير والابتكار م.": "البحث والتطوير والابتكار م.",
       "articles_title": "مقالات",
       "4": "مرحبًا بك في منصتك الموثوقة",
       "5": "القوانين والإجراءات الجبائية في مكان واحد",
@@ -314,19 +316,19 @@ class MyTranslation extends Translations {
           "أدخل البيانات بدقة للحصول على نتيجة  صحيحة",
       "إختر نوع النشاط": "إختر نوع النشاط",
 
-      "مقاول ذاتي": "المقاول الذاتي",
+      "مقـــــــاول ذاتــــــــــي": "المقاول الذاتي",
       "الضريبة": "الضريبة",
       "الضريبة دون تأخير": "الضريبة دون تأخير",
       "الرجاء إدخال رقم الأعمال": "الرجاء إدخال رقم الأعمال",
       "إقتطاع من المصدر": "إقتطاع من المصدر",
-      "نوع أخر": "نشاطات أخرى",
+      "نشاطــــــات أخــــرى": "نشاطات أخرى",
 
       "كشف التلخيص السنوي": "الكشف التلخيصي السنوي",
       "كشف التلخيص السنوي_طويلة": "كشف التلخيصي السنوي",
       "النتيجةالجبائية": "النتيجةالجبائية",
       "النتيجة الجبائية": "النتيجة الجبائية",
       "يرجى تحديد نتيجة السنة المالية": "يرجى تحديد نتيجة السنة المالية",
-      "ربح": "ربح",
+      "ربــــــــح": "ربــــــــح",
       "خسارة": "خسارة",
 
       "الطابع الجبائي": "الطابع الجبائي",
@@ -360,13 +362,13 @@ class MyTranslation extends Translations {
       "رقم الأعمال التقديري": "رقم الأعمال التقديري",
       "أدخل تاريخ إنشاء السجل": "أدخل تاريخ إنشاء المؤسسة",
       "أدخل الفائض": "أدخل الفائض",
-      "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع المقررة بدقة.":
+      "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع بدقة.":
           "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد التواريخ.",
       "تاريخ دفع التسبيقة الأولى": "تاريخ دفع التسبيقة الأولى",
       "تاريخ دفع التسبيقة الثانية": "تاريخ دفع التسبيقة الثانية",
       "تاريخ الايداع و الدفع النهائي": "تاريخ الايداع و الدفع النهائي",
-      "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.":
-          "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.",
+      "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
+          "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.",
       "قيم النتيجة الجبائية حسب النشاط": "قيم النتيجة الجبائية حسب النشاط",
       "إنتاج سلع": "إنتاج سلع",
       "البناء والاشغال العمومية والري والأنشطة السياحة والحمامات":
@@ -438,15 +440,21 @@ class MyTranslation extends Translations {
       "deaf_mute": "صــــــــــــم البكـــــــــــم",
       "retired_workers": "العمـال المتــاعدين",
       "none_of_them": "فئـــــــــــــة أخـــــــــــرى",
+      "establishment_year": "تاريخ الإنشاء (سنة)",
+      "declaration_before_establishment": "لا يمكن أن تكون سنة التصريح قبل سنة الإنشاء",
+      "tax_settlement": "تتم التسوية في إدارة الضرائب",
+      "not_concerned_with_g12": "أنت غير معني بـ G12 ومعني فقط بـ G12 مكرر",
       "bonus_details": "تفاصيل العلاوات والتعويظات",
       "basic_wage": "الأجر القاعدي",
       "base_salary": "الأجر الأساسي",
       "zone_bonus": "نسبة تعويض المنطقة",
-      "zone_bonus_desc": "تعويض مرتبط بالمنطقة الجغرافية",
+      "zone_bonus_desc": "التعويض المرتبط بالمنطقة الجغرافية",
+      "isolated_zone_compensation": "تعويض المنطقة المنعزلة",
+      "taxable_part": "الجزء الخاضع لضريبة",
       "social_security": "إشتراكات الضمان الإجتماعي",
       "social_security_desc": "الخاصة بالضمان الاجتماعي",
       "taxable_income": "الدخل الخاضع",
-      "taxable_income_desc": "الدخل الخاضع لي الضريبة",
+      "taxable_income_desc": "الدخل الخاضع لضريبة",
       "first_discount": "التخفيض الأول",
       "first_discount_desc": "تخفيض 40%",
       "second_discount": "التخفيض الثاني",
@@ -509,7 +517,7 @@ class MyTranslation extends Translations {
       "deductible_amount": "المبلغ القابل للخصم",
       "added_to_tax_result": "يضاف إلى النتيجة جبائية",
       "gifts_details": "تفاصيل الهدايا",
-      "per_gift": "لجميع الهداية",
+      "per_gift": "لجميع الهدايا",
       "total_gifts": "مجموع كل الهدايا",
       "total_entered_value": "القيمة الإجمالية للهدية",
       "non_deductible_part": "المبلغ الغير قابل للخصم",
@@ -631,7 +639,7 @@ class MyTranslation extends Translations {
       "القيمة الاجمالية للصيانة": "القيمة الاجمالية للصيانة",
       "كراء": "كراء",
       "مؤسسة ناشئة": "مؤسسة ناشئة",
-      "حاضنة اعمال": "حاضنة أعمال",
+      "حاضنــــة اعمــــال": "حاضنة أعمال",
       "مؤسسات اخرى": "مؤسسات أخرى",
       "نوع المؤسسة": "نوع المؤسسة",
       "هذه المؤسسة غير معنية بالتخفيض":
@@ -874,8 +882,8 @@ class MyTranslation extends Translations {
           "ضريبة الدخل الإجمالي لسنة ن-1 أو ن-2",
       "الضريبة على أرباح الشركات لسنة ن-1 أو ن-2":
           "الضريبة على أرباح الشركات لسنة ن-1 أو ن-2",
-      "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.":
-          "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.",
+      "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
+          "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.",
       "ضريبة مؤقت": "ضريبة مؤقت",
       "الضريبة حسب السلم": "الضريبة حسب السلم",
       "الضريبة المعدة من المصالح الجبائية":
@@ -935,8 +943,8 @@ class MyTranslation extends Translations {
           "معفى من التسبيق الأول والثاني بالنسبة للسنة الأولى",
       "معفى من التسبيق الأول والثاني حسب النظام الجبائي":
           "معفى من التسبيق الأول والثاني حسب النظام الجبائي",
-      "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.":
-          "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.",
+      "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
+          "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.",
       "النتائج الجبائية حسب النشاط": "النتائج الجبائية حسب النشاط",
       "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب تاريخ الإنشاء":
           "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب تاريخ الإنشاء",
@@ -952,8 +960,10 @@ class MyTranslation extends Translations {
           "للإستعمــــــــــــال الفلاحـــــــــــي",
       "الأمــــــــلاك غـــــــير المبــــــــنية":
           "الأمــــــــلاك غـــــــير المبــــــــنية",
+      "المقاول الذاتي": "المقاول الذاتي",
       "معلومات التنازل": "معلومات التنازل",
-      "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة": "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة",
+      "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة":
+          "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة",
       "تنبيه": "تنبيه",
       "حسنا": "حسنا",
     },
@@ -1262,19 +1272,19 @@ class MyTranslation extends Translations {
           "Enter data accurately to get a correct result",
       "إختر نوع النشاط": "Choose the activity type",
 
-      "مقاول ذاتي": "Self contractor",
+      "مقـــــــاول ذاتــــــــــي": "Self contractor",
       "الضريبة": "Tax",
       "الضريبة دون تأخير": "Tax without delay",
       "الرجاء إدخال رقم الأعمال": "Please enter the business number",
       "إقتطاع من المصدر": "Cut from the source",
-      "نوع أخر": "Other activities",
+      "نشاطــــــات أخــــرى": "Other activities",
 
       "كشف التلخيص السنوي": "Annual summary statement",
       "كشف التلخيص السنوي_طويلة": "Annual summary statement",
       "النتيجةالجبائية": "Tax result",
       "النتيجة الجبائية": "Tax result",
       "يرجى تحديد نتيجة السنة المالية": "Please select the fiscal year result",
-      "ربح": "profit",
+      "ربــــــــح": "profit",
       "خسارة": "loss",
 
       "الطابع الجبائي": "Tax stamp",
@@ -1309,12 +1319,12 @@ class MyTranslation extends Translations {
       "رقم الأعمال التقديري": "Estimated turnover",
       "أدخل تاريخ إنشاء السجل": "Enter the date the organization was created",
       "أدخل الفائض": "Enter the surplus",
-      "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع المقررة بدقة.":
+      "يرجى إدخال قيمة النتيجة الجبائية ، مع تحديد تواريخ الدفع بدقة.":
           "Please enter the value of the tax result, specifying the dates.",
       "تاريخ دفع التسبيقة الأولى": "Date of first installment payment",
       "تاريخ دفع التسبيقة الثانية": "Date of payment of the second installment",
       "تاريخ الايداع و الدفع النهائي": "Date of deposit and final payment",
-      "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.":
+      "يرجى إدخال قيم الضرائب المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
           "Please enter the amounts of taxes due based on the nature of the business, specifying the exact payment dates.",
       "قيم النتيجة الجبائية حسب النشاط":
           "Evaluate the tax result according to the activity",
@@ -1387,12 +1397,18 @@ class MyTranslation extends Translations {
       "blind": "Blind",
       "deaf_mute": "Deaf and dumb",
       "retired_workers": "Retired workers",
-      "none_of_them": "Another category",
-      "bonus_details": "Details of bonuses and incentives",
+      "none_of_them": "Other Category",
+      "establishment_year": "Establishment Year",
+      "declaration_before_establishment": "Declaration year cannot be before establishment year",
+      "tax_settlement": "Settlement is done at the tax administration",
+      "not_concerned_with_g12": "You are not concerned with G12, but only with G12 bis",
+      "bonus_details": "Bonuses and Compensation Details",
       "basic_wage": "Base wage",
       "base_salary": "Basic wage",
       "zone_bonus": "Area compensation ratio",
       "zone_bonus_desc": "Compensation linked to geographical area",
+      "isolated_zone_compensation": "Isolated zone compensation",
+      "taxable_part": "Taxable part",
       "social_security": "Social security contributions",
       "social_security_desc": "of social security",
       "taxable_income": "Subject income",
@@ -1400,7 +1416,8 @@ class MyTranslation extends Translations {
       "first_discount": "First reduction",
       "first_discount_desc": "40% discount",
       "second_discount": "Second reduction",
-      "second_discount_desc_low_income": "Second discount according to the legal formula",
+      "second_discount_desc_low_income":
+          "Second discount according to the legal formula",
       "second_discount_desc_special": "For people with needs and retirees",
       "total_amount": "Raw total",
       "show_salary_slip": "View salary and pay slips",
@@ -1588,7 +1605,7 @@ class MyTranslation extends Translations {
       "القيمة الاجمالية للصيانة": "The total value of maintenance",
       "كراء": "Rent",
       "مؤسسة ناشئة": "Start-up organization",
-      "حاضنة اعمال": "Business incubator",
+      "حاضنــــة اعمــــال": "Business incubator",
       "مؤسسات اخرى": "Other institutions",
       "نوع المؤسسة": "Type of institution",
       "هذه المؤسسة غير معنية بالتخفيض":
@@ -1836,7 +1853,7 @@ class MyTranslation extends Translations {
           "Gross income tax for year N-1 or N-2",
       "الضريبة على أرباح الشركات لسنة ن-1 أو ن-2":
           "Tax on corporate profits for year N-1 or N-2",
-      "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.":
+      "يرجى إدخال قيم النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
           "Please enter payable outcome values ​​based on the nature of the business, with exact scheduled payment dates.",
 
       "budget_deposit_طويلة": "Budget deposit",
@@ -1919,7 +1936,7 @@ class MyTranslation extends Translations {
           "Exempt from the first and second advance for the first year",
       "معفى من التسبيق الأول والثاني حسب النظام الجبائي":
           "Exempt from the first and second advance depending on the tax system",
-      "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع المقررة بدقة.":
+      "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
           "Please enter the due results based on the nature of the commercial activity, while specifying the scheduled payment dates accurately.",
       "النتائج الجبائية حسب النشاط": "Tax results by activity",
       "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب تاريخ الإنشاء":
@@ -1936,10 +1953,15 @@ class MyTranslation extends Translations {
       "تجاري أو مهني غير مزود بي أثاث":
           "Commercial or professional without furniture",
       "الأمــــــــلاك غـــــــير المبــــــــنية": "Unbuilt properties",
+      "المقاول الذاتي": "Self-entrepreneur",
       "معلومات التنازل": "Surrender information",
-      "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة": "The waiver is a loss, there is no taxable amount",
+      "حالة التنازل خسارة لا يوجد مبلغ خاضع للضريبة":
+          "The waiver is a loss, there is no taxable amount",
       "تنبيه": "Alert",
       "حسنا": "OK",
+      "لا يمكن ان تكون سنة التصريح قبل سنة الانشاء":
+          "لا يمكن ان تكون سنة التصريح قبل سنة الانشاء",
+      "تنبيه": "تنبيه",
     },
   };
 }

@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import '../../../../../controller/Calculators/Budgetdepositcontroller.dart';
 import '../../../../../core/constant/Colorapp.dart';
 import '../../../../widget/Button/CustemSuberButton.dart';
-import '../../../../widget/Calculator/PinaltyDitails.dart';
-import '../../../../widget/Calculator/Taxinpout.dart' hide SectionHeader;
+import '../../../../widget/Mypath/CardpersonType.dart';
 import '../../../../widget/Text/CustemtextbodyMedium18.dart';
 
 class Inputdata extends StatefulWidget {
@@ -17,23 +16,24 @@ class Inputdata extends StatefulWidget {
 
 class _InputdataState extends State<Inputdata> {
   final controller = Get.put(Budgetdepositcontroller());
+  
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.find<Budgetdepositcontroller>().Back();
+        Get.find<Budgetdepositcontroller>().resetAll();
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text("budget_deposit".tr),
-          titleTextStyle: TextStyle(
+          titleTextStyle: const TextStyle(
             color: AppColor.white,
             fontWeight: FontWeight.bold,
             fontFamily: "Almiri",
             fontSize: 24,
           ),
-          iconTheme: IconThemeData(color: AppColor.white),
+          iconTheme: const IconThemeData(color: AppColor.white),
           backgroundColor: AppColor.typography,
           elevation: 0,
         ),
@@ -49,85 +49,58 @@ class _InputdataState extends State<Inputdata> {
                     topRight: Radius.circular(50),
                     topLeft: Radius.circular(50),
                   ),
-
                   child: Container(
                     color: AppColor.white,
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.all(20),
-                      child: Container(
-                        child: Column(
-                          children: [
-                            SizedBox(height: 20),
-                            CustemtextbodyMedium18(
-                              color: AppColor.grey,
-                              content: "please_enter_budget_value".tr,
-                            ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          CustemtextbodyMedium18(
+                            color: AppColor.grey,
+                            content:
+                                "أدخل البيانات بدقة للحصول على نتيجة  صحيحة".tr,
+                          ),
+                          const SizedBox(height: 40),
+                          CustemtextbodyMedium18(
+                            content: "يرجى تحديد حالة الميزانية".tr,
+                            color: AppColor.black,
+                          ),
+                          const SizedBox(height: 70),
+                          
+                          Cardpersontype(
+                            padding: 30,
+                            marginb: 25,
+                            index: 1,
+                            title: "ربــــــــح".tr,
+                            selectedPerson: controller.budgetType ?? 0,
+                            onTap: () {
+                              controller.setBudgetType(1);
+                            },
+                          ),
 
-                            SizedBox(height: 40),
-                            SectionHeader(
-                              title: "budget".tr,
-                              icon: Icons.analytics_outlined,
-                            ),
-                            const SizedBox(height: 16),
-                            CustomInputField(
-                              label: "budget_value".tr,
-                              icon: Icons.payments_outlined,
-                              isCurrency: true,
-                              controller: controller.budgetdeposit,
-                              errorText: controller.budgetdepositErorr,
-                            ),
-                            const SizedBox(height: 32),
+                          Cardpersontype(
+                            padding: 30,
+                            index: 2,
+                            marginb: 25,
+                            title: "خسارة".tr,
+                            selectedPerson: controller.budgetType ?? 0,
+                            onTap: () {
+                              controller.setBudgetType(2);
+                            },
+                          ),
 
-                            SectionHeader(
-                              title: "payment_and_deposit_dates".tr,
-                              icon: Icons.event_note_outlined,
-                            ),
-                            const SizedBox(height: 16),
-                            CustomInputField(
-                              label: "budget_date".tr,
-                              icon: Icons.event_available,
-                              placeholder: 'yyyy',
-                              isDate: true,
-                              controller: controller.datebudgetdeposit,
-                              errorText: controller.datebudgetdepositErorr,
-                              dateFormatType: DateFormatType.year,
-                            ),
+                          const SizedBox(height: 20),
 
-                            const SizedBox(height: 16),
-
-                            CustomInputField(
-                              label: "deposit_date".tr,
-                              icon: Icons.event_available,
-                              placeholder: 'mm/dd/yyyy',
-                              isDate: true,
-                              controller: controller.datedeposit,
-                              errorText: controller.datedepositErorr,
-                            ),
-
-                            // const SizedBox(height: 16),
-                            // CustomInputField(
-                            //   label: "payment_date".tr,
-                            //   icon: Icons.event_available,
-                            //   placeholder: 'mm/dd/yyyy',
-                            //   isDate: true,
-                            //   controller: controller.datepyment,
-                            //   errorText: controller.datepymentErorr,
-                            // ),
-
-                            const SizedBox(height: 32),
-
-                            // 6. زر الحفظ
-                            Custemsuberbutton(
-                              content: "next".tr,
-                              color: AppColor.typography,
-                              onPressed: () {
-                                controller.calcul();
-                              },
-                            ),
-
-                            const SizedBox(height: 20),
-                          ],
-                        ),
+                          Custemsuberbutton(
+                            content: "next".tr,
+                            color: AppColor.typography,
+                            onPressed: () {
+                              controller.goToNextPage();
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
                       ),
                     ),
                   ),
