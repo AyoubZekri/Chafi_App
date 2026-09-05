@@ -154,7 +154,7 @@ class _FinalsubjugationState extends State<Finalsubjugation> {
                           /// المجموع الكلي
                           TotalAmountCard(
                             total: controller.total.toInt(),
-                            title: "الضريبة الإجمالية لدفع".tr,
+                            title: "المبلغ الإجمالي المستحق".tr,
                           ),
 
                           SizedBox(height: 30),

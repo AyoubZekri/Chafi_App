@@ -61,7 +61,7 @@ class _TaxinputpageState extends State<Taxinputpage> {
                             CustemtextbodyMedium18(
                               color: AppColor.grey,
                               content:
-                                  "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة."
+                                  "يرجى إدخال النتائج الجبائية بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة."
                                       .tr,
                             ),
 

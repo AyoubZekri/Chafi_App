@@ -80,6 +80,9 @@ class Simplifiedsystemcontroller extends GetxController {
   double? advance1 = 0;
   double? advance2 = 0;
   double? advance3 = 0;
+  double? advancere1 = 0;
+  double? advancere2 = 0;
+  double? advancere3 = 0;
   double netTax = 0;
 
   double? type = 0;
@@ -295,6 +298,11 @@ class Simplifiedsystemcontroller extends GetxController {
     List<double> advances = personType == 1
         ? [0.3, 0.3].map((p) => tax * p).toList()
         : [0.3, 0.3, 0.3].map((p) => tax * p).toList();
+
+    advancere1 = advances.isNotEmpty ? advances[0] : 0;
+    advancere2 = advances.length > 1 ? advances[1] : 0;
+    advancere3 = advances.length > 2 ? advances[2] : 0;
+
     surplusLeft = remainingSurplus;
 
     for (int i = 0; i < advances.length; i++) {
@@ -354,6 +362,10 @@ class Simplifiedsystemcontroller extends GetxController {
     advance1 = taxValue * 0.3;
     advance2 = taxValue * 0.3;
     advance3 = taxValue * 0.3;
+
+    advancere1 = taxValue * 0.3;
+    advancere2 = taxValue * 0.3;
+    advancere3 = taxValue * 0.3;
 
     if (isExempt1) advance1 = 0;
     if (isExempt2) advance2 = 0;
@@ -513,7 +525,10 @@ class Simplifiedsystemcontroller extends GetxController {
     double totalTax = taxProduction + taxConstruction + taxOther;
     print("================totalTax $totalTax");
     double totalAdvance =
-        (advance1 ?? 0) + (advance2 ?? 0) + (advance3 ?? 0) + surplusLeft!;
+        (advancere1 ?? 0) +
+        (advancere2 ?? 0) +
+        (advancere3 ?? 0) +
+        surplusLeft!;
     print("================totalAdvance $totalAdvance");
     final year = int.parse(dataTax.text);
     final dueDate1 = DateTime(year, 3, 20);
@@ -581,7 +596,7 @@ class Simplifiedsystemcontroller extends GetxController {
     final paymentDate2 = parseDate(advance2Date.text);
     final paymentDatefinal = parseDate(finalPaymentDate.text);
     double progressiveTax = calculateProgressiveTax(productions);
-    double totalAdvance = (advance1 ?? 0) + (advance2 ?? 0) + surplusLeft!;
+    double totalAdvance = (advancere1 ?? 0) + (advancere2 ?? 0) + surplusLeft!;
     print("================totalAdvance $totalAdvance");
     netTax = progressiveTax - totalAdvance;
 
@@ -633,7 +648,6 @@ class Simplifiedsystemcontroller extends GetxController {
     advance1 = 0;
     advance2 = 0;
     advance3 = 0;
-
     Get.back();
   }
 
@@ -749,7 +763,7 @@ class Simplifiedsystemcontroller extends GetxController {
           .trim();
 
       if (text.isNotEmpty || personType == 1) {
-        String? error = validInput(text, 20, 4, "int".tr);
+        String? error = validInput(text, 20, 1, "int".tr);
         (field['setter'] as Function)(error);
 
         if (error != null) hasError = true;

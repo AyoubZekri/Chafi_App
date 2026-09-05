@@ -444,7 +444,7 @@ class MyTranslation extends Translations {
       "declaration_before_establishment": "لا يمكن أن تكون سنة التصريح قبل سنة الإنشاء",
       "tax_settlement": "تتم التسوية في إدارة الضرائب",
       "not_concerned_with_g12": "أنت غير معني بـ G12 ومعني فقط بـ G12 مكرر",
-      "bonus_details": "تفاصيل العلاوات والتعويظات",
+      "bonus_details": "تفاصيل بعض عناصر الأجرة",
       "basic_wage": "الأجر القاعدي",
       "base_salary": "الأجر الأساسي",
       "zone_bonus": "نسبة تعويض المنطقة",
@@ -455,6 +455,18 @@ class MyTranslation extends Translations {
       "social_security_desc": "الخاصة بالضمان الاجتماعي",
       "taxable_income": "الدخل الخاضع",
       "taxable_income_desc": "الدخل الخاضع لضريبة",
+      "لا يمكن أن يكون تاريخ العقد بعد سنة التحصيل":
+          "لا يمكن أن يكون تاريخ العقد بعد سنة التحصيل",
+      "لا يمكن أن يكون تاريخ الإيداع قبل سنة التحصيل":
+          "لا يمكن أن يكون تاريخ الإيداع قبل سنة التحصيل",
+      "لا يمكن أن يكون تاريخ الدفع قبل سنة التحصيل":
+          "لا يمكن أن يكون تاريخ الدفع قبل سنة التحصيل",
+      "تاريخ الدفع مطلوب": "تاريخ الدفع مطلوب",
+      "تاريخ العقد مطلوب": "تاريخ العقد مطلوب",
+      "لا يمكن أن يكون تاريخ التحصيل بعد نهاية الفترة":
+          "لا يمكن أن يكون تاريخ التحصيل بعد نهاية الفترة",
+      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة":
+          "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة",
       "first_discount": "التخفيض الأول",
       "first_discount_desc": "تخفيض 40%",
       "second_discount": "التخفيض الثاني",
@@ -477,7 +489,7 @@ class MyTranslation extends Translations {
       "bonuses_compensation_طويلة": "كشــــــــف الأجـــــــــــر",
       "enter_data_accurately": "أدخل البيانات بدقة للحصول على نتيجة صحيحة",
       "choose_region_bonus_type": "إختر نوع علاوة المنطقة",
-      "zone_bonus_taxable": "المبلغ الخاضع لي الضريبة",
+      "zone_bonus_taxable": "المبلغ الخاضع لضريبة",
       "zone_bonus_exempt": "المبلغ المعفى من الضريبة",
       "geographical_area_bonus": "علاوة المنطقة الجغرافية",
       "isolated_area_bonus": "علاوة المنطقة المنعزلة",
@@ -601,7 +613,8 @@ class MyTranslation extends Translations {
       "التنازل عن العقارات": "التنازل عن العقارات",
       "نتائج التنازل عن العقار": "نتائج التنازل عن العقار",
       "الفائض": "الفائض",
-      "المبلغ المستحق قبل التخفيضات": "المبلغ المستحق قبل التخفيضات",
+      "المبلغ الإجمالي المستحق": "المبلغ الإجمالي المستحق",
+      "المبلغ المستحق قبل التخفيضات": "المبلغ قبل التخفيضات",
       "التخفيض السنوي": "التخفيض السنوي",
       "قيمة التخفيض حسب مدة الحيازة": "قيمة التخفيض حسب مدة الحيازة",
       "تخفيض سكني وحيد": "تخفيض سكني وحيد",
@@ -917,7 +930,7 @@ class MyTranslation extends Translations {
           "لم يتم تعين سعر الإقتناء من طرف المعني",
 
       "سعر الإقتناء غير معروف وبتالي ترفض مصاريفه":
-          "سعر الإقتناء غير معروف وبتالي ترفض مصاريفه",
+          "سعر الإقتناء غير معروف وبالتالي ترفض مصاريفه",
       "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة":
           "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة",
       "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأخير من الفترة":
@@ -943,8 +956,8 @@ class MyTranslation extends Translations {
           "معفى من التسبيق الأول والثاني بالنسبة للسنة الأولى",
       "معفى من التسبيق الأول والثاني حسب النظام الجبائي":
           "معفى من التسبيق الأول والثاني حسب النظام الجبائي",
-      "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
-          "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.",
+      "يرجى إدخال النتائج الجبائية بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
+          "يرجى إدخال النتائج الجبائية بناءً على طبيعة النشاط ، مع تحديد تواريخ الدفع بدقة.",
       "النتائج الجبائية حسب النشاط": "النتائج الجبائية حسب النشاط",
       "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب تاريخ الإنشاء":
           "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب تاريخ الإنشاء",
@@ -1402,7 +1415,7 @@ class MyTranslation extends Translations {
       "declaration_before_establishment": "Declaration year cannot be before establishment year",
       "tax_settlement": "Settlement is done at the tax administration",
       "not_concerned_with_g12": "You are not concerned with G12, but only with G12 bis",
-      "bonus_details": "Bonuses and Compensation Details",
+      "bonus_details": "Details of some salary elements",
       "basic_wage": "Base wage",
       "base_salary": "Basic wage",
       "zone_bonus": "Area compensation ratio",
@@ -1413,6 +1426,18 @@ class MyTranslation extends Translations {
       "social_security_desc": "of social security",
       "taxable_income": "Subject income",
       "taxable_income_desc": "Taxable income",
+      "لا يمكن أن يكون تاريخ العقد بعد سنة التحصيل":
+          "Contract date cannot be after collection year",
+      "لا يمكن أن يكون تاريخ الإيداع قبل سنة التحصيل":
+          "Deposit date cannot be before collection year",
+      "لا يمكن أن يكون تاريخ الدفع قبل سنة التحصيل":
+          "Payment date cannot be before collection year",
+      "تاريخ الدفع مطلوب": "Payment date is required",
+      "تاريخ العقد مطلوب": "Contract date is required",
+      "لا يمكن أن يكون تاريخ التحصيل بعد نهاية الفترة":
+          "Collection date cannot be after the end of the period",
+      "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة":
+          "Collection date cannot be after the first month of the period",
       "first_discount": "First reduction",
       "first_discount_desc": "40% discount",
       "second_discount": "Second reduction",
@@ -1565,7 +1590,8 @@ class MyTranslation extends Translations {
       "التنازل عن العقارات": "Assignment of real estate",
       "نتائج التنازل عن العقار": "Results of transferring the property",
       "الفائض": "Surplus",
-      "المبلغ المستحق قبل التخفيضات": "Amount due before discounts",
+      "المبلغ الإجمالي المستحق": "Total amount due",
+      "المبلغ المستحق قبل التخفيضات": "Amount before discounts",
       "التخفيض السنوي": "Annual discount",
       "قيمة التخفيض حسب مدة الحيازة":
           "The discount value depends on the tenure period",
@@ -1936,8 +1962,8 @@ class MyTranslation extends Translations {
           "Exempt from the first and second advance for the first year",
       "معفى من التسبيق الأول والثاني حسب النظام الجبائي":
           "Exempt from the first and second advance depending on the tax system",
-      "يرجى إدخال النتائج المستحقة بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
-          "Please enter the due results based on the nature of the commercial activity, while specifying the scheduled payment dates accurately.",
+      "يرجى إدخال النتائج الجبائية بناءً على طبيعة النشاط التجاري، مع تحديد تواريخ الدفع بدقة.":
+          "Please enter the tax results based on the nature of the activity, while specifying the payment dates accurately.",
       "النتائج الجبائية حسب النشاط": "Tax results by activity",
       "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب تاريخ الإنشاء":
           "You are exempt from all advances (first, second, and third) based on the creation date",

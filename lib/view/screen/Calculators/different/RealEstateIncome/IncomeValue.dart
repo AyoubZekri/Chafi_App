@@ -77,22 +77,31 @@ class _IncomevalueState extends State<Incomevalue> {
                             controller: controller.incmevalue,
                             errorText: controller.incmevalueErorr,
                           ),
-                          if (controller.typeOvercome == 1) ...[
-                            const SizedBox(height: 16),
-                            CustomInputField(
-                              label: "مداخيل أخرى".tr,
-                              icon: Icons.account_balance_wallet_outlined,
-                              isCurrency: true,
-                              controller: controller.otherIncomes,
-                              errorText: controller.otherIncomesErorr,
-                            ),
-                          ],
+                          // if (controller.typeOvercome == 1) ...[
+                          //   const SizedBox(height: 16),
+                          //   CustomInputField(
+                          //     label: "مداخيل أخرى".tr,
+                          //     icon: Icons.account_balance_wallet_outlined,
+                          //     isCurrency: true,
+                          //     controller: controller.otherIncomes,
+                          //     errorText: controller.otherIncomesErorr,
+                          //   ),
+                          // ],
                           const SizedBox(height: 24),
                           SectionHeader(
                             icon: Icons.receipt_long_outlined,
                             title: "التواريخ".tr,
                           ),
 
+                          const SizedBox(height: 16),
+                          CustomInputField(
+                            label: "تاريخ العقد".tr,
+                            icon: Icons.event_available,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.datecontract,
+                            errorText: controller.datecontractErorr,
+                          ),
                           const SizedBox(height: 16),
 
                           CustomInputField(

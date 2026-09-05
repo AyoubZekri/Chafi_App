@@ -289,6 +289,13 @@ class G12bescontroller extends GetxController {
     }
 
     // انت غير معني بي G12 ومعني فقط بي G12مكرر
+    if (isFirstYear) {
+      if (activityType == 1) {
+        netTax = netTax < 1000000 ? 1000000 : netTax;
+      } else {
+        netTax = netTax < 3000000 ? 3000000 : netTax;
+      }
+    }
 
     if (netTax < 0) {
       _showModernInfoDialog(
