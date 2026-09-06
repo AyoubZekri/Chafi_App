@@ -163,22 +163,24 @@ class Simplifiedsystemcontroller extends GetxController {
     isExempt3 = false;
     exemptionReason = "";
 
-    if (year != null &&
-        taxYear != null &&
-        year == taxYear &&
-        creationDate != null) {
-      DateTime march20 = DateTime(year, 3, 20);
-      DateTime june20 = DateTime(year, 6, 20);
-      DateTime nov20 = DateTime(year, 11, 20);
-      if (creationDate.isAfter(nov20)) {
+    if (year != null && taxYear != null && year == taxYear) {
+      if (personType == 1) {
         isExempt1 = true;
         isExempt2 = true;
-        isExempt3 = true;
-      } else if (creationDate.isAfter(june20)) {
-        isExempt1 = true;
-        isExempt2 = true;
-      } else if (creationDate.isAfter(march20)) {
-        isExempt1 = true;
+      } else if (creationDate != null) {
+        DateTime march20 = DateTime(year, 3, 20);
+        DateTime june20 = DateTime(year, 6, 20);
+        DateTime nov20 = DateTime(year, 11, 20);
+        if (creationDate.isAfter(nov20)) {
+          isExempt1 = true;
+          isExempt2 = true;
+          isExempt3 = true;
+        } else if (creationDate.isAfter(june20)) {
+          isExempt1 = true;
+          isExempt2 = true;
+        } else if (creationDate.isAfter(march20)) {
+          isExempt1 = true;
+        }
       }
     }
 
@@ -306,12 +308,20 @@ class Simplifiedsystemcontroller extends GetxController {
     surplusLeft = remainingSurplus;
 
     for (int i = 0; i < advances.length; i++) {
-      if (surplusLeft! >= advances[i]) {
-        surplusLeft = surplusLeft! - advances[i];
+      bool isExempt =
+          (i == 0 && isExempt1) ||
+          (i == 1 && isExempt2) ||
+          (i == 2 && isExempt3);
+      if (isExempt) {
         advances[i] = 0;
       } else {
-        advances[i] = advances[i] - surplusLeft!;
-        surplusLeft = 0;
+        if (surplusLeft! >= advances[i]) {
+          surplusLeft = surplusLeft! - advances[i];
+          advances[i] = 0;
+        } else {
+          advances[i] = advances[i] - surplusLeft!;
+          surplusLeft = 0;
+        }
       }
     }
 

@@ -441,7 +441,8 @@ class MyTranslation extends Translations {
       "retired_workers": "العمـال المتــاعدين",
       "none_of_them": "فئـــــــــــــة أخـــــــــــرى",
       "establishment_year": "تاريخ الإنشاء (سنة)",
-      "declaration_before_establishment": "لا يمكن أن تكون سنة التصريح قبل سنة الإنشاء",
+      "declaration_before_establishment":
+          "لا يمكن أن تكون سنة التصريح قبل سنة الإنشاء",
       "tax_settlement": "تتم التسوية في إدارة الضرائب",
       "not_concerned_with_g12": "أنت غير معني بـ G12 ومعني فقط بـ G12 مكرر",
       "bonus_details": "تفاصيل بعض عناصر الأجرة",
@@ -467,6 +468,22 @@ class MyTranslation extends Translations {
           "لا يمكن أن يكون تاريخ التحصيل بعد نهاية الفترة",
       "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة":
           "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة",
+      "تنبيه هام": "تنبيه هام",
+      "حسب النظام الجبائي": "حسب النظام الجبائي",
+      "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب النظام الجبائي":
+          "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب النظام الجبائي",
+      "أنت معفى من التسبيق الأول حسب النظام الجبائي":
+          "أنت معفى من التسبيق الأول حسب النظام الجبائي",
+      "أنت معفى من التسبيق الثاني حسب النظام الجبائي":
+          "أنت معفى من التسبيق الثاني حسب النظام الجبائي",
+      "أنت معفى من التسبيق الثالث حسب النظام الجبائي":
+          "أنت معفى من التسبيق الثالث حسب النظام الجبائي",
+      "أنت معفى من التسبيق الأول و الثاني حسب النظام الجبائي":
+          "أنت معفى من التسبيق الأول و الثاني حسب النظام الجبائي",
+      "أنت معفى من التسبيق الثاني و الثالث حسب النظام الجبائي":
+          "أنت معفى من التسبيق الثاني و الثالث حسب النظام الجبائي",
+      "أنت معفى من التسبيق الأول و الثالث حسب النظام الجبائي":
+          "أنت معفى من التسبيق الأول و الثالث حسب النظام الجبائي",
       "first_discount": "التخفيض الأول",
       "first_discount_desc": "تخفيض 40%",
       "second_discount": "التخفيض الثاني",
@@ -1412,9 +1429,11 @@ class MyTranslation extends Translations {
       "retired_workers": "Retired workers",
       "none_of_them": "Other Category",
       "establishment_year": "Establishment Year",
-      "declaration_before_establishment": "Declaration year cannot be before establishment year",
+      "declaration_before_establishment":
+          "Declaration year cannot be before establishment year",
       "tax_settlement": "Settlement is done at the tax administration",
-      "not_concerned_with_g12": "You are not concerned with G12, but only with G12 bis",
+      "not_concerned_with_g12":
+          "You are not concerned with G12, but only with G12 bis",
       "bonus_details": "Details of some salary elements",
       "basic_wage": "Base wage",
       "base_salary": "Basic wage",
@@ -1438,6 +1457,22 @@ class MyTranslation extends Translations {
           "Collection date cannot be after the end of the period",
       "لا يمكن أن يكون تاريخ التحصيل بعد الشهر الأول من الفترة":
           "Collection date cannot be after the first month of the period",
+      "تنبيه هام": "Important Notice",
+      "حسب النظام الجبائي": "According to the tax system",
+      "أنت معفى من جميع التسبيقات (الأول، الثاني، والثالث) حسب النظام الجبائي":
+          "You are exempt from all advance payments (first, second, and third) according to the tax system",
+      "أنت معفى من التسبيق الأول حسب النظام الجبائي":
+          "You are exempt from the first advance payment according to the tax system",
+      "أنت معفى من التسبيق الثاني حسب النظام الجبائي":
+          "You are exempt from the second advance payment according to the tax system",
+      "أنت معفى من التسبيق الثالث حسب النظام الجبائي":
+          "You are exempt from the third advance payment according to the tax system",
+      "أنت معفى من التسبيق الأول و الثاني حسب النظام الجبائي":
+          "You are exempt from the first and second advance payments according to the tax system",
+      "أنت معفى من التسبيق الثاني و الثالث حسب النظام الجبائي":
+          "You are exempt from the second and third advance payments according to the tax system",
+      "أنت معفى من التسبيق الأول و الثالث حسب النظام الجبائي":
+          "You are exempt from the first and third advance payments according to the tax system",
       "first_discount": "First reduction",
       "first_discount_desc": "40% discount",
       "second_discount": "Second reduction",
