@@ -25,6 +25,8 @@ class Surrenderofthepropertycontroller extends GetxController {
   String? purchaseexpensesErorr;
   String? purchasedateErorr;
   String? saledateErorr;
+  String? depositdateErorr;
+  String? paymentdateErorr;
 
   TextEditingController sellingprice = TextEditingController();
   TextEditingController purchaseprice = TextEditingController();
@@ -32,7 +34,14 @@ class Surrenderofthepropertycontroller extends GetxController {
   TextEditingController purchaseexpenses = TextEditingController();
   TextEditingController saledate = TextEditingController();
   TextEditingController purchasedate = TextEditingController();
+  TextEditingController depositdate = TextEditingController();
+  TextEditingController paymentdate = TextEditingController();
+
+  double depositPenalty = 0;
+  double paymentPenalty = 0;
+
   double netTax = 0;
+  double baseTax15 = 0;
   double total = 0;
 
   double sellingprices = 0;
@@ -57,6 +66,63 @@ class Surrenderofthepropertycontroller extends GetxController {
       return showSnackbar("خطأ".tr, "يرجى إختيار نوع السكن".tr, Colors.red);
     }
     Get.to(Surrenderofthepropertyvalue());
+  }
+
+  double calculateDepositPenalty(
+    DateTime baseDate,
+    DateTime depositDate,
+    double amount,
+  ) {
+    DateTime delayStart = baseDate.add(const Duration(days: 30));
+    if (!depositDate.isAfter(delayStart)) {
+      return 0;
+    }
+
+    int daysLate = depositDate.difference(delayStart).inDays;
+    int monthsLate = (daysLate - 1) ~/ 30;
+
+    if (amount == 0) {
+      if (monthsLate == 0) {
+        return 250000;
+      } else if (monthsLate == 1) {
+        return 500000;
+      } else {
+        return 1000000;
+      }
+    } else {
+      if (monthsLate == 0) {
+        return amount * 0.05;
+      } else if (monthsLate == 1) {
+        return amount * 0.13;
+      } else if (monthsLate == 2) {
+        return amount * 0.16;
+      } else if (monthsLate == 3) {
+        return amount * 0.19;
+      } else if (monthsLate == 4) {
+        return amount * 0.22;
+      } else {
+        return amount * 0.25;
+      }
+    }
+  }
+
+  double calculatePaymentPenalty(
+    DateTime baseDate,
+    DateTime paymentDate,
+    double amount,
+    double depositPenaltyValue,
+  ) {
+    DateTime delayStart = baseDate.add(const Duration(days: 30));
+
+    if (!paymentDate.isAfter(delayStart)) {
+      return 0;
+    }
+
+    if (amount == 0) {
+      return depositPenaltyValue * 0.10;
+    }
+
+    return amount * 0.10;
   }
 
   void calcul() {
@@ -96,10 +162,15 @@ class Surrenderofthepropertycontroller extends GetxController {
 
     final datasale = parseDate(saledate.text);
     final datapurchase = parseDate(purchasedate.text);
+    final datadeposit = parseDate(depositdate.text);
+    final datapayment = parseDate(paymentdate.text);
     print("==============$datasale");
     print("==============datapurchase $datapurchase");
     if (!hasError) {
-      if (datasale != null && datapurchase != null) {
+      if (datasale != null &&
+          datapurchase != null &&
+          datadeposit != null &&
+          datapayment != null) {
         int years = (datasale.year - datapurchase.year) + 1;
         print("===================$years");
         // 1. حساب فائض القيمة (سعر البيع - سعر الشراء - مصاريف الاقتناء - مصاريف البيع)
@@ -147,10 +218,21 @@ class Surrenderofthepropertycontroller extends GetxController {
         }
 
         // 4. حساب الضريبة النهائية (15%)
-        total = discount * 0.15;
-        if (total < 0) {
-          total = 0;
+        baseTax15 = discount * 0.15;
+        if (baseTax15 < 0) {
+          baseTax15 = 0;
         }
+
+        depositPenalty = calculateDepositPenalty(datasale, datadeposit, baseTax15);
+        paymentPenalty = calculatePaymentPenalty(
+          datasale,
+          datapayment,
+          baseTax15,
+          depositPenalty,
+        );
+
+        double totalPenalties = depositPenalty + paymentPenalty;
+        total = baseTax15 + totalPenalties;
       }
       Get.to(() => Shwovalue());
     }
@@ -180,6 +262,22 @@ class Surrenderofthepropertycontroller extends GetxController {
     } else {
       saledateErorr = validInput(saledate.text, 20, 3, "Text");
       if (saledateErorr != null) hasError = true;
+    }
+
+    if (depositdate.text.isEmpty) {
+      depositdateErorr = "تاريخ الإيداع مطلوب".tr;
+      hasError = true;
+    } else {
+      depositdateErorr = validInput(depositdate.text, 20, 3, "Text");
+      if (depositdateErorr != null) hasError = true;
+    }
+
+    if (paymentdate.text.isEmpty) {
+      paymentdateErorr = "تاريخ الدفع مطلوب".tr;
+      hasError = true;
+    } else {
+      paymentdateErorr = validInput(paymentdate.text, 20, 3, "Text");
+      if (paymentdateErorr != null) hasError = true;
     }
 
     sellingpriceErorr = validInput(
@@ -230,6 +328,8 @@ class Surrenderofthepropertycontroller extends GetxController {
     purchaseexpensesErorr = null;
     purchasedateErorr = null;
     saledateErorr = null;
+    depositdateErorr = null;
+    paymentdateErorr = null;
 
     sellingprice.clear();
     purchaseprice.clear();
@@ -237,6 +337,8 @@ class Surrenderofthepropertycontroller extends GetxController {
     purchaseexpenses.clear();
     saledate.clear();
     purchasedate.clear();
+    depositdate.clear();
+    paymentdate.clear();
   }
 
   void backFromShwovalue() {}

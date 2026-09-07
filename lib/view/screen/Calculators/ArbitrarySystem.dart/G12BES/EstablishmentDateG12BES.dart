@@ -19,7 +19,7 @@ class EstablishmentDateG12BES extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-        title: Text("G12 مكرر".tr),
+        title: Text("حاسبة G12BES".tr),
         titleTextStyle: TextStyle(
           color: AppColor.white,
           fontWeight: FontWeight.bold,

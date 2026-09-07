@@ -329,9 +329,18 @@ class Simplifiedsystemcontroller extends GetxController {
     advance2 = advances.length > 1 ? advances[1] : 0;
     advance3 = advances.length > 2 ? advances[2] : 0;
 
-    if (isExempt1) advance1 = 0;
-    if (isExempt2) advance2 = 0;
-    if (isExempt3) advance3 = 0;
+    if (isExempt1) {
+      advance1 = 0;
+      advancere1 = 0;
+    }
+    if (isExempt2) {
+      advance2 = 0;
+      advancere2 = 0;
+    }
+    if (isExempt3) {
+      advance3 = 0;
+      advancere3 = 0;
+    }
 
     print("التسبيق 1: $advance1");
     print("التسبيق 2: $advance2");
@@ -377,9 +386,18 @@ class Simplifiedsystemcontroller extends GetxController {
     advancere2 = taxValue * 0.3;
     advancere3 = taxValue * 0.3;
 
-    if (isExempt1) advance1 = 0;
-    if (isExempt2) advance2 = 0;
-    if (isExempt3) advance3 = 0;
+    if (isExempt1) {
+      advance1 = 0;
+      advancere1 = 0;
+    }
+    if (isExempt2) {
+      advance2 = 0;
+      advancere2 = 0;
+    }
+    if (isExempt3) {
+      advance3 = 0;
+      advancere3 = 0;
+    }
 
     print("التسبيق 1: $advance1");
     print("التسبيق 2: $advance2");

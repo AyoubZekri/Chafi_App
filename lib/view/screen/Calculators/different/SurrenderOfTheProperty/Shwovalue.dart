@@ -103,6 +103,40 @@ class _ShwovalueState extends State<Shwovalue> {
                             ),
                           ],
 
+                          const SizedBox(height: 14),
+                          PenaltyCard(
+                            icon: Icons.account_balance_wallet_outlined,
+                            title: "ضريبة الفائض المستحقة".tr,
+                            subtitle: "".tr,
+                            amount: controller.baseTax15
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+
+                          const SizedBox(height: 14),
+                          PenaltyCard(
+                            icon: Icons.warning_amber_outlined,
+                            title: "غرامة التأخير في الإيداع".tr,
+                            subtitle: "تأخير في إيداع التصريح".tr,
+                            amount: controller.depositPenalty
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+
+
+                          const SizedBox(height: 14),
+                          PenaltyCard(
+                            icon: Icons.payment_outlined,
+                            title: "غرامة التأخير في الدفع".tr,
+                            subtitle: "تأخير في دفع الضريبة".tr,
+                            amount: controller.paymentPenalty
+                                .toInt()
+                                .formatCustomint()
+                                .toString(),
+                          ),
+
                           const SizedBox(height: 30),
 
                           /// =====================

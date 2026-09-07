@@ -139,11 +139,33 @@ class _SurrenderofthepropertyvalueState
 
                           CustomInputField(
                             label: "تاريخ التنازل".tr,
-                            icon: Icons.event_available_outlined,
+                            icon: Icons.calendar_today_outlined,
                             placeholder: 'mm/dd/yyyy',
                             isDate: true,
                             controller: controller.saledate,
                             errorText: controller.saledateErorr,
+                          ),
+
+                          const SizedBox(height: 16),
+
+                          CustomInputField(
+                            label: "تاريخ الإيداع".tr,
+                            icon: Icons.calendar_today_outlined,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.depositdate,
+                            errorText: controller.depositdateErorr,
+                          ),
+
+                          const SizedBox(height: 16),
+
+                          CustomInputField(
+                            label: "تاريخ الدفع".tr,
+                            icon: Icons.calendar_today_outlined,
+                            placeholder: 'mm/dd/yyyy',
+                            isDate: true,
+                            controller: controller.paymentdate,
+                            errorText: controller.paymentdateErorr,
                           ),
 
                           const SizedBox(height: 40),
