@@ -101,11 +101,10 @@ class HomecontrollerImp extends Homecontroller {
   void checkAndShowFeedback() {
     bool? hasFeedback = myServices.sharedPreferences?.getBool("hasFeedback");
     int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+    int lastFeedbackNumEnter = myServices.sharedPreferences?.getInt('lastFeedbackNumEnter') ?? 0;
     print("=======numEnter======$numEnter");
 
-    if (hasFeedback != true &&
-        isLoggedIn &&
-        (numEnter == 1 || (numEnter > 0 && numEnter % 5 == 0))) {
+    if (isLoggedIn && (numEnter == 1 || (numEnter > 0 && numEnter % 5 == 0)) && lastFeedbackNumEnter != numEnter) {
       Future.delayed(const Duration(seconds: 2), () {
         if (Get.isDialogOpen != true) {
           showFeedbackDialog();
@@ -381,13 +380,110 @@ class HomecontrollerImp extends Homecontroller {
                           width: double.infinity,
                           height: 50,
                           child: ElevatedButton(
-                            onPressed: selectedAnswers.isEmpty
-                                ? null
-                                : () async {
-                                    await sendFeedback(
-                                      selectedAnswers.values.toList(),
-                                    );
-                                  },
+                            onPressed: () async {
+                              if (selectedAnswers.length < questions.length) {
+                                Get.dialog(
+                                  Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(24),
+                                      decoration: BoxDecoration(
+                                        color: AppColor.white,
+                                        borderRadius: BorderRadius.circular(24),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(
+                                              0.12,
+                                            ),
+                                            blurRadius: 24,
+                                            offset: const Offset(0, 8),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.all(16),
+                                            decoration: BoxDecoration(
+                                              color: AppColor.primarycolor
+                                                  .withOpacity(0.08),
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                color: AppColor.primarycolor
+                                                    .withOpacity(0.15),
+                                                width: 1.5,
+                                              ),
+                                            ),
+                                            child: const Icon(
+                                              Icons.info_outline_rounded,
+                                              color: AppColor.primarycolor,
+                                              size: 36,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 18),
+                                          const Text(
+                                            "تنبيه",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w900,
+                                              color: AppColor.typography,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 12),
+                                          Text(
+                                            "feedback_incomplete_message".tr,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              height: 1.6,
+                                              color: Color(0xFF475569),
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 24),
+                                          SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    AppColor.typography,
+                                                foregroundColor: AppColor.white,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      vertical: 14,
+                                                    ),
+                                                elevation: 0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(14),
+                                                ),
+                                              ),
+                                              onPressed: () => Get.back(),
+                                              child: const Text(
+                                                "حسنا",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                                return;
+                              }
+                              await sendFeedback(
+                                selectedAnswers.values.toList(),
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColor.typography,
                               foregroundColor: Colors.white,
@@ -428,6 +524,8 @@ class HomecontrollerImp extends Homecontroller {
     handlingData(response);
     if (response['status'] == 1 && statusrequest == Statusrequest.loadeng) {
       myServices.sharedPreferences?.setBool("hasFeedback", true);
+      int currentNumEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+      myServices.sharedPreferences?.setInt("lastFeedbackNumEnter", currentNumEnter);
       Get.back();
       showSnackbar("feedback_thanks".tr, "feedback_success".tr, Colors.green);
     } else {

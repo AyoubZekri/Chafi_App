@@ -381,7 +381,7 @@ class Realestateincomecontroller extends GetxController {
 
     if (typeTypeofcollection == 5) {
       if (collDate != null) {
-        graceEnd = collDate.add(Duration(days: 20));
+        graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
       } else {
         DateTime? start = getPeriodStartDate();
         if (start != null) {
@@ -393,7 +393,7 @@ class Realestateincomecontroller extends GetxController {
     } else {
       if (typeIsAdvance == 1) {
         if (collDate != null) {
-          graceEnd = collDate.add(Duration(days: 20));
+          graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
         } else {
           DateTime? start = getPeriodStartDate();
           if (start != null) {
@@ -409,7 +409,7 @@ class Realestateincomecontroller extends GetxController {
         }
       } else {
         if (collDate != null) {
-          graceEnd = collDate.add(Duration(days: 20));
+          graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
         } else {
           DateTime? end = getPeriodEndDate();
           if (end != null) {
@@ -434,7 +434,7 @@ class Realestateincomecontroller extends GetxController {
     double percent;
 
     if (monthsLate == 0) {
-      percent = 0.05; // من 21 لنهاية نفس الشهر
+      percent = 0.10; // من 21 لنهاية نفس الشهر
       print("====================5%");
     } else if (monthsLate == 1) {
       percent = 0.13;
@@ -466,7 +466,7 @@ class Realestateincomecontroller extends GetxController {
 
     if (typeTypeofcollection == 5) {
       if (collDate != null) {
-        graceEnd = collDate.add(Duration(days: 20));
+        graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
       } else {
         DateTime? start = getPeriodStartDate();
         if (start != null) {
@@ -478,7 +478,7 @@ class Realestateincomecontroller extends GetxController {
     } else {
       if (typeIsAdvance == 1) {
         if (collDate != null) {
-          graceEnd = collDate.add(Duration(days: 20));
+          graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
         } else {
           DateTime? start = getPeriodStartDate();
           if (start != null) {
@@ -494,7 +494,7 @@ class Realestateincomecontroller extends GetxController {
         }
       } else {
         if (collDate != null) {
-          graceEnd = collDate.add(Duration(days: 20));
+          graceEnd = DateTime(collDate.year, collDate.month + 1, 20);
         } else {
           DateTime? end = getPeriodEndDate();
           if (end != null) {
@@ -519,7 +519,7 @@ class Realestateincomecontroller extends GetxController {
     double percent;
 
     if (monthsLate == 0) {
-      percent = 0.10; // من 21 لنهاية نفس الشهر
+      percent = 0.05; // من 21 لنهاية نفس الشهر
       print("====================10%");
     } else {
       percent = 0.10;

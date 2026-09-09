@@ -640,7 +640,8 @@ class MyTranslation extends Translations {
       "لا": "لا",
       "الضريبة النهائية (15%)": "الضريبة النهائية (15%)",
       "ضريبة الفائض المستحقة": "ضريبة الفائض المستحقة",
-      "الضريبة المستحقة قبل غرامات التأخير": "الضريبة المستحقة قبل غرامات التأخير",
+      "الضريبة المستحقة قبل غرامات التأخير":
+          "الضريبة المستحقة قبل غرامات التأخير",
       "غرامة التأخير في الإيداع": "غرامة التأخير في الإيداع",
       "تأخير في إيداع التصريح": "تأخير في إيداع التصريح",
       "غرامة التأخير في الدفع": "غرامة التأخير في الدفع",
@@ -844,6 +845,8 @@ class MyTranslation extends Translations {
       "feedback_cancel": "إلغاء",
       "feedback_send": "إرسال",
       "feedback_thanks": "شكراً لك",
+      "feedback_incomplete_message":
+          "يرجى استكمال الإجابة عن جميع الأسئلة للحصول على نتائج إحصائية أكثر دقة.\n\n شكرًا لتعاونكم",
       "feedback_success": "تم إرسال رأيك بنجاح",
       "feedback_error": "خطأ",
       "feedback_error_msg": "حدث خطأ ما أثناء الإرسال",
@@ -1851,6 +1854,8 @@ class MyTranslation extends Translations {
       "feedback_cancel": "cancellation",
       "feedback_send": "send",
       "feedback_thanks": "Thank you",
+      "feedback_incomplete_message":
+          "Please complete all questions to help us get more accurate statistical results.\n Thank you for your cooperation",
       "feedback_success": "Your review has been submitted successfully",
       "feedback_error": "mistake",
       "feedback_error_msg": "An error occurred while sending",

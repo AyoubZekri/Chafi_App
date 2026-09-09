@@ -119,7 +119,7 @@ class _ShwovalueState extends State<Shwovalue> {
                             icon: Icons.warning_amber_outlined,
                             title: "غرامة التأخير في الإيداع".tr,
                             subtitle: "تأخير في إيداع التصريح".tr,
-                            amount: controller.depositPenalty
+                            amount: controller.paymentPenalty
                                 .toInt()
                                 .formatCustomint()
                                 .toString(),
@@ -131,7 +131,7 @@ class _ShwovalueState extends State<Shwovalue> {
                             icon: Icons.payment_outlined,
                             title: "غرامة التأخير في الدفع".tr,
                             subtitle: "تأخير في دفع الضريبة".tr,
-                            amount: controller.paymentPenalty
+                            amount: controller.depositPenalty
                                 .toInt()
                                 .formatCustomint()
                                 .toString(),

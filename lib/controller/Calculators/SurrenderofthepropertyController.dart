@@ -91,7 +91,7 @@ class Surrenderofthepropertycontroller extends GetxController {
       }
     } else {
       if (monthsLate == 0) {
-        return amount * 0.05;
+        return amount * 0.10;
       } else if (monthsLate == 1) {
         return amount * 0.13;
       } else if (monthsLate == 2) {
@@ -112,17 +112,23 @@ class Surrenderofthepropertycontroller extends GetxController {
     double amount,
     double depositPenaltyValue,
   ) {
+    
     DateTime delayStart = baseDate.add(const Duration(days: 30));
 
     if (!paymentDate.isAfter(delayStart)) {
       return 0;
     }
 
+    int daysLate = paymentDate.difference(delayStart).inDays;
+    int monthsLate = (daysLate - 1) ~/ 30;
+
+    double percent = (monthsLate == 0) ? 0.05 : 0.10;
+
     if (amount == 0) {
-      return depositPenaltyValue * 0.10;
+      return depositPenaltyValue * percent;
     }
 
-    return amount * 0.10;
+    return amount * percent;
   }
 
   void calcul() {

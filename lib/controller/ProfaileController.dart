@@ -191,8 +191,19 @@ class ProfailecontrollerImp extends Profailecontroller {
     print("=============================== Controller $response ");
     if (statusrequest == Statusrequest.success) {
       if (response["status"] == 1) {
+        // Preserve feedback keys
+        int? numEnter = myServices.sharedPreferences!.getInt('numEnter');
+        bool? hasFeedback = myServices.sharedPreferences!.getBool('hasFeedback');
+        int? lastFeedbackNumEnter = myServices.sharedPreferences!.getInt('lastFeedbackNumEnter');
+
         myServices.sharedPreferences!.clear();
         myServices.sharedPreferences!.setBool("onbording", true);
+        
+        // Restore them
+        if (numEnter != null) myServices.sharedPreferences!.setInt('numEnter', numEnter);
+        if (hasFeedback != null) myServices.sharedPreferences!.setBool('hasFeedback', hasFeedback);
+        if (lastFeedbackNumEnter != null) myServices.sharedPreferences!.setInt('lastFeedbackNumEnter', lastFeedbackNumEnter);
+
         Get.offNamed(Approutes.googleSignIn);
       }
     } else {
