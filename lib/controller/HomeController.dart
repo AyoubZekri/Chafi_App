@@ -117,6 +117,8 @@ class HomecontrollerImp extends Homecontroller {
     Map<int, int> selectedAnswers = {};
     Set<int> expandedQuestions = {}; // لا تفتح أي سؤال افتراضيًا
 
+    int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+
     final List<Map<String, dynamic>> questions = [
       {
         "title": "العدالة الضريبية".tr,
@@ -158,15 +160,16 @@ class HomecontrollerImp extends Homecontroller {
           {"id": 53, "name": "صعبة الاستخدام".tr},
         ],
       },
-      {
-        "title": "كيف ساعدك شافي".tr,
-        "options": [
-          {"id": 61, "name": "بسط القوانين الجبائية".tr},
-          {"id": 62, "name": "صحح المفاهيم الخاطئة".tr},
-          {"id": 63, "name": "قلل كلفة الاستشارة".tr},
-          {"id": 64, "name": "تعزيز وتحفيز على الامتثال".tr},
-        ],
-      },
+      if (numEnter > 1)
+        {
+          "title": "كيف ساعدك شافي".tr,
+          "options": [
+            {"id": 61, "name": "بسط القوانين الجبائية".tr},
+            {"id": 62, "name": "صحح المفاهيم الخاطئة".tr},
+            {"id": 63, "name": "قلل كلفة الاستشارة".tr},
+            {"id": 64, "name": "تعزيز وتحفيز على الامتثال".tr},
+          ],
+        },
     ];
 
     Get.dialog(
