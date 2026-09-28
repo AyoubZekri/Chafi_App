@@ -32,6 +32,10 @@ class Applink {
 
   static const String lawShow = "$server/Law/Show";
 
+  // ملفات "جبايتك" ومواد كل ملف (روابط عامة، لا تحتاج تسجيل الدخول)
+  static const String taxDocumentsShow = "$server/TaxSearch/Show";
+  static const String taxArticlesShow = "$server/TaxSearch/Article/Show";
+
   static const String notificationUserShow = "$server/NotificationUser/Show";
   static const String notificationUserdelete =
       "$server/NotificationUser/Delete";

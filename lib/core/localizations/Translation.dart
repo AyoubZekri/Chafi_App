@@ -764,6 +764,12 @@ class MyTranslation extends Translations {
       "under_construction_desc":
           "هذه الصفحة قيد التطوير حالياً، قريباً ستكون متاحة.",
       "إصدار": "إصدار",
+      // ملفات جبايتك
+      "ابحث": "ابحث",
+      "الملف": "الملف",
+      "عرض المواد": "عرض المواد",
+      "لا توجد مادة مطابقة للبحث": "لا توجد مادة مطابقة للبحث",
+      "ملغاة": "ملغاة",
 
       "أدرار": "أدرار",
       "الشلف": "الشلف",
@@ -1773,6 +1779,12 @@ class MyTranslation extends Translations {
       "under_construction_desc":
           "This page is currently under development, it will be available soon.",
       "إصدار": "version",
+      // Tax files
+      "ابحث": "Search",
+      "الملف": "File",
+      "عرض المواد": "View articles",
+      "لا توجد مادة مطابقة للبحث": "No matching article found",
+      "ملغاة": "Repealed",
 
       "أدرار": "Adrar",
       "الشلف": "Chlef",

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/FavoritesController.dart';
 import '../widget/Card/CustemCardinfo.dart';
+import '../widget/TaxFiles/TaxArticleCard.dart';
+import '../../data/model/TaxFileModel.dart';
 import '../../core/class/Statusrequest.dart';
 import '../../core/constant/Colorapp.dart';
 import '../../core/class/handlingview.dart';
@@ -27,6 +29,16 @@ class FavoritesScreen extends StatelessWidget {
               itemCount: controller.favoritesList.length,
               itemBuilder: (context, index) {
                 final favorite = controller.favoritesList[index];
+
+                // مادة من ملفات "جبايتك": نعرضها ببطاقة المادة (مع الجداول)
+                if (favorite.type == taxArticleFavoriteType) {
+                  return TaxArticleCard(
+                    article: TaxArticleModel.fromJson(
+                      Map<String, dynamic>.from(favorite.data),
+                    ),
+                    showDocument: true,
+                  );
+                }
 
                 return Custemcardinfo(
                   title: favorite.title.isNotEmpty ? favorite.title : "بطاقة مفضلة",

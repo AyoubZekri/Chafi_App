@@ -5,7 +5,7 @@ import 'package:chafi/core/functions/CheckInternat.dart';
 import 'package:chafi/core/functions/Localizetion.dart';
 import 'package:chafi/core/functions/handlingdatacontroller.dart';
 import 'package:chafi/data/datasource/Remote/PostData.dart';
-import 'package:chafi/view/screen/Law.dart';
+import 'package:chafi/view/screen/TaxFiles/TaxFiles.dart';
 import 'package:chafi/view/screen/Profaile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +28,7 @@ class NavigationBarcontrollerImp extends NavigationBarcontroller {
 
   List<Widget> Screen = [
     const Home(),
-    const Law(),
+    const TaxFiles(),
     const Records(),
     const Profaile(),
   ];

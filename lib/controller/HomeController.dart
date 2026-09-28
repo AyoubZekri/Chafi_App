@@ -101,10 +101,13 @@ class HomecontrollerImp extends Homecontroller {
   void checkAndShowFeedback() {
     bool? hasFeedback = myServices.sharedPreferences?.getBool("hasFeedback");
     int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
-    int lastFeedbackNumEnter = myServices.sharedPreferences?.getInt('lastFeedbackNumEnter') ?? 0;
+    int lastFeedbackNumEnter =
+        myServices.sharedPreferences?.getInt('lastFeedbackNumEnter') ?? 0;
     print("=======numEnter======$numEnter");
 
-    if (isLoggedIn && (numEnter == 1 || (numEnter > 0 && numEnter % 5 == 0)) && lastFeedbackNumEnter != numEnter) {
+    if (isLoggedIn &&
+        (numEnter == 1 || (numEnter > 0 && numEnter % 5 == 0)) &&
+        lastFeedbackNumEnter != numEnter) {
       Future.delayed(const Duration(seconds: 2), () {
         if (Get.isDialogOpen != true) {
           showFeedbackDialog();
@@ -527,8 +530,12 @@ class HomecontrollerImp extends Homecontroller {
     handlingData(response);
     if (response['status'] == 1 && statusrequest == Statusrequest.loadeng) {
       myServices.sharedPreferences?.setBool("hasFeedback", true);
-      int currentNumEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
-      myServices.sharedPreferences?.setInt("lastFeedbackNumEnter", currentNumEnter);
+      int currentNumEnter =
+          myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+      myServices.sharedPreferences?.setInt(
+        "lastFeedbackNumEnter",
+        currentNumEnter,
+      );
       Get.back();
       showSnackbar("feedback_thanks".tr, "feedback_success".tr, Colors.green);
     } else {
