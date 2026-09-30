@@ -25,6 +25,7 @@ class TaxArticleCard extends StatefulWidget {
   /// اسم الملف (يظهر في صفحة المفضلة)
   final bool showDocument;
 
+
   const TaxArticleCard({
     super.key,
     required this.article,
@@ -41,6 +42,10 @@ class _TaxArticleCardState extends State<TaxArticleCard> {
   bool isOpen = false;
 
   TaxArticleModel get article => widget.article;
+
+  /// اسم الملف الذي تنتمي إليه المادة، حسب لغة التطبيق
+  /// (اسم القانون المرتبط قد يحتوي اسم المادة نفسها، لذلك لا نعتمد عليه)
+  String? get _sourceName => article.localizedDocumentTitle;
   String? get pdfFile => widget.pdfFile ?? article.documentFile;
 
   @override
@@ -110,11 +115,10 @@ class _TaxArticleCardState extends State<TaxArticleCard> {
             ),
           ),
         ],
-        if (widget.showDocument &&
-            (article.documentTitle ?? '').isNotEmpty) ...[
+        if (widget.showDocument && (_sourceName ?? '').isNotEmpty) ...[
           const SizedBox(height: 4),
           Text(
-            article.documentTitle!,
+            _sourceName!,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(fontSize: 13, color: Colors.grey[600]),

@@ -81,7 +81,8 @@ class FiscalCalculator extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("الحاسبة".tr), centerTitle: true),
+      // مفتاح خاص: "الحاسبة" تُترجم إلى "الحاسبة الجبائية" في صفحات الحاسبات الأخرى
+      appBar: AppBar(title: Text("simple_calculator".tr), centerTitle: true),
       body: SafeArea(
         child: Column(
           children: [

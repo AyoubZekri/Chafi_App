@@ -8,7 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../LinkApi.dart';
+import '../../core/constant/TaxpayerTypes.dart';
+import '../../core/class/Crud.dart';
 import '../../core/class/Statusrequest.dart';
+import '../../core/functions/AuthErrorLog.dart';
 import '../../core/functions/SaveImage.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
@@ -19,7 +22,8 @@ class Infousercontroller extends GetxController {
   gotoNavigationBar() {}
 }
 
-class InfousercontrollerImp extends Infousercontroller {
+class InfousercontrollerImp extends Infousercontroller
+    with TaxpayerFormMixin {
   TextEditingController username = TextEditingController();
   // TextEditingController wilaya = TextEditingController();
   TextEditingController numperPhone = TextEditingController();
@@ -105,10 +109,13 @@ class InfousercontrollerImp extends Infousercontroller {
   bool isSwitched = false;
   @override
   void gotoNavigationBar() async {
+    // التحقق من صفة المكلف أولاً حتى تظهر الأخطاء تحت الحقول في نفس المحاولة
+    final taxpayerOk = validateTaxpayer();
     if (selectedstate == null) {
       showSnackbar("خطأ".tr, "يرجى اختيار الولاية".tr, Colors.red);
       return;
     }
+    if (!taxpayerOk) return;
 
     if (isSwitched == false) {
       showSnackbar("خطأ".tr, "يجب الموافقة على الشروط والأحكام".tr, Colors.red);
@@ -123,12 +130,14 @@ class InfousercontrollerImp extends Infousercontroller {
     print("======$uid");
     print("======$fcmToken");
 
+    Crud.lastError = null;
     var response = await loginData.loginGoogle({
       "uid": uid,
       "token": fcmToken,
       "username": username.text,
       "wilaya": selectedStateData["state"],
       "numperPhone": numperPhone.text,
+      ...taxpayerRequestData,
     });
     if (response == Statusrequest.serverfailure) {
       return showSnackbar("خطأ".tr, "لا يوجد اتصال بالإنترنت".tr, Colors.red);
@@ -155,6 +164,7 @@ class InfousercontrollerImp extends Infousercontroller {
           "numperPhone",
           response["user"]["numperPhone"],
         );
+        saveTaxpayerToPrefs(response["user"]);
         myServices.sharedPreferences!.setInt("user_notify_status", 1);
 
         myServices.sharedPreferences!.setString(
@@ -196,7 +206,8 @@ class InfousercontrollerImp extends Infousercontroller {
         }
       }
     } else {
-      showTopError("حدث خطأ".tr);
+      logAuthServerFailure('Create account (google-login)', response);
+      showTopError(authErrorForUser("حدث خطأ".tr));
       statusrequest = Statusrequest.none;
       update();
     }

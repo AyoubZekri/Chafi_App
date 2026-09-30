@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../LinkApi.dart';
+import '../../core/constant/TaxpayerTypes.dart';
 import '../../core/class/Statusrequest.dart';
 import '../../core/functions/SaveImage.dart';
 import '../../core/functions/Snacpar.dart';
@@ -17,7 +18,8 @@ class Editprofailecontroller extends GetxController {
   Future<void> uploadimagefile() async {}
 }
 
-class EditprofailecontrollerImp extends Editprofailecontroller {
+class EditprofailecontrollerImp extends Editprofailecontroller
+    with TaxpayerFormMixin {
   Myservices myServices = Get.find();
   Statusrequest statusrequest = Statusrequest.none;
   LoginData loginData = LoginData(Get.find());
@@ -109,10 +111,12 @@ class EditprofailecontrollerImp extends Editprofailecontroller {
   }
 
   void edituser() async {
+    final taxpayerOk = validateTaxpayer();
     if (selectedstate == null) {
       showSnackbar("خطأ".tr, "يرجى اختيار الولاية".tr, Colors.red);
       return;
     }
+    if (!taxpayerOk) return;
     statusrequest = Statusrequest.loadeng;
     update();
     final selectedStateData = state.firstWhere(
@@ -122,6 +126,7 @@ class EditprofailecontrollerImp extends Editprofailecontroller {
       "username": username!.text,
       "wilaya": selectedStateData['state'],
       "numperPhone": int.parse(numperphone!.text),
+      ...taxpayerRequestData,
     }, image!);
     if (response == Statusrequest.serverfailure) {
       showSnackbar("خطأ".tr, "لا يوجد اتصال بالإنترنت".tr, Colors.red);
@@ -136,6 +141,7 @@ class EditprofailecontrollerImp extends Editprofailecontroller {
     if (statusrequest == Statusrequest.success) {
       if (response["status"] == 1) {
         myServices.sharedPreferences!.setString("username", username!.text);
+        saveTaxpayerToPrefs(response["user"]);
         myServices.sharedPreferences!.setString("wilaya", selectedstate!);
         myServices.sharedPreferences!.setString(
           "numperPhone",
@@ -183,6 +189,8 @@ class EditprofailecontrollerImp extends Editprofailecontroller {
 
     numperphone?.text =
         myServices.sharedPreferences?.getString("numperPhone") ?? "";
+
+    loadTaxpayerFromPrefs();
 
     var imagepath = myServices.sharedPreferences?.getString("image");
     print("=============$imagepath");

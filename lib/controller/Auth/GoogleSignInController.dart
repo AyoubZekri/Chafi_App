@@ -1,4 +1,5 @@
 import 'dart:io';
+import '../../core/constant/TaxpayerTypes.dart';
 
 import 'package:chafi/controller/HomeController.dart';
 import 'package:chafi/controller/ProfaileController.dart';
@@ -12,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../LinkApi.dart';
+import '../../core/class/Crud.dart';
+import '../../core/functions/AuthErrorLog.dart';
 import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/services/Services.dart';
@@ -49,11 +52,18 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
         return;
       }
       Login(user.uid);
-    } catch (e) {
-      print("Google SignIn Error: $e");
+    } catch (e, s) {
       statusrequest = Statusrequest.none;
       update();
-      // Get.snackbar("خطأ", e.toString());
+      // إلغاء المستخدم ليس خطأ
+      if (e == 'Login cancelled') {
+        print('ℹ️ [Google Sign-In] ألغى المستخدم تسجيل الدخول');
+        return;
+      }
+      logAuthError('Google Sign-In', e, s);
+      showTopError(
+        "${"فشل تسجيل الدخول بـ Google".tr} — ${shortAuthError(e)}",
+      );
     }
   }
 
@@ -64,6 +74,7 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
       String? fcmToken = await FirebaseMessaging.instance.getToken();
       print("FCM Token: $fcmToken");
 
+      Crud.lastError = null;
       var response = await loginData.login({"uid": uid, "token": fcmToken});
 
       if (response == Statusrequest.serverfailure) {
@@ -89,6 +100,7 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
             "numperPhone",
             response["user"]["numperPhone"],
           );
+          saveTaxpayerToPrefs(response["user"]);
           myServices.sharedPreferences!.setInt("user_notify_status", 1);
           myServices.sharedPreferences!.setString(
             "token",
@@ -142,14 +154,15 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
           }
         }
       } else {
-        statusrequest == Statusrequest.none;
-        showTopError("حدث خطأ".tr);
+        logAuthServerFailure('Login', response);
+        statusrequest = Statusrequest.none;
+        showTopError(authErrorForUser("حدث خطأ".tr));
         update();
       }
-    } catch (e) {
-      print("login Error: $e");
-      showTopError("حدث خطأ".tr);
-      statusrequest == Statusrequest.none;
+    } catch (e, s) {
+      logAuthError('Login', e, s);
+      showTopError("${"حدث خطأ".tr} — ${shortAuthError(e)}");
+      statusrequest = Statusrequest.none;
       update();
     }
   }

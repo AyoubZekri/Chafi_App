@@ -53,6 +53,7 @@ class TaxArticleModel {
   final int? pageStart;
   final String? nodeTitle;
   final String? documentTitle;
+  final String? documentTitleFr;
   final String? documentFile;
   final List<String> notes;
   final List<TaxArticleTable> tables;
@@ -69,6 +70,7 @@ class TaxArticleModel {
     this.pageStart,
     this.nodeTitle,
     this.documentTitle,
+    this.documentTitleFr,
     this.documentFile,
     required this.notes,
     required this.tables,
@@ -85,6 +87,12 @@ class TaxArticleModel {
       _isEnglish && labelEn != null ? TextDirection.ltr : TextDirection.rtl;
   TextDirection get textDirection =>
       _isEnglish && textEn != null ? TextDirection.ltr : TextDirection.rtl;
+
+  /// اسم الملف حسب لغة التطبيق
+  String? get localizedDocumentTitle =>
+      !_isArabic && documentTitleFr != null ? documentTitleFr : documentTitle;
+
+  bool get _isArabic => (Get.locale?.languageCode ?? 'ar') == 'ar';
 
   static String? _nonEmpty(dynamic v) {
     final s = v?.toString().trim() ?? '';
@@ -112,6 +120,7 @@ class TaxArticleModel {
               .join(' - ')
           : null,
       documentTitle: document is Map ? document['title_ar']?.toString() : null,
+      documentTitleFr: document is Map ? _nonEmpty(document['title_fr']) : null,
       documentFile: document is Map &&
               (document['file']?.toString() ?? '').isNotEmpty
           ? document['file'].toString()

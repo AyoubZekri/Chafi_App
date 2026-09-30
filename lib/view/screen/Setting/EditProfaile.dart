@@ -8,6 +8,7 @@ import '../../../core/constant/Colorapp.dart';
 import '../../widget/Button/CustemSuberButton.dart';
 import '../../widget/TextFild/CustemTextFromFildInfoUser.dart';
 import '../../widget/TextFild/Dropdownfild.dart';
+import '../../widget/TextFild/TaxpayerFields.dart';
 
 class Editprofaile extends StatefulWidget {
   const Editprofaile({super.key});
@@ -127,6 +128,7 @@ class _EditprofaileState extends State<Editprofaile> {
                   enabled: true,
                   iconData: Icons.phone,
                 ),
+                TaxpayerFields(controller: controller),
                 SizedBox(height: 50),
                 controller.statusrequest == Statusrequest.loadeng
                     ? Custemsuberbutton(

@@ -11,6 +11,14 @@ class TaxFilesData {
     return response.fold((l) => l, (r) => r);
   }
 
+  /// مواد محددة بأرقامها (المواد المرتبطة بالقوانين في البطاقات)
+  viewArticlesByIds(List<int> ids) async {
+    var response = await crud.postWithout(Applink.taxArticlesShow, {
+      "ids": ids.join(','),
+    });
+    return response.fold((l) => l, (r) => r);
+  }
+
   viewArticles(int documentId) async {
     var response = await crud.postWithout(Applink.taxArticlesShow, {
       "document_id": documentId.toString(),

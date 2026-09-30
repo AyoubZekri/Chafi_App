@@ -8,6 +8,7 @@ import '../../../core/class/Statusrequest.dart';
 import '../../widget/Button/CustemSuberButton.dart';
 import '../../widget/TextFild/CustemTextFromFildInfoUser.dart';
 import '../../widget/TextFild/Dropdownfild.dart';
+import '../../widget/TextFild/TaxpayerFields.dart';
 
 class Infouser extends StatefulWidget {
   const Infouser({super.key});
@@ -103,6 +104,7 @@ class _InfouserState extends State<Infouser> {
                       enabled: true,
                       iconData: Icons.phone,
                     ),
+                    TaxpayerFields(controller: controller),
                     Custemcardconferm(
                       onTapTerms: () {
                         showTaxAppTermsDialog(context);

@@ -11,6 +11,70 @@ import '../services/Services.dart';
 import 'Statusrequest.dart';
 
 class Crud {
+  /// آخر رسالة خطأ مقروءة من السيرفر (لعرضها للمستخدم إن احتجنا)
+  static String? lastError;
+
+  /// يحوّل رد السيرفر الفاشل إلى رسالة قصيرة مقروءة:
+  /// JSON -> message (+ error إن وجد) أو أول خطأ تحقق، HTML -> العنوان والفقرة
+  static String describeError(http.Response response) {
+    final body = response.body.trim();
+    String detail = '';
+    try {
+      final json = jsonDecode(body);
+      if (json is Map) {
+        final parts = <String>[];
+        if (json['message'] != null) parts.add(json['message'].toString());
+        if (json['error'] != null) parts.add(json['error'].toString());
+        final errors = json['errors'];
+        if (errors is Map && errors.isNotEmpty) {
+          final first = errors.values.first;
+          parts.add(first is List && first.isNotEmpty
+              ? first.first.toString()
+              : first.toString());
+        } else if (errors is String && errors.isNotEmpty) {
+          parts.add(errors);
+        }
+        detail = parts.toSet().join(' | ');
+      }
+    } catch (_) {
+      if (body.startsWith('<')) {
+        String? tag(String name) {
+          final m = RegExp('<$name[^>]*>([\s\S]*?)</$name>',
+                  caseSensitive: false)
+              .firstMatch(body);
+          if (m == null) return null;
+          final text = m
+              .group(1)!
+              .replaceAll(RegExp(r'<[^>]+>'), ' ')
+              .replaceAll(RegExp(r'\s+'), ' ')
+              .trim();
+          return text.isEmpty ? null : text;
+        }
+
+        detail = [tag('title') ?? tag('h1'), tag('p')]
+            .whereType<String>()
+            .toSet()
+            .join(' - ');
+      } else {
+        detail = body.length > 300 ? '${body.substring(0, 300)}...' : body;
+      }
+    }
+    final reason = response.reasonPhrase ?? '';
+    return detail.isEmpty
+        ? '${response.statusCode} $reason'.trim()
+        : '${response.statusCode}: $detail';
+  }
+
+  void _logError(String label, String url, http.Response response) {
+    lastError = describeError(response);
+    print("❌ $label: $url\n   -> $lastError");
+  }
+
+  void _logException(String label, String url, Object e) {
+    lastError = e.toString();
+    print("❌ $label: $url\n   -> ${e.runtimeType}: $e");
+  }
+
   // =========================
   // Helpers (TOKEN + HEADERS)
   // =========================
@@ -61,10 +125,10 @@ class Crud {
         return Right(jsonDecode(response.body));
       }
 
-      print("❌ API Error: ${response.body}");
+      _logError("API Error", linkurl, response);
       return const Left(Statusrequest.failure);
     } catch (e) {
-      print("❌ Exception postDataheaders: $e");
+      _logException("Exception postWithheaders", linkurl, e);
       return const Left(Statusrequest.failure);
     }
   }
@@ -92,10 +156,10 @@ class Crud {
         return Right(jsonDecode(response.body));
       }
 
-      print("❌ Logout Error: ${response.body}");
+      _logError("Logout Error", linkurl, response);
       return const Left(Statusrequest.failure);
     } catch (e) {
-      print("❌ Exception postDataheadersLogout: $e");
+      _logException("Exception logout", linkurl, e);
       return const Left(Statusrequest.failure);
     }
   }
@@ -123,10 +187,10 @@ class Crud {
         return Right(jsonDecode(response.body));
       }
 
-      print("❌ API Error: ${response.body}");
+      _logError("API Error", linkurl, response);
       return const Left(Statusrequest.failure);
     } catch (e, s) {
-      print("❌ Exception postData: $e");
+      _logException("Exception postWithout", linkurl, e);
       print("🔍 $s");
       return const Left(Statusrequest.failure);
     }
@@ -156,10 +220,10 @@ class Crud {
         return Right(jsonDecode(response.body));
       }
 
-      print("❌ GET Error: ${response.body}");
+      _logError("GET Error", linkurl, response);
       return const Left(Statusrequest.failure);
     } catch (e) {
-      print("❌ Exception getData: $e");
+      _logException("Exception getWithheaders", linkurl, e);
       return const Left(Statusrequest.failure);
     }
   }
@@ -207,10 +271,10 @@ class Crud {
         return Right(jsonDecode(response.body));
       }
 
-      print("❌ Multipart Error: ${response.statusCode} - ${response.body}");
+      _logError("Multipart Error", url, response);
       return const Left(Statusrequest.failure);
     } catch (e) {
-      print("❌ Exception addRequestWithImageOne: $e");
+      _logException("Exception multipart", url, e);
       return const Left(Statusrequest.failure);
     }
   }

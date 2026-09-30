@@ -1,11 +1,10 @@
-import 'package:chafi/view/screen/pdf.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../LinkApi.dart';
 import '../../../core/constant/Colorapp.dart';
 import '../../../controller/FavoritesController.dart';
+import '../TaxFiles/LinkedArticlesSheet.dart';
 
 class Custemcardinfo extends StatefulWidget {
   final String body;
@@ -47,9 +46,14 @@ class _CustemcardinfoState extends State<Custemcardinfo>
     with SingleTickerProviderStateMixin {
   bool isOpen = false;
 
+  bool get hasLinkedArticles => linkedArticleIds(widget.laws).isNotEmpty;
+
+  // زر "رابط" فقط إذا له إجراء ولم تكن هناك مواد مرتبطة
+  bool get showLinkButton =>
+      widget.Link && widget.onLink != null && !hasLinkedArticles;
+
   @override
   Widget build(BuildContext context) {
-    String lang = Get.locale?.languageCode ?? 'ar';
     bool isQuestion = widget.type == 10 && widget.typedeff == 1;
 
     return GestureDetector(
@@ -168,9 +172,8 @@ class _CustemcardinfoState extends State<Custemcardinfo>
                             buildRichText(widget.body, context),
 
                             if (widget.Calculator ||
-                                widget.Link ||
-                                (widget.laws != null &&
-                                    widget.laws!.isNotEmpty)) ...[
+                                hasLinkedArticles ||
+                                showLinkButton) ...[
                               const SizedBox(height: 15),
                               Divider(
                                 color: Colors.grey.shade300,
@@ -209,119 +212,14 @@ class _CustemcardinfoState extends State<Custemcardinfo>
                                       ),
                                     ),
                                   if (widget.Calculator &&
-                                      (widget.Link ||
-                                          (widget.laws != null &&
-                                              widget.laws!.isNotEmpty)))
+                                      (hasLinkedArticles || showLinkButton))
                                     const SizedBox(height: 10),
 
-                                  if (widget.laws != null &&
-                                      widget.laws!.isNotEmpty)
-                                    PopupMenuButton<dynamic>(
-                                      constraints: BoxConstraints(
-                                        minWidth:
-                                            context.width *
-                                            0.82, // 70% of screen width for example
-                                        maxWidth: context.width * 0.82,
-                                      ),
-                                      offset: const Offset(0, 50),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      onSelected: (selectedLaw) {},
-                                      itemBuilder: (context) {
-                                        return widget.laws!.map((law) {
-                                          String lawName = lang == 'ar'
-                                              ? (law['name_ar'] ?? '')
-                                              : (law['name_fr'] ?? '');
-                                          return PopupMenuItem<dynamic>(
-                                            value: law,
-                                            onTap: () {
-                                              Get.to(
-                                                () => PdfSearchPage(
-                                                  url:
-                                                      "${Applink.image}${law['pdf']}",
-                                                  initialPage:
-                                                      int.tryParse(
-                                                        law['index_link']
-                                                            .toString(),
-                                                      ) ??
-                                                      1,
-                                                ),
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                const Icon(
-                                                  Icons.description_outlined,
-                                                  size: 18,
-                                                  color: AppColor.typography,
-                                                ),
-                                                const SizedBox(width: 10),
-                                                Flexible(
-                                                  child: Text(
-                                                    lawName,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: context
-                                                        .textTheme
-                                                        .bodyMedium,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }).toList();
-                                      },
-
-                                      child: Container(
-                                        height: 48,
-                                        width: double.infinity,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                          border: Border.all(
-                                            color: AppColor.typography,
-                                            width: 1.5,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const Icon(
-                                              Icons.gavel,
-                                              size: 18,
-                                              color: AppColor.typography,
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              lang == 'ar'
-                                                  ? "القوانين"
-                                                  : "Lois",
-                                              style: context
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.copyWith(
-                                                    color: AppColor.typography,
-                                                    fontSize: 17,
-                                                  ),
-                                            ),
-                                            const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: AppColor.typography,
-                                              size: 24,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  else if (widget.Link)
+                                  // في مكان القوانين: المواد المرتبطة بها فقط
+                                  // (القانون غير المرتبط بمادة لا يظهر في البطاقة)
+                                  if (hasLinkedArticles)
+                                    LinkedArticlesButton(laws: widget.laws)
+                                  else if (showLinkButton)
                                     OutlinedButton.icon(
                                       onPressed: widget.onLink,
                                       icon: const Icon(Icons.link),
