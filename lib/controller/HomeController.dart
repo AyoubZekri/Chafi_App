@@ -106,7 +106,7 @@ class HomecontrollerImp extends Homecontroller {
     print("=======numEnter======$numEnter");
 
     if (isLoggedIn &&
-        (numEnter == 1 || (numEnter > 0 && numEnter % 5 == 0)) &&
+        (numEnter == 1 || numEnter == 4 || numEnter == 8) &&
         lastFeedbackNumEnter != numEnter) {
       Future.delayed(const Duration(seconds: 2), () {
         if (Get.isDialogOpen != true) {

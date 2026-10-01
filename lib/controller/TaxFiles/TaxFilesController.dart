@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-
+import '../../data/datasource/statec/statec.dart';
 import '../../core/class/Statusrequest.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../data/datasource/Remote/TaxFilesData.dart';
@@ -33,7 +33,7 @@ class TaxFilesController extends GetxController {
   }
 
   void openFile(TaxDocumentModel document) {
-    Get.to(() => TaxFileArticles(document: document));
+    handleLoginRequired(() => Get.to(() => TaxFileArticles(document: document)));
   }
 
   @override

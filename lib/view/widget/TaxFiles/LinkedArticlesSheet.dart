@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../data/datasource/statec/statec.dart';
 
 import '../../../core/class/Statusrequest.dart';
 import '../../../core/constant/Colorapp.dart';
@@ -34,7 +35,7 @@ class LinkedArticlesButton extends StatelessWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(10),
-      onTap: () => showLinkedArticles(context, ids),
+      onTap: () => handleLoginRequired(() => showLinkedArticles(context, ids)),
       child: Container(
         height: 48,
         width: double.infinity,
