@@ -36,9 +36,19 @@ class TaxFileArticlesController extends GetxController {
           ..clear()
           ..addEntries(data.map((a) => MapEntry(
                 a.id,
-                normalize([a.label, a.labelEn, a.number, a.nodeTitle, a.text, a.textEn]
-                    .whereType<String>()
-                    .join(' ')),
+                normalize([
+                  a.label,
+                  a.labelEn,
+                  a.number,
+                  a.nodeTitle,
+                  a.text,
+                  a.textEn,
+                  // كلمات الجداول: العناوين ونصوص الخلايا
+                  for (final t in a.tables) ...[
+                    t.title,
+                    for (final c in t.cells) c.text,
+                  ],
+                ].whereType<String>().join(' ')),
               )));
         _applySearch();
         if (data.isEmpty) statusrequest = Statusrequest.nodata;
