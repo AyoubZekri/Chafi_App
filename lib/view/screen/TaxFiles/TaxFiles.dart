@@ -6,9 +6,12 @@ import '../../../core/class/handlingview.dart';
 import '../../../core/constant/Colorapp.dart';
 import '../../widget/Button/CustoumButtonCard.dart';
 
-/// ملفات "جبايتك" في مكان صفحة القوانين
+/// ملفات "جبايتك": في شريط التنقل (كل المواد)،
+/// أو من "البحث في الجباية" في الرئيسية (المواد المقننة فقط)
 class TaxFiles extends StatelessWidget {
-  const TaxFiles({super.key});
+  final bool codifiedOnly;
+
+  const TaxFiles({super.key, this.codifiedOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,9 @@ class TaxFiles extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("78".tr)),
+      appBar: AppBar(
+        title: Text(codifiedOnly ? "البحث في الجباية".tr : "78".tr),
+      ),
       body: GetBuilder<TaxFilesController>(
         builder: (controller) {
           return RefreshIndicator(
@@ -35,7 +40,10 @@ class TaxFiles extends StatelessWidget {
                     description: item.year == null
                         ? "عرض المواد".tr
                         : '${"إصدار".tr} ${item.year}',
-                    onTap: () => controller.openFile(item),
+                    onTap: () => controller.openFile(
+                      item,
+                      codifiedOnly: codifiedOnly,
+                    ),
                   );
                 },
               ),

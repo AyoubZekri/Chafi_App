@@ -13,7 +13,6 @@ class Initialbindings extends Bindings {
     Get.put(Myservices());
     Get.put(HomecontrollerImp(), permanent: true);
     // Get.put(ProfailecontrollerImp());
-
   }
 }
 

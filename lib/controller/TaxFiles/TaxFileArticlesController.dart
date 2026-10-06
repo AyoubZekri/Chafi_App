@@ -9,7 +9,11 @@ import '../../data/model/TaxFileModel.dart';
 /// مواد ملف واحد مع البحث بالمادة، الرقم، العنوان ونص المادة
 class TaxFileArticlesController extends GetxController {
   final TaxDocumentModel document;
-  TaxFileArticlesController(this.document);
+
+  /// صفحة "البحث في الجباية": المواد المقننة فقط
+  final bool codifiedOnly;
+
+  TaxFileArticlesController(this.document, {this.codifiedOnly = false});
 
   TaxFilesData taxFilesData = TaxFilesData(Get.find());
   Statusrequest statusrequest = Statusrequest.none;
@@ -31,7 +35,10 @@ class TaxFileArticlesController extends GetxController {
     if (statusrequest == Statusrequest.success) {
       if (response["status"] == 1 || response["status"] == true) {
         List listdata = response['data'];
-        data = listdata.map((e) => TaxArticleModel.fromJson(e)).toList();
+        data = listdata
+            .map((e) => TaxArticleModel.fromJson(e))
+            .where((a) => !codifiedOnly || a.isCodified)
+            .toList();
         _searchIndex
           ..clear()
           ..addEntries(data.map((a) => MapEntry(

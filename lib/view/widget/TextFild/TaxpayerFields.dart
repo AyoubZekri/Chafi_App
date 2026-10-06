@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constant/TaxpayerTypes.dart';
+import '../../../core/functions/ArabicStretch.dart';
 import 'Dropdownfild.dart';
 
 /// اختيار صفة المكلف بالضريبة، وسؤال التسجيل في الإدارة الجبائية
@@ -13,6 +14,16 @@ class TaxpayerFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // بالعربية: الأسماء القصيرة تُطال بالتطويل "ـ" لتقارب طول أطولها
+    final labels = TaxpayerTypes.all.map(TaxpayerTypes.label).toList();
+    final isArabic = (Get.locale?.languageCode ?? 'ar') == 'ar';
+    final shown = isArabic
+        ? stretchToLongest(
+            labels,
+            DefaultTextStyle.of(context).style.copyWith(fontSize: 16),
+          )
+        : labels;
+
     return Column(
       children: [
         Dropdownfild<String>(
@@ -21,17 +32,16 @@ class TaxpayerFields extends StatelessWidget {
           maxLines: 3,
           fontSize: 14,
           errorText: controller.taxpayerTypeError,
-          items: TaxpayerTypes.all
-              .map(
-                (type) => DropdownMenuItem<String>(
-                  value: type,
-                  child: Text(
-                    TaxpayerTypes.label(type),
-                    style: const TextStyle(fontSize: 14),
-                  ),
+          items: [
+            for (int i = 0; i < TaxpayerTypes.all.length; i++)
+              DropdownMenuItem<String>(
+                value: TaxpayerTypes.all[i],
+                child: Text(
+                  shown[i],
+                  style: const TextStyle(fontSize: 14),
                 ),
-              )
-              .toList(),
+              ),
+          ],
           value: controller.taxpayerType,
           onChanged: controller.setTaxpayerType,
         ),

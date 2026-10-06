@@ -32,8 +32,12 @@ class TaxFilesController extends GetxController {
     update();
   }
 
-  void openFile(TaxDocumentModel document) {
-    handleLoginRequired(() => Get.to(() => TaxFileArticles(document: document)));
+  /// [codifiedOnly]: صفحة "البحث في الجباية" تعرض المواد المقننة فقط
+  void openFile(TaxDocumentModel document, {bool codifiedOnly = false}) {
+    handleLoginRequired(() => Get.to(
+          () => TaxFileArticles(document: document, codifiedOnly: codifiedOnly),
+          preventDuplicates: false,
+        ));
   }
 
   @override

@@ -104,6 +104,10 @@ class _TaxArticleCardState extends State<TaxArticleCard> {
             color: AppColor.typography,
           ),
         ),
+        if (!article.isCodified) ...[
+          const SizedBox(height: 6),
+          _nonCodifiedChip(),
+        ],
         if (article.isRepealed) ...[
           const SizedBox(height: 4),
           Text(
@@ -125,6 +129,34 @@ class _TaxArticleCardState extends State<TaxArticleCard> {
           ),
         ],
       ],
+    );
+  }
+
+  static const Color _nonCodifiedColor = Color(0xFFE07B00);
+
+  /// تمييز المادة غير المقننة
+  Widget _nonCodifiedChip() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: _nonCodifiedColor.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.info_outline, size: 14, color: _nonCodifiedColor),
+          const SizedBox(width: 4),
+          Text(
+            "غير مقننة".tr,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: _nonCodifiedColor,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

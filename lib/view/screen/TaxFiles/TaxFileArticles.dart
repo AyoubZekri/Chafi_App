@@ -11,17 +11,29 @@ import '../../widget/TaxFiles/TaxArticleCard.dart';
 class TaxFileArticles extends StatelessWidget {
   final TaxDocumentModel document;
 
-  const TaxFileArticles({super.key, required this.document});
+  /// صفحة "البحث في الجباية": المواد المقننة فقط
+  final bool codifiedOnly;
+
+  const TaxFileArticles({
+    super.key,
+    required this.document,
+    this.codifiedOnly = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     // tag حتى يكون لكل ملف متحكم خاص به
-    final tag = 'tax-file-${document.id}';
-    Get.put(TaxFileArticlesController(document), tag: tag);
+    final tag = 'tax-file-${document.id}-${codifiedOnly ? 'code' : 'all'}';
+    Get.put(
+      TaxFileArticlesController(document, codifiedOnly: codifiedOnly),
+      tag: tag,
+    );
 
     return Scaffold(
       backgroundColor: AppColor.white,
-      appBar: AppBar(title: Text("78".tr)),
+      appBar: AppBar(
+        title: Text(codifiedOnly ? "البحث في الجباية".tr : "78".tr),
+      ),
       body: GetBuilder<TaxFileArticlesController>(
         tag: tag,
         builder: (controller) {
@@ -93,8 +105,16 @@ class TaxFileArticles extends StatelessWidget {
               textInputAction: TextInputAction.search,
               style: const TextStyle(fontSize: 16),
               decoration: InputDecoration(
-                hintText: "ابحث".tr,
-                hintStyle: const TextStyle(fontSize: 14),
+                hintText: codifiedOnly
+                    ? "إبحث : بالمادة المقننة , الكلمة , الجملة".tr
+                    : "إبحث : بالمادة المقننة والغير مقننة , الكلمة , الجملة".tr,
+                // نص إرشادي رمادي باهت
+                hintStyle: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey.shade400,
+                ),
+                hintMaxLines: 2,
                 border: InputBorder.none,
               ),
             ),

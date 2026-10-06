@@ -46,6 +46,8 @@ class TaxArticleModel {
   final int documentId;
   final String label;
   final String? labelEn;
+  /// code = مادة مقننة، non_codified = غير مقننة
+  final String part;
   final String? number;
   final String text;
   final String? textEn;
@@ -63,6 +65,7 @@ class TaxArticleModel {
     required this.documentId,
     required this.label,
     this.labelEn,
+    this.part = 'code',
     this.number,
     required this.text,
     this.textEn,
@@ -75,6 +78,8 @@ class TaxArticleModel {
     required this.notes,
     required this.tables,
   });
+
+  bool get isCodified => part != 'non_codified';
 
   bool get _isEnglish => (Get.locale?.languageCode ?? 'ar') == 'en';
 
@@ -108,6 +113,7 @@ class TaxArticleModel {
       id: _toInt(json['id'])!,
       documentId: _toInt(json['document_id']) ?? 0,
       label: json['label']?.toString() ?? '',
+      part: json['part']?.toString() == 'non_codified' ? 'non_codified' : 'code',
       labelEn: _nonEmpty(json['label_en']),
       number: json['number']?.toString(),
       text: json['text']?.toString() ?? '',

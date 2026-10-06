@@ -10,6 +10,8 @@ import '../widget/home/CustemCardHome.dart';
 import '../widget/home/ScrollCardServece.dart';
 import '../widget/home/Slaider.dart';
 import '../widget/home/Welcome.dart';
+import 'TaxFiles/TaxFiles.dart';
+import '../../data/datasource/statec/statec.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -90,12 +92,15 @@ class _HomeState extends State<Home> {
                           style: context.textTheme.headlineLarge,
                           textAlign: TextAlign.start,
                         ),
+                        // البحث في المواد المقننة لملفات "جبايتك"
                         InkWell(
-                          onTap: () {
-                            controller.gotoArticles();
-                          },
+                          onTap: () => handleLoginRequired(
+                            () => Get.to(
+                              () => const TaxFiles(codifiedOnly: true),
+                            ),
+                          ),
                           child: Text(
-                            "24".tr,
+                            "البحث في الجباية".tr,
                             style: context.textTheme.headlineLarge?.copyWith(
                               color: AppColor.primarycolor,
                               fontSize: 16,
