@@ -11,6 +11,7 @@ import '../widget/home/ScrollCardServece.dart';
 import '../widget/home/Slaider.dart';
 import '../widget/home/Welcome.dart';
 import 'TaxFiles/TaxFiles.dart';
+import 'Chat/ChatScreen.dart';
 import '../../data/datasource/statec/statec.dart';
 
 class Home extends StatefulWidget {
@@ -40,6 +41,38 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
+
+      // المساعد الذكي: أيقونة في دائرة متدرجة (يتطلب تسجيل الدخول لحفظ المحادثات)
+      floatingActionButton: Tooltip(
+        message: "ChafiBot",
+        child: Container(
+          width: 58,
+          height: 58,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              begin: AlignmentDirectional.topStart,
+              end: AlignmentDirectional.bottomEnd,
+              colors: [AppColor.typography, AppColor.primarycolor],
+            ),
+          ),
+          child: Material(
+            color: Colors.transparent,
+            shape: const CircleBorder(),
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: () => handleLoginRequired(
+                () => Get.to(() => const ChatScreen()),
+              ),
+              child: const Icon(
+                Icons.support_agent_rounded,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+          ),
+        ),
+      ),
 
       // floatingActionButton: FloatingActionButton.extended(
       //   backgroundColor: AppColor.typography,

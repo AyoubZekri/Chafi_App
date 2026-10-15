@@ -218,9 +218,9 @@ class _ProfaileState extends State<Profaile> {
                         ),
                         Builddeadlinetile(
                           icon: Icons.support_agent_outlined,
-                          title: "consultations".tr,
+                          title: "ChafiBot",
                           ontap: () {
-                            controller.gotoConsultations();
+                            controller.gotoAssistant();
                           },
                         ),
                       ]),

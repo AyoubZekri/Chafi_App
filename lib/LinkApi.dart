@@ -74,4 +74,11 @@ class Applink {
       "$server/bonusesandcompensations/Show";
   static const String favoritesShow = "$server/user/Favorites/Show";
   static const String addFeedback = "$server/addFeedback";
+
+  // المساعد الذكي
+  static const String chatConversations = "$server/Chat/Conversations";
+  static const String chatMessages = "$server/Chat/Messages";
+  static const String chatSend = "$server/Chat/Send";
+  static const String chatRename = "$server/Chat/Rename";
+  static const String chatDelete = "$server/Chat/Delete";
 }

@@ -12,6 +12,8 @@ import '../core/constant/Imageassets.dart';
 import '../core/functions/Snacpar.dart';
 import '../core/functions/handlingdatacontroller.dart';
 import '../core/services/Services.dart';
+import '../data/datasource/statec/statec.dart';
+import '../view/screen/Chat/ChatScreen.dart';
 import '../view/widget/Setting/custemLanguge.dart';
 
 class Profailecontroller extends GetxController {
@@ -22,7 +24,7 @@ class Profailecontroller extends GetxController {
   void gotoPrivacypolicy() {}
   void gotoExternallinks() {}
   void gotoTrainingCourses() {}
-  void gotoConsultations() {}
+  void gotoAssistant() {}
   void gotoFavorites() {}
 }
 
@@ -132,9 +134,10 @@ class ProfailecontrollerImp extends Profailecontroller {
     Get.toNamed(Approutes.underconstruction, arguments: {"title": "training_courses".tr});
   }
 
+  /// المساعد الذكي (يتطلب تسجيل الدخول لحفظ المحادثات)
   @override
-  gotoConsultations() {
-    Get.toNamed(Approutes.underconstruction, arguments: {"title": "consultations".tr});
+  gotoAssistant() {
+    handleLoginRequired(() => Get.to(() => const ChatScreen()));
   }
 
   @override

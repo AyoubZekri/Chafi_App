@@ -14,6 +14,9 @@ class Crud {
   /// آخر رسالة خطأ مقروءة من السيرفر (لعرضها للمستخدم إن احتجنا)
   static String? lastError;
 
+  /// رمز حالة آخر رد فاشل (422، 503، 504...)، أو null إذا لم يصل رد
+  static int? lastStatusCode;
+
   /// يحوّل رد السيرفر الفاشل إلى رسالة قصيرة مقروءة:
   /// JSON -> message (+ error إن وجد) أو أول خطأ تحقق، HTML -> العنوان والفقرة
   static String describeError(http.Response response) {
@@ -67,6 +70,7 @@ class Crud {
 
   void _logError(String label, String url, http.Response response) {
     lastError = describeError(response);
+    lastStatusCode = response.statusCode;
     print("❌ $label: $url\n   -> $lastError");
   }
 
@@ -104,10 +108,13 @@ class Crud {
   // POST JSON WITH TOKEN
   // =========================
 
+  /// [timeout]: أقصى مدة للطلب (مثلاً المساعد الذكي)، وبدونه لا حد
   Future<Either<Statusrequest, Map>> postWithheaders(
     String linkurl,
-    Map data,
-  ) async {
+    Map data, {
+    Duration? timeout,
+  }) async {
+    lastStatusCode = null;
     try {
       if (!await checkInternet()) {
         return const Left(Statusrequest.serverfailure);
@@ -118,7 +125,9 @@ class Crud {
       request.headers.addAll(_jsonHeadersWithToken());
       request.body = jsonEncode(data);
 
-      final streamed = await request.send();
+      final pending = request.send();
+      final streamed =
+          timeout == null ? await pending : await pending.timeout(timeout);
       final response = await http.Response.fromStream(streamed);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
