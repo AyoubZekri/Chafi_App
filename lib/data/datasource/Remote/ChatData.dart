@@ -19,12 +19,22 @@ class ChatData {
   }
 
   /// بدون [conversationId] تُنشأ محادثة جديدة.
-  /// المساعد قد يأخذ وقتاً (بحث + نموذج)، فالحد 4 دقائق بدل الانتظار بلا نهاية
+  /// بدون حد زمني: ينتظر حتى يصل الجواب مهما طال البحث
   send(String message, {int? conversationId}) async {
     var response = await crud.postWithheaders(Applink.chatSend, {
       "message": message,
       if (conversationId != null) "conversation_id": conversationId,
-    }, timeout: const Duration(minutes: 4));
+    });
+    return response.fold((l) => l, (r) => r);
+  }
+
+  /// تعديل سؤال سابق: يُستبدل هو وكل ما بعده بالسؤال الجديد وجوابه
+  edit(int conversationId, int messageId, String message) async {
+    var response = await crud.postWithheaders(Applink.chatEdit, {
+      "conversation_id": conversationId,
+      "message_id": messageId,
+      "message": message,
+    });
     return response.fold((l) => l, (r) => r);
   }
 

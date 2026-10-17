@@ -1,14 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/class/Crud.dart';
 import '../../core/class/Statusrequest.dart';
-import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../data/datasource/Remote/ChatData.dart';
 import '../../data/model/ChatModel.dart';
 
-/// المساعد الذكي: المحادثة الحالية + قائمة المحادثات المحفوظة
+/// المساعد الذكي: المحادثة الحالية + قائمة المحادثات المحفوظة.
+/// لا رسائل snackbar: فشل الإرسال يظهر كرسالة في المحادثة مع "إعادة المحاولة"،
+/// وفشل تحميل المحادثة بـ Handlingview، والتنبيهات القصيرة في شريط فوق الحقل
 class ChatController extends GetxController {
   final ChatData chatData = ChatData(Get.find());
   final TextEditingController input = TextEditingController();
@@ -22,8 +25,15 @@ class ChatController extends GetxController {
   List<ChatMessageModel> messages = [];
   bool loadingMessages = false;
 
+  /// حالة تحميل رسائل المحادثة المفتوحة (فشل ← Handlingview)
+  Statusrequest messagesStatus = Statusrequest.success;
+
   /// المساعد يكتب...
   bool sending = false;
+
+  /// تنبيه قصير يظهر فوق حقل الكتابة ثم يختفي (بدل snackbar)
+  String? notice;
+  Timer? _noticeTimer;
 
   bool _ok(dynamic response) =>
       handlingData(response) == Statusrequest.success &&
@@ -31,7 +41,7 @@ class ChatController extends GetxController {
       (response['status'] == 1 || response['status'] == true);
 
   /// رسالة خطأ مفهومة للمستخدم:
-  /// رسائل السيرفر العربية (الحد اليومي، لم يتم العثور على إجابة...) تُعرض كما هي،
+  /// رسائل السيرفر العربية (الحد اليومي...) تُعرض كما هي،
   /// وأخطاء الشبكة والمهلة وصفحات HTML تُستبدل بجملة واضحة
   String _error(dynamic response, String fallback) {
     if (response == Statusrequest.serverfailure) {
@@ -48,19 +58,32 @@ class ChatController extends GetxController {
       return "ChafiBot غير متاح حالياً، حاول لاحقاً".tr;
     }
     final message = text.replaceFirst(RegExp(r'^\d{3}:\s*'), '').trim();
-    // رسالة السيرفر مفيدة إذا كانت جملة مكتوبة (بالعربية أو رسالة "No answer found")
-    final readable = message.isNotEmpty &&
+    // رسالة السيرفر مفيدة إذا كانت جملة مكتوبة بالعربية
+    final readable =
+        message.isNotEmpty &&
         !message.contains('Exception') &&
-        (RegExp(r'[؀-ۿ]').hasMatch(message) ||
-            message.startsWith('No answer') ||
-            message.startsWith('Aucune'));
+        RegExp(r'[؀-ۿ]').hasMatch(message);
     return readable ? message : fallback.tr;
+  }
+
+  /// إعادة المحاولة لا تفيد في الحد اليومي ولا في انتهاء الجلسة
+  /// (ولا في "لم يتم العثور على إجابة" 422 من نسخة السيرفر القديمة)
+  bool get _canRetry => ![429, 401, 422].contains(Crud.lastStatusCode);
+
+  void _showNotice(String text) {
+    notice = text;
+    _noticeTimer?.cancel();
+    _noticeTimer = Timer(const Duration(seconds: 3), () {
+      notice = null;
+      update();
+    });
+    update();
   }
 
   /// لا تبديل ولا حذف للمحادثة والمساعد يكتب، وإلا يُضاف الجواب لمحادثة أخرى
   bool _busy() {
     if (!sending) return false;
-    showSnackbar("تنبيه".tr, "انتظر حتى يكمل ChafiBot الجواب".tr, Colors.orange);
+    _showNotice("انتظر حتى يكمل ChafiBot الجواب".tr);
     return true;
   }
 
@@ -73,10 +96,14 @@ class ChatController extends GetxController {
         for (final c in (response['data'] as List? ?? []))
           ChatConversationModel.fromJson(c),
       ];
-      conversationsStatus =
-          conversations.isEmpty ? Statusrequest.nodata : Statusrequest.success;
+      conversationsStatus = conversations.isEmpty
+          ? Statusrequest.nodata
+          : Statusrequest.success;
     } else {
-      conversationsStatus = Statusrequest.failure;
+      // بدون إنترنت أو خطأ: يعرضهما Handlingview
+      conversationsStatus = response == Statusrequest.serverfailure
+          ? Statusrequest.serverfailure
+          : Statusrequest.failure;
     }
     update();
   }
@@ -85,7 +112,9 @@ class ChatController extends GetxController {
     if (_busy()) return;
     current = conversation;
     messages = [];
+    editing = null;
     loadingMessages = true;
+    messagesStatus = Statusrequest.success;
     Crud.lastError = null;
     update();
     final response = await chatData.messages(conversation.id);
@@ -96,17 +125,42 @@ class ChatController extends GetxController {
           ChatMessageModel.fromJson(m),
       ];
     } else {
-      showSnackbar(
-          "خطأ".tr, _error(response, "تعذر تحميل المحادثة"), Colors.red);
+      messagesStatus = response == Statusrequest.serverfailure
+          ? Statusrequest.serverfailure
+          : Statusrequest.failure;
     }
     update();
     _scrollToEnd();
+  }
+
+  /// إعادة تحميل المحادثة المفتوحة (بعد فشل التحميل)
+  Future<void> reloadConversation() async {
+    if (current != null) await openConversation(current!);
   }
 
   void newConversation() {
     if (_busy()) return;
     current = null;
     messages = [];
+    editing = null;
+    messagesStatus = Statusrequest.success;
+    input.clear();
+    update();
+  }
+
+  /// سؤال سابق قيد التعديل (مثل ChatGPT): عند الإرسال يُستبدل هو وكل ما بعده
+  ChatMessageModel? editing;
+
+  void startEdit(ChatMessageModel message) {
+    if (_busy() || message.id == null || current == null) return;
+    editing = message;
+    input.text = message.content;
+    input.selection = TextSelection.collapsed(offset: input.text.length);
+    update();
+  }
+
+  void cancelEdit() {
+    editing = null;
     input.clear();
     update();
   }
@@ -117,14 +171,26 @@ class ChatController extends GetxController {
 
     Crud.lastError = null;
     input.clear();
-    // تظهر رسالة المستخدم فوراً، وتُحذف إذا فشل الإرسال
+    // رسائل الفشل السابقة وأسئلتها غير المحفوظة لم تعد لازمة
+    messages.removeWhere((m) => m.isError || (m.isUser && m.id == null));
+
+    // التعديل: نخفي السؤال القديم وما بعده فوراً، ونرجعه إذا فشل الإرسال
+    final edited = editing;
+    final editIndex = edited == null ? -1 : messages.indexOf(edited);
+    final before = List<ChatMessageModel>.from(messages);
+    editing = null;
+    if (editIndex >= 0) messages = messages.sublist(0, editIndex);
+
+    // تظهر رسالة المستخدم فوراً
     final pending = ChatMessageModel(role: 'user', content: message);
     messages.add(pending);
     sending = true;
     update();
     _scrollToEnd();
 
-    final response = await chatData.send(message, conversationId: current?.id);
+    final response = editIndex >= 0
+        ? await chatData.edit(current!.id, edited!.id!, message)
+        : await chatData.send(message, conversationId: current?.id);
     sending = false;
 
     if (_ok(response)) {
@@ -139,34 +205,62 @@ class ChatController extends GetxController {
         conversations.removeWhere((c) => c.id == conversation.id);
         conversations.insert(0, current!);
       }
+      // سؤال السيرفر (برقمه) مكان المؤقت، حتى يمكن تعديله لاحقاً
+      if (data['user_message'] is Map) {
+        final index = messages.indexOf(pending);
+        if (index >= 0) {
+          messages[index] = ChatMessageModel.fromJson(data['user_message']);
+        }
+      }
       messages.add(ChatMessageModel.fromJson(data['message']));
     } else {
-      messages.remove(pending);
-      input.text = message; // حتى لا يضيع ما كتبه
-      showSnackbar(
-          "خطأ".tr,
-          _error(response, "ChafiBot غير متاح حالياً، حاول لاحقاً"),
-          Colors.red);
+      final error = _error(response, "ChafiBot غير متاح حالياً، حاول لاحقاً");
+      if (editIndex >= 0) {
+        // فشل التعديل: يرجع كل شيء كما كان، والسؤال يبقى قيد التعديل
+        messages = before;
+        editing = edited;
+        input.text = message;
+      }
+      // الفشل كجواب من ChafiBot (لا snackbar)، مع إعادة المحاولة إن كانت تفيد
+      messages.add(
+        ChatMessageModel(
+          role: 'error',
+          content: error,
+          retryText: _canRetry ? message : null,
+        ),
+      );
     }
     update();
     _scrollToEnd();
   }
 
-  Future<void> rename(ChatConversationModel conversation, String title) async {
+  /// "إعادة المحاولة" في رسالة الفشل: تُحذف هي وسؤالها غير المحفوظ ثم يُعاد الإرسال
+  Future<void> retry(ChatMessageModel failed) async {
+    if (sending || failed.retryText == null) return;
+    messages.remove(failed);
+    await send(failed.retryText);
+  }
+
+  /// يرجع رسالة الخطأ، أو null إذا نجح
+  Future<String?> rename(
+    ChatConversationModel conversation,
+    String title,
+  ) async {
     title = title.trim();
-    if (title.isEmpty || title == conversation.title) return;
+    if (title.isEmpty || title == conversation.title) return null;
     Crud.lastError = null;
     final response = await chatData.rename(conversation.id, title);
     if (_ok(response)) {
       conversation.title = title;
       update();
-    } else {
-      showSnackbar("خطأ".tr, _error(response, "فشل التعديل"), Colors.red);
+      return null;
     }
+    return _error(response, "فشل التعديل");
   }
 
-  Future<void> delete(ChatConversationModel conversation) async {
-    if (_busy()) return;
+  /// يرجع رسالة الخطأ، أو null إذا نجح
+  Future<String?> delete(ChatConversationModel conversation) async {
+    if (sending) return "انتظر حتى يكمل ChafiBot الجواب".tr;
     Crud.lastError = null;
     final response = await chatData.delete(conversation.id);
     if (_ok(response)) {
@@ -174,9 +268,9 @@ class ChatController extends GetxController {
       if (conversations.isEmpty) conversationsStatus = Statusrequest.nodata;
       if (current?.id == conversation.id) newConversation();
       update();
-    } else {
-      showSnackbar("خطأ".tr, _error(response, "فشل الحذف"), Colors.red);
+      return null;
     }
+    return _error(response, "فشل الحذف");
   }
 
   void _scrollToEnd() {
@@ -198,6 +292,7 @@ class ChatController extends GetxController {
 
   @override
   void onClose() {
+    _noticeTimer?.cancel();
     input.dispose();
     scroll.dispose();
     super.onClose();

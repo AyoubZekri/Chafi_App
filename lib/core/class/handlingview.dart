@@ -58,7 +58,8 @@ class Handlingview extends StatelessWidget {
 
       case Statusrequest.nodata:
         return _errorView(
-          icon: Icons.folder_open_rounded,
+          // أيقونة مخصصة إن مُررت (مثلاً: بحث بلا نتائج)، وإلا المجلد
+          icon: iconData ?? Icons.folder_open_rounded,
           message: title ?? 'لا توجد بيانات لعرضها'.tr,
         );
       default:
@@ -178,7 +179,10 @@ class Handlingview extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         onPressed: () {
-                          Get.toNamed(Approutes.googleSignIn,arguments: {"type":1});
+                          Get.toNamed(
+                            Approutes.googleSignIn,
+                            arguments: {"type": 1},
+                          );
                         },
                         child: Custemheadlinemedium(content: "تسجيل الدخول".tr),
                       ),

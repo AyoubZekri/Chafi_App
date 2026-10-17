@@ -5,6 +5,11 @@ class MyTranslation extends Translations {
   Map<String, Map<String, String>> get keys => {
     "ar": {
       // ===== المساعد الذكي =====
+      "جاري البحث عن جواب...": "جاري البحث عن جواب...",
+      "تعديل السؤال": "تعديل السؤال",
+      "تأكيد الحذف": "تأكيد الحذف",
+      "هل أنت متأكد من أنك تريد حذف هذه المحادثة بشكل نهائي؟": "هل أنت متأكد من أنك تريد حذف هذه المحادثة بشكل نهائي؟",
+      "اسم المحادثة": "اسم المحادثة",
       "اسأل": "اسأل",
       "محادثاتي": "محادثاتي",
       "محادثة": "محادثة",
@@ -13,7 +18,6 @@ class MyTranslation extends Translations {
       "هذا الأسبوع": "هذا الأسبوع",
       "أقدم": "أقدم",
       "تم": "تم",
-      "تم النسخ": "تم النسخ",
       "نسخ": "نسخ",
       "يكتب...": "يكتب...",
       "يجيب من قاعدة بيانات شافي": "يجيب من قاعدة بيانات شافي",
@@ -44,7 +48,6 @@ class MyTranslation extends Translations {
       "تأخرت شهر في التصريح G12، واش هي الغرامة؟": "تأخرت شهر في التصريح G12، واش هي الغرامة؟",
       "شنو هي الضريبة الجزافية الوحيدة؟": "شنو هي الضريبة الجزافية الوحيدة؟",
       "رقم أعمالي 3.000.000 دج، قداش نخلص ضريبة؟": "رقم أعمالي 3.000.000 دج، قداش نخلص ضريبة؟",
-      "ChafiBot يبحث ويكتب الجواب...": "ChafiBot يبحث ويكتب الجواب...",
       "اكتب سؤالك...": "اكتب سؤالك...",
       "الإجابات للاستئناس، راجع المادة الأصلية قبل أي قرار": "الإجابات للاستئناس، راجع المادة الأصلية قبل أي قرار",
       "إعادة تسمية المحادثة": "إعادة تسمية المحادثة",
@@ -1105,6 +1108,11 @@ class MyTranslation extends Translations {
     },
     "en": {
       // ===== المساعد الذكي =====
+      "جاري البحث عن جواب...": "Searching for an answer...",
+      "تعديل السؤال": "Editing question",
+      "تأكيد الحذف": "Confirm deletion",
+      "هل أنت متأكد من أنك تريد حذف هذه المحادثة بشكل نهائي؟": "Are you sure you want to permanently delete this chat?",
+      "اسم المحادثة": "Chat name",
       "اسأل": "Ask",
       "محادثاتي": "My chats",
       "محادثة": "chats",
@@ -1113,7 +1121,6 @@ class MyTranslation extends Translations {
       "هذا الأسبوع": "This week",
       "أقدم": "Older",
       "تم": "Done",
-      "تم النسخ": "Copied",
       "نسخ": "Copy",
       "يكتب...": "Typing...",
       "يجيب من قاعدة بيانات شافي": "Answers from Chafi's database",
@@ -1144,7 +1151,6 @@ class MyTranslation extends Translations {
       "تأخرت شهر في التصريح G12، واش هي الغرامة؟": "I filed my G12 declaration one month late, what is the penalty?",
       "شنو هي الضريبة الجزافية الوحيدة؟": "What is the IFU (single flat-rate tax)?",
       "رقم أعمالي 3.000.000 دج، قداش نخلص ضريبة؟": "My turnover is 3,000,000 DZD, how much tax do I pay?",
-      "ChafiBot يبحث ويكتب الجواب...": "ChafiBot is searching and writing...",
       "اكتب سؤالك...": "Type your question...",
       "الإجابات للاستئناس، راجع المادة الأصلية قبل أي قرار": "Answers are for guidance; check the original article before any decision",
       "إعادة تسمية المحادثة": "Rename chat",

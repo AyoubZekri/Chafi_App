@@ -47,13 +47,19 @@ class ChatSourceModel {
 
 class ChatMessageModel {
   final int? id;
-  final String role; // user / assistant
+  final String role; // user / assistant / error (فشل محلي، لا يُحفظ)
   final String content;
   final List<ChatSourceModel> sources;
   final List<String> calculations;
 
+  /// مواضيع مقترحة عندما لا يفهم المساعد السؤال (يضغط عليها المستخدم)
+  final List<String> options;
+
   /// وقت الرسالة (للعرض أسفل الفقاعة)
   final DateTime createdAt;
+
+  /// رسالة فشل: السؤال الذي يُعاد إرساله بـ "إعادة المحاولة" (null = لا فائدة من الإعادة)
+  final String? retryText;
 
   ChatMessageModel({
     this.id,
@@ -61,10 +67,14 @@ class ChatMessageModel {
     required this.content,
     this.sources = const [],
     this.calculations = const [],
+    this.options = const [],
+    this.retryText,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
   bool get isUser => role == 'user';
+
+  bool get isError => role == 'error';
 
   factory ChatMessageModel.fromJson(Map json) => ChatMessageModel(
         id: json['id'] == null ? null : int.parse(json['id'].toString()),
@@ -78,6 +88,9 @@ class ChatMessageModel {
         ],
         calculations: [
           for (final c in (json['calculations'] as List? ?? [])) c.toString(),
+        ],
+        options: [
+          for (final o in (json['options'] as List? ?? [])) o.toString(),
         ],
       );
 }

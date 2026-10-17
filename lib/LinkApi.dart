@@ -79,6 +79,7 @@ class Applink {
   static const String chatConversations = "$server/Chat/Conversations";
   static const String chatMessages = "$server/Chat/Messages";
   static const String chatSend = "$server/Chat/Send";
+  static const String chatEdit = "$server/Chat/Edit";
   static const String chatRename = "$server/Chat/Rename";
   static const String chatDelete = "$server/Chat/Delete";
 }
