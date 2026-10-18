@@ -45,6 +45,14 @@ mixin TaxpayerFormMixin on GetxController {
   String? taxpayerType;
   bool? registeredTaxAdmin;
 
+  /// سنة التسجيل في الإدارة الجبائية (للمسجل فقط)
+  int? registrationYear;
+
+  /// السنوات المتاحة: من السنة الحالية إلى 1962
+  static List<int> get registrationYears => [
+    for (int y = DateTime.now().year; y >= 1962; y--) y,
+  ];
+
   // بعد محاولة الحفظ تظهر رسالة تحت كل حقل إجباري فارغ
   bool taxpayerSubmitted = false;
 
@@ -53,20 +61,38 @@ mixin TaxpayerFormMixin on GetxController {
 
   String? get registrationError =>
       taxpayerSubmitted && showRegistration && registeredTaxAdmin == null
-          ? "هذا الحقل إجباري".tr
-          : null;
+      ? "هذا الحقل إجباري".tr
+      : null;
+
+  String? get registrationYearError =>
+      taxpayerSubmitted && showRegistrationYear && registrationYear == null
+      ? "هذا الحقل إجباري".tr
+      : null;
 
   bool get showRegistration => TaxpayerTypes.isEnterprise(taxpayerType);
+
+  /// سنة التسجيل تُطلب فقط إذا اختار "مسجل"
+  bool get showRegistrationYear =>
+      showRegistration && registeredTaxAdmin == true;
 
   void setTaxpayerType(String? type) {
     taxpayerType = type;
     // سؤال التسجيل خاص بالمؤسسات فقط
-    if (!TaxpayerTypes.isEnterprise(type)) registeredTaxAdmin = null;
+    if (!TaxpayerTypes.isEnterprise(type)) {
+      registeredTaxAdmin = null;
+      registrationYear = null;
+    }
     update();
   }
 
   void setRegisteredTaxAdmin(bool? value) {
     registeredTaxAdmin = value;
+    if (value != true) registrationYear = null;
+    update();
+  }
+
+  void setRegistrationYear(int? year) {
+    registrationYear = year;
     update();
   }
 
@@ -86,16 +112,23 @@ mixin TaxpayerFormMixin on GetxController {
       );
       return false;
     }
+    if (showRegistrationYear && registrationYear == null) {
+      showSnackbar("خطأ".tr, "يرجى اختيار سنة التسجيل".tr, Colors.red);
+      return false;
+    }
     return true;
   }
 
   /// القيم المرسلة للسيرفر (نص فارغ = null في Laravel)
   Map<String, String> get taxpayerRequestData => {
-        "is_taxpayer": taxpayerType ?? "",
-        "is_registered_tax_admin": registeredTaxAdmin == null
-            ? ""
-            : (registeredTaxAdmin! ? "1" : "0"),
-      };
+    "is_taxpayer": taxpayerType ?? "",
+    "is_registered_tax_admin": registeredTaxAdmin == null
+        ? ""
+        : (registeredTaxAdmin! ? "1" : "0"),
+    "registration_year": showRegistrationYear
+        ? registrationYear.toString()
+        : "",
+  };
 
   void loadTaxpayerFromPrefs() {
     final prefs = Get.find<Myservices>().sharedPreferences;
@@ -104,6 +137,10 @@ mixin TaxpayerFormMixin on GetxController {
     final registered = prefs?.getString("is_registered_tax_admin") ?? "";
     registeredTaxAdmin = registered.isEmpty ? null : registered == "1";
     if (!showRegistration) registeredTaxAdmin = null;
+    registrationYear = int.tryParse(
+      prefs?.getString("registration_year") ?? "",
+    );
+    if (!showRegistrationYear) registrationYear = null;
   }
 }
 
@@ -118,5 +155,9 @@ void saveTaxpayerToPrefs(dynamic user) {
     registered == null
         ? ""
         : (registered == true || registered.toString() == "1" ? "1" : "0"),
+  );
+  prefs?.setString(
+    "registration_year",
+    user["registration_year"]?.toString() ?? "",
   );
 }

@@ -36,10 +36,7 @@ class TaxpayerFields extends StatelessWidget {
             for (int i = 0; i < TaxpayerTypes.all.length; i++)
               DropdownMenuItem<String>(
                 value: TaxpayerTypes.all[i],
-                child: Text(
-                  shown[i],
-                  style: const TextStyle(fontSize: 14),
-                ),
+                child: Text(shown[i], style: const TextStyle(fontSize: 14)),
               ),
           ],
           value: controller.taxpayerType,
@@ -72,6 +69,31 @@ class TaxpayerFields extends StatelessWidget {
                   ],
                   value: controller.registeredTaxAdmin,
                   onChanged: controller.setRegisteredTaxAdmin,
+                )
+              : const SizedBox(width: double.infinity),
+        ),
+        // سنة التسجيل فقط (بدون يوم وشهر)، تظهر عند اختيار "مسجل"
+        AnimatedSize(
+          duration: const Duration(milliseconds: 250),
+          child: controller.showRegistrationYear
+              ? Dropdownfild<int>(
+                  hintText: "سنة التسجيل".tr,
+                  icon: Icons.pin_outlined,
+                  itemIcon: Icons.pin_outlined,
+                  fontSize: 14,
+                  errorText: controller.registrationYearError,
+                  items: [
+                    for (final year in TaxpayerFormMixin.registrationYears)
+                      DropdownMenuItem<int>(
+                        value: year,
+                        child: Text(
+                          year.toString(),
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                  ],
+                  value: controller.registrationYear,
+                  onChanged: controller.setRegistrationYear,
                 )
               : const SizedBox(width: double.infinity),
         ),

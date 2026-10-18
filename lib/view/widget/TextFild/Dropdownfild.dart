@@ -20,6 +20,9 @@ class Dropdownfild<T> extends StatelessWidget {
   /// رسالة خطأ تظهر تحت الحقل مع إطار أحمر (حقل إجباري لم يُملأ)
   final String? errorText;
 
+  /// أيقونة كل عنصر في القائمة (افتراضياً أيقونة المدينة)
+  final IconData itemIcon;
+
   const Dropdownfild({
     super.key,
     required this.items,
@@ -30,6 +33,7 @@ class Dropdownfild<T> extends StatelessWidget {
     this.maxLines = 1,
     this.fontSize = 18,
     this.errorText,
+    this.itemIcon = Icons.location_city,
   });
 
   @override
@@ -101,7 +105,7 @@ class Dropdownfild<T> extends StatelessWidget {
                         child: Row(
                           children: [
                             Icon(
-                              Icons.location_city,
+                              itemIcon,
                               size: 18,
                               color: AppColor.grey,
                             ),
