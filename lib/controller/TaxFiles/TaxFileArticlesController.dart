@@ -6,6 +6,14 @@ import '../../core/functions/handlingdatacontroller.dart';
 import '../../data/datasource/Remote/TaxFilesData.dart';
 import '../../data/model/TaxFileModel.dart';
 
+/// جملة من نص مادة تحتوي كلمات البحث
+class TaxSentenceHit {
+  final TaxArticleModel article;
+  final String sentence;
+
+  TaxSentenceHit(this.article, this.sentence);
+}
+
 /// مواد ملف واحد مع البحث بالمادة، الرقم، العنوان ونص المادة
 class TaxFileArticlesController extends GetxController {
   final TaxDocumentModel document;
@@ -21,6 +29,12 @@ class TaxFileArticlesController extends GetxController {
 
   List<TaxArticleModel> data = [];
   List<TaxArticleModel> filteredData = [];
+
+  /// البحث بكلمة أو جملة: الجمل المطابقة وبجانب كل جملة مادتها
+  List<TaxSentenceHit> sentenceHits = [];
+
+  // جمل نص كل مادة (الأصلية + الموحدة)، تُحسب عند أول حاجة
+  final Map<int, List<(String, String)>> _sentences = {};
 
   // نص كل مادة بعد التوحيد، يُحسب مرة واحدة لتسريع البحث
   final Map<int, String> _searchIndex = {};
@@ -39,6 +53,7 @@ class TaxFileArticlesController extends GetxController {
             .map((e) => TaxArticleModel.fromJson(e))
             .where((a) => !codifiedOnly || a.isCodified)
             .toList();
+        _sentences.clear();
         _searchIndex
           ..clear()
           ..addEntries(data.map((a) => MapEntry(
@@ -95,6 +110,7 @@ class TaxFileArticlesController extends GetxController {
         .split(' ')
         .where((w) => w.isNotEmpty)
         .toList();
+    sentenceHits = [];
     if (words.isEmpty) {
       filteredData = List.from(data);
       return;
@@ -124,9 +140,48 @@ class TaxFileArticlesController extends GetxController {
       return byRank != 0 ? byRank : order[x.id]!.compareTo(order[y.id]!);
     });
     filteredData = matches;
+
+    if (!_isArticleNumberQuery(words)) {
+      sentenceHits = [
+        for (final a in matches)
+          for (final (original, normalized) in _sentencesOf(a))
+            if (words.every(normalized.contains)) TaxSentenceHit(a, original),
+      ];
+    }
+  }
+
+  /// "12" أو "12 مكرر" أو "المادة 12": بحث برقم المادة فنعرض المواد نفسها
+  static bool _isArticleNumberQuery(List<String> words) {
+    const ignored = {'ماده', 'الماده', 'م', 'art', 'article'};
+    final rest = words.where((w) => !ignored.contains(w)).toList();
+    return rest.isNotEmpty &&
+        rest.any((w) => RegExp(r'^\d+$').hasMatch(w)) &&
+        rest.every((w) => RegExp(r'^(\d+|مكرر)$').hasMatch(w));
+  }
+
+  // علامة الجدول داخل النص: [[جدول:2]]
+  static final _tableMarker =
+      RegExp(r'\[\[\s*(?:جدول|Table)\s*:\s*\d+\s*\]\]', caseSensitive: false);
+
+  // نهاية الجملة: نقطة/علامة استفهام/فاصلة منقوطة متبوعة بمسافة، أو سطر جديد
+  static final _sentenceEnd = RegExp(r'(?<=[.!?؟؛;])\s+|\n+');
+
+  List<(String, String)> _sentencesOf(TaxArticleModel a) {
+    return _sentences.putIfAbsent(a.id, () {
+      return a.localizedText
+          .replaceAll(_tableMarker, '\n')
+          .split(_sentenceEnd)
+          .map((s) => s.trim())
+          .where((s) => s.isNotEmpty)
+          .map((s) => (s, normalize(s)))
+          .toList();
+    });
   }
 
   bool get isSearching => searchController.text.trim().isNotEmpty;
+
+  /// عرض الجمل بدل المواد عند البحث بكلمة أو جملة
+  bool get showSentences => sentenceHits.isNotEmpty;
 
   @override
   void onInit() {

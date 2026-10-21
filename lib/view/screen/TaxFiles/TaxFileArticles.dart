@@ -6,6 +6,7 @@ import '../../../core/class/handlingview.dart';
 import '../../../core/constant/Colorapp.dart';
 import '../../../data/model/TaxFileModel.dart';
 import '../../widget/TaxFiles/TaxArticleCard.dart';
+import '../../widget/TaxFiles/TaxSentenceCard.dart';
 
 /// كل مواد ملف مع البحث بالمادة، الرقم، العنوان وتفاصيل المادة
 class TaxFileArticles extends StatelessWidget {
@@ -48,6 +49,8 @@ class TaxFileArticles extends StatelessWidget {
                     statusrequest: controller.statusrequest,
                     widget: controller.filteredData.isEmpty
                         ? _noResults()
+                        : controller.showSentences
+                        ? _sentenceResults(controller)
                         : ListView.builder(
                             physics: const AlwaysScrollableScrollPhysics(),
                             padding: const EdgeInsets.only(bottom: 20),
@@ -126,6 +129,25 @@ class TaxFileArticles extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+
+  /// البحث بكلمة أو جملة: كل جملة مطابقة وبجانبها مادتها
+  Widget _sentenceResults(TaxFileArticlesController controller) {
+    final hits = controller.sentenceHits;
+    return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(),
+      padding: const EdgeInsets.only(top: 6, bottom: 20),
+      itemCount: hits.length,
+      itemBuilder: (context, i) {
+        final hit = hits[i];
+        return TaxSentenceCard(
+          key: ValueKey('${hit.article.id}-$i'),
+          hit: hit,
+          pdfFile: document.file,
+          highlight: controller.searchController.text,
+        );
+      },
     );
   }
 

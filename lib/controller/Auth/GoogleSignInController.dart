@@ -8,7 +8,6 @@ import 'package:chafi/core/constant/routes.dart';
 import 'package:chafi/core/functions/SaveImage.dart';
 import 'package:chafi/core/functions/handlingdatacontroller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +16,7 @@ import '../../core/class/Crud.dart';
 import '../../core/functions/AuthErrorLog.dart';
 import '../../core/functions/CheckInternat.dart';
 import '../../core/functions/Snacpar.dart';
+import '../../core/functions/fcm.dart';
 import '../../core/services/Services.dart';
 import '../../data/datasource/Remote/Logingoogle.dart';
 
@@ -61,9 +61,7 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
         return;
       }
       logAuthError('Google Sign-In', e, s);
-      showTopError(
-        "${"فشل تسجيل الدخول بـ Google".tr} — ${shortAuthError(e)}",
-      );
+      showTopError("${"فشل تسجيل الدخول بـ Google".tr} — ${shortAuthError(e)}");
     }
   }
 
@@ -71,7 +69,7 @@ class GooglesignincontrollerImp extends Googlesignincontroller {
     statusrequest = Statusrequest.loadeng;
     update();
     try {
-      String? fcmToken = await FirebaseMessaging.instance.getToken();
+      String fcmToken = await FcmHelper.getTokenSafe();
       print("FCM Token: $fcmToken");
 
       Crud.lastError = null;

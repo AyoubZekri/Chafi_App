@@ -25,6 +25,8 @@ class TaxArticleCard extends StatefulWidget {
   /// اسم الملف (يظهر في صفحة المفضلة)
   final bool showDocument;
 
+  /// تُفتح البطاقة مباشرة (عند فتح المادة من نتيجة جملة)
+  final bool initiallyOpen;
 
   const TaxArticleCard({
     super.key,
@@ -32,6 +34,7 @@ class TaxArticleCard extends StatefulWidget {
     this.pdfFile,
     this.highlight = '',
     this.showDocument = false,
+    this.initiallyOpen = false,
   });
 
   @override
@@ -39,7 +42,7 @@ class TaxArticleCard extends StatefulWidget {
 }
 
 class _TaxArticleCardState extends State<TaxArticleCard> {
-  bool isOpen = false;
+  late bool isOpen = widget.initiallyOpen;
 
   TaxArticleModel get article => widget.article;
 

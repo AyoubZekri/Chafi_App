@@ -7,6 +7,20 @@ class FcmHelper {
   static final FlutterLocalNotificationsPlugin
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+  /// توكن FCM للتسجيل/الدخول: أي خطأ (بدون إنترنت، بدون Google Play...)
+  /// لا يوقف التسجيل، نرجع نصاً فارغاً بدلاً منه
+  static Future<String> getTokenSafe() async {
+    try {
+      final token = await FirebaseMessaging.instance
+          .getToken()
+          .timeout(const Duration(seconds: 10));
+      return token ?? '';
+    } catch (e) {
+      print("FCM getToken error: $e");
+      return '';
+    }
+  }
+
   /// تهيئة Firebase و FCM
   static Future<void> initFCM() async {
     await Firebase.initializeApp();

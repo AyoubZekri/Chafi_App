@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:chafi/controller/HomeController.dart';
 import 'package:chafi/controller/ProfaileController.dart';
 import 'package:chafi/core/constant/routes.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +12,7 @@ import '../../core/class/Crud.dart';
 import '../../core/class/Statusrequest.dart';
 import '../../core/functions/AuthErrorLog.dart';
 import '../../core/functions/SaveImage.dart';
+import '../../core/functions/fcm.dart';
 import '../../core/functions/Snacpar.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/Services.dart';
@@ -126,7 +126,7 @@ class InfousercontrollerImp extends Infousercontroller
     final selectedStateData = state.firstWhere(
       (element) => element['number'] == selectedstate,
     );
-    String? fcmToken = await FirebaseMessaging.instance.getToken();
+    String fcmToken = await FcmHelper.getTokenSafe();
     print("======$uid");
     print("======$fcmToken");
 

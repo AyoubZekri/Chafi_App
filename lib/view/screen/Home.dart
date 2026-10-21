@@ -7,11 +7,11 @@ import '../../controller/HomeController.dart';
 import '../../core/constant/Colorapp.dart';
 import '../../core/constant/routes.dart';
 import '../widget/home/CustemCardHome.dart';
+import '../widget/home/DraggableChatBot.dart';
 import '../widget/home/ScrollCardServece.dart';
 import '../widget/home/Slaider.dart';
 import '../widget/home/Welcome.dart';
 import 'TaxFiles/TaxFiles.dart';
-import 'Chat/ChatScreen.dart';
 import '../../data/datasource/statec/statec.dart';
 
 class Home extends StatefulWidget {
@@ -42,38 +42,6 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: AppColor.white,
 
-      // المساعد الذكي: أيقونة في دائرة متدرجة (يتطلب تسجيل الدخول لحفظ المحادثات)
-      floatingActionButton: Tooltip(
-        message: "ChafiBot",
-        child: Container(
-          width: 58,
-          height: 58,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-              begin: AlignmentDirectional.topStart,
-              end: AlignmentDirectional.bottomEnd,
-              colors: [AppColor.typography, AppColor.primarycolor],
-            ),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            shape: const CircleBorder(),
-            child: InkWell(
-              customBorder: const CircleBorder(),
-              onTap: () => handleLoginRequired(
-                () => Get.to(() => const ChatScreen()),
-              ),
-              child: const Icon(
-                Icons.support_agent_rounded,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-          ),
-        ),
-      ),
-
       // floatingActionButton: FloatingActionButton.extended(
       //   backgroundColor: AppColor.typography,
       //   icon: const Icon(Icons.menu_book, color: Colors.white),
@@ -96,166 +64,181 @@ class _HomeState extends State<Home> {
       //     );
       //   },
       // ),
-      body: GetBuilder<HomecontrollerImp>(
-        builder: (controller) {
-          return ListView(
-            children: [
-              Container(
-                margin: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Welcome(),
-                    SizedBox(height: 20),
-                    Slaider(),
-                    SizedBox(height: 40),
-                    Text(
-                      "22".tr,
-                      style: context.textTheme.headlineLarge,
-                      textAlign: TextAlign.start,
-                    ),
-                    SizedBox(height: 20),
-                    Scrollcardservece(),
-                    SizedBox(height: 40),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // المساعد الذكي: يُسحب لأي مكان ويبقى فيه
+      body: Stack(
+        children: [
+          GetBuilder<HomecontrollerImp>(
+            builder: (controller) {
+              return ListView(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Welcome(),
+                        SizedBox(height: 20),
+                        Slaider(),
+                        SizedBox(height: 40),
                         Text(
-                          "23".tr,
+                          "22".tr,
                           style: context.textTheme.headlineLarge,
                           textAlign: TextAlign.start,
                         ),
-                        // البحث في المواد المقننة لملفات "جبايتك"
-                        InkWell(
-                          onTap: () => handleLoginRequired(
-                            () => Get.to(
-                              () => const TaxFiles(codifiedOnly: true),
+                        SizedBox(height: 20),
+                        Scrollcardservece(),
+                        SizedBox(height: 40),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "23".tr,
+                              style: context.textTheme.headlineLarge,
+                              textAlign: TextAlign.start,
                             ),
+                            // البحث في المواد المقننة لملفات "جبايتك"
+                            InkWell(
+                              onTap: () => handleLoginRequired(
+                                () => Get.to(
+                                  () => const TaxFiles(codifiedOnly: true),
+                                ),
+                              ),
+                              child: Text(
+                                "البحث في الجباية".tr,
+                                style: context.textTheme.headlineLarge
+                                    ?.copyWith(
+                                      color: AppColor.primarycolor,
+                                      fontSize: 16,
+                                    ),
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      bottom: 20,
+                      right: Get.locale?.languageCode == "ar" ? 20 : 20,
+                    ),
+                    height: 280,
+                    child: Stack(
+                      children: [
+                        NotificationListener<ScrollNotification>(
+                          onNotification: (scrollNotification) {
+                            if (controller.datapost.length > 3) {
+                              // الحالة الأولى: أكبر من 3 عناصر
+                              if (scrollNotification.metrics.pixels > 200 &&
+                                  !showMoreArrow) {
+                                setState(() {
+                                  showMoreArrow = true;
+                                });
+                              } else if (scrollNotification.metrics.pixels <=
+                                      200 &&
+                                  showMoreArrow) {
+                                setState(() {
+                                  showMoreArrow = false;
+                                });
+                              }
+                            } else {
+                              // الحالة الثانية: أقل أو يساوي 3 عناصر
+                              final maxScroll =
+                                  scrollNotification.metrics.maxScrollExtent;
+                              final current = scrollNotification.metrics.pixels;
+                              if (current >= maxScroll - 50 && !showMoreArrow) {
+                                setState(() {
+                                  showMoreArrow = true;
+                                });
+                              } else if (current < maxScroll - 50 &&
+                                  showMoreArrow) {
+                                setState(() {
+                                  showMoreArrow = false;
+                                });
+                              }
+                            }
+                            return false;
+                          },
+                          child: ListView.builder(
+                            controller: _scrollController,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.datapost.length > 3
+                                ? 4
+                                : controller.datapost.length + 1,
+                            itemBuilder: (context, index) {
+                              if (controller.datapost.length > 3) {
+                                // حالة أكثر من 3 عناصر
+                                if (index < 3) {
+                                  final item = controller.datapost[index];
+                                  return Custemcardhome(
+                                    image: item.image!,
+                                    content: item.localizedTitle,
+                                    onTap: () {
+                                      controller.gotoditailsarticles(item.id);
+                                    },
+                                  );
+                                } else {
+                                  return const SizedBox(
+                                    width: 70,
+                                  ); // مساحة للسهم
+                                }
+                              } else {
+                                if (index < controller.datapost.length) {
+                                  final item = controller.datapost[index];
+                                  return Custemcardhome(
+                                    image: item.image!,
+                                    content: item.localizedTitle,
+                                    onTap: () {
+                                      controller.gotoditailsarticles(item.id);
+                                    },
+                                  );
+                                } else {
+                                  return const SizedBox(
+                                    width: 70,
+                                  ); // مساحة للسهم
+                                }
+                              }
+                            },
                           ),
-                          child: Text(
-                            "البحث في الجباية".tr,
-                            style: context.textTheme.headlineLarge?.copyWith(
-                              color: AppColor.primarycolor,
-                              fontSize: 16,
+                        ),
+                        // السهم "المزيد"
+                        Positioned(
+                          left: Get.locale?.languageCode == "ar" ? 10 : null,
+                          right: Get.locale?.languageCode == "en" ? 0 : null,
+                          top: 100,
+                          child: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 300),
+                            opacity: showMoreArrow ? 1.0 : 0.0,
+                            child: GestureDetector(
+                              onTap: () {
+                                controller.gotoArticles();
+                              },
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(
+                                  Icons.arrow_forward,
+                                  size: 30,
+                                ),
+                              ),
                             ),
-                            textAlign: TextAlign.start,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                  bottom: 20,
-                  right: Get.locale?.languageCode == "ar" ? 20 : 20,
-                ),
-                height: 280,
-                child: Stack(
-                  children: [
-                    NotificationListener<ScrollNotification>(
-                      onNotification: (scrollNotification) {
-                        if (controller.datapost.length > 3) {
-                          // الحالة الأولى: أكبر من 3 عناصر
-                          if (scrollNotification.metrics.pixels > 200 &&
-                              !showMoreArrow) {
-                            setState(() {
-                              showMoreArrow = true;
-                            });
-                          } else if (scrollNotification.metrics.pixels <= 200 &&
-                              showMoreArrow) {
-                            setState(() {
-                              showMoreArrow = false;
-                            });
-                          }
-                        } else {
-                          // الحالة الثانية: أقل أو يساوي 3 عناصر
-                          final maxScroll =
-                              scrollNotification.metrics.maxScrollExtent;
-                          final current = scrollNotification.metrics.pixels;
-                          if (current >= maxScroll - 50 && !showMoreArrow) {
-                            setState(() {
-                              showMoreArrow = true;
-                            });
-                          } else if (current < maxScroll - 50 &&
-                              showMoreArrow) {
-                            setState(() {
-                              showMoreArrow = false;
-                            });
-                          }
-                        }
-                        return false;
-                      },
-                      child: ListView.builder(
-                        controller: _scrollController,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.datapost.length > 3
-                            ? 4
-                            : controller.datapost.length + 1,
-                        itemBuilder: (context, index) {
-                          if (controller.datapost.length > 3) {
-                            // حالة أكثر من 3 عناصر
-                            if (index < 3) {
-                              final item = controller.datapost[index];
-                              return Custemcardhome(
-                                image: item.image!,
-                                content: item.localizedTitle,
-                                onTap: () {
-                                  controller.gotoditailsarticles(item.id);
-                                },
-                              );
-                            } else {
-                              return const SizedBox(width: 70); // مساحة للسهم
-                            }
-                          } else {
-                            if (index < controller.datapost.length) {
-                              final item = controller.datapost[index];
-                              return Custemcardhome(
-                                image: item.image!,
-                                content: item.localizedTitle,
-                                onTap: () {
-                                  controller.gotoditailsarticles(item.id);
-                                },
-                              );
-                            } else {
-                              return const SizedBox(width: 70); // مساحة للسهم
-                            }
-                          }
-                        },
-                      ),
-                    ),
-                    // السهم "المزيد"
-                    Positioned(
-                      left: Get.locale?.languageCode == "ar" ? 10 : null,
-                      right: Get.locale?.languageCode == "en" ? 0 : null,
-                      top: 100,
-                      child: AnimatedOpacity(
-                        duration: const Duration(milliseconds: 300),
-                        opacity: showMoreArrow ? 1.0 : 0.0,
-                        child: GestureDetector(
-                          onTap: () {
-                            controller.gotoArticles();
-                          },
-                          child: Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(Icons.arrow_forward, size: 30),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
+                  ),
+                ],
+              );
+            },
+          ),
+          const DraggableChatBot(),
+        ],
       ),
     );
   }
