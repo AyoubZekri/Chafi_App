@@ -204,11 +204,14 @@ class _TableGrid extends StatelessWidget {
         .map(RegExp.escape)
         .toList();
     if (words.isEmpty) return TextSpan(text: text, style: style);
-    final mark = style.copyWith(
-      backgroundColor: header
-          ? Colors.amber.withOpacity(0.55)
-          : Colors.amber.withOpacity(0.35),
-    );
+    // بلون المادة؛ خلية العنوان خلفيتها بلون المادة فنميزها بالأبيض
+    final mark = header
+        ? style.copyWith(backgroundColor: Colors.white.withOpacity(0.3))
+        : style.copyWith(
+            backgroundColor: AppColor.typography.withOpacity(0.15),
+            color: AppColor.typography,
+            fontWeight: FontWeight.bold,
+          );
     final spans = <TextSpan>[];
     int last = 0;
     for (final m in RegExp(words.join('|'), caseSensitive: false)

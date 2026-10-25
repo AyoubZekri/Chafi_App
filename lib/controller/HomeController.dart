@@ -508,7 +508,18 @@ class HomecontrollerImp extends Homecontroller {
                             ),
                           ),
                         ),
-                        // Removed Cancel button to force user choice
+                        // تخطي: تُغلق الأسئلة ولا تظهر مرة أخرى في هذا الدخول
+                        TextButton(
+                          onPressed: skipFeedback,
+                          child: Text(
+                            "تخطي".tr,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -519,6 +530,16 @@ class HomecontrollerImp extends Homecontroller {
         ),
       ),
     );
+  }
+
+  /// تخطي الأسئلة: نسجل هذا الدخول حتى لا تظهر مجدداً قبل موعدها القادم
+  void skipFeedback() {
+    int currentNumEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+    myServices.sharedPreferences?.setInt(
+      "lastFeedbackNumEnter",
+      currentNumEnter,
+    );
+    Get.back();
   }
 
   Future<void> sendFeedback(List<int> types) async {

@@ -186,9 +186,9 @@ class TaxSentenceCard extends StatelessWidget {
     }
 
     final highlightStyle = base.copyWith(
-      backgroundColor: Colors.amber.withOpacity(0.35),
+      backgroundColor: AppColor.typography.withOpacity(0.15),
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: AppColor.typography,
     );
     final spans = <TextSpan>[];
     int last = 0;

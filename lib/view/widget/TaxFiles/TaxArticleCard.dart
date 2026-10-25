@@ -521,9 +521,9 @@ class _TaxArticleCardState extends State<TaxArticleCard> {
       spans.add(TextSpan(
         text: m.group(0),
         style: base.copyWith(
-          backgroundColor: Colors.amber.withOpacity(0.35),
+          backgroundColor: AppColor.typography.withOpacity(0.15),
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: AppColor.typography,
         ),
       ));
       last = m.end;
