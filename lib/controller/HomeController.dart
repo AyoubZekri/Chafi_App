@@ -387,7 +387,8 @@ class HomecontrollerImp extends Homecontroller {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () async {
-                              if (selectedAnswers.length < questions.length) {
+                              // يكفي الإجابة على سؤال واحد على الأقل
+                              if (selectedAnswers.isEmpty) {
                                 Get.dialog(
                                   Dialog(
                                     shape: RoundedRectangleBorder(

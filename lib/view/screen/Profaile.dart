@@ -217,7 +217,7 @@ class _ProfaileState extends State<Profaile> {
                           },
                         ),
                         Builddeadlinetile(
-                          icon: Icons.support_agent_outlined,
+                          image: Appimageassets.chafiBot,
                           title: "ChafiBot",
                           ontap: () {
                             controller.gotoAssistant();

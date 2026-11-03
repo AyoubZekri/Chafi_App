@@ -8,6 +8,7 @@ import '../../../controller/Chat/ChatController.dart';
 import '../../../core/class/Statusrequest.dart';
 import '../../../core/class/handlingview.dart';
 import '../../../core/constant/Colorapp.dart';
+import '../../../core/constant/Imageassets.dart';
 import '../../../data/model/ChatModel.dart';
 import '../../widget/TaxFiles/LinkedArticlesSheet.dart';
 
@@ -264,7 +265,7 @@ class _MenuButton extends StatelessWidget {
   }
 }
 
-/// صورة المساعد: دائرة متدرجة فيها أيقونة
+/// صورة المساعد: دائرة متدرجة فيها شعار ChafiBot
 class _Avatar extends StatelessWidget {
   final double size;
 
@@ -279,11 +280,8 @@ class _Avatar extends StatelessWidget {
         shape: BoxShape.circle,
         gradient: _C.gradient,
       ),
-      child: Icon(
-        Icons.support_agent_rounded,
-        color: Colors.white,
-        size: size * 0.58,
-      ),
+      padding: EdgeInsets.all(size * 0.16),
+      child: Image.asset(Appimageassets.chafiBot),
     );
   }
 }
@@ -1286,10 +1284,10 @@ class _ConversationsDrawerState extends State<_ConversationsDrawer> {
                                 shape: BoxShape.circle,
                                 color: Colors.white,
                               ),
-                              child: const Icon(
-                                Icons.support_agent_rounded,
+                              padding: const EdgeInsets.all(8),
+                              child: Image.asset(
+                                Appimageassets.chafiBot,
                                 color: AppColor.typography,
-                                size: 26,
                               ),
                             ),
                           ),

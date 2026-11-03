@@ -14,6 +14,7 @@ class  Appimageassets {
 
 
   static const String logo ="$rootimage/logo.png";
+  static const String chafiBot ="$rootimage/aibot_icon.png";
   static const String google ="$rootimage/google.jpg";
 
 

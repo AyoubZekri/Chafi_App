@@ -3,11 +3,15 @@ import 'package:flutter/widgets.dart';
 
 class Builddeadlinetile extends StatelessWidget {
   final IconData? icon;
+
+  /// صورة من الأصول بدل الأيقونة (مثل شعار ChafiBot)
+  final String? image;
   final String title;
   final Function()? ontap;
   const Builddeadlinetile({
     super.key,
     this.icon,
+    this.image,
     required this.title,
     this.ontap,
   });
@@ -15,14 +19,21 @@ class Builddeadlinetile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: icon != null
+      leading: icon != null || image != null
           ? Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(icon, color: Color(0xFF1F1F39)),
+              child: image != null
+                  ? Image.asset(
+                      image!,
+                      width: 24,
+                      height: 24,
+                      color: Color(0xFF1F1F39),
+                    )
+                  : Icon(icon, color: Color(0xFF1F1F39)),
             )
           : null,
       title: Text(

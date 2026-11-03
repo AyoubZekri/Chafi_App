@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constant/Colorapp.dart';
+import '../../../core/constant/Imageassets.dart';
 import '../../../core/services/Services.dart';
 import '../../../data/datasource/statec/statec.dart';
 import '../../screen/Chat/ChatScreen.dart';
@@ -85,10 +86,9 @@ class _DraggableChatBotState extends State<DraggableChatBot> {
             customBorder: const CircleBorder(),
             onTap: () =>
                 handleLoginRequired(() => Get.to(() => const ChatScreen())),
-            child: const Icon(
-              Icons.support_agent_rounded,
-              color: Colors.white,
-              size: 30,
+            child: Padding(
+              padding: const EdgeInsets.all(9),
+              child: Image.asset(Appimageassets.chafiBot),
             ),
           ),
         ),

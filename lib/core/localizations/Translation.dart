@@ -945,7 +945,7 @@ class MyTranslation extends Translations {
       "feedback_send": "إرسال",
       "feedback_thanks": "شكراً لك",
       "feedback_incomplete_message":
-          "يرجى استكمال الإجابة عن جميع الأسئلة للحصول على نتائج إحصائية أكثر دقة.\n\n شكرًا لتعاونكم",
+          "يرجى الإجابة على سؤال واحد على الأقل قبل الإرسال.\n\n شكرًا لتعاونكم",
       "feedback_success": "تم إرسال رأيك بنجاح",
       "feedback_error": "خطأ",
       "feedback_error_msg": "حدث خطأ ما أثناء الإرسال",
@@ -2054,7 +2054,7 @@ class MyTranslation extends Translations {
       "feedback_send": "send",
       "feedback_thanks": "Thank you",
       "feedback_incomplete_message":
-          "Please complete all questions to help us get more accurate statistical results.\n Thank you for your cooperation",
+          "Please answer at least one question before sending.\n Thank you for your cooperation",
       "feedback_success": "Your review has been submitted successfully",
       "feedback_error": "mistake",
       "feedback_error_msg": "An error occurred while sending",
