@@ -39,13 +39,40 @@ class TaxpayerTypes {
   static String label(String type) => 'taxpayer_$type'.tr;
 }
 
+/// طبيعة الشخص المسجل في الإدارة الجبائية (users.person_type)
+class PersonTypes {
+  static const String natural = 'natural';
+  static const String legal = 'legal';
+
+  static const List<String> all = [natural, legal];
+
+  static String label(String type) => type == natural ? "58".tr : "59".tr;
+}
+
+/// النظام الجبائي للمسجل، نفس الأنظمة الثلاثة في التطبيق (users.tax_system)
+class TaxSystemTypes {
+  static const String real = 'real';
+  static const String flatRate = 'flat_rate';
+  static const String simplified = 'simplified';
+
+  static const List<String> all = [real, flatRate, simplified];
+
+  static String label(String type) => switch (type) {
+    real => "48".tr,
+    flatRate => "49".tr,
+    _ => "50".tr,
+  };
+}
+
 /// حقول "المكلف بالضريبة" و"مسجل في الإدارة الجبائية" المشتركة
 /// بين إنشاء الحساب وتعديله
 mixin TaxpayerFormMixin on GetxController {
   String? taxpayerType;
   bool? registeredTaxAdmin;
 
-  /// سنة التسجيل في الإدارة الجبائية (للمسجل فقط)
+  /// للمسجل فقط: طبيعة الشخص والنظام الجبائي (إجباريان)، وسنة التسجيل (اختيارية)
+  String? personType;
+  String? taxSystem;
   int? registrationYear;
 
   /// السنوات المتاحة: من السنة الحالية إلى 1962
@@ -64,30 +91,51 @@ mixin TaxpayerFormMixin on GetxController {
       ? "هذا الحقل إجباري".tr
       : null;
 
-  String? get registrationYearError =>
-      taxpayerSubmitted && showRegistrationYear && registrationYear == null
+  String? get personTypeError =>
+      taxpayerSubmitted && showRegisteredDetails && personType == null
+      ? "هذا الحقل إجباري".tr
+      : null;
+
+  String? get taxSystemError =>
+      taxpayerSubmitted && showRegisteredDetails && taxSystem == null
       ? "هذا الحقل إجباري".tr
       : null;
 
   bool get showRegistration => TaxpayerTypes.isEnterprise(taxpayerType);
 
-  /// سنة التسجيل تُطلب فقط إذا اختار "مسجل"
-  bool get showRegistrationYear =>
+  /// طبيعة الشخص والنظام الجبائي وسنة التسجيل تظهر فقط إذا اختار "مسجل"
+  bool get showRegisteredDetails =>
       showRegistration && registeredTaxAdmin == true;
+
+  void _clearRegisteredDetails() {
+    personType = null;
+    taxSystem = null;
+    registrationYear = null;
+  }
 
   void setTaxpayerType(String? type) {
     taxpayerType = type;
     // سؤال التسجيل خاص بالمؤسسات فقط
     if (!TaxpayerTypes.isEnterprise(type)) {
       registeredTaxAdmin = null;
-      registrationYear = null;
+      _clearRegisteredDetails();
     }
     update();
   }
 
   void setRegisteredTaxAdmin(bool? value) {
     registeredTaxAdmin = value;
-    if (value != true) registrationYear = null;
+    if (value != true) _clearRegisteredDetails();
+    update();
+  }
+
+  void setPersonType(String? type) {
+    personType = type;
+    update();
+  }
+
+  void setTaxSystem(String? system) {
+    taxSystem = system;
     update();
   }
 
@@ -112,8 +160,12 @@ mixin TaxpayerFormMixin on GetxController {
       );
       return false;
     }
-    if (showRegistrationYear && registrationYear == null) {
-      showSnackbar("خطأ".tr, "يرجى اختيار سنة التسجيل".tr, Colors.red);
+    if (showRegisteredDetails && personType == null) {
+      showSnackbar("خطأ".tr, "يرجى اختيار طبيعة الشخص".tr, Colors.red);
+      return false;
+    }
+    if (showRegisteredDetails && taxSystem == null) {
+      showSnackbar("خطأ".tr, "يرجى اختيار النظام الجبائي".tr, Colors.red);
       return false;
     }
     return true;
@@ -125,7 +177,9 @@ mixin TaxpayerFormMixin on GetxController {
     "is_registered_tax_admin": registeredTaxAdmin == null
         ? ""
         : (registeredTaxAdmin! ? "1" : "0"),
-    "registration_year": showRegistrationYear
+    "person_type": showRegisteredDetails ? personType ?? "" : "",
+    "tax_system": showRegisteredDetails ? taxSystem ?? "" : "",
+    "registration_year": showRegisteredDetails && registrationYear != null
         ? registrationYear.toString()
         : "",
   };
@@ -140,7 +194,11 @@ mixin TaxpayerFormMixin on GetxController {
     registrationYear = int.tryParse(
       prefs?.getString("registration_year") ?? "",
     );
-    if (!showRegistrationYear) registrationYear = null;
+    final person = prefs?.getString("person_type");
+    personType = PersonTypes.all.contains(person) ? person : null;
+    final system = prefs?.getString("tax_system");
+    taxSystem = TaxSystemTypes.all.contains(system) ? system : null;
+    if (!showRegisteredDetails) _clearRegisteredDetails();
   }
 }
 
@@ -160,4 +218,6 @@ void saveTaxpayerToPrefs(dynamic user) {
     "registration_year",
     user["registration_year"]?.toString() ?? "",
   );
+  prefs?.setString("person_type", user["person_type"]?.toString() ?? "");
+  prefs?.setString("tax_system", user["tax_system"]?.toString() ?? "");
 }

@@ -6,7 +6,8 @@ import '../../../core/functions/ArabicStretch.dart';
 import 'Dropdownfild.dart';
 
 /// اختيار صفة المكلف بالضريبة، وسؤال التسجيل في الإدارة الجبائية
-/// يظهر فقط للمؤسسة الناشئة والمصغرة والأخرى
+/// يظهر فقط للمؤسسة الناشئة والمصغرة والأخرى، وللمسجل: طبيعة الشخص
+/// والنظام الجبائي وسنة التسجيل
 class TaxpayerFields extends StatelessWidget {
   final TaxpayerFormMixin controller;
 
@@ -27,9 +28,8 @@ class TaxpayerFields extends StatelessWidget {
     return Column(
       children: [
         Dropdownfild<String>(
-          hintText: "${"صفة المكلف بالضريبة".tr} *",
+          hintText: "صفة المكلف بالضريبة".tr,
           icon: Icons.badge_outlined,
-          maxLines: 3,
           fontSize: 14,
           errorText: controller.taxpayerTypeError,
           items: [
@@ -46,9 +46,8 @@ class TaxpayerFields extends StatelessWidget {
           duration: const Duration(milliseconds: 250),
           child: controller.showRegistration
               ? Dropdownfild<bool>(
-                  hintText: "${"مسجل في الإدارة الجبائية؟".tr} *",
+                  hintText: "مسجل في الإدارة الجبائية؟".tr,
                   icon: Icons.account_balance_outlined,
-                  maxLines: 3,
                   fontSize: 14,
                   errorText: controller.registrationError,
                   items: [
@@ -72,28 +71,68 @@ class TaxpayerFields extends StatelessWidget {
                 )
               : const SizedBox(width: double.infinity),
         ),
-        // سنة التسجيل فقط (بدون يوم وشهر)، تظهر عند اختيار "مسجل"
+        // للمسجل فقط: طبيعة الشخص، النظام الجبائي، ثم سنة التسجيل (اختيارية)
         AnimatedSize(
           duration: const Duration(milliseconds: 250),
-          child: controller.showRegistrationYear
-              ? Dropdownfild<int>(
-                  hintText: "سنة التسجيل".tr,
-                  icon: Icons.pin_outlined,
-                  itemIcon: Icons.pin_outlined,
-                  fontSize: 14,
-                  errorText: controller.registrationYearError,
-                  items: [
-                    for (final year in TaxpayerFormMixin.registrationYears)
-                      DropdownMenuItem<int>(
-                        value: year,
-                        child: Text(
-                          year.toString(),
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                      ),
+          child: controller.showRegisteredDetails
+              ? Column(
+                  children: [
+                    Dropdownfild<String>(
+                      hintText: "طبيعة الشخص".tr,
+                      icon: Icons.person_outline,
+                      fontSize: 14,
+                      errorText: controller.personTypeError,
+                      items: [
+                        for (final type in PersonTypes.all)
+                          DropdownMenuItem<String>(
+                            value: type,
+                            child: Text(
+                              PersonTypes.label(type),
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                      ],
+                      value: controller.personType,
+                      onChanged: controller.setPersonType,
+                    ),
+                    Dropdownfild<String>(
+                      hintText: "النظام الجبائي".tr,
+                      icon: Icons.account_tree_outlined,
+                      fontSize: 14,
+                      errorText: controller.taxSystemError,
+                      items: [
+                        for (final system in TaxSystemTypes.all)
+                          DropdownMenuItem<String>(
+                            value: system,
+                            child: Text(
+                              TaxSystemTypes.label(system),
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                      ],
+                      value: controller.taxSystem,
+                      onChanged: controller.setTaxSystem,
+                    ),
+                    // سنة فقط (بدون يوم وشهر)
+                    Dropdownfild<int>(
+                      hintText: "سنة التسجيل".tr,
+                      icon: Icons.pin_outlined,
+                      itemIcon: Icons.pin_outlined,
+                      fontSize: 14,
+                      items: [
+                        for (final year in TaxpayerFormMixin.registrationYears)
+                          DropdownMenuItem<int>(
+                            value: year,
+                            child: Text(
+                              year.toString(),
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                      ],
+                      value: controller.registrationYear,
+                      onChanged: controller.setRegistrationYear,
+                    ),
                   ],
-                  value: controller.registrationYear,
-                  onChanged: controller.setRegistrationYear,
                 )
               : const SizedBox(width: double.infinity),
         ),

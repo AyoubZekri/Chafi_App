@@ -1,8 +1,6 @@
-import 'package:chafi/core/functions/Localizetion.dart';
 import 'package:chafi/core/functions/fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'Bindings/Initialbindings.dart';
 import 'core/localizations/ChengeLocal.dart';
@@ -10,7 +8,6 @@ import 'core/localizations/Translation.dart';
 import 'core/services/Services.dart';
 import 'routes.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver =
@@ -27,7 +24,6 @@ void main() async {
 
   await FcmHelper.initFCM();
 
-  await getUserState();
   // print("=============userState $userState");
   // await analytics.logEvent(name: 'app_open', parameters: {'state': userState});
   // print("=============userState $userState");

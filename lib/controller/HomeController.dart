@@ -105,15 +105,151 @@ class HomecontrollerImp extends Homecontroller {
         myServices.sharedPreferences?.getInt('lastFeedbackNumEnter') ?? 0;
     print("=======numEnter======$numEnter");
 
+    // من ضغط "تخطي" في رسالة التقديم لا تظهر له الأسئلة في المرات الباقية
+    bool optedOut =
+        myServices.sharedPreferences?.getBool("feedbackOptOut") ?? false;
+
     if (isLoggedIn &&
+        !optedOut &&
         (numEnter == 1 || numEnter == 4 || numEnter == 7) &&
         lastFeedbackNumEnter != numEnter) {
       Future.delayed(const Duration(seconds: 2), () {
         if (Get.isDialogOpen != true) {
-          showFeedbackDialog();
+          showFeedbackIntro(numEnter);
         }
       });
     }
+  }
+
+  /// نص التقديم قبل الأسئلة حسب الدخول (الأول، الرابع، السابع)
+  List<String> _introTexts(int numEnter) {
+    switch (numEnter) {
+      case 1:
+        return [
+          "feedback_intro_1_title",
+          "feedback_intro_1_line1",
+          "feedback_intro_1_line2",
+          "feedback_intro_1_line3",
+        ];
+      case 4:
+        return ["feedback_intro_4_title", "feedback_intro_4_line1"];
+      default:
+        return [
+          "feedback_intro_7_title",
+          "feedback_intro_7_line1",
+          "feedback_intro_7_line2",
+        ];
+    }
+  }
+
+  /// رسالة تقديم قبل الأسئلة: "متابعة" تعرض الأسئلة،
+  /// و"تخطي" تغلقها ولا تعرض الأسئلة مرة أخرى
+  void showFeedbackIntro(int numEnter) {
+    final texts = _introTexts(numEnter);
+    Get.dialog(
+      barrierDismissible: false,
+      PopScope(
+        canPop: false,
+        child: Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 24),
+          backgroundColor: AppColor.white,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(22, 26, 22, 12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: AppColor.typography.withOpacity(0.08),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.forum_outlined,
+                    color: AppColor.typography,
+                    size: 32,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  texts.first.tr,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    height: 1.5,
+                    fontWeight: FontWeight.w800,
+                    color: AppColor.typography,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                for (final line in texts.skip(1))
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      line.tr,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        height: 1.6,
+                        color: Color(0xFF475569),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                const SizedBox(height: 14),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.typography,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () {
+                      Get.back();
+                      showFeedbackDialog();
+                    },
+                    child: Text(
+                      "متابعة".tr,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: optOutFeedback,
+                  child: Text(
+                    "تخطي".tr,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// تخطي من رسالة التقديم: لا تُعرض الأسئلة في المرات الباقية
+  void optOutFeedback() {
+    myServices.sharedPreferences?.setBool("feedbackOptOut", true);
+    int currentNumEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
+    myServices.sharedPreferences?.setInt("lastFeedbackNumEnter", currentNumEnter);
+    Get.back();
   }
 
   void showFeedbackDialog() {
@@ -122,55 +258,56 @@ class HomecontrollerImp extends Homecontroller {
 
     int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
 
+    // الأسئلة الستة: نص السؤال وخياراته كما في جدول الاستبيان؛ السادس من الدخول الرابع
     final List<Map<String, dynamic>> questions = [
       {
-        "title": "العدالة الضريبية".tr,
+        "title": "كيف تقيّم عدالة توزيع العبء الضريبي في الجزائر؟".tr,
         "options": [
           {"id": 11, "name": "ضعيفة".tr},
           {"id": 12, "name": "مقبولة".tr},
-          {"id": 13, "name": "جيدة ومحفزة".tr},
+          {"id": 13, "name": "جيدة".tr},
         ],
       },
       {
-        "title": "العلاقة مع الادارة".tr,
+        "title": "كيف تصف تعاملك مع الإدارة الجبائية؟".tr,
         "options": [
           {"id": 21, "name": "متعاونة".tr},
           {"id": 22, "name": "بطيئة".tr},
-          {"id": 23, "name": "صارمة ومعقدة".tr},
+          {"id": 23, "name": "معقدة".tr},
         ],
       },
       {
-        "title": "عوائق الامتثال".tr,
+        "title": "ما العائق الأكبر الذي يصعّب عليك أداء التزاماتك الجبائية؟".tr,
         "options": [
           {"id": 31, "name": "تعقيد القوانين الجبائية".tr},
           {"id": 32, "name": "ارتفاع تكلفة الضرائب".tr},
-          {"id": 33, "name": "غياب التوجيه".tr},
+          {"id": 33, "name": "غياب التوجيه والمعلومة الجبائية".tr},
         ],
       },
       {
-        "title": "الدافع نحو الامتثال".tr,
+        "title": "ما الدافع الأول الذي يجعلك تؤدي التزاماتك الجبائية؟".tr,
         "options": [
-          {"id": 41, "name": "واجب وطني".tr},
+          {"id": 41, "name": "الواجب الوطني".tr},
           {"id": 42, "name": "الاستفادة من التحفيزات".tr},
           {"id": 43, "name": "تجنب العقوبات".tr},
         ],
       },
       {
-        "title": "أثر الرقمنة".tr,
+        "title": "كيف تجد الخدمات الجبائية الرقمية («جبايتك»، «مساهمتك»، «طابعكم»)؟".tr,
         "options": [
-          {"id": 51, "name": "ضرورة للعمل".tr},
-          {"id": 52, "name": "توفر الوقت والجهد".tr},
+          {"id": 52, "name": "سهلة وتوفر الوقت والجهد".tr},
+          {"id": 54, "name": "مفيدة لكن أحتاج إلى مساعدة".tr},
           {"id": 53, "name": "صعبة الاستخدام".tr},
         ],
       },
       if (numEnter > 1)
         {
-          "title": "كيف ساعدك شافي".tr,
+          "title": "ما أهم ما أفادك به التطبيق إلى الآن؟".tr,
           "options": [
-            {"id": 61, "name": "بسط القوانين الجبائية".tr},
-            {"id": 62, "name": "صحح المفاهيم الخاطئة".tr},
-            {"id": 63, "name": "قلل كلفة الاستشارة".tr},
-            {"id": 64, "name": "تعزيز وتحفيز على الامتثال".tr},
+            {"id": 62, "name": "صحح مفاهيمي الجبائية الخاطئة".tr},
+            {"id": 63, "name": "قلّل كلفة الاستشارة".tr},
+            {"id": 64, "name": "شجعني على الالتزام بواجباتي الجبائية".tr},
+            {"id": 65, "name": "لم يفدني بعد".tr},
           ],
         },
     ];
@@ -259,14 +396,18 @@ class HomecontrollerImp extends Homecontroller {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          "${qIndex + 1}- ${question['title']}",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                            color: isAnswered
-                                                ? AppColor.typography
-                                                : Colors.black87,
+                                        // نص السؤال طويل: يلتف على أكثر من سطر
+                                        Expanded(
+                                          child: Text(
+                                            "${qIndex + 1}- ${question['title']}",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              height: 1.5,
+                                              color: isAnswered
+                                                  ? AppColor.typography
+                                                  : Colors.black87,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -509,9 +650,9 @@ class HomecontrollerImp extends Homecontroller {
                             ),
                           ),
                         ),
-                        // تخطي: تُغلق الأسئلة ولا تظهر مرة أخرى في هذا الدخول
+                        // تخطي: تُغلق الأسئلة ولا تظهر في المرات الباقية
                         TextButton(
-                          onPressed: skipFeedback,
+                          onPressed: optOutFeedback,
                           child: Text(
                             "تخطي".tr,
                             style: TextStyle(
@@ -531,16 +672,6 @@ class HomecontrollerImp extends Homecontroller {
         ),
       ),
     );
-  }
-
-  /// تخطي الأسئلة: نسجل هذا الدخول حتى لا تظهر مجدداً قبل موعدها القادم
-  void skipFeedback() {
-    int currentNumEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
-    myServices.sharedPreferences?.setInt(
-      "lastFeedbackNumEnter",
-      currentNumEnter,
-    );
-    Get.back();
   }
 
   Future<void> sendFeedback(List<int> types) async {

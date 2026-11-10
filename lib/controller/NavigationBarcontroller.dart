@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:chafi/core/class/Statusrequest.dart';
 import 'package:chafi/core/functions/CheckInternat.dart';
-import 'package:chafi/core/functions/Localizetion.dart';
 import 'package:chafi/core/functions/handlingdatacontroller.dart';
 import 'package:chafi/data/datasource/Remote/PostData.dart';
 import 'package:chafi/view/screen/TaxFiles/TaxFiles.dart';
@@ -59,10 +58,10 @@ class NavigationBarcontrollerImp extends NavigationBarcontroller {
       print("=======checkInternet false=====${await checkInternet()}");
       return;
     }
-    String state = await getUserState();
+    // الولاية المسجلة في الحساب (لا نستعمل موقع الهاتف)؛ الزائر بدون ولاية
     var response = await postdata.adddata({
       'device_id': myServices.sharedPreferences?.getString('device_id'),
-      'state': state,
+      'state': myServices.sharedPreferences?.getString('wilaya') ?? '',
     });
     print("=======================$response");
     statusrequest = handlingData(response);
