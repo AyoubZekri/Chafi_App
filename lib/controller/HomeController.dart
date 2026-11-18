@@ -98,19 +98,18 @@ class HomecontrollerImp extends Homecontroller {
     super.onInit();
   }
 
+  /// أجاب على الأسئلة من قبل: في المرات التالية لا يظهر له زر "تخطي"
+  bool get _answeredBefore =>
+      myServices.sharedPreferences?.getBool("hasFeedback") ?? false;
+
   void checkAndShowFeedback() {
-    bool? hasFeedback = myServices.sharedPreferences?.getBool("hasFeedback");
     int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
     int lastFeedbackNumEnter =
         myServices.sharedPreferences?.getInt('lastFeedbackNumEnter') ?? 0;
     print("=======numEnter======$numEnter");
 
-    // من ضغط "تخطي" في رسالة التقديم لا تظهر له الأسئلة في المرات الباقية
-    bool optedOut =
-        myServices.sharedPreferences?.getBool("feedbackOptOut") ?? false;
-
+    // الأسئلة في الدخول الأول والرابع والسابع (التخطي يخص المرة الحالية فقط)
     if (isLoggedIn &&
-        !optedOut &&
         (numEnter == 1 || numEnter == 4 || numEnter == 7) &&
         lastFeedbackNumEnter != numEnter) {
       Future.delayed(const Duration(seconds: 2), () {
@@ -142,8 +141,8 @@ class HomecontrollerImp extends Homecontroller {
     }
   }
 
-  /// رسالة تقديم قبل الأسئلة: "متابعة" تعرض الأسئلة،
-  /// و"تخطي" تغلقها ولا تعرض الأسئلة مرة أخرى
+  /// رسالة تقديم قبل الأسئلة: "متابعة" تعرض الأسئلة، و"تخطي" تؤجلها
+  /// للمرة القادمة (لا يظهر "تخطي" لمن أجاب من قبل)
   void showFeedbackIntro(int numEnter) {
     final texts = _introTexts(numEnter);
     Get.dialog(
@@ -225,17 +224,20 @@ class HomecontrollerImp extends Homecontroller {
                     ),
                   ),
                 ),
-                TextButton(
-                  onPressed: optOutFeedback,
-                  child: Text(
-                    "تخطي".tr,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey[600],
+                if (_answeredBefore)
+                  const SizedBox(height: 10)
+                else
+                  TextButton(
+                    onPressed: skipFeedback,
+                    child: Text(
+                      "تخطي".tr,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey[600],
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),
@@ -244,9 +246,8 @@ class HomecontrollerImp extends Homecontroller {
     );
   }
 
-  /// تخطي من رسالة التقديم: لا تُعرض الأسئلة في المرات الباقية
-  void optOutFeedback() {
-    myServices.sharedPreferences?.setBool("feedbackOptOut", true);
+  /// تخطي: لا تظهر الأسئلة في هذا الدخول، وتظهر في المرة القادمة
+  void skipFeedback() {
     int currentNumEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
     myServices.sharedPreferences?.setInt("lastFeedbackNumEnter", currentNumEnter);
     Get.back();
@@ -650,18 +651,21 @@ class HomecontrollerImp extends Homecontroller {
                             ),
                           ),
                         ),
-                        // تخطي: تُغلق الأسئلة ولا تظهر في المرات الباقية
-                        TextButton(
-                          onPressed: optOutFeedback,
-                          child: Text(
-                            "تخطي".tr,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[600],
+                        // تخطي هذه المرة فقط، ولا يظهر لمن أجاب من قبل
+                        if (_answeredBefore)
+                          const SizedBox(height: 10)
+                        else
+                          TextButton(
+                            onPressed: skipFeedback,
+                            child: Text(
+                              "تخطي".tr,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey[600],
+                              ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ],

@@ -20,18 +20,21 @@ class TaxpayerTypes {
     startup,
     microEnterprise,
     otherEnterprise,
+    privateAccountant,
+    publicAccountant,
     student,
     researcher,
     taxInterested,
-    privateAccountant,
-    publicAccountant,
   ];
 
-  /// المؤسسات: يُسأل صاحبها هل هو مسجل في الإدارة الجبائية
+  /// المؤسسات والمحاسبون: يُسأل صاحبها هل هو مسجل في الإدارة الجبائية
+  /// (ثم طبيعة الشخص والنظام الجبائي وسنة التسجيل للمسجل)
   static const Set<String> enterprises = {
     startup,
     microEnterprise,
     otherEnterprise,
+    privateAccountant,
+    publicAccountant,
   };
 
   static bool isEnterprise(String? type) => enterprises.contains(type);
@@ -55,7 +58,7 @@ class TaxSystemTypes {
   static const String flatRate = 'flat_rate';
   static const String simplified = 'simplified';
 
-  static const List<String> all = [real, flatRate, simplified];
+  static const List<String> all = [real, simplified, flatRate];
 
   static String label(String type) => switch (type) {
     real => "48".tr,

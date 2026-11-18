@@ -807,7 +807,7 @@ class MyTranslation extends Translations {
           "يقصد بتسمية “شافي” الدلالة على التبسيط والتوضيح، إذ يسعى التطبيق إلى مساعدة المستخدم على فهم الإشكالات الجبائية بطريقة سهلة ومنظمة. ويعتمد التطبيق على بيئة رقمية مبسطة تجمع بين القوانين، الشروحات، النماذج، والأدوات التفاعلية، بما يساهم في تعزيز الوعي الجبائي لدى المكلفين والمهتمين بالمجال.",
       "info_title3": "شرح التسمية الرسمية للتطبيق: شافي (CHAFI)",
       "info_content3":
-          "تحمل كلمة “شافي” في اللغة العربية معنى العلاج والإصلاح، وهي هنا تستعمل مجازًا للدلالة على معالجة الغموض والتعقيد في المجال الجبائي، عبر حلول رقمية مبسطة وواضحة.\nأما الاختصار الإنجليزي CHAFI فهو مشتق من:\n• CHA: من اسم المؤسس Chaib\n• F: من Fiscal، أي الجبائي.\n• I: من Intelligence، أي الذكاء.",
+          "تحمل كلمة “شافي” في اللغة العربية معنى العلاج والإصلاح، وهي هنا تستعمل مجازًا للدلالة على معالجة الغموض والتعقيد في المجال الجبائي، عبر حلول رقمية مبسطة وواضحة.\nأما الاختصار الإنجليزي CHAFI فهو مشتق من:\n• CHA: من اسم المؤسس Chaib\n• F: من Fiscal، أي الجبائي.\n• I: من Intelligence، أي الذكاء.\nشايب للذكاء الجبائي\nCHAIB FISCAL INTELLIGENCE",
       "info_title4": "مفهوم الشعار: \"شافي… الجباية ببساطة\"",
       "info_content4":
           "لقد تم اختيار شعار «شافي... الجباية ببساطة» ليعبّر عن روح تطبيق «شافي» (CHAFI) وعن طبيعة العلاقة التي يسعى إلى بنائها مع المستخدم، خاصة أصحاب المؤسسات الناشئة والمصغرة والمكلفين الجدد، بما يساعدهم على فهم التزاماتهم الجبائية وتحقيق الامتثال الضريبي.",
@@ -1929,7 +1929,7 @@ class MyTranslation extends Translations {
           "The name “Shafi” is intended to indicate simplification and clarification, as the application seeks to help the user understand tax problems in an easy and organized manner. The application relies on a simplified digital environment that combines laws, explanations, models, and interactive tools, which contributes to enhancing tax awareness among taxpayers and those interested in the field.",
       "info_title3": "Explanation of the application's official name: CHAFI",
       "info_content3":
-          "The word “Shafi” in the Arabic language carries the meaning of treatment and reform, and here it is used metaphorically to indicate addressing ambiguity and complexity in the tax field, through simplified and clear digital solutions.\nThe English abbreviation CHAFI is derived from:\n• CHA: from the name of the founder, Chaib\n• F: from Fiscal, meaning related to taxation\n• I: from Intelligence.",
+          "The word “Shafi” in the Arabic language carries the meaning of treatment and reform, and here it is used metaphorically to indicate addressing ambiguity and complexity in the tax field, through simplified and clear digital solutions.\nThe English abbreviation CHAFI is derived from:\n• CHA: from the name of the founder, Chaib\n• F: from Fiscal, meaning related to taxation\n• I: from Intelligence.\nشايب للذكاء الجبائي\nCHAIB FISCAL INTELLIGENCE",
       "info_title4": "Slogan Concept: \"CHAFI... Taxation Simply\"",
       "info_content4":
           "The slogan \"CHAFI... Taxation Simply\" was chosen to express the spirit of the \"CHAFI\" application and the nature of the relationship it seeks to build with the user, especially owners of startups, micro-enterprises, and new taxpayers, helping them understand their tax obligations and achieve tax compliance.",

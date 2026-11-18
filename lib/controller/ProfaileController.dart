@@ -198,7 +198,6 @@ class ProfailecontrollerImp extends Profailecontroller {
         int? numEnter = myServices.sharedPreferences!.getInt('numEnter');
         bool? hasFeedback = myServices.sharedPreferences!.getBool('hasFeedback');
         int? lastFeedbackNumEnter = myServices.sharedPreferences!.getInt('lastFeedbackNumEnter');
-        bool? feedbackOptOut = myServices.sharedPreferences!.getBool('feedbackOptOut');
 
         myServices.sharedPreferences!.clear();
         myServices.sharedPreferences!.setBool("onbording", true);
@@ -207,7 +206,6 @@ class ProfailecontrollerImp extends Profailecontroller {
         if (numEnter != null) myServices.sharedPreferences!.setInt('numEnter', numEnter);
         if (hasFeedback != null) myServices.sharedPreferences!.setBool('hasFeedback', hasFeedback);
         if (lastFeedbackNumEnter != null) myServices.sharedPreferences!.setInt('lastFeedbackNumEnter', lastFeedbackNumEnter);
-        if (feedbackOptOut != null) myServices.sharedPreferences!.setBool('feedbackOptOut', feedbackOptOut);
 
         Get.offNamed(Approutes.googleSignIn);
       }
