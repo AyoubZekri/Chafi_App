@@ -102,27 +102,38 @@ class HomecontrollerImp extends Homecontroller {
   bool get _answeredBefore =>
       myServices.sharedPreferences?.getBool("hasFeedback") ?? false;
 
+  /// مرحلة الأسئلة حسب عدد الدخول: 1 من الدخول الأول، 2 من الرابع، 3 من السابع.
+  /// نعتمد "من" وليس "يساوي" حتى لا تضيع مرحلة إذا قفز العداد
+  /// (العداد يزيد أيضاً عند تسجيل الدخول من جديد)
+  static int _stageOf(int numEnter) => numEnter >= 7
+      ? 3
+      : numEnter >= 4
+      ? 2
+      : numEnter >= 1
+      ? 1
+      : 0;
+
   void checkAndShowFeedback() {
     int numEnter = myServices.sharedPreferences?.getInt('numEnter') ?? 0;
     int lastFeedbackNumEnter =
         myServices.sharedPreferences?.getInt('lastFeedbackNumEnter') ?? 0;
     print("=======numEnter======$numEnter");
 
-    // الأسئلة في الدخول الأول والرابع والسابع (التخطي يخص المرة الحالية فقط)
-    if (isLoggedIn &&
-        (numEnter == 1 || numEnter == 4 || numEnter == 7) &&
-        lastFeedbackNumEnter != numEnter) {
+    // تظهر المرحلة إذا لم تُعرض بعد (أُجيب عنها أو تُخطيت)؛ التخطي يؤجلها
+    // للمرحلة التالية فقط
+    final stage = _stageOf(numEnter);
+    if (isLoggedIn && stage > _stageOf(lastFeedbackNumEnter)) {
       Future.delayed(const Duration(seconds: 2), () {
         if (Get.isDialogOpen != true) {
-          showFeedbackIntro(numEnter);
+          showFeedbackIntro(stage);
         }
       });
     }
   }
 
-  /// نص التقديم قبل الأسئلة حسب الدخول (الأول، الرابع، السابع)
-  List<String> _introTexts(int numEnter) {
-    switch (numEnter) {
+  /// نص التقديم قبل الأسئلة حسب المرحلة (الدخول الأول، الرابع، السابع)
+  List<String> _introTexts(int stage) {
+    switch (stage) {
       case 1:
         return [
           "feedback_intro_1_title",
@@ -130,7 +141,7 @@ class HomecontrollerImp extends Homecontroller {
           "feedback_intro_1_line2",
           "feedback_intro_1_line3",
         ];
-      case 4:
+      case 2:
         return ["feedback_intro_4_title", "feedback_intro_4_line1"];
       default:
         return [
@@ -143,8 +154,8 @@ class HomecontrollerImp extends Homecontroller {
 
   /// رسالة تقديم قبل الأسئلة: "متابعة" تعرض الأسئلة، و"تخطي" تؤجلها
   /// للمرة القادمة (لا يظهر "تخطي" لمن أجاب من قبل)
-  void showFeedbackIntro(int numEnter) {
-    final texts = _introTexts(numEnter);
+  void showFeedbackIntro(int stage) {
+    final texts = _introTexts(stage);
     Get.dialog(
       barrierDismissible: false,
       PopScope(
@@ -301,7 +312,8 @@ class HomecontrollerImp extends Homecontroller {
           {"id": 53, "name": "صعبة الاستخدام".tr},
         ],
       },
-      if (numEnter > 1)
+      // السؤال السادس من المرحلة الثانية (الدخول الرابع)
+      if (_stageOf(numEnter) >= 2)
         {
           "title": "ما أهم ما أفادك به التطبيق إلى الآن؟".tr,
           "options": [
@@ -529,8 +541,8 @@ class HomecontrollerImp extends Homecontroller {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () async {
-                              // يكفي الإجابة على سؤال واحد على الأقل
-                              if (selectedAnswers.isEmpty) {
+                              // بعد "متابعة" يجب الإجابة على كل الأسئلة الظاهرة (5 أو 6)
+                              if (selectedAnswers.length < questions.length) {
                                 Get.dialog(
                                   Dialog(
                                     shape: RoundedRectangleBorder(
@@ -651,21 +663,8 @@ class HomecontrollerImp extends Homecontroller {
                             ),
                           ),
                         ),
-                        // تخطي هذه المرة فقط، ولا يظهر لمن أجاب من قبل
-                        if (_answeredBefore)
-                          const SizedBox(height: 10)
-                        else
-                          TextButton(
-                            onPressed: skipFeedback,
-                            child: Text(
-                              "تخطي".tr,
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ),
+                        // بعد "متابعة" لا تخطي: يجب الإجابة على الأسئلة
+                        const SizedBox(height: 10),
                       ],
                     ),
                   ],
